@@ -1,8 +1,10 @@
 ---
 title: Windows下Git的安装及配置
 categories:
-- development tools
-- Git
+  - development tools
+  - Git
+abbrlink: 6749cdaf
+date: 2019-02-27 22:35:21
 ---
 
 # Git的安装
@@ -52,6 +54,7 @@ aadonkeyz@gitlab
 ![为github生成秘钥的命令行](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8Bgit%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/%E4%B8%BAgithub%E7%94%9F%E6%88%90%E7%A7%98%E9%92%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C.png)
 
 上面是我为github生成秘钥的过程，在过程中我没有修改秘钥的默认保存位置，但是为了对秘钥进行区分修改了秘钥的名称，并设定了密码（passphrase），一旦为秘钥设置了密码，那么以后每次使用SSH时都会要求输入秘钥。请读者自行将生成的秘钥添加到github中去，并gitlab进行相同的操作。
+
 接下来开始自定义config文件，首先在保存秘钥的文件夹下创建一个名为config的文件，注意不要任何后缀（可以先创建名为config的文本文档，之后删除“.txt”后缀），然后填写如下内容：
 
 ```
