@@ -26,7 +26,7 @@ date: 2019-02-28 10:23:13
 
 ![Node下新建文件夹](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BNode%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/nodejs%E4%B8%8B%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png)
 
-然后再命令行中输入以下指令：
+然后在命令行中输入以下指令：
 
 ```
 npm config set prefix "D:\nodejs\node_global"
@@ -62,7 +62,7 @@ npm install express -g
 ![系统变量修改](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BNode%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F%E4%BF%AE%E6%94%B9.png)
 
 {% note info %}
-在“用户变量”下的`Path`中添加：`D:\nodejs\node_global`。
+在“用户变量”下的`Path`中用`D:\nodejs\node_global`替换`C:\Users\17590\AppData\Roaming\npm`。
 {% endnote %}
 
 ![用户变量修改](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BNode%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/%E7%94%A8%E6%88%B7%E5%8F%98%E9%87%8F%E4%BF%AE%E6%94%B9.png)
