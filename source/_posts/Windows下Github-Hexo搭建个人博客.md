@@ -21,7 +21,7 @@ date: 2019-02-28 16:11:21
 安装完成后我们自己创建一个空文件夹Blog作为博客的根目录，双击进入文件夹，之后按住shift键并点击鼠标右键，选择菜单中的“在此处打开Powershell窗口”，这样所有的命令行操作都是以Blog为根目录进行的，**后文的所有命令行均是以Blog为根目录！**
 
 在新打开的命令行窗口中依次输入：
-```
+```md
 hexo init
 hexo g
 hexo s
@@ -35,7 +35,7 @@ hexo s
 
 我选择的是评价较好的Next主题，首先将主题下载到Blog/themes中，在Blog根目录启动命令行，输入：
 
-```
+```md
 git clone https://github.com/theme-next/hexo-theme-next themes/next
 ```
 
@@ -45,7 +45,7 @@ git clone https://github.com/theme-next/hexo-theme-next themes/next
 
 接下来打开站点配置文件，修改主题为next，保存。
 
-```
+```yml
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
@@ -54,7 +54,7 @@ theme: next
 
 也可以修改next的主题样式，当前版本的next有四种样式，我选择的是最后一个Gemini。
 
-```
+```yml
 # Schemes
 # scheme: Muse
 #scheme: Mist
@@ -66,7 +66,7 @@ scheme: Gemini
 
 都保存之后，连续执行三个命令：
 
-```
+```md
 hexo clean
 hexo g
 hexo s
@@ -94,7 +94,7 @@ root:负责存放博客的原始文件，并且要注意将root设置为默认�
 ![修改github的emails设置](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGithub%2BHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E4%BF%AE%E6%94%B9Github%20Pages%E7%9A%84%E8%AE%BE%E7%BD%AE.png)
 
 然后通过下列指令将本地博客文件备份至github的root分支上：
-```
+```python
 git init
 # 注意add后面有个“空格”和“.”
 git add .
@@ -104,7 +104,7 @@ git add .
 
 这里会遇到一个警告提示，原因是我们前面使用的主题Next也是一个Git仓库，所以在将Blog文件下所有文件加入Git缓存中时会警告我们子仓库不会被添加，解决方式为将这个Git子仓库以我们的本地文件夹形式加入到Git缓存中。
 
-```
+```python
 git rm --cached themes/next -f
 # next后面的“/”表示添加的是next文件夹，一定要加上
 git add themes/next/
@@ -117,7 +117,7 @@ git push -u origin root
 最后一个指令输完可能会要求我们输入SSH秘钥的密码，如果要求验证，输入密码即可。
 
 上面的操作已经成功将本地博客文件添加到仓库的root分支，接着打开站点配置文件进行如下修改：
-```
+```yml
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
@@ -128,7 +128,7 @@ deploy:
 
 保存后开始通过命令行下载并保存一个名为hexo-deployer-git的插件，然后就可以将博客部署到github上了。
 
-```
+```md
 npm install hexo-deployer-git --save
 hexo clean
 hexo g
@@ -145,7 +145,7 @@ hexo d
 
 回到站点配置文件中将url改为刚刚的链接，root改为`/仓库名/`。
 
-```
+```yml
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://aadonkeyz.github.io/Blog/
@@ -154,7 +154,7 @@ root: /Blog/
 
 之后将新的修改备份至github并重新部署博客。
 
-```
+```md
 git add .
 git commit –m “change URL and Deploy of site config”
 git push -u origin root

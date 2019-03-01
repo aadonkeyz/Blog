@@ -1,7 +1,7 @@
 ---
 title: Windows下Git的安装及配置
 categories:
-  - development tools
+  - Development Tools
   - Git
 abbrlink: 6749cdaf
 date: 2019-02-27 22:35:21
@@ -28,10 +28,10 @@ date: 2019-02-27 22:35:21
 
 全局配置指令：
 
-{% code %}
+```md
 git config --global user.name "aadonkeyz"
 git config --global user.email "aadonkeyz@gmail.com"
-{% endcode %}
+```
 
 # SSH 配置
 
@@ -44,7 +44,7 @@ git config --global user.email "aadonkeyz@gmail.com"
 
 注释内容一般填写注册邮箱，不过我在两个网站的注册邮箱相同，所以我的注释分为了：
 
-```
+```python
 # github
 aadonkeyz@github
 # gitlab
@@ -57,7 +57,7 @@ aadonkeyz@gitlab
 
 接下来开始自定义config文件，首先在保存秘钥的文件夹下创建一个名为config的文件，注意不要任何后缀（可以先创建名为config的文本文档，之后删除“.txt”后缀），然后填写如下内容：
 
-```
+```md
 Host github.com
   User git
   IdentityFile ~/.ssh/github_rsa

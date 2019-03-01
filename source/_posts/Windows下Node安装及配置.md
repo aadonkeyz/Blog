@@ -28,14 +28,14 @@ date: 2019-02-28 10:23:13
 
 然后在命令行中输入以下指令：
 
-```
+```md
 npm config set prefix "D:\nodejs\node_global"
 npm config set cache "D:\nodejs\node_cache"
 ```
 
 上面的指令为修改路径，现在让我们验证下路径修改是否成功：首先通过npm全局安装一个模块，如果这个模块被下载到我们指定的文件夹中，则说明修改成功。
 
-```
+```md
 npm install express -g
 ```
 
@@ -75,7 +75,7 @@ npm install express -g
 
 接下来修改npm配置，使用国内的淘宝镜像以保证模块下载的稳定性和速度，下列两种方式二选一即可。
 
-```
+```python
 # 临时使用淘宝镜像来安装cnpm模块，以后使用cnpm代替npm
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 
