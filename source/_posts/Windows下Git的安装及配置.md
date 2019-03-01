@@ -13,7 +13,7 @@ date: 2019-02-27 22:35:21
 
 在Git下载完成之后，除了对安装位置进行更改之外，其他的按照默认选项来就可以。当安装完成之后，打开命令行，输入`git`,如果看到有关Git的相关信息就说明安装成功了！
 
-![Git安装成功](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8Bgit%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/git%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.png)
+![Git安装成功](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGit%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/git%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.png)
 
 # Git的配置
 
@@ -51,7 +51,7 @@ aadonkeyz@github
 aadonkeyz@gitlab
 ```
 
-![为github生成秘钥的命令行](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8Bgit%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/%E4%B8%BAgithub%E7%94%9F%E6%88%90%E7%A7%98%E9%92%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C.png)
+![为github生成秘钥的命令行](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGit%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/%E4%B8%BAgithub%E7%94%9F%E6%88%90%E7%A7%98%E9%92%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C.png)
 
 上面是我为github生成秘钥的过程，在过程中我没有修改秘钥的默认保存位置，但是为了对秘钥进行区分修改了秘钥的名称，并设定了密码（passphrase），一旦为秘钥设置了密码，那么以后每次使用SSH时都会要求输入秘钥。请读者自行将生成的秘钥添加到github中去，并gitlab进行相同的操作。
 
@@ -69,6 +69,6 @@ Host gitlab.com
 
 保存并退出，最后我们来通过指令，`ssh -T github.com`和`ssh -T gitlab.com`测试一下是否成功。
 
-![ssh连接测试](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8Bgit%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/ssh%E8%BF%9E%E6%8E%A5%E6%B5%8B%E8%AF%95.png)
+![ssh连接测试](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGit%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/ssh%E8%BF%9E%E6%8E%A5%E6%B5%8B%E8%AF%95.png)
 
 大功告成！

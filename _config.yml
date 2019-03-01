@@ -11,10 +11,15 @@ author: aadonkeyz
 language: zh-CN
 timezone: Asia/Shanghai
 
+sitemap: 
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://aadonkeyz.github.io/Blog/
-root: /Blog/
+url: http://aadonkeyz.com/
+root: /
 permalink: posts/:abbrlink/
 permalink_defaults:
 

@@ -42,9 +42,9 @@
               {% if config.archive_dir != '/' and site.posts.length > 0 %}
                 <div class="site-state-item site-state-posts">
                 {% if theme.menu.archives %}
-                  <a href="{{ url_for(theme.menu.archives).split('||')[0] | trim }}">
+                  <a rel="external nofollow" href="{{ url_for(theme.menu.archives).split('||')[0] | trim }}">
                 {% else %}
-                  <a href="{{ url_for(config.archive_dir) }}">
+                  <a rel="external nofollow" href="{{ url_for(config.archive_dir) }}">
                 {% endif %}
                     <span class="site-state-item-count">{{ site.posts.length }}</span>
                     <span class="site-state-item-name">{{ __('state.posts') }}</span>
@@ -56,7 +56,7 @@
                 {% set categoriesPageQuery = site.pages.find({type: 'categories'}, {lean: true}) %}
                 {% set hasCategoriesPage = categoriesPageQuery.length > 0 %}
                 <div class="site-state-item site-state-categories">
-                  {% if hasCategoriesPage %}<a href="{{ url_for(categoriesPageQuery[0].path) }}">{% endif %}
+                  {% if hasCategoriesPage %}<a rel="external nofollow" href="{{ url_for(categoriesPageQuery[0].path) }}">{% endif %}
                     {% set visibleCategories = 0 %}
                     {% for cat in site.categories %}
                       {% if cat.length %}{% set visibleCategories += 1 %}{% endif %}
@@ -71,7 +71,7 @@
                 {% set tagsPageQuery = site.pages.find({type: 'tags'}, {lean: true}) %}
                 {% set hasTagsPage = tagsPageQuery.length > 0 %}
                 <div class="site-state-item site-state-tags">
-                  {% if hasTagsPage %}<a href="{{ url_for(tagsPageQuery[0].path) }}">{% endif %}
+                  {% if hasTagsPage %}<a rel="external nofollow" href="{{ url_for(tagsPageQuery[0].path) }}">{% endif %}
                     {% set visibleTags = 0 %}
                     {% for tag in site.tags %}
                       {% if tag.length %}{% set visibleTags += 1 %}{% endif %}
@@ -86,7 +86,7 @@
 
           {% if theme.rss %}
             <div class="feed-link motion-element">
-              <a href="{{ url_for(theme.rss) }}" rel="alternate">
+              <a rel="external nofollow" href="{{ url_for(theme.rss) }}" rel="alternate">
                 <i class="fa fa-rss"></i>
                 RSS
               </a>
