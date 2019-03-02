@@ -3,6 +3,8 @@ title: 《JavaScript高级程序设计》第四章
 abbrlink: 9b1cd8c7
 date: 2019-03-02 17:18:57
 categories:
+  - JavaScript
+  - 《JavaScript高级程序设计》
 ---
 
 # 基本类型和引用类型的值
