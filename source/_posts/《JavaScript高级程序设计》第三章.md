@@ -7,7 +7,6 @@ abbrlink: 2c31c1a2
 date: 2019-03-01 15:49:01
 ---
 
-
 # 变量
 
 ECMAScript的变量是松散类型的，可以用来保存任何类型的数据，换句话说，变量只是一个用于保存值得占位符而已，变量没有类型，数据才有类型！
@@ -24,7 +23,8 @@ JavaScript的数据类型分为“基本数据类型”和“引用数据类型�
 
 {% note info %}
 - 基本数据类型：Undefined、Null、Boolean、Number、String和Symbol（ES6提出）；
-- 引用数据类型：Object。
+- 引用数据类型：Object；
+- 所有引用类型的值都是Object的实例。
 {% endnote %}
 
 ## typeof操作符
