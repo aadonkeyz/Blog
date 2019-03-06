@@ -17,14 +17,11 @@ date: 2019-02-27 22:35:21
 
 # Git的配置
 
-安装成功后要配置Git的用户名与邮箱，在进行这一配置时可以通过参数指定是全局配置还是本地配置。
+安装成功后要配置Git的用户名与邮箱，相当于自报家门，在进行这一配置时可以通过参数指定配置的作用域。
+作用域：`--system > --global > --local`。
+优先级：`--local > --global > --system`。
 
-{% note info %}
-全局配置（--global）：所有项目在使用Git时，都会默认使用全局配置的用户信息。
-本地配置（--local）：每次新创建的项目，均需要在该项目的根目录下进行本地配置。
-{% endnote %}
-
-以github和gitlab为例，由于我在两个网站的注册用户名与邮箱均为为aadonkeyz和aadonkeyz@gmail.com，所以我只需要进行一次全局配置即可。
+以github和gitlab为例，由于我在两个网站的注册用户名与邮箱均为为aadonkeyz和aadonkeyz@gmail.com，所以我选择进行一次全局配置即可。
 
 全局配置指令：
 
@@ -35,7 +32,11 @@ git config --global user.email "aadonkeyz@gmail.com"
 
 # SSH 配置
 
-因为我们需要在同一台电脑中同时使用了github和gitlab，为了保证两个网站在使用SSH时不产生冲突，需要为两个网站生成两对不同的秘钥，并在SSH的config文件中指定Git在访问不同的网站时要使用相对应的秘钥。
+因为我们需要在同一台电脑中同时使用github和gitlab，为了保证两个网站在使用SSH时不产生冲突，需要为两个网站生成两对不同的秘钥，并在SSH的config文件中指定Git在访问不同的网站时要使用相对应的秘钥。
+
+```md
+ssh-keygen -t rsa -C aadonkeyz@github
+```
 
 {% note info %}
 -t = The type of the key to generate
@@ -53,7 +54,7 @@ aadonkeyz@gitlab
 
 ![为github生成秘钥的命令行](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGit%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/%E4%B8%BAgithub%E7%94%9F%E6%88%90%E7%A7%98%E9%92%A5%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C.png)
 
-上面是我为github生成秘钥的过程，在过程中我没有修改秘钥的默认保存位置，但是为了对秘钥进行区分修改了秘钥的名称，并设定了密码（passphrase），一旦为秘钥设置了密码，那么以后每次使用SSH时都会要求输入秘钥。请读者自行将生成的秘钥添加到github中去，并gitlab进行相同的操作。
+上面是我为github生成秘钥的过程，在过程中我没有修改秘钥的默认保存位置，但是为了对秘钥进行区分修改了秘钥的名称，并设定了密码（passphrase），一旦为秘钥设置了密码，那么以后每次使用SSH时都会要求输入秘钥。请读者自行将生成的秘钥添加到github中去，并在gitlab上进行相同的操作。
 
 接下来开始自定义config文件，首先在保存秘钥的文件夹下创建一个名为config的文件，注意不要任何后缀（可以先创建名为config的文本文档，之后删除“.txt”后缀），然后填写如下内容：
 
