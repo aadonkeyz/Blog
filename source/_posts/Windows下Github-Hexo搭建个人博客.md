@@ -76,24 +76,25 @@ hexo s
 
 # 博客的备份及部署
 
-到目前为止，已经成功用Hexo建立本地博客，接下来要先将将本地博客文件备份至github中，然后再部署博客。
+到目前为止，已经成功用Hexo建立本地博客，接下来要先将本地博客文件备份至github中，然后再部署博客。
 
 在开始前先介绍一下这部分的安排，打算创建两个分支master和root。
 
 {% note info %}
-master：负责博客的部署，所以其中存放的是部署后生成的文件。
-root:负责存放博客的原始文件，并且要注意将root设置为默认分支。
+master：负责博客的部署，所以其中存放的是部署后生成的文件；
+root：负责存放博客的原始文件，并且要注意将root设置为默认分支。
 {% endnote %}
 
-首先在github上创建个人仓库，然后复制仓库的ssh，格式为`git@github.com:username/repository_name.git`，将username和repository_name分别代表你的github用户名和仓库名。
+首先在github上创建个人仓库，然后复制仓库的SSH，格式为`git@github.com:username/repository_name.git`，将username和repository_name分别换为你的github用户名和仓库名。
 
 ![仓库的SSH](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGithub%2BHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E4%BB%93%E5%BA%93%E7%9A%84ssh.png)
 
 接着修改github账号的Setting中的Emails设置，取消下图中红线标记的功能。
 
-![修改github的emails设置](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGithub%2BHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E4%BF%AE%E6%94%B9Github%20Pages%E7%9A%84%E8%AE%BE%E7%BD%AE.png)
+![修改github的emails设置](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGithub%2BHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E4%BF%AE%E6%94%B9github%E7%9A%84emails%E8%AE%BE%E7%BD%AE.png)
 
 然后通过下列指令将本地博客文件备份至github的root分支上：
+
 ```python
 git init
 # 注意add后面有个“空格”和“.”
@@ -102,13 +103,14 @@ git add .
 
 ![子仓库报错](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGithub%2BHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E5%AD%90%E4%BB%93%E5%BA%93%E6%8A%A5%E9%94%99.png)
 
-这里会遇到一个警告提示，原因是我们前面使用的主题Next也是一个Git仓库，所以在将Blog文件下所有文件加入Git缓存中时会警告我们子仓库不会被添加，解决方式为将这个Git子仓库以我们的本地文件夹形式加入到Git缓存中。
+备份过程中会遇到一个警告提示，原因是我们前面使用的主题Next也是一个Git仓库，所以在将Blog文件下所有文件加入Git缓存中时会警告我们子仓库不会被添加，解决方式为将这个Git子仓库以我们的本地文件夹形式加入到Git缓存中。
 
 ```python
 git rm --cached themes/next -f
-# next后面的“/”表示添加的是next文件夹，一定要加上
+# next后面的“/”表示添加的是文件夹，一定要加上
 git add themes/next/
 git commit -m "first commit to branch root"
+# 将本地master分支重命名为root
 git branch -m master root
 git remote add origin git@github.com:aadonkeyz/Blog.git
 git push -u origin root
@@ -137,7 +139,7 @@ hexo d
 
 目前已经将博客部署到master分支了，但是还要进行一些修改才可以，进入仓库的Setting中，找到Github Pages，将Source选择为master branch。
 
-![修改Github Pages的设置](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGithub%2BHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E4%BF%AE%E6%94%B9github%E7%9A%84emails%E8%AE%BE%E7%BD%AE.png)
+![修改Github Pages的设置](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Windows%E4%B8%8BGithub%2BHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E4%BF%AE%E6%94%B9Github%20Pages%E7%9A%84%E8%AE%BE%E7%BD%AE.png)
 
 完成后会发现这部分会有所变化，多出一个链接，格式为`https://username.github.io/仓库名/`。
 
