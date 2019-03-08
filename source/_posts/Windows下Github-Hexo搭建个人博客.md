@@ -81,8 +81,8 @@ hexo s
 在开始前先介绍一下这部分的安排，打算创建两个分支master和root。
 
 {% note info %}
-master：负责博客的部署，所以其中存放的是部署后生成的文件；
-root：负责存放博客的原始文件，并且要注意将root设置为默认分支。
+- **master**：负责博客的部署，所以其中存放的是部署后生成的文件；
+- **root**：负责存放博客的原始文件，并且要注意将root设置为默认分支。
 {% endnote %}
 
 首先在github上创建个人仓库，然后复制仓库的SSH，格式为`git@github.com:username/repository_name.git`，将username和repository_name分别换为你的github用户名和仓库名。
