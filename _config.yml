@@ -5,7 +5,7 @@
 # Site
 title: aadonkeyz的博客
 subtitle: 程序猿的学习笔记
-description: 背景神秘
+description: 本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！
 keywords: 前端博客,JavaScript,html5,css3
 author: aadonkeyz
 language: zh-CN
