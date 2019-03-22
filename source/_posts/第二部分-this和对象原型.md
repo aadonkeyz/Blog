@@ -87,3 +87,82 @@ obj.other()
 
 ### 显示绑定
 
+通过`apply()`和`call()`方法来调用函数时，`this`的绑定为显示绑定，`this`会绑定到传给`apply()`或`call()`方法的第一个参数上。
+
+```js
+function foo () {
+    console.log(this.a)
+}
+var obj = {
+    a: 2
+}
+
+foo.call(obj)   // 2
+```
+
+如果传给`apply()`或`call()`方法的第一个参数为基本数据类型，那么这个基本类型值会被转换为对应的对象形式（new String()、 new Boolean()等）。
+
+硬绑定是显示绑定的一个变种，硬绑定是使用`bind()`方法强制指定`this`，该方法返回一个新的函数实例。
+
+### new绑定
+
+使用`new`来调用函数，或者说发生构造函数调用时，会自动执行下面的操作：
+
+{% note info %}
+1. 创建一个全新的对象；
+2. 这个新对象会被执行[[原型]]连接；
+3. 这个新对象会绑定到函数调用的`this`；
+4. 如果函数没有返回其他对象，那么`new`表达式中的函数调用会自动返回这个新对象。
+{% endnote %}
+
+```js
+function foo (a) {
+    this.a = a
+}
+var bar = new foo(2)
+console.log(bar.a)  // 2
+```
+
+## 优先级
+
+new > 显示 > 隐式 > 默认
+
+## bind的Polyfill
+
+[下面的代码来源于MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+
+```js
+if (!Function.prototype.bind) {
+    Function.prototype.bind = function(oThis) {
+        if (typeof this !== 'function') {
+            // closest thing possible to the ECMAScript 5
+            // internal IsCallable function
+            throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable')
+        }
+
+        var aArgs   = Array.prototype.slice.call(arguments, 1),
+            fToBind = this,     // 利用闭包记住调用bind方法的函数
+            fNOP    = function() {},
+            fBound  = function() {
+                // fBound是要被返回的新函数
+                // 这个return里的this含义与外面的不同
+                // 这里this的绑定取决于函数的调用方式是new操作符调用还是其他方式调用
+                return fToBind.apply(this instanceof fBound
+                    ? this      // 这里是new绑定的优先级高于显示绑定优先级的原因
+                    : oThis,
+                    // 这里是bind方法可以进行柯里化的原因
+                    // 这里的arguments是fBound函数的，与外面的那个不是同一个
+                    aArgs.concat(Array.prototype.slice.call(arguments)))
+            }
+
+        // 维护原型关系
+        if (this.prototype) {
+            // Function.prototype doesn't have a prototype property
+            fNOP.prototype = this.prototype
+        }
+        fBound.prototype = new fNOP()
+
+        return fBound
+    }
+}
+```
