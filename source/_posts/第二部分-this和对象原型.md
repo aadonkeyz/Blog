@@ -40,6 +40,7 @@ foo()   // 2
 ### 隐式绑定
 
 在调用函数的时候，如果以对象方法的形式进行调用，这个时候`this`就会绑定到这个方法所属的对象上。
+ps：如果对象的某个属性是函数，就称这个属性为对象的方法。
 
 ```js
 function foo () {
@@ -104,6 +105,8 @@ foo.call(obj)   // 2
 
 硬绑定是显示绑定的一个变种，硬绑定是使用`bind()`方法强制指定`this`，该方法返回一个新的函数实例。
 
+**apply()和call()是要指定函数运行时的this并运行函数，而bind()是返回一个this已经绑定完的函数实例**。
+
 ### new绑定
 
 使用`new`来调用函数，或者说发生构造函数调用时，会自动执行下面的操作：
@@ -156,6 +159,7 @@ if (!Function.prototype.bind) {
             }
 
         // 维护原型关系
+        // fNOP的存在我觉得是多余的，但是MDN上是这么写的，具体原因我没有深究
         if (this.prototype) {
             // Function.prototype doesn't have a prototype property
             fNOP.prototype = this.prototype
@@ -166,3 +170,125 @@ if (!Function.prototype.bind) {
     }
 }
 ```
+
+## 绑定例外
+
+### 被忽略的this
+
+如果你把`null`或者`undefined`作为`this`的绑定对象传入`call`、`apply`或者`bind`，这些值在调用时会被忽略，实际应用的是默认绑定规则。一般都是在函数并不关心`this`的情况下才会传入`null`或者`undefined`作为参数。
+
+但是如果某个函数确实使用了`this`，那么这种做法就会产生一些副作用（如修改全局对象）。
+
+所以比较推荐的做法是传入`Object.create(null)`替代`null`和`undefined`。
+
+### 间接引用
+
+另一个需要注意的是，你有可能（有意或者无意地）创建一个函数的“间接引用”，在这种情况下，调用这个函数会应用默认绑定规则。
+
+```js
+function foo () {
+    console.log(this.a)
+}
+
+var a = 2
+var o = { a: 3, foo: foo }
+var p = { a: 4 }
+
+o.foo()     //3
+(p.foo = o.foo)()   // 2
+```
+
+赋值表达式`p.foo = o.foo`的返回值是目标函数的引用，因此`(p.foo = o.foo)()`等价于`foo()`，所以会应用默认绑定。
+
+### 软绑定
+
+软绑定的原理类似于硬绑定，直接上代码。
+
+```js
+if (!Function.prototype.softBind) {
+    Function.prototype.softBind = function (obj) {
+        var fn = this
+        var curried = [].slice.call(arguments, 1)
+        var bound = function () {
+            return fn.apply(
+                (!this || this === (window || global)) ? obj : this),
+                curried.concat.apply(curried, arguments
+            )
+        }
+
+        bound.prototype = Object.create(fn.prototype)
+        return bound
+    }
+}
+
+function foo () {
+    console.log(this.name)
+}
+
+var obj = { name: 'obj' }
+var obj2 = { name: 'obj2' }
+var obj3 = { name: 'obj3' }
+
+var fooObj = foo.softBind(obj)
+
+fooObj()        // obj
+
+obj2.foo = foo.softBind(obj)
+obj2.foo()      // obj2
+
+fooObj.call(obj3)   // obj3
+
+setTimeout(obj2.foo, 10)    // obj
+```
+
+可以看到，软绑定版本的`foo()`可以手动将`this`绑定到`obj2`或者`obj3`上，但如果应用默认绑定，则会将`this`绑定到`obj`。
+
+## this词法
+
+ES6的箭头函数并不使用`function`关键字定义，而是使用被称为“胖箭头”的操作符 `=>` 定义的。箭头函数不使用`this`的四种标准规则，而是根据外层（函数或者全局）作用域来决定`this`。
+
+```js
+function foo () {
+    // 返回一个箭头函数
+    return (a) => {
+        // this继承自foo()
+        console.log(this.a)
+    }
+}
+
+var obj1 = { a: 2 }
+var obj2 = { a: 3 }
+
+var bar = foo.call(obj1)
+bar.call(obj2)      // 2
+```
+
+`foo()`内部创建的箭头函数会捕获调用时`foo()`的`this`。由于`foo()`的`this`绑定到`obj1`，`bar`（引用箭头函数）的`this`也会绑定到`obj1`，**箭头函数的绑定无法被修改（new也不行！）**
+
+**箭头函数可以像`bind()`一样确保函数的`this`被绑定到指定对象，此外，其重要性还体现在它用更常见的词法作用域取代了传统的this机制**。
+
+# 对象、原型、继承
+
+**该章的对象、混合对象的“类”、原型小节与[《JavaScript高级程序设计》的第六章-面向对象的程序设计](https://aadonkeyz.com/posts/bb5d40f2/)多有重复，就不重复介绍了。下面介绍对象的三个方法。**
+
+## 禁止扩展
+
+如果你想禁止一个对象添加新属性并且保留已有属性，可以使用`Object.preventExtensions()`：
+
+```js
+var myObject = { a: 2 }
+Object.preventExtensions(myObject)
+
+myObject.b = 3
+myObject.b      // undefined
+```
+
+在非严格模式下，创建属性`b`会静默失败。在严格模式下，将会抛出`TypeError`错误。
+
+## 密封
+
+`Object.seal()`会创建一个“密封”的对象，这个方法实际上会在一个现有对象上调用`Object.preventExtensions()`并把所有现有属性标记为`configurable:false`。
+
+## 冻结
+
+`Object.freeze()`会创建一个冻结对象，这个方法实际上会在一个现有对象上调用`Object.seal()`并把所有“数据访问”属性标记为`writable:false`。
