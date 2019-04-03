@@ -242,7 +242,7 @@ key = null
 {% note info %}
 - 对于`WeakSet`的实例，若调用`add()`方法时传入非对象的参数，就会抛出错误（`has()`或`delete()`则会在传入了非对象的参数时返回`false`）；
 - Weak Set不可迭代，因此不能被用在`for-of`循环中；
-- Weak Set无法暴露出任何迭代器，因此没有任何变成手段可用于判断Weak Set的内容；
+- Weak Set无法暴露出任何迭代器，因此没有任何编程手段可用于判断Weak Set的内容；
 - Weak Set没有`forEach()`方法；
 - Weak Set没有`clear()`方法；
 - Weak Set没有`size`属性。
