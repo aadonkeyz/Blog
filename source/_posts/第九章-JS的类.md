@@ -606,3 +606,54 @@ console.log(items instanceof MyArray)          // true
 console.log(subitems instanceof Array)         // true
 console.log(subitems instanceof MyArray)       // false
 ```
+
+# 在类构造器中使用new.target
+
+在类的构造器中可以使用`new.target`来判断类是被如何调用的。
+
+```js
+class Rectangle {
+    constructor (length, width) {
+        console.log(new.target === Rectangle)
+        this.length = length
+        this.width = width
+    }
+}
+
+class Square extends Rectangle {
+    constructor (length) {
+        super(length, length)
+    }
+}
+
+// new.target 就是 Square
+var obj = new Square(3)         // false
+```
+
+`Square`调用了`Rectangle`构造器，因此当`Rectangle`构造器被调用时，`new.target`等于`Square`。这很重要，因为构造器能根据如何被调用而有不同行为，并且这给了更改这种行为的能力。例如，你可以使用`new.target`来创建一个抽象基类（一个不能被实例化的类），如下：
+
+```js
+// 静态的基类
+class Shape {
+    constructor() {
+        if (new.target === Shape) {
+            throw new Error('This class cannot be instantiated directly.')
+        }
+    }
+}
+
+class Rectangle extends Shape{
+    constructor (length, width) {
+        super()
+        this.length = length
+        this.width = width
+    }
+}
+
+var x = new Rectangle(3, 4)
+console.log(x instanceof Shape)     // true
+
+var y = new Shape()                 // Error: This class cannot be instantiated directly.
+```
+
+此例中的`Shape`类构造器会在`new.target`为`Shape`的时候抛出错误，意味着`new Shape()`永远都会抛出错误。然而，你依然可以将`Shape`用作一个基类，正如`Rectangle`所做的那样。`super()`的调用执行了`Shape`构造器，而且`new.target`的值等于`Rectangle`，因此该构造器能够无错误地继续执行。
