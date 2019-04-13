@@ -466,6 +466,10 @@ console.log(x instanceof Rectangle)     // true
 
 `Rectangle`被定义为ES5风格的构造器，而`Square`则是一个类。由于`Rectangle`具有`[[Construct]]`以及原型，`Square`类就能直接继承它。
 
+{% note info %}
+**`extends`可以被用于继承`null`，这好像违反了前面的说法，把这个当作特殊情况吧！**
+{% endnote %}
+
 `extends`后面能接受任意类型的表达式，这带来了巨大可能性，例如动态地决定所要继承的类：
 
 ```js
