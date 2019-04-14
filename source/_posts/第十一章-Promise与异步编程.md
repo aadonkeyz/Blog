@@ -391,6 +391,8 @@ rejected.catch(function (value) {
 
 无论Promise是否已被解决，你都可以在任何时候调用`then()`或`catch()`并使它们正确工作，这导致很难准确知道一个Promise何时会被处理。
 
+虽然下个版本的ES可能会处理此问题，不过Node.js与浏览器已经实施了变更来解决开发者的这个痛点。这些变更不是ES6规范的一部分，但却是使用Promise时的宝贵工具。
+
 ## Node.js的拒绝处理
 
 在Node.js中，`process`对象上存在两个关联到Promise的拒绝处理的事件：
@@ -533,17 +535,17 @@ p6.then(value => {
 })
 
 let p7 = p5.catch(() => {
-    return 'return something from then()'
+    return 'return something from catch()'
 })
 p7.then(value => {
-    console.log(value)          // return something from then()
+    console.log(value)          // return something from catch()
 })
 
 let p8 = p5.catch(() => {
-    throw new Error('something wrong in then()')
+    throw new Error('something wrong in catch()')
 })
 p8.catch(err => {
-    console.log(err.message)    // something wrong in then()
+    console.log(err.message)    // something wrong in catch()
 })
 ```
 
@@ -624,9 +626,7 @@ p1.then(value => {
 
 上面例子中`p1.then()`的返回值不在是单纯的传递数据，而是一个包含异步操作的Promise。虽然第一个`setTimeout()`将延迟时间设置为`500`，第二个`setTimeout()`将延迟时间设置为`200`。但是还是第一个`setTimeout()`内的函数先执行，在其完成之后，第二个`setTimeout()`才会再200ms后将它的回调函数加入作业队列的尾部等待执行。
 
-通过上面例子可以看出，在Promise链上，每个Promise都会等待上一个Promise决议后，才会执行自己的完成/拒绝处理函数。
-
-如果前一个Promise被完成，则后一个Promise的`then()`方法被调用；如果前一个Promise被拒绝，则后一个Promise的`catch()`方法被调用。
+通过上面例子可以看出，**在Promise链上，每个Promise都会等待上一个Promise决议后，才会执行自己的完成/拒绝处理函数。如果前一个Promise被完成，则后一个Promise的`then()`方法被调用；如果前一个Promise被拒绝，则后一个Promise的`catch()`方法被调用。**
 
 # 响应多个Promise
 
@@ -661,7 +661,7 @@ p4.then(function(value) {
 
 此处前面的每个thenable都用一个数值进行了决议，对`Promise.all()`的调用创建了新的Promise，在`p1`、`p2`和`p3`都被完成后，`p4`才会被完成。**传递给`p4`的完成处理函数的结果是一个包含每个决议值的数组，这些值的存储顺序保持了待决议的thenable的顺序（与完成的先后顺序无关）。**
 
-若传递给`Promise.all()`的任意thenable被拒绝了，那么方法所返回的Promise就会立刻被拒绝，而不必等待其他的thenable结束。拒绝处理函数总会接收到单个值，而不是一个数组，该值就是被拒绝的thenable所返回的拒绝值。：
+若传递给`Promise.all()`的任意thenable被拒绝了，那么方法所返回的Promise就会立刻被拒绝，而不必等待其他的thenable结束。**拒绝处理函数总会接收到单个值，而不是一个数组，该值就是被拒绝的thenable所返回的拒绝值。**：
 
 ```js
 let p1 = {
