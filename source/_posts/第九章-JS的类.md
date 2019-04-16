@@ -661,3 +661,7 @@ var y = new Shape()                 // Error: This class cannot be instantiated 
 ```
 
 此例中的`Shape`类构造器会在`new.target`为`Shape`的时候抛出错误，意味着`new Shape()`永远都会抛出错误。然而，你依然可以将`Shape`用作一个基类，正如`Rectangle`所做的那样。`super()`的调用执行了`Shape`构造器，而且`new.target`的值等于`Rectangle`，因此该构造器能够无错误地继续执行。
+
+{% note info %}
+由于调用类时不能缺少`new`，于是`new.target`属性在类构造器内部就绝不会是`undefined`。
+{% endnote %}
