@@ -1,7 +1,7 @@
 ---
 title: Windows下Node安装及配置
 categories:
-  - Node
+  - Node.js
 abbrlink: ee28a0bf
 date: 2019-02-28 10:23:13
 ---
