@@ -48,7 +48,7 @@ DOM1级定义了一个Node接口，该接口将由DOM中的所有节点类型实
 - **Node.COMMENT_NODE(8)**；
 - **Node.DOCUMENT_NODE(9)**；
 - **Node.DOCUMENT_TYPE_NODE(10)**；
-- **Node.DOCUMENT_PRAGMENT_NODE(11)**；
+- **Node.DOCUMENT_FRAGMENT_NODE(11)**；
 - **Node.NOTATION_NODE(12)**；
 {% endnote %}
 
@@ -119,7 +119,7 @@ var count = someNode.childNodes.length
 JavaScript通过Document类型表示文档。在浏览器中，`document`对象是HTMLDocument（继承自Document类型）的一个实例，表示整个HTML页面。而且，`document`对象是`window`对象的一个属性，因此可以将其作为全局对象来访问。Document节点具有下列特征：
 
 {% note info %}
-- `nodeType`的值为9；
+- `nodeType`的值为`9`；
 - `nodeName`的值为`"#document"`；
 - `nodeValue`的值为`null`；
 - `parentNode`的值为`null`；
@@ -127,7 +127,7 @@ JavaScript通过Document类型表示文档。在浏览器中，`document`对象�
 - 其子节点可能是一个DocumentType（最多一个）、Element（最多一个）、ProcessingInstruction或Comment。
 {% endnote %}
 
-### document的属性
+### document对象的属性
 
 {% note info %}
 - **documentElement**：该属性指向HTML页面中的`<html>`元素；
@@ -216,15 +216,521 @@ document.domain = 'p2p.wrox.com'    // 紧绷的（抛出错误！）
 方法`open()`和`close()`分别用于打开和关闭网页的输出流，我没有研究具体用法，就不提了。
 
 ## Element类型
+
+除了Document类型之外，Element类型就要算是Web编程中最常用的类型了。Element类型用于表现XML或HTML元素，提供了对元素签名、子节点及特性的访问。Element节点具有以下特征：
+
+{% note info %}
+- `nodeType`的值为`1`；
+- `nodeName`的值为元素的标签名；
+- `nodeValue`的值为`null`；
+- `parentNode`可能是Document或Element；
+- 其子节点可能是Element、Text、Comment、ProcessingInstruction、CDATASection或EntityReference。
+{% endnote %}
+
+要访问元素的标签名，可以使用`nodeName`属性，也可以使用`tagName`属性；这两个属性会返回相同的值。以下面的元素为例：
+
+```html
+<div id="myDiv"></div>
+```
+
+可以像下面这样获得这个元素及其标签名：
+
+```js
+var div = document.getElementById('myDiv')
+console.log(div.tagName)                    // DIV
+console.log(div.tagName === div.nodeName)   // true
+```
+
+这里的元素标签名是`div`，它拥有一个值为`myDiv`的ID。可是，`div.tagName`实际上输出的是`"DIV"`而非`"div"`。**在HTML中，标签名始终都是以全部大写表示；而在XML（有时候也包括XHTML）中，标签名则始终会与源代码中的保持一致。**假如你不确定自己的脚本将会在HTML还是XML文档中执行，最好是在比较之前将标签名转换为相同的大小写形式，如下面的例子所示：
+
+```js
+if (element.tagName.toLowerCase === 'div') {
+    // 在此执行某些操作
+}
+```
+
+### HTML元素的属性
+
+所有HTML元素都是由HTMLElement类型表示，不是直接通过这个类型，也是通过它的子类型来表示。HTMLElement类型直接继承自Element并添加了一些属性。添加的这些属性分别对应于每个HTML元素中都存在的下列标准特性。
+
+{% note info %}
+- **id**：元素在文档中的唯一标识符；
+- **title**：有关元素的附加说明信息，一般通过工具提示条显示出来；
+- **lang**：元素内容的语言代码，很少使用；
+- **dir**：语言的方向，值为`ltr`或`rtl`，也很少使用；
+- **className**：与元素的`class`特性对应，即为元素指定的CSS类。没有将这个属性命名为`class`，是因为`class`是ECMAScript的保留字。
+{% endnote %}
+
+上述这些属性都可以用来取得或修改相应的特性值。以下面的HTML元素为例：
+
+```html
+<div id="myDiv" class="bd" title="Body text" lang="en" dir="ltr"></div>
+```
+
+元素中指定的所有信息，都可以通过下列JavaScript代码取得：
+
+```js
+var div = document.getElementById('myDiv')
+console.log(div.id)         // myDiv
+console.log(div.className)  // bd
+console.log(div.title)      // Body text
+console.log(div.lang)       // en
+console.log(div.dir)        // ltr
+```
+
+当然，像下面这样通过为每个属性赋予新的值，也可以修改对应的每个特性：
+
+```js
+div.id = "someOtherId"
+div.className = 'ft'
+div.title = 'Some other text'
+div.lang = 'fr'
+div.dir = 'rtl'
+```
+
+### 操作特性
+
+每个元素都有一或多个特性，这些特性的用途是给出相应元素或内容的附加信息。操作特性的DOM方法主要有三个：**getAttribute( )**、**setAttribute( )**和**removeAttribute( )**。关于这三个方法的用法就不详细介绍了，下面介绍下使用它们时的注意事项：
+
+{% note info %}
+- 传递给三个方法的特性名必须与实际的特性名相同（但是不区分大小写）。例如，如果想要得到`class`特性值，应传入`class`而不是`className`，后者只有在通过对象属性访问特性时才用；
+- 根据HTML5规范，自定义特性应该加上`data-`前缀以便验证；
+- 只有公认的特性会以属性的形式添加到DOM对象中，而用户自定义特性则不会；
+- 用户自定义特性，只能通过这三个方法来操作，无法通过对象属性形式来操作；
+- 有两类特殊的特性，它们虽然有对应的属性名，但属性的值与通过`getAttribute()`方法返回的值并不相同。它们分别是：`style`特性和像`onclick`这样的事件处理程序。它们的属性值分别为对象和函数，但是通过`getAttribute()`方法返回的都是是字符串；
+{% endnote %}
+
+下面的例子展示了公认特性与自定义特性的区别：
+
+```html
+<div id="myDiv" data-special="aadonkeyz"></div>
+```
+```js
+var div = document.getElementById('myDiv')
+
+console.log(div.id)                             // myDiv
+console.log(div.getAttribute('id'))             // myDiv
+console.log(div['data-special'])                // undefined
+console.log(div.getAttribute('data-special'))   // aadonkeyz
+
+div.setAttribute('class', 'myClass')
+div.setAttribute('data-other', 'other')
+console.log(div.className)                      // myClass
+console.log(div['data-other'])                  // undefined
+console.log(div.getAttribute('data-other'))     // other
+```
+
+### attributes属性
+
+Element类型是使用`attributes`属性的唯一一个DOM节点类型。`attributes`属性中包含一个`NamedNodeMap`类数组对象，与`NodeList`类似，也是一个“动态”的集合。元素的每一个特性都由一个Attr节点表示，每个节点都保存在`NamedNodeMap`对象中。`NamedNodeMap`对象拥有下列方法：
+
+{% note info %}
+`attributes`属性中包含一系列Attr节点，每个节点的`nodeName`就是特性的名称，而节点的`nodeValue`就是特性值。
+- **getNamedItem(name)**：返回`nodeName`属性等于`name`的节点；
+- **removeNamedItem(name)**：从列表中移除`nodeName`属性等于`name`的节点；
+- **setNamedItem(node)**：向列表中添加节点，以节点的`nodeName`属性为索引；
+- **item(pos)**：返回位于数字`pos`位置处的节点。
+{% endnote %}
+
+下面简单的演示一下`getNamedItem()`方法的几种使用方式：
+
+```js
+// 直接使用
+var id = element.attributes.getNamedItem('id').nodeValue
+
+// 后台自动调用getNamedItem()方法
+var id = element.attributes['id'].nodeValue
+
+// 先取得特性节点，然后修改它的nodeValue
+element.attributes['id'].nodeValue = 'someOtherId'
+```
+
+一般来说，由于`attributes`属性上的方法不够方便，开发人员更多的会使用`getAttribute()`、`setAttribute()`和`removeAttribute()`方法。不过当你想要遍历元素的特性时，`attributes`属性倒是可以派上用场。在需要将DOM结构序列化为XML或HTML字符串时，多数都会涉及遍历元素特性。以下代码展示了如何迭代元素的每一个特性，然后将它们构造成`name='value' name='value'`这样的字符串格式。
+
+```js
+function outputAttributes (element) {
+    var pairs = new Array(),
+        attrName,
+        attrValue,
+        i,
+        len;
+    
+    for (i = 0, len = element.attributes.length; i < len; i++) {
+        attrName = element.attributes[i].nodeName
+        attrValue = element.attributes[i].nodeValue
+        pairs.push(attrName + '="' + attrValue + '"')
+    }
+
+    return pairs.join(' ')
+}
+```
+
+{% note info %}
+关于以上代码的运行结果，以下是两点必要的说明：
+- 针对`attributes`中包含的特性，不同浏览器返回的顺序不同。这些特性在XML或HTML代码中出现的先后顺序，不一定与它们出现在`attributes`中的顺序一致；
+- IE7及更早的版本会返回HTML元素中所有可能的特性，包括没有指定的特性。换句话说，返回100多个特性的情况会很常见。
+{% endnote %}
+
+针对IE7及更早版本中存在的问题，可以对上面的函数加以改进，让它只返回指定的特性。每个特性节点都有一个名为`specified`的属性，这个属性的值如果为`true`，则意味着要么是在HTML中指定了相应特性，要么是通过`setAttribute()`方法设置了该特性。在IE中，所有未设置过的特性的该属性值都为`false`，而在其他浏览器中根本不会为这类特性生成对应的特性节点（因此，在这些浏览器中，任何特性节点的`specified`值始终为`true`）。改进后的代码如下所示：
+
+```js
+function outputAttributes (element) {
+    var pairs = new Array(),
+        attrName,
+        attrValue,
+        i,
+        len;
+    
+    for (i = 0, len = element.attributes.length; i < len; i++) {
+        attrName = element.attributes[i].nodeName
+        attrValue = element.attributes[i].nodeValue
+        
+        if (element.attributes[i].specified) {
+            pairs.push(attrName + '="' + attrValue + '"')
+        }
+    }
+
+    return pairs.join(' ')
+}
+```
+
+### 创建元素
+
+使用`document.createElement()`方法可以创建新元素。这个方法只接受一个参数，即要创建元素的标签名。这个标签名在HTML文档中不区分大小写，而在XML（包括XHTML）文档中，则是区分大小写的。在使用该方法创建新元素的同时，也为新元素设置了`ownerDocument`属性。例如，使用以下代码可以创建一个`<div>`元素：
+
+```js
+var div = document.createElement('div')
+```
+
+在IE中，可以以另一种方式使用`document.createElement()`，即为这个方法传入完整的元素标签，也可以包含属性，如下面的例子所示：
+
+```js
+var div = document.createElement('<div id="myNewDiv" class="box"></div>')
+```
+
+这种方式有助于避开在IE7及更早版本中动态创建元素的某些问题。**建议只在需要避开IE7及更早版本中存在的问题时，才使用这种方式！**
+
+### 查找元素的子节点
+
+如果想通过某个特定的标签名取得元素的子节点和后代节点该怎么办？实际上，元素也支持`getElementsByTagName()`方法。在通过元素调用这个方法时，除了搜索起点是当前元素之外，其他方面都跟通过`document`调用这个方法相同，因此结果只会返回当前元素的后代。
+
 ## Text类型
+
+文本节点由Text类型表示，包含的是可以照字面量解释的纯文本内容。纯文本中可以包含转义后的HTML字符，但不能包含HTML代码。Text节点具有以下特性：
+
+{% note info %}
+- `nodeType`的值为`3`；
+- `nodeName`的值为`#text`；
+- `nodeValue`的值为节点所包含的文本；
+- `parentNode`是一个Element；
+- 不支持（没有）子节点。
+{% endnote %}
+
+可以通过`nodeValue`属性或`data`属性访问Text节点中包含的文本，这两个属性中包含的值相同。对`nodeValue`的修改也会通过`data`反映出来，反之亦然。
+
+{% note info %}
+使用下列方法可以操作节点中的文本：
+- **appendData(text)**：将`text`添加到节点的末尾；
+- **deleteData(offset, count)**：从`offset`指定的位置开始删除`count`个字符；
+- **insertData(offset, text)**：在`offset`指定的位置插入`text`；
+- **replaceData(offset, count, text)**：用`text`替换从`offset`指定的位置开始到`offset + count`为止处的文本；
+- **splitText(offset)**：从`offset`指定的位置将当前文本节点分成两个文本节点；
+- **substringData(offset, count)**：提取从`offset`指定的位置开始到`offset + count`为止处的字符串。
+
+除了这些方法之外，文本节点还有一个`length`属性，保存着节点中字符的数目。而且，`nodeValue.length`和`data.length`中也保存着同样的值。
+{% endnote %}
+
+### 创建文本节点
+
+可以使用`document.createTextNode()`方法创建新文本节点，这个方法接受一个参数：要插入节点中的文本。
+
+一般情况下，每个元素只有一个文本子节点。不过，在某些情况下也可能包含多个文本子节点，这种情况下，相邻的文本子节点会连起来显示，中间不会有空格。
+
+### 规范化文本节点
+
+DOM文档中存在相邻的同胞文本节点很容易导致混乱，因为分不清哪个文本节点表示哪个字符串。另外，DOM文档中出现相邻文本节点的情况也不在少数，于是就催生了一个能够将相邻文本节点合并的方法。这个方法是由Node类型定义的（因而在所有节点类型中都存在），名叫`normalize()`。该方法在Node类型中介绍过了，此处就不介绍用法了。
+
+### 分割文本节点
+
+Text类型提供了一个作用与`normalize()`相反的方法：`splitText()`。这个方法会将一个文本节点分成两个文本节点，即按照指定的位置分割`nodeValue`值。原来的文本节点将包含从开始到指定位置之前的内容，新文本节点将包含剩下的文本。这个方法会返回一个新文本节点，该节点与原节点的`parentNode`相同。
+
 ## Comment类型
+
+注释在DOM中是通过Comment类型来表示的。Comment节点具有下列特征：
+
+{% note info %}
+- `nodeType`的值为`8`；
+- `nodeName`的值为`#comment`；
+- `nodeValue`的值是注释的内容；
+- `parentNode`可能是Document或Element；
+- 不支持（没有）子节点。
+{% endnote %}
+
+Comment类型与Text类型继承自相同的基类，因此它拥有除`splitText()`之外的所有字符串操作方法。与Text类型相似，也可以通过`nodeValue`或`data`属性来取得注释的内容。
+
+使用`document.createComment()`并为其传递注释文本也可以创建注释节点。
+
 ## CDATASection类型
+
+CDATASection类型只针对基于XML的文档，表示的是CDATA区域。与Comment类似，CDATASection类型继承自Text类型，因此拥有除`splitText()`之外的所有字符串操作方法。CDATASection节点具有下列特征：
+
+{% note info %}
+- `nodeType`的值为`4`；
+- `nodeName`的值为`#cdata-section`；
+- `nodeValue`的值是CDATA区域的内容；
+- `parentNode`可能是Document或Element；
+- 不支持（没有）子节点。
+{% endnote %}
+
+在真正的XML文档中，可以使用`document.createCDataSection()`来创建CDATA区域，只需为其传入节点的内容即可。
+
 ## DocumentType类型
+
+DocumentType类型在Web浏览器中并不常用，仅有Firefox、Safari和Opera支持它。DocumentType包含着与文档的`doctype`有关的所有信息，它具有下列特征：
+
+{% note info %}
+- `nodeType`的值为`10`；
+- `nodeName`的值为`doctype`的名称；
+- `nodeValue`的值为`null`；
+- `parentNode`是Document；
+- 不支持（没有）子节点。
+{% endnote %}
+
+在DOM1级中，DocumentType对象不能动态创建，而只能通过解析文档代码的方式来创建。支持它的浏览器会把DocumentType对象保存在`document.type`中。
+
+{% note info %}
+DOM1级描述了DocumentType对象的3个属性：
+- **name**：表示文档类型的名称；
+- **entities**：由文档类型描述的实体的`NamedNodeMap`对象；
+- **notations**：由文档类型描述的符号的`NamedNodeMap`对象。
+{% endnote %}
+
+通常，浏览器中的文档使用的都是HTML或XHTML文档类型，因而`entities`和`notations`都是空列表（列表中的项来自行内文档类型声明）。但不管怎样，只有`name`属性是有用的。这个属性中保存的是文档类型的名称，也就是出现在`<!DOCTYPE`和`>`之间的文本。
+
 ## DocumentFragment类型
+
+在所有节点类型中，只有DocumentFragment在文档中没有对应的标记。DOM规定文档片段（document fragment）是一种“轻量级”的文档，可以包含和控制节点，但不会像完整的文档那样占用额外的资源。DocumentFragment节点具有下列特征：
+
+{% note info %}
+- `nodeType`的值为`11`；
+- `nodeName`的值为`#document-fragment`；
+- `nodeValue`的值为`null`；
+- `parentNode`是值为`null`；
+- 其子节点可能是Element、Text、Comment、ProcessingInstruction、CDATASection或EntityReference。
+{% endnote %}
+
+虽然不能把文档片段直接添加到文档中，但可以将它作为一个“仓库”来使用，即可以在里面保存将来可能会添加到文档中的节点。要创建文档片段，可以使用`document.createDocumentFragment()`方法，如下所示：
+
+```js
+var fragment = document.createDocumentFragment()
+```
+
+文档片段继承了Node的所有方法，通常用于执行那些针对文档的DOM操作。如果将文档中的节点添加到文档片段中，就会从文档树中移除该节点，也不会从浏览器中再看到该节点。添加到文档片段中的新节点同样也不属于文档树。
+
 ## Attr类型
 
+元素的特性在DOM中以Attr类型来表示。在所有浏览器中，都可以访问Attr类型的构造函数和原型。从技术角度讲，特性就是存在于元素的`attributes`属性中的节点。特性节点具有下列特征：
+
+{% note info %}
+- `nodeType`的值为`2`；
+- `nodeName`的值为特性的名称；
+- `nodeValue`的值为特性的值；
+- `parentNode`是值为`null`；
+- 在HTML中不支持（没有）子节点；
+- 在XML中子节点可以是Text或EntityReference。
+{% endnote %}
+
+尽管它们也是节点，但特性却不被认为是DOM文档树的一部分。开发人员最常使用的是`getAttribute()`、`setAttribute()`和`removeAttribute()`方法，很少直接引用特性节点。
+
+{% note info %}
+Attr对象有3个属性：
+- **name**：特性的名称，与`nodeName`的值相同；
+- **value**：特性的值，与`nodeValue`的值相同；
+- **specified**：是一个布尔值，用以区别特性是在代码中指定的，还是默认的。
+{% endnote %}
+
+使用`document.createAttribute()`并传入特性的名称可以创建新的特性节点。例如，要为元素添加`align`特性，可以使用下列代码：
+
+```js
+var attr = document.createAttribute('align')
+attr.value = 'left'
+
+element.attributes.setNamedItem(attr)
+```
+
 # DOM操作技术
+
 ## 动态脚本
+
+创建动态脚本也有两种方式：插入外部文件和直接插入JavaScript代码。
+
+### 插入外部文件
+
+```js
+function loadScript (url) {
+    var script = document.createElement('script')
+
+    script.type = 'text/javascript'
+    script.src = url
+
+    document.body.appendChild(script)
+}
+```
+
+### 插入JavaScript代码
+
+```js
+function loadScriptString (code) {
+    var script = document.createElement('script')
+
+    script.type = 'text/javascript'
+    try {
+        script.appendChild(document.createTextNode(code))
+    } catch (err) {
+        script.text = code
+    }
+
+    document.body.appendChild(script)
+}
+
+loadScriptString('function sayHi () {console.log("hi")}')
+```
+
+以这种方式加载的代码会在全局作用域中执行，而且当脚本执行后将立即可用。实际上，这样执行代码与在全局作用域中把相同的字符串传递给`eval()`是一样的。
+
 ## 动态样式
+
+能够把CSS样式包含到HTML页面中的元素有两个。其中，`<link>`元素用于包含来自外部的文件，而`<style>`元素用于指定嵌入的样式。与动态脚本类似，所谓动态样式是指在页面刚加载时不存在的样式；动态样式是在页面加载完成后动态添加到页面中的。
+
+### 通过link
+
+```js
+function loadStyle (url) {
+    var link = document.createElement('link')
+
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = url
+
+    var head = document.getElementByTagName('head')[0]
+    head.appendChild(link)
+}
+```
+
+{% note info %}
+注意事项：
+- 必须将`<link>`元素添加到`<head>`而不是`<body>`元素，才能保证在所有浏览器中的行为一致；
+- 加载外部样式文件的过程是异步的。
+{% endnote %}
+
+### 通过style
+
+```js
+function loadStyleString (css) {
+    var style = document.createElement('style')
+
+    style.type = 'text/css'
+    try {
+        style.appendChild(document.createTextNode(css))
+    } catch (err) {
+        style.styleSheet.cssText = css
+    }
+
+    var head = document.getElementByTagName('head')[0]
+    head.appendChild(link)
+}
+
+loadStyleString('body {background-color: red}')
+```
+
 ## 操作表格
+
+为了方便构建表格，HTMLDOM为`<table>`、`<tbody>`和`<tr>`元素添加了一些属性和方法：
+
+{% note info %}
+为`<table>`元素添加的属性和方法：
+- **caption**：保存着对`<caption>`元素（如果有）的引用；
+- **tHead**：保存着对`<thead>`元素（如果有）的引用；
+- **tBodies**：是一个`<tbody>`元素的`HTMLCollection`；
+- **tFoot**：保存着对`<tfoot>`元素（如果有）的引用；
+- **rows**：是一个表格中所有行的`HTMLCollection`；
+- **createCaption( )**：创建`<caption>`元素，将其放到表格中，返回引用；
+- **createTHead( )**：创建`<thead>`元素，将其放到表格中，返回引用；
+- **createTFoot( )**：创建`<tfoot>`元素，将其放到表格中，返回引用；
+- **deleteCaption( )**：删除`<caption>`元素；
+- **deleteTHead( )**：删除`<thead>`元素；
+- **deleteTFoot( )**：删除`<tfoot>`元素；
+- **deleteRow(pos)**：删除指定位置的行；
+- **insertRow(pos)**：向`rows`集合中的指定位置插入一行。
+
+
+为`<tbody>`元素添加的属性和方法：
+- **rows**：保存着`<tbody>`元素中行的`HTMLCollection`；
+- **deleteRow(pos)**：删除指定位置的行；
+- **insertRow(pos)**：向`rows`集合中的指定位置插入一行，返回对新插入行的引用。
+
+
+为`<tr>`元素添加的属性和方法：
+- **cells**：保存着`<tr>`元素中单元格的`HTMLCollection`；
+- **deleteCell(pos)**：删除指定位置的单元格；
+- **insertCell(pos)**：向`cells`集合中的指定位置插入一个单元格，返回对新插入单元格的引用。
+{% endnote %}
+
+想创建下面的HTML表格：
+
+```html
+<table border="1" width="100%">
+    <tbody>
+        <tr>
+            <td>row 1, col 1</td>
+            <td>row 1, col 2</td>
+        </tr>
+        <tr>
+            <td>row 2, col 1</td>
+            <td>row 2, col 2</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+创建的代码：
+
+```js
+var table = document.createElement('table')
+table.border = 1
+table.width = '100%'
+
+var tbody = document.createElement('tbody')
+table.appendChild(tbody)
+
+tbody.insertRow(0)
+tbody.rows[0].insertCell(0)
+tbody.rows[0].cells[0].appendChild(document.createTextNode('row 1, col 1'))
+tbody.rows[0].insertCell(1)
+tbody.rows[0].cells[1].appendChild(document.createTextNode('row 1, col 2'))
+
+tbody.insertRow(1)
+tbody.rows[1].insertCell(0)
+tbody.rows[1].cells[0].appendChild(document.createTextNode('row 2, col 1'))
+tbody.rows[1].insertCell(1)
+tbody.rows[1].cells[1].appendChild(document.createTextNode('row 2, col 2'))
+
+document.body.appendChild(table)
+```
+
 ## 使用Nodelist
+
+理解`Nodelist`及其“近亲”`NamedNodeMap`和`HTMLCollection`，是从整体上透彻理解DOM的关键所在。这三个集合都是“动态的”；换句话说，每当文档结构发生变化时，它们都会得到更新。因此，它们始终都会保存着最新、最准确的信息。从本质上说，所有`Nodelist`对象都是在访问DOM文档时实时运行的查询。
+
+例如，下列代码会导致无限循环：
+
+```js
+var divs = document.getElementsByTagName('div'),
+    i,
+    div;
+
+for (i = 0; i < divs.length; i++) {
+    div = document.createElement('div')
+    document.body.appendChild(div)
+}
+```
