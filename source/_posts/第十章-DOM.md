@@ -562,7 +562,7 @@ element.attributes.setNamedItem(attr)
 
 ## 动态脚本
 
-创建动态脚本也有两种方式：插入外部文件和直接插入JavaScript代码。
+创建动态脚本有两种方式：插入外部文件和直接插入JavaScript代码。
 
 ### 插入外部文件
 
@@ -575,6 +575,8 @@ function loadScript (url) {
 
     document.body.appendChild(script)
 }
+
+loadScript('clent.js')
 ```
 
 ### 插入JavaScript代码
@@ -602,6 +604,8 @@ loadScriptString('function sayHi () {console.log("hi")}')
 
 能够把CSS样式包含到HTML页面中的元素有两个。其中，`<link>`元素用于包含来自外部的文件，而`<style>`元素用于指定嵌入的样式。与动态脚本类似，所谓动态样式是指在页面刚加载时不存在的样式；动态样式是在页面加载完成后动态添加到页面中的。
 
+创建动态样式也有两种方式：通过`<link>`和通过`<style>`。
+
 ### 通过link
 
 ```js
@@ -615,6 +619,8 @@ function loadStyle (url) {
     var head = document.getElementByTagName('head')[0]
     head.appendChild(link)
 }
+
+loadStyle('style.css')
 ```
 
 {% note info %}
@@ -645,7 +651,7 @@ loadStyleString('body {background-color: red}')
 
 ## 操作表格
 
-为了方便构建表格，HTMLDOM为`<table>`、`<tbody>`和`<tr>`元素添加了一些属性和方法：
+为了方便构建表格，HTML DOM为`<table>`、`<tbody>`和`<tr>`元素添加了一些属性和方法：
 
 {% note info %}
 为`<table>`元素添加的属性和方法：
