@@ -9,8 +9,8 @@ date: 2019-02-28 16:11:21
 # 准备工作
 
 {% note info %}
-- [Node安装及配置](http://aadonkeyz.com/posts/ee28a0bf/#more)
-- [Git安装及配置](http://aadonkeyz.com/posts/6749cdaf/#more)
+- [Node安装及配置](https://aadonkeyz.com/posts/ee28a0bf/#more)
+- [Git安装及配置](https://aadonkeyz.com/posts/6749cdaf/#more)
 - [阅读Hexo的文档](https://hexo.io/zh-cn/docs)
 {% endnote %}
 

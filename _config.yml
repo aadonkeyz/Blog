@@ -18,7 +18,7 @@ baidusitemap:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://aadonkeyz.com/
+url: https://aadonkeyz.com/
 root: /
 permalink: posts/:abbrlink/
 permalink_defaults:

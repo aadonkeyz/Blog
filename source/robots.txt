@@ -11,5 +11,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: http://aadonkeyz.com/sitemap.xml
-Sitemap: http://aadonkeyz.com/baidusitemap.xml
+Sitemap: https://aadonkeyz.com/sitemap.xml
+Sitemap: https://aadonkeyz.com/baidusitemap.xml

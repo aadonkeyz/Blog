@@ -49,7 +49,7 @@ if (document.body.matchesSelector('body.page1')) {
 
 在取得某个元素引用的情况下，使用这个方法能够方便地检测它是否会被`querySelector()`或`querySelectorAll()`方法返回。
 
-因为浏览器的支持问题，你可以使用下面的polyill代码：
+因为浏览器的支持问题，你可以使用下面的polyfill代码：
 
 ```js
 if (!Element.prototype.matchesSelector) {

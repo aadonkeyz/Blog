@@ -104,7 +104,10 @@ var count = someNode.childNodes.length
 - **replaceChild( )**：该方法接受两个参数：要插入的节点和要替换的节点。操作成功后返回被替换的节点；
 - **removeChild( )**：该方法接受单个参数：要移除的节点。操作成功后返回被移除的节点。
 
-**任何一个DOM节点不能同时出现在文档中的多个位置上，所以当使用`appendChild()`、`insertBefore()`或`replaceChild()`方法并且传入的第一个参数为文档树中已经存在的节点时，该节点会从原位置转移到对应的新位置。**
+---
+注意事项：
+- 任何一个DOM节点不能同时出现在文档中的多个位置上，所以当使用`appendChild()`、`insertBefore()`或`replaceChild()`方法并且传入的第一个参数为文档树中已经存在的节点时，该节点会从原位置转移到对应的新位置；
+- 每个节点都有一个`ownerDocument`属性，表示所属的文档。如果调用`appendChild()`时传入的节点属于不同的文档，则会抛出错误。
 {% endnote %}
 
 ### 其他方法
@@ -669,13 +672,13 @@ loadStyleString('body {background-color: red}')
 - **deleteRow(pos)**：删除指定位置的行；
 - **insertRow(pos)**：向`rows`集合中的指定位置插入一行。
 
-
+---
 为`<tbody>`元素添加的属性和方法：
 - **rows**：保存着`<tbody>`元素中行的`HTMLCollection`；
 - **deleteRow(pos)**：删除指定位置的行；
 - **insertRow(pos)**：向`rows`集合中的指定位置插入一行，返回对新插入行的引用。
 
-
+---
 为`<tr>`元素添加的属性和方法：
 - **cells**：保存着`<tr>`元素中单元格的`HTMLCollection`；
 - **deleteCell(pos)**：删除指定位置的单元格；
