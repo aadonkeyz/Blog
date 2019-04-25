@@ -343,3 +343,140 @@ function getElementTop (element) {
 }
 ```
 
+# 遍历
+
+“DOM2级遍历和范围”模块定义了两个用于辅助完成顺序遍历DOM结构的类型：NodeIterator和TreeWalker。这两个类型能够基于给定的起点对DOM结构执行**深度优先**的遍历操作。
+
+## NodeIterator
+
+{% note info %}
+NodeIterator类型是两者中比较简单的一个，可以使用`document.createNodeIterator()`方法创建它的新实例。这个方法接受下列参数：
+- **root**：作为遍历起点的节点；
+- **whatToShow**：要访问的节点类型的数字代码；
+- **filter（可选）**：该参数代表过滤器，可以是一个函数，一个包含`acceptNode()`方法的对象或者`null`。如果`filter`参数是一个函数或者一个包含`acceptNode()`方法的对象，那么当你想要访问给定的节点时，让函数/方法返回`NodeFilter.FILTER_ACCEPT`。否则返回`NodeFilter.FILTER_SKIP`或`NodeFilter.FILTER_REJECT`。
+
+---
+`whatToShow`参数是一个位掩码，参数的值以常量形式在NodeFilter类型中定义，如下所示：
+- **NodeFilter.SHOW_ALL**：对应`-1`，代表所有类型的节点
+- **NodeFilter.SHOW_ELEMENT**：对应`1`，代表元素节点；
+- **NodeFilter.SHOW_TEXT**：对应`4`，代表文本节点；
+- **NodeFilter.SHOW_PROCESSING_INSTRUCTION**：对应`64`，代表处理指令节点；
+- **NodeFilter.SHOW_COMMENT**：对应`128`，代表注释节点；
+- **NodeFilter.SHOW_DOCUMENT**：对应`256`，代表文档节点；
+- **NodeFilter.SHOW_DOCUMENT_TYPE**：对应`512`，代表文档类型节点；
+- **NodeFilter.SHOW_DOCUMENT_FRAGMENT**：对应`1024`，代表文档片段节点。
+
+除了`NodeFilter.SHOW_ALL`之外，可以使用按位或操作符来组合多个选项，例如：`NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT`。
+
+---
+在NodeIterator中，不管`filter`返回的是`NodeFilter.FILTER_SKIP`还是`NodeFilter.FILTER_REJECT`，遍历都会只跳过当前节点，但还会对其子节点进行访问。
+
+---
+NodeIterator类型的两个主要方法是`nextNode()`和`previousNode()`，这两个方法的作用与名字一致，它们会返回当前遍历到的节点。在根节点调用`previousNode()`方法和在最后一个节点处调用`nextNode()`都会返回`null`。
+
+由于`nextNode()`和`previousNode()`方法都基于NodeIterator在DOM结构中的内部指针工作，所以DOM结构的变化会反映在遍历的结果中。
+{% endnote %}
+
+基础概念介绍完毕，上代码：
+
+```html
+<html>
+    <head>
+        <title>test</title>
+    </head>
+    <body>
+        <div id="myDiv">
+            <p><b>Hello</b>world!</p>
+            <ul>
+                <li>List item 1</li>
+                <li>List item 2</li>
+                <li>List item 3</li>
+            </ul>
+        </div>
+        <script type="text/javascript">
+            var div = document.getElementById('myDiv')
+
+            var iterator = document.createNodeIterator(div, NodeFilter.SHOW_ELEMENT, null)
+
+            var currentNode = iterator.nextNode()
+            while (currentNode !== null) {
+                console.log(currentNode)
+                currentNode = iterator.nextNode()
+            }
+
+            console.log('===========================================')
+
+            var filter = function (node) {
+                return node.nodeType === 1 ?
+                    NodeFilter.FILTER_ACCEPT :
+                    NodeFilter.FILTER_SKIP
+            }
+            // 两个filter是等价的
+            // var filter = {
+            //     acceptNode: function (node) {
+            //         return node.nodeType === 1 ?
+            //             NodeFilter.FILTER_ACCEPT :
+            //             NodeFilter.FILTER_SKIP
+            //     }
+            // }
+
+            iterator = document.createNodeIterator(div, NodeFilter.SHOW_ALL, filter)
+
+            currentNode = iterator.nextNode()
+            while (currentNode !== null) {
+                console.log(currentNode)
+                currentNode = iterator.nextNode()
+            }
+        </script>
+    </body>
+</html>
+```
+
+## TreeWalker
+
+{% note info %}
+TreeWalker是NodeIterator的一个更高级的版本，可以使用`document.createTreeWalker()`方法创建它的新实例。除了包括`nextNode()`和`previousNode()`在内的相同的功能之外，这个类型还提供下列用于在不同方向上遍历DOM结构的方法：
+- **parentNode( )**：遍历到当前的父节点；
+- **firstChild( )**：遍历到当前节点的第一个子节点；
+- **lastChild( )**：遍历到当前节点的最后一个子节点；
+- **nextSibling( )**：遍历到当前节点的下一个同辈节点；
+- **previousSibling( )**：遍历到当前节点的上一个同辈节点。
+
+---
+在TreeWalker中，如果`filter`返回`NodeFilter.FILTER_SKIP`，遍历会跳过当前的节点，但还会对子节点进行访问。如果返回`NodeFilter.FILTER_REJECT`则会跳过当前节点及该节点的整个子树。
+{% endnote %}
+
+<!-- # 范围
+
+为了让开发人员更方便地控制页面，“DOM2级遍历和范围”模块定义了“范围”（range）接口。通过范围可以选择文档中的一个区域，而不必考虑节点的界限。比如，在富文本编辑器中经常使用这个接口。
+
+## DOM中的范围
+
+DOM2级在Document类型中定义了`createRange()`方法。在兼容DOM的浏览器中，这个方法属于`document`对象。
+
+与节点类似，新创建的范围也直接与创建它的文档关联在一起，不能用于其他文档。创建了范围之后，接下来就可以使用它在后台选择文档中的特定部分。而创建范围并设置了其位置之后，还可以针对范围内的内容执行很多种操作，从而实现对底层DOM树的更精细的控制。
+
+{% note info %}
+每个范围由一个Range类型的实例表示，这个实例拥有很多属性和方法。下列属性提供了当前范围在文档中的位置信息：
+- **startContainer**：包含范围起点的节点；
+- **startOffset**：范围起点在`startContainer`中的偏移量；
+- **endContainer**：包含范围终点的节点；
+- **endOffset**：范围终点在`endContainer`中的偏移量；
+- **collapsed**：一个用于判断范围起始位置和终止位置是否相同的布尔值；
+- **commonAncestorContainer**：包含`startContainer`和`endContainer`最深的节点。
+{% endnote %}
+
+### 用范围实现选择
+
+{% note info %}
+要使用范围来选择文档中的一部分，可以使用下列方法：
+- **setStart(refNode, offset)**
+- **setEnd(refNode, offset)**
+- **setStartBefore(refNode)**
+- **setStartAfter(refNode)**
+- **setEndBefore(refNode)**
+- **setEndAfter(refNode)**
+- **selectNode(refNode)**
+- **selectNodeContents(refNode)**
+{% endnote %} -->
+
