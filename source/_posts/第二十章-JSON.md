@@ -46,13 +46,14 @@ JSON的语法可以表示以下三种类型的值：
 - **value**：需要被转换为JSON字符串的值。
 - **replacer（可选）**：该参数可以是一个数组或者过滤器函数。
     1. 当该参数为数组时，这个数组相当于是一个白名单，不在白名单中的属性将被过滤掉；
-    2. 当该参数为函数时，这个函数接收两个参数：属性（键）名和属性值。这个函数的返回值就相当于对应的属性被序列化后的结果，但是如果函数返回了`undefined`，那么对应属性将被忽略掉。
+    2. 当该参数为函数时，这个函数接收两个参数：属性（键）名和属性值。这个函数的返回值就相当于对应的属性被序列化后的结果，但是如果函数返回了`undefined`，那么对应属性将被过滤掉。
 - **space（可选）**：该参数可以是数值或字符串。当为数值时，这个数值表示序列化结果的缩进空格数；当为字符串时，这个字符串会替换空格，被用作缩进字符。
 
 ---
 注意事项：
 - 如果`value`中出现循环引用会抛出错误；
-- 如果`value`是对象或者数组，并且它的某一个属性值/元素是`undefined`，且没有传入`replacer`参数，那么这个`undefined`在被序列化后会被转换为`null`；
+- 如果`value`是对象且没有传入`replacer`参数，那么如果它的某一个属性值是JSON所不支持的，比如`undefined`，那么这个属性会被自动过滤掉；
+- 如果`value`是数组且没有传入`replacer`参数，那么如果它的某一项是JSON所不支持的，比如`undefined`，那么这个项会被转换为`null`；
 - `replacer`是个十分有意思的函数，它接收到的第一个键会是空字符串`''`，而接收到的第一个值会是`value`。之后如果`value`是对象或者数组，它才开始在`value`中进行迭代。
 
 ---
@@ -110,9 +111,9 @@ JSON.stringify({ [Symbol('foo')]: 'foo' })
 JSON.stringify({ [Symbol.for('foo')]: 'foo' }, [Symbol.for('foo')])
 // '{}'
 JSON.stringify({ [Symbol.for('foo')]: 'foo' }, function(k, v) {
-  if (typeof k === 'symbol') {
-    return 'a symbol'
-  }
+    if (typeof k === 'symbol') {
+        return 'a symbol'
+    }
 })
 // undefined
 
@@ -121,10 +122,10 @@ JSON.stringify( Object.create(null, { x: { value: 'x', enumerable: false }, y: {
 // '{"y":"y"}'
 
 JSON.stringify({"1": 1, "2": 2, "3": {"4": 4, "5": {"6": 6}}}, (key, value) => {
-  console.log(key)
-  console.log(value)
-  console.log('========')
-  return value
+    console.log(key)
+    console.log(value)
+    console.log('========')
+    return value
 })
 // 这里是空字符串''
 // { '1': 1, '2': 2, '3': { '4': 4, '5': { '6': 6 } } }
@@ -167,17 +168,17 @@ JSON.parse('[1, 5, "false"]') // [1, 5, "false"]
 JSON.parse('null')            // null
 
 JSON.parse('{"p": 5}', (key, value) =>
-  typeof value === 'number'
-    ? value * 2     // return value * 2 for numbers
-    : value         // return everything else unchanged
+    typeof value === 'number'
+        ? value * 2     // return value * 2 for numbers
+        : value         // return everything else unchanged
 )
 // { p: 10 }
 
 JSON.parse('{"1": 1, "2": 2, "3": {"4": 4, "5": {"6": 6}}}', (key, value) => {
-  console.log(key)
-  console.log(value)
-  console.log('========')
-  return value
+    console.log(key)
+    console.log(value)
+    console.log('========')
+    return value
 })
 // 1
 // 1
