@@ -1,8 +1,8 @@
 ---
 title: 第二十章 JSON
 categories:
-  - JavaScript
-  - 《JavaScript高级程序设计》
+    - JavaScript
+    - 《JavaScript高级程序设计》
 abbrlink: fdc54b8c
 date: 2019-04-27 10:03:27
 ---

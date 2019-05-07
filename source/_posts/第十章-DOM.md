@@ -1,8 +1,8 @@
 ---
 title: 第十章 DOM
 categories:
-  - JavaScript
-  - 《JavaScript高级程序设计》
+    - JavaScript
+    - 《JavaScript高级程序设计》
 abbrlink: ee93c80b
 date: 2019-04-21 11:49:47
 ---

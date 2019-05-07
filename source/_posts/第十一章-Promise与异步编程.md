@@ -1,8 +1,8 @@
 ---
 title: 第十一章 Promise与异步编程
 categories:
-  - JavaScript
-  - 《深入理解ES6》
+    - JavaScript
+    - 《深入理解ES6》
 abbrlink: 9a3eeeca
 date: 2019-04-12 10:26:31
 ---

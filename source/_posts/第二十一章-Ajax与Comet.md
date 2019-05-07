@@ -1,8 +1,8 @@
 ---
 title: 第二十一章 Ajax与Comet
 categories:
-  - JavaScript
-  - 《JavaScript高级程序设计》
+    - JavaScript
+    - 《JavaScript高级程序设计》
 abbrlink: 5ffed448
 date: 2019-04-27 12:43:38
 ---

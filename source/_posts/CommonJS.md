@@ -1,7 +1,7 @@
 ---
 title: CommonJS
 categories:
-  - Node.js
+    - Node.js
 abbrlink: b3fe2fad
 date: 2019-04-19 14:33:00
 ---

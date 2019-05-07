@@ -1,8 +1,8 @@
 ---
 title: 第十二章 DOM2和DOM3
 categories:
-  - JavaScript
-  - 《JavaScript高级程序设计》
+    - JavaScript
+    - 《JavaScript高级程序设计》
 abbrlink: f431b175
 date: 2019-04-23 22:23:08
 ---

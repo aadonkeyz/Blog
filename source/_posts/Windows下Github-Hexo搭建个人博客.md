@@ -1,7 +1,7 @@
 ---
 title: Windows下Github+Hexo搭建个人博客
 categories:
-  - Blog
+    - Blog
 abbrlink: d4a0c543
 date: 2019-02-28 16:11:21
 ---

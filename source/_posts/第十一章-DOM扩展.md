@@ -1,8 +1,8 @@
 ---
 title: 第十一章 DOM扩展
 categories:
-  - JavaScript
-  - 《JavaScript高级程序设计》
+    - JavaScript
+    - 《JavaScript高级程序设计》
 abbrlink: 8c860f1b
 date: 2019-04-23 09:16:43
 ---
