@@ -76,7 +76,8 @@ npm install express -g
 接下来修改npm配置，使用国内的淘宝镜像以保证模块下载的稳定性和速度，下列两种方式二选一即可。
 
 ```python
-# 临时使用淘宝镜像来安装cnpm模块，以后使用cnpm代替npm
+# 安装cnpm模块
+# 以后使用cnpm替代npm
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 # 修改源地址为淘宝镜像
