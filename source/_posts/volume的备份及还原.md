@@ -10,20 +10,18 @@ categories:
 
 {% note info %}
 思路如下：
-1. 创建一个文件夹，用于保存备份；
+1. 创建一个文件夹，路径如下`/d/Docker/backup`，`backup`就是我保存备份的文件夹；
 2. 运行一个临时的容器，它需要做以下工作：
     - 将想要备份的`registry-data`挂载到容器上；
     - 将第一步创建的文件夹，挂载到容器上；
     - 通过命令压缩`registry-data`，而后保存到第一步创建的文件夹中。
 {% endnote %}
 
-我保存备份的路径是`/d/Docker/backup`，实际操作如下所示：
+运行如下命令，将会生成`registry-data20190509.tar`压缩文件，并将其保存在`backup`文件夹中。
 
 ```md
 docker run --rm -v registry-data:/source -v /d/Docker/backup:/backup alpine sh -c "cd /source && tar cvf /backup/registry-data20190509.tar ."
 ```
-
-运行这个命令，将生成`registry-data20190509.tar`压缩文件，它就是我们的备份。
 
 如果想将备份还原成volume，只需运行下面的命令即可：
 

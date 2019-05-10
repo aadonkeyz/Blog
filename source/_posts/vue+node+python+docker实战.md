@@ -319,5 +319,5 @@ volumes:
 运行如下命令就可以启动一个docker的可视化管理工具。
 
 ```md
-docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer-data:/data portainer/portainer
 ```
