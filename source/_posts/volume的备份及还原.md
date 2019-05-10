@@ -3,7 +3,7 @@ title: volume的备份及还原
 abbrlink: e113cc4a
 date: 2019-05-09 09:17:23
 categories:
-  - Docker
+    - Docker
 ---
 
 现在Docker中有一个名为`registry-data`的volume，我想备份它。

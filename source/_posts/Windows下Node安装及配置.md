@@ -80,6 +80,6 @@ npm install express -g
 # 以后使用cnpm替代npm
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 
-# 修改源地址为淘宝镜像
+# 或者修改npm源地址为淘宝镜像
 npm config set registry https://registry.npm.taobao.org
 ```
