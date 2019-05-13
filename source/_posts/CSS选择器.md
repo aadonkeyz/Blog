@@ -118,22 +118,17 @@ span {
 ---
 根据结构来使用选择器：
 - `selector1 selector2`：当`selector2`是`selector1`的后代元素时，选择`selector2`；
-- `selector1>selector2`：当`selector2`是`selector1`的子元素时，选择`selector2`；
-- `selector1+selector2`：当`selector2`是`selector1`的同胞元素，且`selector2`紧跟着`selector1`时，选择`selector2`；
-- `selector1~selector2`：当`selector2`是`selector1`的同胞元素，且`selector2`位于`selector1`后面时，选择`selector2`；
+- `selector1 > selector2`：当`selector2`是`selector1`的子元素时，选择`selector2`；
+- `selector1 + selector2`：当`selector2`是`selector1`的同胞元素，且`selector2`紧跟着`selector1`时，选择`selector2`；
+- `selector1 ~ selector2`：当`selector2`是`selector1`的同胞元素，且`selector2`位于`selector1`后面时，选择`selector2`；
 - `selector1 * selector2`：当`selector2`是`selector1`的后代元素，且`selector2`不是`selector1`的子元素时，选择`selector2`。
 {% endnote %}
 
-```html
-<div>
-    <span data-attr="my-span">选择器</span>
-</div>
+# 伪类和伪元素
 
-<style type="text/css">
-.my-span {
-    color: red;
-}
-</style>
-```
+[**MDN上伪类和伪元素的总结**](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Pseudo-classes_and_pseudo-elements)
 
-
+{% note info %}
+- 伪类用于给已经存在于文档树中的元素添加不存在的类，并为其添加样式；
+- 伪元素用于创建文档树中不存在的元素，并为其添加样式。
+{% endnote %}
