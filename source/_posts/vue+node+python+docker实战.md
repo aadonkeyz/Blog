@@ -211,7 +211,7 @@ EXPOSE 15674
 
 # docker-compose实例
 
-创建一个名称为`docker-compose`的文件夹，并在其中创建一个`docker-compose.yml`文件。
+创建一个文件夹用于存放`docker-compose.yml`文件。
 
 ```yml
 version: '3'
@@ -290,8 +290,6 @@ services:
             RABBITMQ_DEFAULT_USER: yourname
             RABBITMQ_DEFAULT_PASS: yourpassword
             RABBITMQ_ERLANG_COOKIE: yourpassword
-        volumes:
-            - rabbitmq-data:/var/lib/rabbitmq
         networks:
             - app-net
 
@@ -300,7 +298,6 @@ networks:
 
 volumes:
     mysql-data:
-    rabbitmq-data:
 ```
 
 {% note info %}
