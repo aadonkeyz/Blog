@@ -43,6 +43,7 @@ date: 2019-05-13 16:06:51
     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer ligula ipsum, tristique sit amet orci vel, viverra egestas ligula. Curabitur vehicula tellus neque, ac ornare ex malesuada et. In vitae convallis lacus. Aliquam erat volutpat. Suspendisse ac imperdiet turpis. Aenean finibus sollicitudin eros pharetra congue. Duis ornare egestas augue ut luctus. Proin blandit quam nec lacus varius commodo et a urna. Ut id ornare felis, eget fermentum sapien.</p>
 </div>
 ```
+
 ![float的初衷](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/float%E7%9A%84%E5%88%9D%E8%A1%B7.png)
 
 ## 利用float布局
@@ -67,9 +68,14 @@ date: 2019-05-13 16:06:51
 </div>
 <footer style="width: 500px; border: 1px solid black;">Here is the footer element runs across the bottom of the page.</footer>
 ```
-![父元素围不住float子元素]()
+
+![父元素围不住float子元素](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E7%88%B6%E5%85%83%E7%B4%A0%E5%9B%B4%E4%B8%8D%E4%BD%8Ffloat%E5%AD%90%E5%85%83%E7%B4%A0.png)
 
 这个效果明显不是我们实际想要的，为了解决这个问题，介绍下面几种让父元素围住子元素的方法。
+
+下面几种方案的效果都是一致的，如下所示：
+
+![父元素围住float子元素](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E7%88%B6%E5%85%83%E7%B4%A0%E5%9B%B4%E4%BD%8Ffloat%E5%AD%90%E5%85%83%E7%B4%A0.png)
 
 ### 利用overflow
 
@@ -120,3 +126,129 @@ div::after {
 ```
 
 # 定位
+
+{% note info %}
+- `position`属性有四个可选值：`static`、`relative`、`absolute`和`fixed`，默认值为`static`；
+- 只有当`position`属性为`relative`、`absolute`或`fixed`时，`top`、`right`、`bottom`和`left`才会其作用。
+{% endnote %}
+
+## 静态定位
+
+```html
+<p>First Paragrph</p>
+<p>Second Paragrph</p>
+<p id="specialpara">Third Paragrph (with ID)</p>
+<p>Fourth Paragrph</p>
+
+<style type="text/css">
+p {
+    border: 1px solid black;
+    width: 200px;
+}
+
+p#specialpara {
+    position: static
+}
+</style>
+```
+
+![静态定位](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E9%9D%99%E6%80%81%E5%AE%9A%E4%BD%8D.png)
+
+## 相对定位
+
+{% note info %}
+- 相对定位是元素相对于它原来在文档流中的位置定位；
+- 可以使用`top`、`right`、`bottom`和`left`来调整元素的位置；
+- 相对定位的元素仍然处于文档流中，它原来的位置会被保留。
+{% endnote %}
+
+```html
+<p>First Paragrph</p>
+<p>Second Paragrph</p>
+<p id="specialpara">Third Paragrph (with ID)</p>
+<p>Fourth Paragrph</p>
+
+<style type="text/css">
+p {
+    border: 1px solid black;
+    width: 200px;
+}
+
+p#specialpara {
+    position: relative;
+    top: 25px;
+    left: 30px;
+}
+</style>
+```
+
+![相对定位](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D.png)
+
+## 绝对定位
+
+{% note info %}
+- 绝对定位会将元素从文档流中拿出来，它是相对于定位上下文进行定位的；
+- 可以使用`top`、`right`、`bottom`和`left`来调整元素的位置；
+- 绝对定位默认的定位上下文是`<body>`元素；
+- 如果绝对定位的祖先元素中有`position`属性值不为`static`的元素，那么绝对定位就以其为定位上下文。
+{% endnote %}
+
+```html
+<p>First Paragrph</p>
+<p>Second Paragrph</p>
+<p id="specialpara">Third Paragrph (with ID)</p>
+<p>Fourth Paragrph</p>
+
+<style type="text/css">
+p {
+    border: 1px solid black;
+    width: 200px;
+}
+
+p#specialpara {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+}
+</style>
+```
+
+![绝对定位](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D.png)
+
+## 固定定位
+
+{% note info %}
+- 固定定位会将元素从文档流中拿出来，它是根据视口（浏览器窗口或手持设备的屏幕）进行定位的，所以在页面滚动时，它的位置也不会改变；
+- 可以使用`top`、`right`、`bottom`和`left`来调整元素的位置。
+{% endnote %}
+
+```html
+<p>First Paragrph</p>
+<p>Second Paragrph</p>
+<p id="specialpara">Third Paragrph (with ID)</p>
+<p>Fourth Paragrph</p>
+<p>Fifth Paragrph</p>
+<p>Sixth Paragrph</p>
+<p>Seven Paragrph</p>
+<p>Eighth Paragrph</p>
+<p>Ninth Paragrph</p>
+<p>Tenth Paragrph</p>
+
+
+<style type="text/css">
+p {
+    border: 1px solid black;
+    width: 200px;
+}
+
+p#specialpara {
+    position: fixed;
+    top: 25px;
+    left: 30px;
+}
+</style>
+```
+
+![固定定位1](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E5%9B%BA%E5%AE%9A%E5%AE%9A%E4%BD%8D1.png)
+
+![固定定位2](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E5%9B%BA%E5%AE%9A%E5%AE%9A%E4%BD%8D2.png)
