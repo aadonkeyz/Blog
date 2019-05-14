@@ -135,10 +135,10 @@ div::after {
 ## 静态定位
 
 ```html
-<p>First Paragrph</p>
-<p>Second Paragrph</p>
-<p id="specialpara">Third Paragrph (with ID)</p>
-<p>Fourth Paragrph</p>
+<p>First Paragraph</p>
+<p>Second Paragraph</p>
+<p id="specialpara">Third Paragraph (with ID)</p>
+<p>Fourth Paragraph</p>
 
 <style type="text/css">
 p {
@@ -163,10 +163,10 @@ p#specialpara {
 {% endnote %}
 
 ```html
-<p>First Paragrph</p>
-<p>Second Paragrph</p>
-<p id="specialpara">Third Paragrph (with ID)</p>
-<p>Fourth Paragrph</p>
+<p>First Paragraph</p>
+<p>Second Paragraph</p>
+<p id="specialpara">Third Paragraph (with ID)</p>
+<p>Fourth Paragraph</p>
 
 <style type="text/css">
 p {
@@ -194,10 +194,10 @@ p#specialpara {
 {% endnote %}
 
 ```html
-<p>First Paragrph</p>
-<p>Second Paragrph</p>
-<p id="specialpara">Third Paragrph (with ID)</p>
-<p>Fourth Paragrph</p>
+<p>First Paragraph</p>
+<p>Second Paragraph</p>
+<p id="specialpara">Third Paragraph (with ID)</p>
+<p>Fourth Paragraph</p>
 
 <style type="text/css">
 p {
@@ -223,16 +223,16 @@ p#specialpara {
 {% endnote %}
 
 ```html
-<p>First Paragrph</p>
-<p>Second Paragrph</p>
-<p id="specialpara">Third Paragrph (with ID)</p>
-<p>Fourth Paragrph</p>
-<p>Fifth Paragrph</p>
-<p>Sixth Paragrph</p>
-<p>Seven Paragrph</p>
-<p>Eighth Paragrph</p>
-<p>Ninth Paragrph</p>
-<p>Tenth Paragrph</p>
+<p>First Paragraph</p>
+<p>Second Paragraph</p>
+<p id="specialpara">Third Paragraph (with ID)</p>
+<p>Fourth Paragraph</p>
+<p>Fifth Paragraph</p>
+<p>Sixth Paragraph</p>
+<p>Seven Paragraph</p>
+<p>Eighth Paragraph</p>
+<p>Ninth Paragraph</p>
+<p>Tenth Paragraph</p>
 
 
 <style type="text/css">
