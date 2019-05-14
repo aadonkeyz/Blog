@@ -123,9 +123,9 @@ git push -u origin root
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: git@github.com:aadonkeyz/Blog.git
-  branch: master
+    type: git
+    repo: git@github.com:aadonkeyz/Blog.git
+    branch: master
 ```
 
 保存后开始通过命令行下载并保存一个名为hexo-deployer-git的插件，然后就可以将博客部署到github上了。

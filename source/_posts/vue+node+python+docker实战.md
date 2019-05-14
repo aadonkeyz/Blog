@@ -1,7 +1,7 @@
 ---
 title: vue+node+python+docker实战
 categories:
-  - Docker
+    - Docker
 abbrlink: 96fb2f92
 date: 2019-05-08 15:09:43
 ---

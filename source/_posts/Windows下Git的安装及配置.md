@@ -60,12 +60,12 @@ aadonkeyz@gitlab
 
 ```md
 Host github.com
-  User git
-  IdentityFile ~/.ssh/github_rsa
+    User git
+    IdentityFile ~/.ssh/github_rsa
 
 Host gitlab.com
-  User git
-  IdentityFile ~/.ssh/gitlab_rsa
+    User git
+    IdentityFile ~/.ssh/gitlab_rsa
 ```
 
 保存并退出，最后我们来通过指令，`ssh -T github.com`和`ssh -T gitlab.com`测试一下是否成功。
