@@ -113,7 +113,7 @@ span {
 - `div.classValue`：选择`class`属性值包含`classValue`的`<div>`元素；
 - `div#idValue`：选择`id`属性值为`idValue`的`<div>`元素；
 - `div[data-attr]`：选择具有`data-attr`属性的`<div>`元素；
-- `.class1.class2`：选择`class`属性值同时包含`class1`和`class2`的`<div>`元素。
+- `div.class1.class2`：选择`class`属性值同时包含`class1`和`class2`的`<div>`元素。
 
 ---
 根据结构来使用选择器：
