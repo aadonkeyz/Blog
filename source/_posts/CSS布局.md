@@ -252,3 +252,80 @@ p#specialpara {
 ![固定定位1](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E5%9B%BA%E5%AE%9A%E5%AE%9A%E4%BD%8D1.png)
 
 ![固定定位2](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E5%9B%BA%E5%AE%9A%E5%AE%9A%E4%BD%8D2.png)
+
+# Flexbox
+
+Flexbox是一种布局方式，我们称之为弹性布局。设置了`display: flex`的元素被称为容器（flex conta），而它的子元素则称之为项目（flex item）。对于容器和项目，它们各自有着不同的CSS属性。
+
+## 容器的属性
+
+### flex-direction
+
+Flexbox中有两根轴：主轴和交叉轴。这两个轴代表什么取决容器上的`flex-direction`属性，它共有四个可供选择的值：`row`（默认）、`row-reverse`、`column`和`column-reverse`。
+
+![flex-direction](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/flex-direction.png)
+
+### justify-content
+
+`justify-content`属性用于定义项目在主轴上的对齐方式。
+
+![justify-content](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/justify-content.png)
+
+### align-items
+
+`align-items`属性用于定义了项目在交叉轴上的对齐方式。
+
+![align-items1](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/align-items1.png)
+![align-items2](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/align-items2.png)
+
+### align-content
+
+`align-content`属性用于定义多根轴线的对齐方式，如果项目只有一根轴线，该属性不起作用。
+
+![align-content1](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/align-content1.png)
+![align-content2](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/align-content2.png)
+![align-content3](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/align-content3.png)
+
+### flex-wrap
+
+`flex-wrap`属性用于定义当主轴上项目过多时，是否允许折行。
+
+![flex-wrap](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/flex-wrap.png)
+
+### flex-flow
+
+`flex-flow`属性是`flex-direction`和`flex-wrap`的简写形式。
+
+## 项目的属性
+
+### order
+
+`order`属性用于定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+
+### flex-grow
+
+`flex-grow`属性用于定义项目的放大比例，默认为0，即就算存在剩余空间，也不放大。
+
+![flex-grow](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/flex-grow.png)
+
+### flex-shrink
+
+`flex-shrink`属性用于定义项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
+
+![flex-shrink](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/flex-shrink.png)
+
+### flex-basis
+
+`flex-basis`属性用于定义在分配多余空间之前，项目占据的主轴空间，默认为`auto`，即项目本来的大小。
+
+![flex-basis](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/flex-basis.png)
+
+### flex
+
+`flex`属性是`flex-grow`、`flex-shrink`和`flex-basis`的简写形式。
+
+### align-self
+
+`align-self`属性允许单个项目有与其他项目不一样的对其方式。可覆盖容器的`align-items`属性。
+
+# display属性
