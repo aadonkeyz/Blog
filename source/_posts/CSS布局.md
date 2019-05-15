@@ -255,7 +255,7 @@ p#specialpara {
 
 # Flexbox
 
-Flexbox是一种布局方式，我们称之为弹性布局。设置了`display: flex`的元素被称为容器（flex conta），而它的子元素则称之为项目（flex item）。对于容器和项目，它们各自有着不同的CSS属性。
+Flexbox是一种布局方式，我们称之为弹性布局。设置了`display: flex`的元素被称为容器（flex container），而它的子元素则称之为项目（flex item）。对于容器和项目，它们各自有着不同的CSS属性。
 
 ## 容器的属性
 
@@ -273,7 +273,7 @@ Flexbox中有两根轴：主轴和交叉轴。这两个轴代表什么取决容�
 
 ### align-items
 
-`align-items`属性用于定义了项目在交叉轴上的对齐方式。
+`align-items`属性用于定义项目在交叉轴上的对齐方式。
 
 ![align-items1](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/align-items1.png)
 ![align-items2](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/align-items2.png)
@@ -302,6 +302,8 @@ Flexbox中有两根轴：主轴和交叉轴。这两个轴代表什么取决容�
 
 `order`属性用于定义项目的排列顺序。数值越小，排列越靠前，默认为0。
 
+![order](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/order.png)
+
 ### flex-grow
 
 `flex-grow`属性用于定义项目的放大比例，默认为0，即就算存在剩余空间，也不放大。
@@ -316,7 +318,7 @@ Flexbox中有两根轴：主轴和交叉轴。这两个轴代表什么取决容�
 
 ### flex-basis
 
-`flex-basis`属性用于定义在分配多余空间之前，项目占据的主轴空间，默认为`auto`，即项目本来的大小。
+`flex-basis`属性用于定义项目在未放大或缩小前，占据的主轴空间大小，默认为`auto`，即项目本来的大小。
 
 ![flex-basis](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/flex-basis.png)
 
