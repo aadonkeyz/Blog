@@ -331,3 +331,15 @@ Flexbox中有两根轴：主轴和交叉轴。这两个轴代表什么取决容�
 `align-self`属性允许单个项目有与其他项目不一样的对其方式。可覆盖容器的`align-items`属性。
 
 # display属性
+
+{% note info %}
+- `none`：完全移除元素；
+- `inline`：将元素变为行内元素，它的`height`和`weight`将不会起作用；
+- `block`：将元素变为块级元素；
+- `inline-block`：将元素变成具有`height`和`weight`的行内元素；
+- `list-item`：元素表现得像是`<li>`一样；
+- `table`：元素表现得像是`<table>`一样；
+- `flex`：将元素变为flex container，其子元素变为flex item；
+- `inline-flex`：将元素变为行内flex container；
+- `grid`：将元素变为grid container。
+{% endnote %}
