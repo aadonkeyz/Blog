@@ -10,7 +10,7 @@ date: 2019-05-13 16:06:51
 
 ## 理解盒模型
 
-![理解盒模型](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/%E7%9B%92%E6%A8%A1%E5%9E%8B/%E7%90%86%E8%A7%A3%E7%9B%92%E6%A8%A1%E5%9E%8B.png)
+![理解盒模型](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E7%90%86%E8%A7%A3%E7%9B%92%E6%A8%A1%E5%9E%8B.png)
 
 ## 叠加外边距
 
