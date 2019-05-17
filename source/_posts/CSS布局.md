@@ -53,7 +53,7 @@ date: 2019-05-13 16:06:51
 - 一定要为浮动元素设置宽度；
 - 当前一个元素非浮动，后一个元素浮动时，浮动元素在原水平位置向左或向右浮动；
 - 当前一个元素浮动，后一个元素也浮动时，后一个元素会在宽度允许的条件下与前一个元素挤在同一行；
-- 当前一个元素浮动，后一个元素不浮动时，会出现元素层叠现象。
+- 当前一个元素浮动，后一个元素不浮动时，根据元素`display`属性的不同会出现不同的结果，这里就不介绍了。
 {% endnote %}
 
 ## 围住浮动元素
@@ -103,7 +103,7 @@ date: 2019-05-13 16:06:51
 
 {% note info %}
 - `clear`属性的值分别为：`left`、`right`和`both`；
-- 应用了`clear`属性的元素不会与在它之前的对应浮动元素产生元素层叠现象。
+- `clear`属性指定一个元素是否必须移动（清除浮动后）到它之前的浮动元素下方。
 {% endnote %}
 
 ```html
@@ -343,3 +343,48 @@ Flexbox中有两根轴：主轴和交叉轴。这两个轴代表什么取决容�
 - `inline-flex`：将元素变为行内flex container；
 - `grid`：将元素变为grid container。
 {% endnote %}
+
+# 元素层叠
+
+![元素层叠等级](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E5%85%83%E7%B4%A0%E5%B1%82%E5%8F%A0%E7%AD%89%E7%BA%A7.jpg)
+
+{% note info %}
+- 元素层叠是相对的；
+- `z-index`属性只有当对应元素的`postion`属性不为`static`时才有效。
+{% endnote %}
+
+下面的例子有助于理解元素层叠是相对的。
+
+```html
+<div id="outer">
+    <div id="a"></div>
+    <div id="b"></div>
+</div>
+    
+
+<style type="text/css">
+#outer {
+    width: 200px;
+    height: 200px;
+    background: black;
+    position: relative;
+    z-index: -100;
+}
+
+#a {
+    width: 100px;
+    height: 100px;
+    background: red;
+    position: relative;
+    z-index: -1000;
+}
+
+#b {
+    width: 100px;
+    height: 100px;
+    background: blue;
+}
+</style>
+```
+
+![元素层叠例子](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E5%85%83%E7%B4%A0%E5%B1%82%E5%8F%A0%E4%BE%8B%E5%AD%90.png)
