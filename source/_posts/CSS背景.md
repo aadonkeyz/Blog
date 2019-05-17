@@ -28,6 +28,8 @@ date: 2019-05-16 10:12:34
 
 该属性用于定义背景图片的位置，该属性的值可以是：关键字、百分比、绝对或相对单位的数值，也可以将关键字与百分比或数值配合使用。
 
+关键字包括：`top`、`right`、`bottom`、`left`和`center`。
+
 ![background-position](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E8%83%8C%E6%99%AF/background-position.png)
 
 # background-size
@@ -160,7 +162,7 @@ div {
     - `farthest-corner`：渐变从圆形（或椭圆形）中心开始，到距离中心最远的角终止；
     - `12rem`：会生成一个直径为`12rem`的圆；
     - `40px 30px`：会生成一个X方向宽40像素、Y方向高30像素的椭圆形。
-3. **位置**：使用`at`定义渐变中心的位置，例如`at bottom right`或`at top 100px right`。
+3. **位置**：使用`at`定义渐变中心的位置，例如`at center`或`at top 100px right`。
 {% endnote %}
 
 ```html
