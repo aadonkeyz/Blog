@@ -10,21 +10,30 @@ date: 2019-05-13 16:06:51
 
 ## 理解盒模型
 
+{% note info %}
+盒模型由四个部分组成：
+- **内容区**
+- **内边距**
+- **边框**
+- **外边距**
+{% endnote %}
+
 ![理解盒模型](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E7%90%86%E8%A7%A3%E7%9B%92%E6%A8%A1%E5%9E%8B.png)
 
-## 叠加外边距
+## 盒模型和元素的大小
 
 {% note info %}
-**垂直方向的外边距会叠加，水平的则不会**。
+1. 盒模型的大小和元素的大小不是一回事
+2. 盒模型的大小是`外边距+边框+内边距+内容区`
+3. 元素的大小取决于`box-sizing`属性，它有两个值：
+    - `content-box`（默认）：此时元素的`width`和`height`属性设置的是`内容区`的宽度和高度
+    - `border-box`：此时元素的`width`和`height`属性设置的是`边框+内边距+内容区`的宽度和高度
+4. 块级元素在没有设置`width`时，它的盒模型会始终填满其父元素的宽度。
 {% endnote %}
 
-## 盒子有多大
+## border-radius
 
-{% note info %}
-- 为没有设置`width`的盒子添加水平边框、内边距和外边距，会导致内容宽度减少，减少量等于水平边框、内边距和外边距的和;
-- 为设置了`width`的盒子添加水平边框、内边距和外边距，会导致盒子扩展得更宽。**实际上，盒子的`width`属性设定的只是盒子内容区的宽度，而非盒子要占据的水平宽度**；
-- 块级元素在没有设置`width`时，默认会始终填满其父元素的宽度。
-{% endnote %}
+...未完待续
 
 ## 盒阴影
 
@@ -128,8 +137,8 @@ div::after {
 # 定位
 
 {% note info %}
-- `position`属性有四个可选值：`static`、`relative`、`absolute`和`fixed`，默认值为`static`；
-- 只有当`position`属性为`relative`、`absolute`或`fixed`时，`top`、`right`、`bottom`和`left`才会其作用。
+- `position`属性有四个可选值：`static`、`relative`、`absolute`和`fixed`，默认值为`static`
+- 只有当`position`属性为`relative`、`absolute`或`fixed`时，`top`、`right`、`bottom`和`left`才会其作用，**且它们设置的是盒模型的位置而不是元素的位置**
 {% endnote %}
 
 ## 静态定位
