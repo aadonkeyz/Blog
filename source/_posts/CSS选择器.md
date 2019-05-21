@@ -157,4 +157,8 @@ span {
 
 ## 计算特指度
 
+{% note info %}
+**伪类的特指度等同于类**
+{% endnote %}
+
 ![特指度](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E9%80%89%E6%8B%A9%E5%99%A8/%E7%89%B9%E6%8C%87%E5%BA%A6.png)
