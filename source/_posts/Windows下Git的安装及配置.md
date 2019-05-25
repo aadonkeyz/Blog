@@ -1,7 +1,7 @@
 ---
 title: Windows下Git的安装及配置
 categories:
-    - Development Tools
+    - DevTools
     - Git
 abbrlink: 6749cdaf
 date: 2019-02-27 22:35:21

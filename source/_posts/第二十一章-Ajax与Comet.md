@@ -306,10 +306,10 @@ handleResponse({ "name": "Nicholas" })
 JSONP由两部分组成：回调函数和数据。回调函数是当响应到来时应该在页面中调用的函数，回调函数一般是在请求中通过`callback`查询字段指定的。而数据就是传入回调函数中的JSON数据。下面是一个典型的JSONP请求：
 
 ```md
-http://aadonkeyz.com/example.js/?callback=handleResponse
+http://aadonkeyz.com/example.js?callback=handleResponse
 ```
 
-JSONP的原理很简单，通过下面的例子进行介绍：
+JSONP的原理很简单，它是通过动态`<script>`元素来使用的，通过下面的例子进行介绍：
 
 ```js
 function handleResponse(response) {
@@ -317,7 +317,7 @@ function handleResponse(response) {
 }
 
 var script = document.createElement('script')
-script.src = 'http://aadonkeyz.com/example.js/?callback=handleResponse'
+script.src = 'http://aadonkeyz.com/example.js?callback=handleResponse'
 document.body.insertBefore(script, document.body.firstChild)
 ```
 
