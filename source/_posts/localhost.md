@@ -1,8 +1,8 @@
 ---
 title: localhost
 categories:
-  - 踏坑之旅
-  - 前端
+    - 踏坑之旅
+    - 前端
 abbrlink: 9ec20823
 date: 2019-05-21 21:54:58
 ---
