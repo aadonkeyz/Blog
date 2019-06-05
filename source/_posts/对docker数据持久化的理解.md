@@ -44,7 +44,7 @@ volumes:
     project-data:
 ```
 
-# 注意事项
+# 总结
 
 {% note info %}
 - 只有`volume`可以做到数据持久化，`image`内的数据是无法被更改的
