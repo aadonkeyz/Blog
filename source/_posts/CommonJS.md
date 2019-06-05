@@ -178,9 +178,9 @@ moduleA.show()                  // count is: 1
 
 通过`change()`函数同时改变了`count`和`obj.num`的值。在a.js文件中，`count`和`obj.num`的值均变为`1`，而在b.js文件中`moduleA.count`的值还是为0没有变化，`moduleA.obj.num`的值则变为`1`。如果你没看懂，你可能需要[**看这里**](https://aadonkeyz.com/posts/9b1cd8c7/#复制变量值)。
 
-# 模块循环引用
+# 模块循环require()
 
-在CommonJs中如果出现某个模块被“循环加载”，只会输出已经执行的部分，还未执行的部分不会输出。下面贴出[官方文档里面的例子](https://nodejs.org/api/modules.html#modules_cycles)。
+在CommonJs中如果出现模块“循环`require()`”，只会输出已经执行的部分，还未执行的部分不会输出。下面贴出[官方文档里面的例子](https://nodejs.org/api/modules.html#modules_cycles)。
 
 ```js
 // a.js
@@ -228,3 +228,7 @@ in a, b.done = true
 a done
 in main, a.done = true, b.done = true
 ```
+
+{% note info %}
+When `main.js` loads `a.js`, then `a.js` in turn loads `b.js`. At that point, `b.js` tries to load `a.js`. In order to prevent an infinite loop, an **unfinished copy** of the `a.js` exports object is returned to the `b.js` module. `b.js` then finishes loading, and its exports object is provided to the `a.js` module.
+{% endnote %}
