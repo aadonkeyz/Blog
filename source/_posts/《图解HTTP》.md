@@ -1,9 +1,11 @@
 ---
 title: 《图解HTTP》
 categories:
-    - 计算机网络
+  - 计算机网络
 abbrlink: 62d10724
+date: 2019-06-09 12:21:05
 ---
+
 
 # 网络基础
 
@@ -19,7 +21,7 @@ TCP/IP协议族里最重要的一点就是分层，其按层次分为四层：
 - **链路层**：用来处理连接网络的硬件部分。包括控制操作系统、硬件的设备驱动、NIC，及光纤等物理可见部分
 {% endnote %}
 
-![TCP/IP通信传输流]()
+![TCP/IP通信传输流](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/TCP%3AIP%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%B5%81.png)
 
 利用TCP/IP协议族进行网络通信时，会通过分层顺序与对方进行通信。发送端从应用层往下走，接收端则从链路层往上走。
 
@@ -42,7 +44,7 @@ IP地址可以和MAC地址进行配对。IP地址可变换，但MAC地址基本�
 
 IP间的通信依赖于MAC地址。在网络上，通信的双方在统一局域网（LAN）内的情况是很少的，通常是经过多台计算机和网络设备中专才能连接到对方。而在进行中转时，会利用下一站中转设备的MAC地址来所搜下一个中转目标。这时，会采用ARP协议。ARP是一种用以解析地址的协议，根据通信方的IP地址就可以反查出对应的MAC地址
 
-![IP间通信]()
+![IP间通信](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/IP%E9%97%B4%E9%80%9A%E4%BF%A1.png)
 
 ## 确保可靠性的TCP协议
 
@@ -56,7 +58,7 @@ IP间的通信依赖于MAC地址。在网络上，通信的双方在统一局域
 
 若在握手过程中某个阶段莫名中断，TCP协议会再次以相同的顺序发送相同的数据包
 
-![TCP三次握手]()
+![TCP三次握手](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png)
 
 ## HTTP持久连接
 
@@ -70,11 +72,11 @@ HTTP协议的初始版本中，每进行一次HTTP通信就要断开一次TCP连
 
 DNS服务是和HTTP协议一样位于应用层的协议，它提供域名到IP地址之间的解析服务。
 
-![DNS服务]()
+![DNS服务](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/DNS%E6%9C%8D%E5%8A%A1.png)
 
 ## 各种协议与HTTP协议的关系
 
-![各种协议与HTTP协议的关系]()
+![各种协议与HTTP协议的关系](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/%E5%90%84%E7%A7%8D%E5%8D%8F%E8%AE%AE%E4%B8%8EHTTP%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%85%B3%E7%B3%BB.png)
 
 ## URI和URL
 
@@ -101,9 +103,9 @@ HTTP报文大致可分为报文首部和报文主体两块。两者由最初出�
 
 我们来看一下请求报文和响应报文的结构和实例
 
-![请求报文和响应报文的结构]()
-![请求报文实例]()
-![响应报文实例]()
+![请求报文和响应报文的结构](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%E5%92%8C%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E7%9A%84%E7%BB%93%E6%9E%84.png)
+![请求报文实例](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%E5%AE%9E%E4%BE%8B.png)
+![响应报文实例](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E5%AE%9E%E4%BE%8B.png)
 
 HTTP在传输数据时可以按照数据原貌直接传输，但也可以在传输过程中通过编码提升传输速率。通过在传输时编码，能有效地处理大量的访问请求。但是编码的操作需要计算机来完成，因此会消耗更多的CPU资源。
 
@@ -118,11 +120,11 @@ HTTP在传输数据时可以按照数据原貌直接传输，但也可以在传�
 - **identity（不进行编码）**
 {% endnote %}
 
-![内容压缩]()
+![内容压缩](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/%E5%86%85%E5%AE%B9%E5%8E%8B%E7%BC%A9.png)
 
 在HTTP通信过程中，请求的编码实体资源尚未全部传输完成之前，浏览器无法显示请求页面。在传输大容量数据时，通过把数据分割成多块，能够让浏览器逐步显示页面。这种把实体主体分块的功能称为**分块传输编码**
 
-![分块传输编码]()
+![分块传输编码](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BC%96%E7%A0%81.png)
 
 分块传输编码会将实体主体分成多个块，每一块都会用十六进制来标记块的大小，而实体主体的最后一块会使用`0(CR+LF)`来标记。
 
@@ -154,11 +156,11 @@ sequence
 
 # HTTP方法
 
-![HTTP方法]()
+![HTTP方法](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/HTTP%E6%96%B9%E6%B3%95.png)
 
 # HTTP状态码
 
-![状态码类别]()
+![状态码类别](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/%E7%8A%B6%E6%80%81%E7%A0%81%E7%B1%BB%E5%88%AB.png)
 
 {% note info %}
 - **200 OK**：从客户端发来的请求在服务器端被正常处理了
@@ -182,3 +184,55 @@ sequence
 - **500 Internal Server Error**：服务器端在执行请求时发生了错误。也有可能时Web应用存在的bug或某些临时故障
 - **503 Service Unavailable**：服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。如果事先得知解除以上状况需要的时间，最好写入`RetryAfter`首部字段再返回给客户端
 {% endnote %}
+
+# 与HTTP协作的Web服务器
+
+## 用单台虚拟主机实现多个域名
+
+HTTP/1.1规范允许一台HTTP服务器搭建多个Web站点，即使物理层面只有一台服务器，但只要使用虚拟主机功能，则可以假想已有多台服务器。
+
+在相同IP地址下，由于虚拟主机可以寄存多个不同主机名和域名的Web网站，因此在发送HTTP请求时，必须在`Host`首部内完整指定主机名或域名的URI
+
+## 通信数据转发程序
+
+{% note info %}
+- **代理**：代理是一种有转发功能的应用程序，它扮演了位于服务器和客户端“中间人”的角色，接收由客户端发送的请求并转发给服务器，同时也接收服务器返回的响应并转发给客户端
+- **网关**：网关是转发其他服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的源服务器一样对请求进行处理。有时客户端可能都不会察觉自己的通信目标是一个网关
+- **隧道**：隧道是在客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序
+{% endnote %}
+
+### 代理
+
+代理服务器的基本行为就是接收客户端发送的请求后转发给其他服务器。代理不改变请求URI，会直接发送给前方持有资源的目标服务。持有资源实体的服务器被称为源服务器，从源服务器返回的响应经过代理服务器后再传给客户端。
+
+每次通过代理服务器转发请求或响应时，会追加写入`Via`首部信息
+
+![代理](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/%E4%BB%A3%E7%90%86.png)
+
+{% note info %}
+使用代理服务器的理由有：
+- 利用缓存技术减少网络带宽的流量
+- 组织内部针对特定网站的访问控制
+- 获取访问日志
+
+---
+代理有多种使用方法，按两种基准分类。一种是是否使用缓存，另一种是是否会修改报文
+- **缓存代理**：代理转发响应时，缓存代理会预先将资源的副本保存在代理服务器上。当代理再次接收到对相同资源的请求时，就可以不从源服务器那里获取资源，而是将之前缓存的资源作为响应返回
+- **透明代理**：转发请求或响应时，不对报文做任何加工的代理类型被称为透明代理。反之，对报文内容进行加工的代理被称为非透明代理
+{% endnote %}
+
+### 网关
+
+网关的工作机制和代理十分相似，而网关能使通信线路上的服务器提供非HTTP协议服务
+
+![网关](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/%E7%BD%91%E5%85%B3.png)
+
+利用网关能提高通信的安全性，因为可以在客户端与网关之间的通信线路上加密以确保连接的安全。比如，网关可以连接数据库，使用SQL语句查询数据。另外，在 Web 购物网站上进行信用卡结算时，网关可以和信用卡结算系统联动
+
+### 隧道
+
+隧道可按要求建立起一条与其他服务器的通信线路，届时使用SSL等加密手段进行通信。隧道的目的是确保客户端能与服务器进行安全的通信。
+
+隧道本身不会去解析HTTP请求，也就是说，请求保持原样中转给之后的服务器。隧道会在通信双方断开连接时结束。
+
+![隧道](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/%E9%9A%A7%E9%81%93.png)
