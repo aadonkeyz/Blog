@@ -292,7 +292,11 @@ function getElementTop (element) {
 
 ### getBoundingClientRect( )方法
 
-通过`Element.getBoundingClientRect()`的形式调用该方法，会返回一个对象用于指示目标元素的位置信息和大小信息，该对象包含`top`、`right`、`bottom`、`left`、`width`、`height`、`x`和`y`。其中不同浏览器对`width`、`height`、`x`和`y`属性的支持程度不一样。
+通过`Element.getBoundingClientRect()`的形式调用该方法，会返回一个对象，用于指示目标元素在页面中相对于视口的位置信息和目标元素的大小信息，该对象包含`top`、`right`、`bottom`、`left`、`width`、`height`、`x`和`y`。其中不同浏览器对`width`、`height`、`x`和`y`属性的支持程度不一样。
+
+{% note warning %}
+**当计算边界矩形时，会考虑视口区域（或其他可滚动元素）内的滚动操作，也就是说，当滚动位置发生了改变，`top`和`left`属性值就会立即随之发生改变（因此，它们的值是相对于视口的，而不是绝对的）。如果你需要获得相对于整个网页左上角定位的属性值，那么只要给`top`和`left`属性值加上当前的滚动位置（通过`window.scrollX`和`window.scrollY`），这样就可以获取与当前的滚动位置无关的值**
+{% endnote %}
 
 ![12-4元素大小](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8AJavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B/12-4%E5%85%83%E7%B4%A0%E5%A4%A7%E5%B0%8F.png)
 
@@ -386,7 +390,7 @@ NodeIterator类型的两个主要方法是`nextNode()`和`previousNode()`，这�
     </head>
     <body>
         <div id="myDiv">
-            <p><b>Hello</b>world!</p>
+            <p><b>Hello</b> world!</p>
             <ul>
                 <li>List item 1</li>
                 <li>List item 2</li>
@@ -396,7 +400,7 @@ NodeIterator类型的两个主要方法是`nextNode()`和`previousNode()`，这�
         <script type="text/javascript">
             var div = document.getElementById('myDiv')
 
-            var iterator = document.createNodeIterator(div, NodeFilter.SHOW_ELEMENT, null)
+            var iterator = document.createNodeIterator(div, NodeFilter.SHOW_ALL, null)
 
             var currentNode = iterator.nextNode()
             while (currentNode !== null) {
