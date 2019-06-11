@@ -56,12 +56,12 @@ DOM的核心对象是`window`，它表示浏览器的一个实例。在浏览器
 ## 窗口属性
 
 {% note info %}
-- `screenLeft`
-- `screenTop`
-- `innerWidth`
-- `innerHeight`
-- `outerWidth`
-- `outerHeight`
+- `screenLeft`：窗口相对于视口左边的距离
+- `screenTop`：窗口相对于视口上边的距离
+- `innerWidth`：视口宽度
+- `innerHeight`：视口高度
+- `outerWidth`：浏览器宽度
+- `outerHeight`：浏览器高度
 {% endnote %}
 
 ## 窗口方法
