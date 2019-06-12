@@ -33,7 +33,38 @@ date: 2019-05-13 16:06:51
 
 ## border-radius
 
-...未完待续
+`border-radius`允许你设置元素的外边框圆角。当使用一个半径时确定一个圆形，当使用两个半径时确定一个椭圆
+
+![border-radius](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/border-radius.png)
+
+该属性是一个简写属性，是为了将`border-top-left-radius`、`border-top-right-radius`、`border-bottom-right-radius`和`border-bottom-left-radius`简写为一个属性
+
+`border-radius`在设置椭圆形时，使用（`/`）分隔水平半轴和垂直半轴
+
+```css
+border-radius: 1em / 5em;
+/* 等价于： */
+border-top-left-radius:     1em 5em;
+border-top-right-radius:    1em 5em;
+border-bottom-right-radius: 1em 5em;
+border-bottom-left-radius:  1em 5em;
+
+/* ================================ */
+
+border-radius: 4px 3px 6px / 2px 4px;
+/* 等价于： */
+border-top-left-radius:     4px 2px;
+border-top-right-radius:    3px 4px;
+border-bottom-right-radius: 6px 2px;
+border-bottom-left-radius:  3px 4px;
+```
+
+![border-radius1](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/border-radius1.png)
+![border-radius2](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/border-radius2.png)
+![border-radius3](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/border-radius3.png)
+![border-radius4](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/border-radius4.png)
+![border-radius5](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/border-radius5.png)
+![border-radius6](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/border-radius6.png)
 
 ## 盒阴影
 
@@ -262,7 +293,7 @@ p#specialpara {
 
 ![固定定位2](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E5%9B%BA%E5%AE%9A%E5%AE%9A%E4%BD%8D2.png)
 
-# Flexbox
+# 弹性布局
 
 Flexbox是一种布局方式，我们称之为弹性布局。设置了`display: flex`的元素被称为容器（flex container），而它的子元素则称之为项目（flex item）。对于容器和项目，它们各自有着不同的CSS属性。
 
@@ -338,6 +369,26 @@ Flexbox中有两根轴：主轴和交叉轴。这两个轴代表什么取决容�
 ### align-self
 
 `align-self`属性允许单个项目有与其他项目不一样的对其方式。可覆盖容器的`align-items`属性。
+
+# 多列布局
+
+CSS多列布局扩展块布局模式，以便更容易地定义多列文本
+
+{% note warning %}
+根据定义来看多列布局是为了定义文本的布局方式的，但实际上多列布局也可以应用于其他类型的元素上。看下面的例子，多列布局竟然能将元素以这种方式截断！
+{% endnote %}
+
+![多列布局应用于其他类型元素](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E5%B8%83%E5%B1%80/%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%BA%94%E7%94%A8%E4%BA%8E%E5%85%B6%E4%BB%96%E7%B1%BB%E5%9E%8B%E5%85%83%E7%B4%A0.png)
+
+{% note info %}
+术业有专攻，还是将多列布局用于文本布局吧
+- `column-count`：设置列数
+- `column-width`：设置期望最小列宽
+- `column-gap`：设置列之间的缝隙大小
+
+---
+CSS3多列规范需要列高平衡：即浏览器自动设置最大列高，因此每列中的内容高度大致相同。除此之外，也允许通过`height`或`max-height`属性来限制列高，在生成新的一列之前每一列都会仅允许增加到这个高度
+{% endnote %}
 
 # display属性
 
