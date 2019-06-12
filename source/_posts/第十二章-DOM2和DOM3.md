@@ -101,14 +101,21 @@ div.style.height = '20px'
 
 虽然`style`对象能够提供支持style特性的任何元素的样式信息，但它不包含那些从其他样式表层叠而来并影响到当前元素的样式信息。
 
-“DOM2级样式”增强了`document.defaultView`，提供了`getComputedStyle()`方法。这个方法接收两个参数：要取得计算样式的元素和一个伪元素字符串（例如`":after"`）。如果不需要伪元素信息，第二个参数可以是`null`。`getComputedStyle()`方法返回一个CSSStyleDeclaration对象，其中包含当前元素的所有计算的样式。**需要注意的是，所有计算的样式都是只读的！**
+“DOM2级样式”增强了`document.defaultView`，提供了`getComputedStyle()`方法。这个方法接收两个参数：要取得计算样式的元素和一个伪元素字符串（例如`":after"`）。如果不需要伪元素信息，第二个参数可以是`null`。`getComputedStyle()`方法返回一个CSSStyleDeclaration对象，其中包含当前元素的所有计算的样式
+
+{% note info %}
+- `window.getComputedStyle`等价于`document.defaultView.getComputedStyle`
+- 所有计算的样式都是只读的，试图修改会抛出错误
+{% endnote %}
 
 ```js
 var div = document.getElementById('myDiv')
 
-var computedStyle = document.defaultView.getComputedStyle(div, null)
+var computedStyle1 = document.defaultView.getComputedStyle(div, null)
+var computedStyle2 = getComputedStyle(div, null)
 
-console.log(computedStyle.width)    // 1518px
+console.log(JSON.stringify(computedStyle1) === JSON.stringify(computedStyle2)) // true
+console.log(computedStyle1.width)    // 10px
 ```
 
 ## 操作样式表
