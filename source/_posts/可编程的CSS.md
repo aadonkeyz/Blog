@@ -74,8 +74,7 @@ height: calc(var(--custom-height) * 1.5);
 # 通过JavaScript访问自定义属性
 
 {% note info %}
-- 可以通过`getComputedStyle()`来访问在CSS中定义的变量
-- 只有使用`getPropertyValue()`才能访问到CSS中定义的变量
+- 可以通过`getComputedStyle().getPropertyValue()`来访问在CSS中定义的变量
 - 变量是可继承的
 - 不允许修改变量值，否则会抛出错误
 {% endnote %}
@@ -91,7 +90,6 @@ height: calc(var(--custom-height) * 1.5);
                 --first-color: red;
                 --second-color: white;
             }
-
 
             #myDiv {
                 --first-color: green;
