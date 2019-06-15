@@ -219,3 +219,7 @@ div {
 ```
 
 ![radial-gradient](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/HTML%26CSS/CSS%E8%83%8C%E6%99%AF/radial-gradient.png)
+
+## 重复渐变
+
+规则相同，就是在前面加上`repeating-`前缀
