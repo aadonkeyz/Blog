@@ -58,19 +58,20 @@ document.body.appendChild(newNode)
 
 ### 行内样式
 
-任何支持style特性的HTML元素在JavaScript中都有一个对应的`style`属性，其中保存着CSSStyleDeclaration的实例对象。**该对象包含通过HTML的style特性指定的所有样式信息，但不包含与外部样式表或嵌入样式表经层叠而来的样式。**在style特性中指定的任何CSS属性都将表现为`style`对象的相应属性。对于使用短划线的CSS属性名，必须将其转换成驼峰大小写形式，才能通过JavaScript来访问。
+任何支持style特性的HTML元素在JavaScript中都有一个对应的`style`属性，其中保存着CSSStyleDeclaration的实例对象。**该对象包含通过HTML的style特性指定的所有样式信息，但不包含与外部样式表或嵌入样式表经层叠而来的样式。**在style特性中指定的任何CSS属性都将表现为`style`对象的相应属性。**对于使用短划线的CSS属性名，必须将其转换成驼峰大小写形式，才能通过JavaScript来访问。**
 
 多数情况下，都可以通过简单地转换属性名的格式来实现转换。其中一个不能直接转换的CSS属性就是`float`。由于`float`是JavaScript的保留字，因此不能用于属性名。“DOM2级”规范规定样式对象上相应的属性名应该是`cssFloat`；Firefox、Safari、Opera和Chrome都支持这个属性，而IE支持的则是`styleFloat`。
 
 请看下面的例子：
 
 ```html
-<div id="myDiv" style="width: 10px"></div>
+<div id="myDiv" style="width: 10px; font-size: 1px;"></div>
 ```
 ```js
 var div = document.getElementById('myDiv')
 
 console.log(div.style.width)    // 10px
+console.log(div.style.fontSize) // 1px
 
 div.style.height = '20px'
 ```

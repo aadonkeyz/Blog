@@ -108,3 +108,15 @@ html5的mainfest
 9、不要使用第三方插件
 10、请使用ES5语法
 
+---
+假设你只有100MB的内存，需要对1GB的数据进行排序，最合适的算法
+归并（小婊砸就是你）、快速、希尔、计数
+
+---
+在tcp/ip协议簇中，ip协议属于网络层的无连接协议
+
+---
+cookie和localstorage可以实现浏览器内多个页签之间的通讯
+
+---
+Cache-Control、Etag、If-Modified-Since可以实现请求的缓存
