@@ -120,3 +120,9 @@ cookie和localstorage可以实现浏览器内多个页签之间的通讯
 
 ---
 Cache-Control、Etag、If-Modified-Since可以实现请求的缓存
+
+---
+flash和js通过ExternalInterface交互
+
+---
+使用window.name来进行跨域
