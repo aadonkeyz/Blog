@@ -88,23 +88,23 @@ DOM的核心对象是`window`，它表示浏览器的一个实例。在浏览器
 `location`对象提供了与当前窗口中加载的文档有关的信息和一些导航功能，它既是`window`对象的属性，也是`document`对象的属性，所以`window.location === document.location`
 
 {% note info %}
-- `href`
-- `protocol`
-- `host`
-- `hostname`
-- `port`
-- `pathname`
-- `search`
-- `hash`
-- `username`
-- `password`
-- `origin`（只读属性）
+- `href`：保存当前的完整URL。如果改变该属性，页面会根据新的URL进行导航。需要注意的是，`location.href = 'aadonkeyz.com'`和`location.href = 'https://aadonkeyz.com'`的结果是不同的，前者用`'aadonkeyz.com'`替换当前URL最后的路径片段（即最后一个`/`后的内容），而后者会将页面导航至**https://aadonkeyz.com**。
+- `protocol`：保存URL中的协议，包括`:`。如`https:`、`http:`。
+- `host`：保存URL中的域名和端口。如`localhost:4000`、`aadonkeyz.com`。
+- `hostname`：保存URL中的域名。
+- `port`：保存URL中的端口。如果没有URL中没有端口号，保存空字符串。
+- `pathname`：保存URL中包含`/`在内的路径信息，如`/en-US/docs/Web/API/Location`。
+- `search`：保存URL中包含`?`在内的查询参数信息。如`?id=1&num=2`。
+- `hash`：保存URL中包含`#`在内的片段信息。如`#location`。
+- `username`：保存URL中的用户名。
+- `password`：保存URL中的密码。
+- `origin`（只读属性）：保存URL中的源信息，即`protoclo://domain:port`。
 
 ---
-- `assign(url)`
-- `reload()`
-- `replace(url)`
-- `toString()`
+- `assign(url)`：跟直接修改`href`属性值效果一摸一样。
+- `reload()`：顾名思义。
+- `replace(url)`：与`assign()`唯一的不同在于，导航到新的URL后，不会在`history`对象中留下记录。
+- `toString()`：返回当前的完整URL。
 {% endnote %}
 
 # navigator
@@ -117,4 +117,39 @@ DOM的核心对象是`window`，它表示浏览器的一个实例。在浏览器
 
 # history
 
-`history`对象保存着用户上网的历史记录，从窗口被打开的那一刻算起
+`history`对象保存着用户上网的历史记录，从窗口被打开的那一刻算起。因为`history`是`window`对象的属性，因此每个浏览器窗口、每个标签页乃至每个框架，都有自己的`history`对象与特定的`window`对象关联。出于安全方面的考虑，开发人员无法得知用户浏览过的URL。不过，借由用户访问过的页面列表，同样可以在不知道实际URL的情况下实现后退和前进。
+
+使用`go()`方法可以在用户的历史记录中任意跳转，可以向后也可以向前。这个方法接收一个参数，表示向后或向前跳转的页面数的一个整数值。负数表示向后跳转，正数表示向前跳转。
+
+```js
+// 后退一页
+history.go(-1)
+
+// 前进一页
+history.go(1)
+
+// 前进两页
+history.go(2)
+```
+
+也可以给`go()`方法传递一个字符串参数，此时浏览器会跳转到历史记录中包含该字符串的第一个位置————可能后退，也可能前进。如果历史记录中不包含该字符串，那么这个方法什么也不做，例如：
+
+```js
+// 跳转到最近的wrox.com页面
+history.go('wrox.com')
+
+// 跳转到最近的nczonline.com页面
+history.go('nczonline.com')
+```
+
+另外，还可以使用两个简写方法`back()`和`forward()`来代替`go()`。
+
+```js
+// 后退一页
+history.back()
+
+// 前进一页
+history.forward()
+```
+
+除了上述几个方法外，`history`对象还有一个`length`属性，保存着历史记录的数量。这个数量包括所有历史记录，即所有向后和向前的记录。对于加载到窗口、标签页或框架中的第一个页面而言，`history.length`等于`0`。
