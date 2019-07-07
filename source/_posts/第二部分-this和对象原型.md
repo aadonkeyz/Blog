@@ -158,10 +158,8 @@ if (!Function.prototype.bind) {
                     aArgs.concat(Array.prototype.slice.call(arguments)))
             }
 
-        // 维护原型关系
-        // fNOP的存在我觉得是多余的，但是MDN上是这么写的，具体原因我没有深究
+        // 考虑到可能使用new，所以是要继承原型链
         if (this.prototype) {
-            // Function.prototype doesn't have a prototype property
             fNOP.prototype = this.prototype
         }
         fBound.prototype = new fNOP()
@@ -245,7 +243,7 @@ setTimeout(obj2.foo, 10)    // obj
 
 ## this词法
 
-ES6的箭头函数并不使用`function`关键字定义，而是使用被称为“胖箭头”的操作符 `=>` 定义的。箭头函数不使用`this`的四种标准规则，而是根据外层（函数或者全局）作用域来决定`this`。
+ES6的箭头函数并不使用`function`关键字定义，而是使用被称为“胖箭头”的操作符 `=>` 定义的。箭头函数不使用`this`的四种标准规则，而是根据词法作用域来决定`this`。
 
 ```js
 function foo () {

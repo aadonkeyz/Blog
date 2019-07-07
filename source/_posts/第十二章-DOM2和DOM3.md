@@ -279,8 +279,10 @@ function getElementTop (element) {
 
 {% note info %}
 元素的客户区大小，指的是元素内容及其内边距所占据的空间大小。有关客户区大小的属性有两个：
-- **clientWidth**：元素内容区宽度加上左右内边距宽度；
+- **clientWidth**：元素内容区宽度加上左右内边距宽度。
 - **clientHeight**：元素内容区高度加上上下内边距高度。
+- **clientLeft**：元素左边框的厚度。
+- **clientTop**：元素上边框的厚度。
 {% endnote %}
 
 ![12-2客户区大小](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8AJavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B/12-2%E5%AE%A2%E6%88%B7%E5%8C%BA%E5%A4%A7%E5%B0%8F.png)
