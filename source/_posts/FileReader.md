@@ -2,7 +2,7 @@
 title: FileReader
 categories:
     - JavaScript
-    - 个人总结
+    - 杂七杂八
 abbrlink: a475d371
 date: 2019-06-23 08:26:04
 ---

@@ -830,7 +830,7 @@ function run (taskDef) {
         // 如果还有更多要做的
         if (!result.done) {
 
-            // 决议一个Promise，让人物处理变简单
+            // 决议一个Promise，让任务处理变简单
             let promise = Promise.resolve(result.value)
             promise.then(function (value) {
                 result = task.next(value)

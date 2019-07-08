@@ -309,7 +309,9 @@ JSONP由两部分组成：回调函数和数据。回调函数是当响应到来
 http://aadonkeyz.com/example.js?callback=handleResponse
 ```
 
-JSONP的原理很简单，它是通过动态`<script>`元素来使用的，通过下面的例子进行介绍：
+JSONP的原理很简单，它是通过动态`<script>`元素来发送请求的，就像加载外部js脚本一样，我们可以将返回的JSONP当作是js脚本中的内容。
+
+请看下面的例子：
 
 ```js
 function handleResponse(response) {
@@ -325,7 +327,7 @@ document.body.insertBefore(script, document.body.firstChild)
 这个例子的执行顺序为：
 1. 浏览器通过`<script>`标签发送请求；
 2. 服务器收到请求后，发现这个是JSONP的请求，根据请求的`callback`查询字段获取回调函数的名称，然后准备要返回的JSON数据，最后以JSONP的格式结合回调函数名称和JSON数据；
-3. 浏览器接收到JSONP的响应，进行函数调用，即`handleResponse({ "name": "Nicholas" })`。
+3. 浏览器接收到JSONP的响应，开始执行JSONP代表的代码，即`handleResponse({ "name": "Nicholas" })`。
 {% endnote %}
 
 与图像Ping相比，JSONP非常简单易用并且能够直接访问响应文本，支持在浏览器与服务器之间双向通信。不过它也有自己的缺点：
