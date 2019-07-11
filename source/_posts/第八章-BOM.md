@@ -117,39 +117,29 @@ DOM的核心对象是`window`，它表示浏览器的一个实例。在浏览器
 
 # history
 
-`history`对象保存着用户上网的历史记录，从窗口被打开的那一刻算起。因为`history`是`window`对象的属性，因此每个浏览器窗口、每个标签页乃至每个框架，都有自己的`history`对象与特定的`window`对象关联。出于安全方面的考虑，开发人员无法得知用户浏览过的URL。不过，借由用户访问过的页面列表，同样可以在不知道实际URL的情况下实现后退和前进。
+`history`对象保存着从窗口被打开那一刻算起的用户上网历史记录，可以把它当作一个栈，前进方向是栈顶，后退方向则相反。因为`history`是`window`对象的属性，因此每个浏览器窗口、每个标签页乃至每个框架，都有自己的`history`对象与特定的`window`对象关联。出于安全方面的考虑，开发人员无法得知用户浏览过的URL。不过，借由用户访问过的页面列表，同样可以在不知道实际URL的情况下实现后退和前进。
 
-使用`go()`方法可以在用户的历史记录中任意跳转，可以向后也可以向前。这个方法接收一个参数，表示向后或向前跳转的页面数的一个整数值。负数表示向后跳转，正数表示向前跳转。
+{% note info %}
+1. `length`（只读）：保存着历史记录的数量。这个数量包括所有历史记录，即所有向后和向前的记录。对于加载到窗口、标签页或框架中的第一个页面而言，`history.length === 0`。
+2. `state`（只读）：返回一个能代表历史记录中最新记录的值。
 
-```js
-// 后退一页
-history.go(-1)
+---
+1. `go()`：该方法接受一个参数，这个参数可以是数值，也可以是字符串。如果是数值，则代表浏览器要前进/后退的页数（正数前进，负数后退）。如果是字符串，则代表浏览器要跳转到历史记录中包含该字符串的第一个位置（可能前进，也可能后退）。
+    - `history.go(m)`：前进m页。
+    - `history.go(-n)`：后退n页。
+    - `history.go('wrox.com')`：跳转到历史记录中第一个出现`wrox.com`的位置，如果没有，则什么也不做。
+2. `back()`：等价于`history.go(-1)`。
+3. `forward()`：等价于`history.go(1)`。
+4. `pushState(stateObject, title, URL)`：该方法会创建新的条目并添加到历史记录的栈顶，此时浏览器显示的URL会发生变化，但是浏览器并不会加载URL，甚至不会检查对应的URL是否存在。虽然调用该方法的时候没有加载这个URL，但是在以后如果通过前进或后退再次浏览到该记录时，浏览器会加载这个记录对应的URL。
+    - `stateObject`：这个参数是一个JavaScript对象，它会成为用`pushState()`创建的新条目的状态对象。当用户导航到新创建的状态时，会触发popstate事件，并且此时的`history.state`是对应条目的状态对象的一个拷贝。
+    - `title`：Firefox目前忽略这个参数，但未来可能会用到。在此处传一个空字符串应该可以安全的防范未来这个方法的更改。或者，你可以为跳转的状态传递一个短标题。
+    - `URL`：该参数定义了新的历史URL记录。注意，调用`pushState()`后浏览器并不会立即加载这个URL，但可能会在稍后某些情况下加载这个URL，比如在用户重新打开浏览器时。新URL不必须为绝对路径。如果新URL是相对路径，那么它将被作为相对于当前URL处理。新URL必须与当前URL同源，否则`pushState()`会抛出一个异常。该参数是可选的，缺省为当前URL。
+5. `repalceState(stateObject, title, URL)`：与`pushState()`类似，不过它是创建新的条目来替换栈顶的条目。
 
-// 前进一页
-history.go(1)
+[**`history.pushState()`和`history.replaceState()`的参考链接**](https://developer.mozilla.org/en-US/docs/Web/API/History_API)
 
-// 前进两页
-history.go(2)
-```
+---
+这里就不得不介绍一下popstate事件了，每当浏览器在历史记录中进行切换时（前进或后退），都会触发该事件。如果切换到的条目是由`history.pushState()`或`history.replaceState()`方法创建的，那么在事件处理程序中，`event.state`中保存着对应条目的状态对象。**调用`history.pSushtate()`或`history.replaceState()`方法不会触发popstate事件，只有浏览器在历史记录中进行切换时才会触发。**
 
-也可以给`go()`方法传递一个字符串参数，此时浏览器会跳转到历史记录中包含该字符串的第一个位置————可能后退，也可能前进。如果历史记录中不包含该字符串，那么这个方法什么也不做，例如：
-
-```js
-// 跳转到最近的wrox.com页面
-history.go('wrox.com')
-
-// 跳转到最近的nczonline.com页面
-history.go('nczonline.com')
-```
-
-另外，还可以使用两个简写方法`back()`和`forward()`来代替`go()`。
-
-```js
-// 后退一页
-history.back()
-
-// 前进一页
-history.forward()
-```
-
-除了上述几个方法外，`history`对象还有一个`length`属性，保存着历史记录的数量。这个数量包括所有历史记录，即所有向后和向前的记录。对于加载到窗口、标签页或框架中的第一个页面而言，`history.length`等于`0`。
+最后，在这里给上[**popstate事件的参考链接**](https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onpopstate)
+{% endnote %}
