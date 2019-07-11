@@ -130,7 +130,7 @@ DOM的核心对象是`window`，它表示浏览器的一个实例。在浏览器
     - `history.go('wrox.com')`：跳转到历史记录中第一个出现`wrox.com`的位置，如果没有，则什么也不做。
 2. `back()`：等价于`history.go(-1)`。
 3. `forward()`：等价于`history.go(1)`。
-4. `pushState(stateObject, title, URL)`：该方法会创建新的条目并添加到历史记录的栈顶，此时浏览器显示的URL会发生变化，但是浏览器并不会加载URL，甚至不会检查对应的URL是否存在。虽然调用该方法的时候没有加载这个URL，但是在以后如果通过前进或后退再次浏览到该记录时，浏览器会加载这个记录对应的URL。
+4. `pushState(stateObject, title, URL)`：该方法会创建新的条目并添加到历史记录的栈顶，此时浏览器会显示新的URL，但是并不会加载这个URL，甚至不会检查这个URL是否存在。虽然调用该方法的时候没有加载这个URL，但是在以后如果通过前进或后退再次浏览到该记录时，浏览器会加载这个记录对应的URL。
     - `stateObject`：这个参数是一个JavaScript对象，它会成为用`pushState()`创建的新条目的状态对象。当用户导航到新创建的状态时，会触发popstate事件，并且此时的`history.state`是对应条目的状态对象的一个拷贝。
     - `title`：Firefox目前忽略这个参数，但未来可能会用到。在此处传一个空字符串应该可以安全的防范未来这个方法的更改。或者，你可以为跳转的状态传递一个短标题。
     - `URL`：该参数定义了新的历史URL记录。注意，调用`pushState()`后浏览器并不会立即加载这个URL，但可能会在稍后某些情况下加载这个URL，比如在用户重新打开浏览器时。新URL不必须为绝对路径。如果新URL是相对路径，那么它将被作为相对于当前URL处理。新URL必须与当前URL同源，否则`pushState()`会抛出一个异常。该参数是可选的，缺省为当前URL。
@@ -139,7 +139,7 @@ DOM的核心对象是`window`，它表示浏览器的一个实例。在浏览器
 [**`history.pushState()`和`history.replaceState()`的参考链接**](https://developer.mozilla.org/en-US/docs/Web/API/History_API)
 
 ---
-这里就不得不介绍一下popstate事件了，每当浏览器在历史记录中进行切换时（前进或后退），都会触发该事件。如果切换到的条目是由`history.pushState()`或`history.replaceState()`方法创建的，那么在事件处理程序中，`event.state`中保存着对应条目的状态对象。**调用`history.pSushtate()`或`history.replaceState()`方法不会触发popstate事件，只有浏览器在历史记录中进行切换时才会触发。**
+这里就不得不介绍一下popstate事件了，每当浏览器在历史记录中进行切换时（前进或后退），都会触发该事件。如果切换到的条目是由`history.pushState()`或`history.replaceState()`方法创建的，那么在事件处理程序中，`event.state`中保存着对应条目的状态对象。**调用`history.pushState()`或`history.replaceState()`方法不会触发popstate事件，只有浏览器在历史记录中进行切换时才会触发。**
 
 最后，在这里给上[**popstate事件的参考链接**](https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onpopstate)
 {% endnote %}
