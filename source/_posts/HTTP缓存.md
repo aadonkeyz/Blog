@@ -4,7 +4,7 @@ abbrlink: 8837602f
 date: 2019-07-11 09:39:10
 categories:
     - 计算机网络
-    - 杂七杂八
+    - HTTP
 ---
 
 # 缓存的优点
@@ -79,13 +79,15 @@ HTTP/1.1定义的`Cache-Control`首部字段用来区分对缓存机制的支持
 ## Last-Modified
 
 {% note info %}
-`Last-Modified`属于响应首部字段，它包含的是对应资源的最后修改日期。
+- `Last-Modified`属于响应首部字段，它包含的是对应资源的最后修改日期。
+- 它的日期精确到秒。
 {% endnote %}
 
 ## Etag
 
 {% note info %}
 - `Etag`属于响应首部字段，它的值代表对应资源的独一无二的**实体标签**。
+- 由服务器自己确定`Etag`的值。
 {% endnote %}
 
 ## If-None-Match
@@ -103,5 +105,15 @@ HTTP/1.1定义的`Cache-Control`首部字段用来区分对缓存机制的支持
 
 人们管使用`Cache-Control`或者`Expires`字段的方式叫作**强缓存**，而使用`If-Modified-Since`或`If-None-Match`的方式叫作**协商缓存**。
 
-![缓存工作流程](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/HTTP%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png)
+![缓存工作流程](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png)
 
+{% note info %}
+1. **`Cache-Control`和`Expires`的比较。**
+    - `Cache-Control`的优先级高于`Expires`。
+    - 由于`Cache-Control`使用的是相对时间而不是绝对时间，并且`Expires`使用的绝对时间依赖于计算机时钟的正确设置，所以更倾向于使用`Cache-Control`。
+2. **相比于`Last-Modified`，`Etag`的优势。**
+    - 有的文档可能会被周期性地重写，但实际包含的数据常常是一样的。尽管内容没有变化，但是修改日期会发生变化。
+    - 有些文档可能被修改了，但所做修改并不重要，不需要重新缓存。
+    - 有些服务器无法精确地判定最后修改日期。
+    - 有些服务器提供的文档会以亚秒间隙发生变化，对这些服务器来说，以一秒为粒度的修改日期可能就不够用了。
+{% endnote %}

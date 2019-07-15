@@ -35,7 +35,7 @@ date: 2019-07-12 18:03:04
         - 如有需要，可以实现自己的更新接口，从而覆盖Observer的更新接口。
 {% endnote %}
 
-# 如何实现
+# 注意事项
 
 {% note info %}
 1. **创建目标到观察者之间的映射**：
@@ -61,3 +61,75 @@ date: 2019-07-12 18:03:04
 {% note warning %}
 **上述第8点，就是观察者模式和发布订阅模式的区别所在了。如果不使用ChangeManager则是观察者模式，使用ChangeManager的则是发布订阅模式。**
 {% endnote %}
+
+# 观察者模式demo
+
+下面是多个客户关注同一个房产中介，从房产中介获取房源信息的例子。
+
+```js
+class Subject {
+    constructor (name= '', stateArray = []) {
+        this.observers = []
+    }
+
+    attach (ob) {
+        this.observers.push(ob)
+        console.log(`${ob.name}开始关注${this.name}`)
+    }
+
+    detach (ob) {
+        this.observers.splice(this.observers.indexOf(ob), 1)
+        console.log(`${ob.name}取消关注${this.name}`)
+    }
+
+    notify (info) {
+        this.observers.forEach(item => {
+            item.update(info)
+        })
+    }
+}
+
+class HouseAgent extends Subject {
+    constructor (name) {
+        super()
+        this.name = name
+        this.houses = {}
+    }
+
+    addHouse ({name, price}) {
+        this.houses[name] = {name, price}
+        this.notify(`${this.name}新增${name}，价格${price}`)
+    }
+
+    deleteHouse (name) {
+        delete this.houses[name]
+        this.notify(`${this.name}下架${name}`)    }
+}
+
+class Observer {
+    constructor (name) {
+        this.name = name
+    }
+
+    update (info) {
+        console.log(`${this.name}知道了${info}`)
+    }
+}
+
+let agent = new HouseAgent('房屋中介'),
+    customer1 = new Observer('小明'),
+    customer2 = new Observer('小李');
+
+
+agent.attach(customer1)     // 小明开始关注房屋中介
+agent.attach(customer2)     // 小李开始关注房屋中介
+
+agent.addHouse({name: '房屋1', price: '100万'})  // 小明知道了房屋中介新增房屋1，价格100万
+                                                // 小李知道了房屋中介新增房屋1，价格100万
+
+agent.addHouse({name: '房屋2', price: '200万'})  // 小明知道了房屋中介新增房屋2，价格200万
+                                                // 小李知道了房屋中介新增房屋2，价格200万
+
+agent.deleteHouse('房屋1')   // 小明知道了房屋中介下架房屋1
+                            // 小李知道了房屋中介下架房屋1
+```
