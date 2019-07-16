@@ -7,6 +7,10 @@ categories:
     - HTTP
 ---
 
+{% note warning %}
+缓存的存放位置是浏览器，但是要区分开HTTP缓存和[客户端存储](https://aadonkeyz.com/posts/4fd0352/)（如cookie、localStorage等）的概念。
+{% endnote %}
+
 # 缓存的优点
 
 {%note info %}

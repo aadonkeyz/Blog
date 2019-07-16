@@ -43,7 +43,7 @@ let reader = new FileReader()
 
 ```html
 <input id="img-input" type="file" accept="image/*" style="display: none;" onchange="uploadImg()" />
-<label for="img-input">上传图片</label>
+<button><label for="img-input">上传图片</label></button>
 ```
 
 ```js
