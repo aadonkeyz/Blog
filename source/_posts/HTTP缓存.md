@@ -109,6 +109,12 @@ HTTP/1.1定义的`Cache-Control`首部字段用来区分对缓存机制的支持
 
 人们管使用`Cache-Control`或者`Expires`字段的方式叫作**强缓存**，而使用`If-Modified-Since`或`If-None-Match`的方式叫作**协商缓存**。
 
+{% note info %}
+1. 浏览器首先查看是否有缓存。
+2. 如果有缓存，接着检查是否命中强缓存（即缓存是否过期）。
+3. 如果缓存过期，则通过协商缓存来请求服务器，根据服务器返回的状态码进行不同的操作。
+{% endnote %}
+
 ![缓存工作流程](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png)
 
 {% note info %}
