@@ -24,15 +24,21 @@ DOM的核心对象是`window`，它表示浏览器的一个实例。在浏览器
 
 {% note info %}
 - 如果页面中包含框架，那么每个框架都有自己的`window`对象，且这些`window`对象都有一个包含框架名称的`name`属性。需要注意的是，除非最外层窗口是通过`window.open()`打开的，否则其`window`对象的`name`属性不会包含任何值
-- 每个`window`对象上都有一个`frames`属性，它是该框架所包含的子框架的集合，可以通过索引访问各个子框架
+- `name`属性有一个独特之处，一个窗口只要一直存在并且没有被主动的更改`name`属性，那么它的`name`属性会一直保持不变。即窗口的URL（或框架的`src`）随意变化，`name`属性也不会变。`name`属性内存最大可以支持2MB
+- 每个`window`对象上都有一个`frames`属性，它是该框架所包含的子框架的集合，可以通过索引或`name`访问各个子框架
 - `top`对象始终指向最外层框架，也就是浏览器窗口
 - `parent`对象始终指向当前框架的直接上层框架
 - 在没有框架的情况下，`top`等于`parent`等于`window`
 - `self`对象始终指向当前的`window`，引入`self`的目的只是为了与`top`和`parent`对应起来
 - 所有这些对象都是`window`对象的属性，所以也可以像这样使用`window.parent.parent.frames[0]`
+- `<iframe>`元素有个`contentWindow`属性，它是只读的。该属性返回对应框架内的`window`对象
 
 ---
 在使用框架的情况下，浏览器中会存在多个`Global`对象。在每个框架中定义的全局变量会自动成为框架中`window`对象的属性。由于每个`window`对象都包含原生类型的构造函数，因此每个框架都有一套自己的构造函数，这些构造函数一一对应，但并不相等。例如，`top.Object`并不等于`top.frames[0].Object`。这个问题会影响到对跨框架传递的对象使用`instanceof`操作符
+{% endnote %}
+
+{% note warning %}
+`<frameset>`和`<frame>`都已经被废弃了，目前推荐使用`<iframe>`。不过为了方便，下面使用的还是书中的例子，没有进行更改。
 {% endnote %}
 
 ```html
@@ -95,7 +101,7 @@ DOM的核心对象是`window`，它表示浏览器的一个实例。在浏览器
 - `port`：保存URL中的端口。如果没有URL中没有端口号，保存空字符串。
 - `pathname`：保存URL中包含`/`在内的路径信息，如`/en-US/docs/Web/API/Location`。
 - `search`：保存URL中包含`?`在内的查询参数信息。如`?id=1&num=2`。
-- `hash`：保存URL中包含`#`在内的片段信息。如`#location`。
+- `hash`：保存URL中包含`#`在内的片段信息。如`#location`。`hash`发生改变时，会触发`window`对象的`onhashchange`事件处理程序。
 - `username`：保存URL中的用户名。
 - `password`：保存URL中的密码。
 - `origin`（只读属性）：保存URL中的源信息，即`protoclo://domain:port`。

@@ -223,6 +223,8 @@ document.body.insertBefore(script, document.body.firstChild)
 
 其次，要确定JSONP请求是否失败并不容易。但是HTML5给`<script>`标签新增了一个`onerror`事件处理程序，现在来说这个应该不算缺点了吧......
 
+# 服务器推送技术
+
 ## Comte
 
 Comte是Alex Russell发明的一个词儿，指的是一种更高级的Ajax技术（经常也有人称为“服务器推送”）。**Ajax是一种从页面向服务器请求数据的技术，而Comte则是一种服务器向页面推送数据的技术。Comte能够让信息近乎实时地被推送到页面上。**
@@ -278,6 +280,10 @@ var client = createStreamingClient('http://demo.com', function (data) {
 ```
 
 ## SSE
+
+{% note warning %}
+**使用SSE可以跨域。**
+{% endnote %}
 
 SSE（Server-Sent Events，服务器发送事件）是围绕只读Comet交互推出的API。SSE API用于创建到服务器的单向连接，服务器通过这个连接可以发送任意数量的数据。服务器响应的MIME类型必须是`text/event-stream`，而且是浏览器中的JavaScript API能解析格式输出。SSE支持短轮询、长轮询和HTTP流，而且能在断开连接时自动确定何时重新连接。
 
@@ -346,9 +352,11 @@ Web Sockets的目标是在一个单独的持久连接上提供全双工、双向
 var socket = new WebSocket('ws://www.example.com/server.php')
 ```
 
-**注意，必须给`WebSocket`构造函数传入绝对URL。**同源策略对Web Sockets不适用，因此可以通过它打开到任何站点的连接。
-
-实例化了`WebSocket`对象后，浏览器就会马上尝试创建连接。
+{% note warning %}
+- 必须给`WebSocket`构造函数传入绝对URL。
+- 同源策略对Web Sockets不适用，因此可以通过它打开到任何站点的连接（不存在跨域问题）。
+- 实例化了`WebSocket`对象后，浏览器就会马上尝试创建连接。
+{% endnote %}
 
 {% note info %}
 与XHR类似，`WebSocket`也有一个表示当前状态的`readyState`属性。不过，这个属性的值与XHR并不相同，而是如下所示：

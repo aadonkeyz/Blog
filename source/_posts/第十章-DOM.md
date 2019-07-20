@@ -140,13 +140,14 @@ JavaScript通过Document类型表示文档。在浏览器中，`document`对象�
 - **URL**：该属性保存着页面完整的URL；
 - **domain**：该属性保存着页面的域名；
 - **referrer**：该属性保存着链接到当前页面的那个页面的URL。在没有来源页面的情况下，该属性值可能会包含空字符串。
+
+---
+**关于`domain`属性，如果当前`domain`的值为主域则不可以对它进行修改，否则会抛出错误。如果当前`domain`的值为子域，则可以将它修改为对应的主域。**
 {% endnote %}
 
-关于`domain`属性，可以修改这个属性，但是不允许将其值设置为URL不包含的域，否则会抛出错误。且如果域名一开始是“松散的”，那么不能将它再设置为“紧绷的”，否则会抛出错误。
-
 ```js
-document.domain = 'wrox.com'        // 松散的（成功）
-document.domain = 'p2p.wrox.com'    // 紧绷的（抛出错误！）
+document.domain = 'wrox.com'        // 成功
+document.domain = 'p2p.wrox.com'    // 抛出错误！
 ```
 
 ### 查找元素
