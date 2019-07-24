@@ -51,6 +51,12 @@ mathjax: true
 
 RSA算法就是一个满足了所有这些条件的流行的公开密钥加密系统，它的机密技术细节中包括很多繁琐的数学问题，这里就不进行详细介绍了（其实是我不懂）。
 
+## 混合加密系统和会话密钥
+
+任何人只要知道了其公开密钥，就可以向一台公共服务器发送安全报文，所以非对称密钥加密系统是很好用的。两个节点无须为了进行安全的通信而先交换私有密钥，但非对称密钥加密系统的计算可能会很慢。
+
+比较常见的做法是在两节点间通过便捷的公开密钥加密技术建立起安全通信，然后再用那条安全的通道产生并发送临时的随机对称密钥，通过更快的对称加密技术对其余的数据进行加密。
+
 ## 数字签名
 
 {% note info %}
@@ -86,8 +92,6 @@ HTTPS就是在安全的传输层上发送的HTTP。HTTPS没有将未加密的HTT
 
 ![HTTPS协议栈](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/HTTPS%E5%8D%8F%E8%AE%AE%E6%A0%88.png)
 
-# HTTPS方案
-
 现在，安全的HTTP是可选的。因此，对Web服务器发起请求时，我们需要有一种方式来告知Web服务器去执行HTTP的安全协议版本。这是在URL的方案中实现的。通常情况下，非安全的HTTP的UTL方案前缀为`http`。在安全HTTPS协议中，URL的方案前缀为`https`。
 
 {% note info %}
@@ -96,13 +100,24 @@ HTTPS就是在安全的传输层上发送的HTTP。HTTPS没有将未加密的HTT
 - 如果URL的方案为`https`，客户端就会打开一条到服务器端口443（默认情况下）的连接，然后与服务器“握手”，以二进制格式与服务器交换一些SSL安全参数，附上加密的HTTP命令。
 {% endnote %}
 
-# SSL握手与建立安全传输
+# 建立安全传输
 
 由于SSL安全层的存在，在HTTPS中，客户端首先打开一条到Web服务器端口443（安全HTTP的默认端口）的连接。一旦建立了TCP连接，客户端和服务器就会初始化SSL层，对加密参数进行沟通，并交换密钥。握手完成之后，SSL初始化就完成了，客户端就可以将请求报文发送给安全层了。在将这些报文发送给TCP之前，要先对其进行加密。
 
-![SSL握手](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/SSL%E6%8F%A1%E6%89%8B.png)
-
 ![HTTP和HTTPS事务](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/HTTP%E5%92%8CHTTPS%E4%BA%8B%E5%8A%A1.png)
+
+# SSL握手
+
+在发送已加密的HTTP报文之前，客户端和服务器需要进行一次SSL握手，在这个握手过程中，它们要完成以下工作：
+
+{% note info %}
+1. 交换协议版本号。
+2. 选择一个两端都了解的密码。
+3. 对两端的身份进行认证。
+4. 生成临时的会话密钥，以便加密信道。
+{% endnote %}
+
+![SSL握手](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/SSL%E6%8F%A1%E6%89%8B.png)
 
 # 服务器证书
 
