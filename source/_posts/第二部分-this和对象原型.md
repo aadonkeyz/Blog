@@ -128,7 +128,9 @@ console.log(bar.a)  // 2
 
 ## 优先级
 
-new > 显示 > 隐式 > 默认
+{% note info %}
+**new > 显示 > 隐式 > 默认**
+{% endnote %}
 
 ## bind的Polyfill
 
