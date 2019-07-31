@@ -172,12 +172,12 @@ Promise的执行器是立即执行的，会早于源代码中在其之后的任�
 此处有个例子：
 
 ```js
-let promise = new Promise(function(resolve, reject) {
+let promise = new Promise(function (resolve, reject) {
     console.log('Promise')
     resolve()
 })
 
-promise.then(function() {
+promise.then(function () {
     console.log('Resolved')
 })
 
