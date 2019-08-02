@@ -74,12 +74,13 @@ if (someNode.nodeType === 1) {
 
 {% note info %}
 文档中所有的节点之间都存在这样或那样的关系，节点间的各种关系可以用传统的家族关系来描述，相当于把文档树比喻成家谱。每个节点都有如下属性，用于记录彼此之间的关系：
-- **childNodes**：该属性可以看作一个保存着所有子节点的有序列表；
-- **firstChild**：指向`childNodes`列表的第一个节点，如果不存在，则为`null`；
-- **lastChild**：指向`childNodes`列表的最后一个节点，如果不存在，则为`null`；
-- **parentNode**：该属性指向文档中的父节点；
-- **previousSibling**：指向上一个同胞节点，如果不存在，则为`null`；
-- **nextSibling**：指向下一个同胞节点，如果不存在，则为`null`；
+- **childNodes**：该属性可以看作一个保存着所有子节点的有序列表。
+- **children**：该属性可以看作一个保存着所有子元素的有序列表，**它是非标准的，但是绝大多数浏览器都支持**。
+- **firstChild**：指向`childNodes`列表的第一个节点，如果不存在，则为`null`。
+- **lastChild**：指向`childNodes`列表的最后一个节点，如果不存在，则为`null`。
+- **parentNode**：该属性指向文档中的父节点。
+- **previousSibling**：指向上一个同胞节点，如果不存在，则为`null`。
+- **nextSibling**：指向下一个同胞节点，如果不存在，则为`null`。
 - **ownerDocument**：指向表示整个文档的文档节点。
 {% endnote %}
 
