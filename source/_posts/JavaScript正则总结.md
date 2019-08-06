@@ -46,3 +46,27 @@ date: 2019-07-29 20:48:35
 | `\w` | 匹配一个单子字符（字母、数字或者下划线）。等价于`[A-Za-z0-9_]`。 |
 | `\W` | 匹配一个非单子字符。等价于`[^A-Za-z0-9_]`。 |
 | `\number` | 正数代表第`number`个捕获组。<br>例如，`apple(,)\sorange\1`匹配`apple, orange, cherry`中的`apple, orange,`。 |
+
+# 贪婪/非贪婪匹配
+
+参考自[**【正则表达式系列】贪婪与非贪婪模式**](https://dailc.github.io/2017/07/06/regularExpressionGreedyAndLazy.html)
+
+{% note info %}
+- **贪婪匹配**
+    - **定义**：正则表达式去匹配时，会尽量多的匹配符合条件的内容。
+    - **元字符**：`+`、`?`、`*`、`{n}`、`{n,}`、`{n,m}`。
+- **非贪婪匹配**
+    - **定义**：正则表达式去匹配时，会尽量少的匹配符合条件的内容。
+    - **元字符**：`+?`、`??`、`*?`、`{n}?`、`{n,}?`、`{n,m}?`。
+{% endnote %}
+
+```js
+let str = 'aacbacbc',
+    greed = /a.*b/,
+    notGreed = /a.*?b/;
+
+console.log(str.match(greed)[0]);       // aacbacb
+console.log(str.match(notGreed)[0]);    // aacb
+```
+
+
