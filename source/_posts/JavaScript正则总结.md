@@ -53,20 +53,24 @@ date: 2019-07-29 20:48:35
 
 {% note info %}
 - **贪婪匹配**
-    - **定义**：正则表达式去匹配时，会尽量多的匹配符合条件的内容。
+    - **定义**：会尽量多的匹配符合条件的内容。
     - **元字符**：`+`、`?`、`*`、`{n}`、`{n,}`、`{n,m}`。
 - **非贪婪匹配**
-    - **定义**：正则表达式去匹配时，会尽量少的匹配符合条件的内容。
+    - **定义**：会尽量少的匹配符合条件的内容，一旦发现符合规则的内容就立刻终止匹配。
     - **元字符**：`+?`、`??`、`*?`、`{n}?`、`{n,}?`、`{n,m}?`。
 {% endnote %}
 
 ```js
-let str = 'aacbacbc',
-    greed = /a.*b/,
-    notGreed = /a.*?b/;
+let str = 'aacbacbc'
 
-console.log(str.match(greed)[0]);       // aacbacb
-console.log(str.match(notGreed)[0]);    // aacb
+console.log(str.match(/.*b/)[0])   // aacbacb
+console.log(str.match(/.*?b/)[0])  // aacb
+
+console.log(str.match(/.?b/)[0])   // cb
+console.log(str.match(/.??b/)[0])  // cb
+
+console.log(str.match(/.+b/)[0])   // aacbacb
+console.log(str.match(/.+?b/)[0])  // aacb
 ```
 
 
