@@ -221,7 +221,9 @@ promise.catch(function (value) {
 
 书中关于这部分的总结有点问题，所以自己证明并整理了如下内容：
 
+{% note warning %}
 **传递任何状态的的Promise给`Promise.resolve()`方法，都会将该Promise原样返回**。
+{% endnote %}
 
 ```js
 let promise1 = new Promise((resolve, reject) => {
@@ -249,7 +251,9 @@ let promise8 = Promise.resolve(promise7)
 console.log(promise7 === promise8)      // true
 ```
 
+{% note warning %}
 **传递任何状态的的Promise给`Promise.reject()`方法，都会将该Promise作为其`catch()`方法的参数**。
+{% endnote %}
 
 ```js
 let promise1 = new Promise((resolve, reject) => {
@@ -313,7 +317,9 @@ let thenable = {
 
 在Promise被引入ES6之前，许多库都使用了thenable，因此将thenable转换为正规Promise的能力就非常重要了，而`Promise.resolve()`或`Promise.reject()`正是完成此任务的最佳方法。
 
+{% note warning %}
 **一个比较有意思的现象是在将非Promise的thenable转换为Promise时，会导致其完成/拒绝处理函数被延后执行。**请看下例：
+{% endnote %}
 
 ```js
 let p1 = {
