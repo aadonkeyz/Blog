@@ -74,7 +74,7 @@ date: 2019-05-27 15:02:25
 - `author`：定义作者。
 - `description`：定义页面的描述信息。在你收藏一个页面时，描述信息就是来自于这里的。
 - `generator`：生成页面的软件的标识符。
-- `keywords`：用`,`分隔的关键词。
+- `keywords`：用`,`分隔的关键词。
 - `referrer`：控制所有从页面发出的 HTTP 请求的`Referer`首部字段。下面所述的**页面的源包含协议、域名和端口**。
     - `no-referrer`：不发送`Referer`首部字段。
     - `origin`：发送页面的源。
@@ -93,7 +93,7 @@ date: 2019-05-27 15:02:25
 - `googlebot`
 - `publisher`：定义网页发布者。
 - `robots`
-- `slurp`：
+- `slurp`
 - `viewport`：专门用于为移动端设备定义视口的大小。
     - `width`
     - `height`
