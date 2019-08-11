@@ -81,6 +81,15 @@ if (!Element.prototype.matchesSelector) {
 - **nextElementSibling**：指向后一个同辈元素；
 {% endnote %}
 
+```js
+var child = element.firstElementChild;
+
+while (child !== element.lastElementChild) {
+    console.log(child);
+    child = child.nextElementSibling;
+}
+```
+
 # HTML5
 
 ## 与类相关的扩充
