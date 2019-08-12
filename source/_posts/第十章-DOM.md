@@ -143,7 +143,7 @@ JavaScript通过Document类型表示文档。在浏览器中，`document`对象�
 - **referrer**：该属性保存着链接到当前页面的那个页面的URL。在没有来源页面的情况下，该属性值可能会包含空字符串。
 
 ---
-**关于`domain`属性，如果当前`domain`的值为主域则不可以对它进行修改，否则会抛出错误。如果当前`domain`的值为子域，则可以将它修改为对应的主域。**
+**关于`domain`属性，可以将低级域改为高级域，但是不能将高级域改为低级域。**
 {% endnote %}
 
 ```js
@@ -417,7 +417,11 @@ var div = document.createElement('<div id="myNewDiv" class="box"></div>')
 
 ### 查找元素的子节点
 
-如果想通过某个特定的标签名取得元素的子节点和后代节点该怎么办？实际上，元素也支持`getElementsByTagName()`方法。在通过元素调用这个方法时，除了搜索起点是当前元素之外，其他方面都跟通过`document`调用这个方法相同，因此结果只会返回当前元素的后代。
+{% note info %}
+- `getElementsByTagName()`
+- `querySelector()`
+- `querySelectorAll()`
+{% endnote %}
 
 ## Text类型
 
@@ -530,7 +534,24 @@ DOM1级描述了DocumentType对象的3个属性：
 var fragment = document.createDocumentFragment()
 ```
 
-文档片段继承了Node的所有方法，通常用于执行那些针对文档的DOM操作。如果将文档中的节点添加到文档片段中，就会从文档树中移除该节点，也不会从浏览器中再看到该节点。添加到文档片段中的新节点同样也不属于文档树。
+文档片段继承了Node的所有方法，通常用于执行那些针对文档的DOM操作。如果将文档中的节点添加到文档片段中，就会从文档树中移除该节点，也不会从浏览器中再看到该节点。添加到文档片段中的新节点同样也不属于文档树。可以通过`appendChild()`或`insertBefore()`将文档片段中的内容添加到文档中。在将文档片段作为参数传递给这两个方法时，实际上只会将文档片段的所有字节点添加到相应位置上，文档片段本身永远不会称为文档树的一部分。
+
+```html
+<ul id="myList"></ul>
+<style>
+    var fragment = document.createDocumentFragment();
+    var ul = document.getElementById('myList');
+    var li = null;
+
+    for (let i = 0; i < 3; i++) {
+        li = document.createElement('li');
+        li.appendChild(document.createTextNode('Item' + (i+1)));
+        fragment.appendChild(li);
+    }
+
+    ul.appendChild(fragment);
+</style>
+```
 
 ## Attr类型
 
