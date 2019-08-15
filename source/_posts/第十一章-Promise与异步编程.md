@@ -377,6 +377,16 @@ promise.catch(function (error) {
 **`抛出错误 == 拒绝Promise`**
 {% endnote %}
 
+## finially
+
+{% note info %}
+不同与`then()`和`catch()`，`finally()`是无论如何都会被调用的。它有如下特点：
+- `finally()`的回调函数不接受任何参数。
+- 返回调用它的那个 Promise 实例对象，请看下面两个示例。
+    - `Promise.resolve(2).finally(() => {})`将返回一个状态为 fulfilled、值为 2 的 Promise。
+    - `Promise.reject(3).then(() => {}, () => {})`将返回一个状态为 rejected、值为 3 的 Promise。
+{% endnote %}
+
 # 全局的Promise拒绝处理
 
 Promise最有争议的方面之一就是：当一个Promise被拒绝时若缺少拒绝处理函数，就会静默失败。有人认为这是规范中最大的缺陷，因为这是JS语言所有组成部分中唯一不让错误清晰可见的。
