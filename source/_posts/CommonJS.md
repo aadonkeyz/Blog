@@ -113,7 +113,7 @@ moduleA2.sayName()      // my name is a2.js
 
 CommonJS模块的重要特性是加载时执行，即模块文件内的代码会在被`require()`的时候，就会全部执行。当执行完成后，`module.exports`对象就代表着被加载的模块文件要导出的内容。
 
-{% note info %}
+{% note warning %}
 有两点需要注意：
 - `var moduleA = require('./a.js')`中的`moduleA`，是由a.js文件中的`module.exports`经过一次浅拷贝得到的；
 - 同一个模块文件，也许会被多次加载，但是只会执行一次。

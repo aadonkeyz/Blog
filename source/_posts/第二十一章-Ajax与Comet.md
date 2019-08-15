@@ -22,7 +22,7 @@ Ajax技术的核心是XMLHttpRequest对象（简称XHR），XHR为向服务器�
     - **2**：已发送但未收到响应；
     - **3**：已经接收到部分响应数据；
     - **4**：已经接收到全部响应数据。
-- `onreadystatechange`：它是XHR对象的一个方法，只要`readyState`属性值发生变化，就会调用该方法。**。必须在调用`open()`方法之前为`onreadystatechange`赋值才能确保跨浏览器兼容性。并且在这个事件处理程序中最好不要使用`this`对象，否则可能会出问题。**
+- `onreadystatechange`：它是XHR对象的一个方法，只要`readyState`属性值发生变化，就会调用该方法。**必须在调用`open()`方法之前为`onreadystatechange`赋值才能确保跨浏览器兼容性。并且在这个事件处理程序中最好不要使用`this`对象，否则可能会出问题。**
 -  `response`（只读）：返回响应的主体部分。主体部分内容的格式由`responseType`属性决定。
 -  `responseText`（只读）：返回响应的主体内容的字符串形式。
 -  `responseType`：通过这个属性指定期望的`response`的类型。该属性的默认值为`text`。
@@ -101,14 +101,14 @@ Origin: http://www.nczonline.net
 Access-Control-Allow-Origin: http://www.nczonline.net
 ```
 
-如果响应没有这个头部，或者有这个头部但源信息不匹配，浏览器就会驳回请求。正常情况下，浏览器会处理请求。注意，请求和响应都不包含`cookie`信息。
+如果响应没有这个头部，或者有这个头部但源信息不匹配，浏览器就会驳回请求。正常情况下，浏览器会处理请求。**注意，请求和响应都不包含`cookie`信息。**
 
 现代浏览器都通过XMLHttpRequest对象对象实现了对CORS的源生支持，在尝试打开不同来源的资源时，无需额外编写代码就可以触发这个行为。
 
-{% note info %}
+{% note warning %}
 跨域XHR对象也有一些限制，但为了安全这些限制是必需的。以下就是这些限制：
-- 不能使用`setRequestHeader()`设置自定义头部；
-- 不能发送和接收`cookie`；
+- 不能使用`setRequestHeader()`设置自定义头部。
+- 默认不能发送和接收`cookie`，但是可以通过XHR对象的`withCredentials`来发送带凭据的跨域请求。
 - 调用`getAllResponseHeaders()`方法总会返回空字符串。
 
 由于无论同源请求还是跨源请求都使用相同的接口，因此对于本地资源，最好使用相对URL，在访问远程资源时再使用绝对URL。这样做能消除歧义，避免出现限制访问头部或本地`cookie`信息等问题。
