@@ -295,34 +295,40 @@ div.dir = 'rtl'
 
 ### 操作特性
 
-每个元素都有一或多个特性，这些特性的用途是给出相应元素或内容的附加信息。操作特性的DOM方法主要有三个：**getAttribute( )**、**setAttribute( )**和**removeAttribute( )**。关于这三个方法的用法就不详细介绍了，下面介绍下使用它们时的注意事项：
+每个元素都有一或多个特性，这些特性的用途是给出相应元素或内容的附加信息。操作特性的DOM方法主要有三个：`getAttribute()`、`setAttribute()`和`removeAttribute()`。关于这三个方法的用法就不详细介绍了，下面介绍下使用它们时的注意事项：
 
 {% note warning %}
-- 传递给三个方法的特性名必须与实际的特性名相同，**但是不区分大小写**。例如，如果想要得到`class`特性值，应传入`class`而不是`className`，后者只有在通过对象属性访问特性时才用；
-- 根据HTML5规范，自定义特性应该加上`data-`前缀以便验证；
-- 只有公认的特性会以属性的形式添加到DOM对象中，而用户自定义特性则不会；
-- 用户自定义特性，只能通过这三个方法来操作，无法通过对象属性形式来操作；
-- 有两类特殊的特性，它们虽然有对应的属性名，但属性的值与通过`getAttribute()`方法返回的值并不相同。它们分别是：`style`特性和像`onclick`这样的事件处理程序。它们的属性值分别为对象和函数，但是通过`getAttribute()`方法返回的都是是字符串；
+- 传递给三个方法的特性名必须与实际的特性名相同，**但是不区分大小写**。例如，如果想要得到`class`特性值，应传入`class`而不是`className`，后者只有在通过对象属性访问特性时才用。
+- 根据HTML5规范，自定义特性应该加上`data-`前缀以便验证。
+- 只有公认的特性会以属性的形式添加到DOM对象中，而用户自定义特性则不会。
+- 用户自定义特性，只能通过这三个方法来操作，无法通过对象属性形式来操作。
+- 有两类特殊的特性，它们虽然有对应的属性名，但属性的值与通过`getAttribute()`方法返回的值并不相同。它们分别是：`style`特性和像`onclick`这样的事件处理程序。它们的属性值分别为对象和函数，但是通过`getAttribute()`方法返回的都是是字符串。
+- 在使用`setAttribute()`为元素设置属性时，无论你传递的是什么类型的值，它都会将该值转换为字符串在设置到元素的属性上。所以对于一些特殊的属性，比如`<input>`标签上的`check`属性，只要出现了，无论你给它传递任何属性值（哪怕是空字符串也不行），它的属性值就是`true`。只有使用`removeAttribute()`移除`check`属性，才会让该属性值变为`false`。所以有的属性最好不要使用`setAttribute()`来设置。
 {% endnote %}
 
 下面的例子展示了公认特性与自定义特性的区别：
 
 ```html
 <div id="myDiv" data-special="aadonkeyz"></div>
+<input id="myInput"></input>
 ```
 ```js
 var div = document.getElementById('myDiv')
-
 console.log(div.id)                             // myDiv
 console.log(div.getAttribute('id'))             // myDiv
 console.log(div['data-special'])                // undefined
 console.log(div.getAttribute('data-special'))   // aadonkeyz
-
 div.setAttribute('class', 'myClass')
 div.setAttribute('data-other', 'other')
 console.log(div.className)                      // myClass
 console.log(div['data-other'])                  // undefined
 console.log(div.getAttribute('data-other'))     // other
+
+let input = document.getElementById('myInput')
+input.setAttribute('checked', '')
+console.log(input.checked)                      // true
+input.removeAttribute('checked')
+console.log(input.checked)                      // false
 ```
 
 ### attributes属性
