@@ -108,3 +108,43 @@ DELETE方法所做的事情就是请服务器删除请求URL所指定的资源�
 - **502 Bad Gateway**：服务器作为网关或代理，从上游服务器收到无效响应。
 - **503 Service Unavailable**：服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。如果事先得知解除以上状况需要的时间，最好写入`RetryAfter`首部字段再返回给客户端。
 {% endnote %}
+
+# 版本比较
+
+## HTTP 0.9
+
+历史上第一个有记载的 HTTP 版本是 0.9，它诞生在 1991 年。这个协议被设计用于从服务器获取 HTML 文档。
+
+```text
+telent example.com 80
+GET /
+```
+
+整个协议的请求只有 1 行，只支持 GET 请求，当从服务器返回文档内容后，关闭 TCP 连接。
+
+## HTTP 1.0
+
+{% note info %}
+- 支持请求/响应头
+- 支持响应状态码
+- 支持 HEAD、POST 方法
+{% endnote %}
+
+## HTTP 1.1
+
+{% note info %}
+- 支持持久连接，默认`Connection: keep-alive`
+- 支持流水线
+- 支持同时打开多个 TCP 连接
+- 在 HTTP 1.0 的基础上，对 HTTP 缓存进行优化（加入`Etag`实体标签）
+- 支持 OPTIONS、PUT、DELETE、TRACE、CONNECT 方法
+{% endnote %}
+
+## HTTP 2.0
+
+{% note info %}
+- 所有数据以二进制格式传输
+- 支持信道复用，一个 TCP 连接里可以发送多个请求，不再需要按着顺序来
+- 头信息压缩、减少带宽
+- 支持服务器推送
+{% endnote %}
