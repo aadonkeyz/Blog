@@ -77,6 +77,15 @@ DELETE方法所做的事情就是请服务器删除请求URL所指定的资源�
 
 ![DELETE](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/DELETE.png)
 
+## GET与POST的区别
+
+{% note info %}
+- GET 请求参数放在 URL 中，POST 请求参数放在请求的 body 中。
+- GET 请求会被浏览器主动缓存，而 POST 则需要手动设置。
+- 浏览器对 GET 请求在 URL 中传送的参数是有长度限制的（通常为 2K），而对 POST 请求的限制为 80K - 100K。**实际上 GET 和 POST 请求本身对大小是无限制的。**
+- GET 请求产生一个 TCP 数据包，而 POST 请求产生两个数据包（Firefox 除外）。POST 请求先发送 header ，服务器响应 100 Continue 后，再接着发送 data，最后服务器响应 200 OK。
+{% endnote %}
+
 # 状态码
 
 ![状态码类别](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/%E7%8A%B6%E6%80%81%E7%A0%81%E7%B1%BB%E5%88%AB.png)

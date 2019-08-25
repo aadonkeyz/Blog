@@ -127,3 +127,12 @@ HTTP/1.1定义的`Cache-Control`首部字段用来区分对缓存机制的支持
     - 有些服务器无法精确地判定最后修改日期。
     - 有些服务器提供的文档会以亚秒间隙发生变化，对这些服务器来说，以一秒为粒度的修改日期可能就不够用了。
 {% endnote %}
+
+# 刷新与缓存
+
+{% note info %}
+- 通过 F5 刷新（MAC 下是 command + R），浏览器发送的请求会设置`Cache-Control: max-age=0`和`If-Modified-Since`，也就是说会将本地缓存过期，然后使用协商缓存。
+- 通过 Ctrl + F5 强制刷新（MAC 下是 command + shift + R），浏览器发送的请求会设置`Cache-Control: max-age=0`，也就是说会将本地缓存过期，并且不使用协商缓存。
+
+你可以使用 Firefox 浏览器（Chrome 看不到所有请求头）试验一下，分别采用以上两种方式刷新本页面，观察请求和响应的不同。
+{% endnote %}
