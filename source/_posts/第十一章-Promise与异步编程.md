@@ -414,8 +414,8 @@ rejected.catch(function (value) {
 在Node.js中，`process`对象上存在两个关联到Promise的拒绝处理的事件：
 
 {% note info %}
-- **`unhandledRejection`**：当一个Promise被拒绝、而在事件循环的一个轮次中没有任何拒绝处理函数被调用时，该事件就会被触发；
-- **`rejectionHandled`**：当一个Promise被拒绝、并在事件循环的一个轮次之后再有拒绝处理函数被调用时，该事件就会被触发。
+- **`unhandledRejection`**：当一个Promise被拒绝、而在事件循环本轮次中没有任何拒绝处理函数被调用时，该事件就会被触发；
+- **`rejectionHandled`**：当一个Promise被拒绝、并从事件循环的下一个轮次开始才有拒绝处理函数被调用时，该事件就会被触发。
 {% endnote %}
 
 这两个事件旨在共同帮助识别已被拒绝但未曾被处理的Promise。
@@ -484,8 +484,8 @@ setInterval(function () {
 浏览器同样能触发两个事件，来帮助识别未处理的拒绝。这两个事件会被`window`对象触发，并完全等效于Node.js的相关事件：
 
 {% note info %}
-- **`unhandledrejection`**：当一个Promise被拒绝、而在事件循环的一个轮次中没有任何拒绝处理函数被调用时，该事件就会被触发；
-- **`rejectionhandled`**：当一个Promise被拒绝、并在事件循环的一个轮次之后再有拒绝处理函数被调用时，该事件就会被触发。
+- **`unhandledrejection`**：当一个Promise被拒绝、而在事件循环的本轮次中没有任何拒绝处理函数被调用时，该事件就会被触发；
+- **`rejectionhandled`**：当一个Promise被拒绝、并从事件循环的下一个轮次开始才有拒绝处理函数被调用时，该事件就会被触发。
 {% endnote %}
 
 Node.js的实现会传递分离的参数给事件处理函数，而浏览器的两个事件处理函数则只会接收到包含下列属性的一个对象：
