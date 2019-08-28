@@ -203,3 +203,65 @@ HTTP/1.1 允许在持久连接上可选地使用**请求管道**。在响应到�
 {% endnote %}
 
 ![管道化连接](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/%E7%AE%A1%E9%81%93%E5%8C%96%E8%BF%9E%E6%8E%A5.png)
+
+# 首部
+
+## 通用首部
+
+{% note info %}
+- `Connection`：允许客户端和服务器指定与请求/响应连接有关的选项。
+- `Cache-Control`：强缓存使用的首部字段。
+- `Date`：创建报文的日期。
+- `MIME-Version`：给出了发送端使用的 MIME 版本。
+- `Trailer`：如果报文采用了分块传输编码，就可以用这个首部列出位于报文拖挂部分的首部集合。
+- `Transfer-Encoding`：告知接收端为了保证报文的可靠传输，对报文采用了什么编码方式。
+- `Update`：给出了发送端可能想要“升级”使用的新版本或协议。
+- `Via`：显示了报文经过的中间节点（代理、网关）。
+- `Warning`：错误通知。
+{% endnote %}
+
+## 请求首部
+
+{% note info %}
+- `Accept`：告诉服务器能够发送哪些媒体类型。
+- `Accept-Charset`：告诉服务器能够发送哪些字符集。
+- `Accept-Encoding`：告诉服务器能够发送哪些内容编码。
+- `Accept-Language`：告诉服务器能够发送哪些自然语言。
+- `Authorization`：Web 认证信息。
+- `Except`：期待服务器的特定行为。
+- `From`：用户的电子邮箱地址。
+- `Host`：请求资源所在服务器。
+- `If-Match`：协商缓存使用的首部字段。
+- `If-Modified-Since`：协商缓存使用的首部字段。
+- `If-Range`：允许对文档的某个范围进行条件请求。
+- `If-Unmodified-Since`：协商缓存使用的首部字段。
+{% endnote %}
+
+## 响应首部
+
+{% note info %}
+- `Accept-Ranges`：是否接受字节范围请求。
+- `Age`：推算资源创建经过时间。
+- `Etag`：协商缓存使用的首部字段。
+- `Location`：令客户端重定向至指定 URI。
+- `Proxy-Authenticate`：代理服务器对客户端的认证信息。
+- `Retry-After`：对再次发起请求的时机要求。
+- `Server`：HTTP 服务器的安装信息。
+- `Vary`：代理服务器缓存的管理信息。
+- `WWW-Authenticate`：服务器对客户端的认证信息。
+{% endnote %}
+
+## 实体首部
+
+{% note info %}
+- `Allow`：资源可支持的 HTTP 方法。
+- `Content-Encoding`：实体主体使用的编码方式。
+- `Content-Language`：实体主体的自然语言。
+- `Content-Length`：实体主体的大小
+- `Content-Location`：替代对应资源的 URI。
+- `Content-MD5`：实体主体的报文摘要。
+- `Content-Range`：实体主题的位置范围。
+- `Content-Type`：实体主题的媒体类型。
+- `Expires`：实体主体的日期时间。
+- `Last-Modified`：资源的最后修改日期时间。
+{% endnote %}
