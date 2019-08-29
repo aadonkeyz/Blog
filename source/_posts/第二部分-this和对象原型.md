@@ -275,14 +275,18 @@ bar.call(obj2)      // 2
 
 ## 禁止扩展
 
-如果你想禁止一个对象添加新属性并且保留已有属性，可以使用`Object.preventExtensions()`：
+如果你想禁止一个对象添加新属性并且保留已有属性，可以使用`Object.preventExtensions()`。如果想检测一个对象是否可以添加新属性，可以使用`Object.isExtensible()`。
+
+{% note warning %}
+**不可以添加新属性，但是删除旧属性还是可以的。**
+{% endnote %}
 
 ```js
 var myObject = { a: 2 }
 Object.preventExtensions(myObject)
-
+console.log(Object.isExtensible(myObject))  // false
 myObject.b = 3
-myObject.b      // undefined
+console.log(myObject.b)     // undefined
 ```
 
 在非严格模式下，创建属性`b`会静默失败。在严格模式下，将会抛出`TypeError`错误。
