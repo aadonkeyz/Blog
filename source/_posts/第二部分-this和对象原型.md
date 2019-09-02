@@ -105,7 +105,18 @@ foo.call(obj)   // 2
 
 硬绑定是显示绑定的一个变种，硬绑定是使用`bind()`方法强制指定`this`，该方法返回一个新的函数实例。
 
-**apply()和call()是要指定函数运行时的this并运行函数，而bind()是返回一个this已经绑定完的函数实例**。
+{% note warning %}
+**`apply()`和`call()`是要指定函数运行时的`this`并运行函数，而`bind()`是返回一个`this`已经绑定完的函数实例。并且`bind()`是遵守就近原则的**。
+{% endnote %}
+
+```js
+function print () {
+    console.log(this.a + this.b);
+}
+
+print.bind({a: 10, b: 20}).bind({a: 1, b: 2})(); // 30
+```
+
 
 ### new绑定
 
