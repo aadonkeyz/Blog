@@ -2,7 +2,7 @@
 title: async/await
 categories:
     - JavaScript
-    - ES8
+    - 杂七杂八
 abbrlink: ca9ee217
 date: 2019-07-08 09:06:55
 ---
