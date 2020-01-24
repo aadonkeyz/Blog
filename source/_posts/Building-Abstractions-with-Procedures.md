@@ -1,7 +1,7 @@
 ---
 title: Building Abstractions with Procedures
 categories:
-  - Structure and Interpretation of Computer Programs (Lisp)
+  - 《 Structure and Interpretation of Computer Programs (Lisp) 》
 abbrlink: 38ee15cf
 date: 2020-01-18 01:30:57
 mathjax: true
@@ -101,7 +101,9 @@ Procedures, as introduced above, are much like ordinary mathematical functions. 
 
 As a case in point, consider the problem of computing square roots. We can define the square-root function as
 
-$\sqrt x$ = the $y$ such that $y \geq 0$ and $y^2 = x$
+{% note info %}
+<center>$\sqrt x$ = the $y$ such that $y \geq 0$ and $y^2 = x$</center>
+{% endnote %}
 
 This describes a perfectly legitimate mathematical function. We could use it to recognize whether one number is the square root of another, or to derive facts about square roots in general. On the other hand, the definition does not describe a procedure. Indeed, it tells us almost nothing about how to actually find the square root of a given number.
 
@@ -146,7 +148,7 @@ Finally, we need a way to get started. For instance, we can always guess that th
     (sqrt-iter 1.0 x))
 ```
 
-Actually, we allow a procedure to have internal definitions that are local to that procedure. For example, in the square-root problem we can write
+Actually, we allow a procedure to have internal definitions that are local to that procedure. For example, in the square-root problem we can write
 
 ```lisp
 (define (sqrt x)
@@ -176,4 +178,77 @@ we allow `x` to be a free variable in the internal definitions, as shown below. 
 ```
 
 # Procedures and the Processes They Generate
+
+A procedure is a pattern for the local evolution of a computational process. It specifies how each stage of the process is built upon the previous stage. We would like to be able to make statements about the overall, or global, behavior of a process whose local evolution has been specified by a procedure.
+
+## Linear Recursion and Iteration
+
+We begin by considering the factorial function, defined by
+
+{% note info %}
+<center>$n! = n \cdot (n-1) \cdot (n-2) \cdots 3 \cdot 2 \cdot 1$</center>
+{% endnote %}
+
+There are many ways to compute factorials. One way is to make use of the observation that $n!$ is equal to $n$ times $(n-1)!$ for any positive integer $n$. Thus, we can compute $n!$ by computing $(n-1)!$ and multiplying the result by $n$. If we add the stipulation that $1!$ is equal to $1$, this observation translates directly into a procedure
+
+```lisp
+(define (factorial n)
+    (if (= n 1)
+        1)
+        (* n (factorial(- n 1))))
+
+; (factorial 6)
+; (* 6 (factorial 5))
+; (* 6 (* 5 (factorial 4)))
+; (* 6 (* 5 (* 4 (factorial 3))))
+; (* 6 (* 5 (* 4 (* 3 (factorial 2)))))
+; (* 6 (* 5 (* 4 (* 3 (* 2 (factorial 1))))))
+; (* 6 (* 5 (* 4 (* 3 (* 2 1)))))
+; (* 6 (* 5 (* 4 (* 3 2))))
+; (* 6 (* 5 (* 4 6)))
+; (* 6 (* 5 24))
+; (* 6 120)
+; 720
+```
+
+Now let’s take a different perspective on computing factorials. We could describe a rule for computing $n!$ by specifying that we first multiply $1$ by $2$, then multiply the result by $3$, then by $4$, and so on until we reach $n$. More formally, we maintain a running product, together with a counter that counts from $1$ up to $n$. We can describe the computation by saying that the counter and the product simultaneously change from one step to the next according to the rule
+
+{% note info %}
+- product ← counter * product
+- counter ← counter + 1
+{% endnote %}
+
+and stipulating that $n!$ is the value of the product when the counter exceeds $n$.
+
+```lisp
+(define (factorial n)
+    (fact-iter 1 1 n))
+
+(define (fact-iter product counter max-count)
+    (if (> counter max-count)
+        product)
+        (fact-iter (* counter product)
+                   (+ counter 1)
+                   max-count))
+
+; (factorial 6)
+; (factorial 1 1 6)
+; (factorial 1 2 6)
+; (factorial 2 3 6)
+; (factorial 6 4 6)
+; (factorial 24 5 6)
+; (factorial 120 6 6)
+; (factorial 720 7 6)
+```
+
+Consider the first process. The substitution model reveals a shape of expansion followed by contraction, the expansion occurs as the process builds up a chain of deferred operations (in this case, a chain of multiplications). The contraction occurs as the operations are actually performed. This type of process, characterized by a chain of deferred operations, is called a **recursive process**. Carrying out this process requires that the interpreter keep track of the operations to be performed later on. In the computation of $n!$, the length of the chain of deferred multiplications, and hence the amount of information needed to keep track of it, grows linearly with $n$ (is proportional to $n$), just like the number of steps. Such a process is called a **linear recursive process**.
+
+By contrast, the second process does not grow and shrink. At each step, all we need to keep track of, for any $n$, are the current values of the variables `product`, `counter`, and `max-count`. We call this an **iterative process**. In general, an iterative process is one whose state can be summarized by a fixed number of state variables, together with a fixed rule that describes how the state variables should be updated as the process moves from state to state and an (optional) end test that specifies conditions under which the process should terminate. In computing $n!$, the number of steps required grows linearly with $n$. Such a process is called
+a **linear iterative process**.
+
+The contrast between the two processes can be seen in another way. In the iterative case, the program variables provides a complete description of the state of the process at any point. If we stopped the computation between steps, all we would need to do to resume the computation is to supply the interpreter with the values of the three program variables. Not so with the recursive process. In this case there is some additional "hidden" information, maintained by the interpreter and not  contained in the program variables, which indicates "where the process is" in negotiating the chain of deferred operations. The longer the chain, the more information must be maintained.
+
+In contranstin iteration and recursion, we must be careful not to confuse the notion of a **recursive process** with the notion of a **recursive procedure**. When we describe a procedure as recursive, we are referring to the syntactic fact that the procedure definition refers (either directly or indirectle) to the procedure itself. But when we describe a process as following a pattern that is, say, linearly recursive, we are speaking about how the process evolves, not about the syntax of how a procedure is written. It may seem disturbing that we refer to a recursive procedure such as `fact-iter` as generating an iterative process. However, the process really is iterative: **Its state is captured completely by its three state variables, and an interpreter need keep track of only three variables in order to execute the process.**
+
+## Tree Recursion
 
