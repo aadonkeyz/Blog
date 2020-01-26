@@ -33,7 +33,7 @@ the interpreter will respond by printing
 486
 ```
 
-Expressions representing numbers may be combined with an expression representing a primitive procedure (such as `+` or `*`) to from a compound expression that represents the application of the procedure to those numbers. For example:
+Expressions representing numbers may be combined with an expression representing a primitive procedure (such as `+` or `*`) to form a compound expression that represents the application of the procedure to those numbers. For example:
 
 ```lisp
 (+ 137 349)
@@ -43,7 +43,7 @@ Expressions representing numbers may be combined with an expression representing
 666
 ```
 
-Expressions such as these, formed by delimiting a list of expressions within parentheses in order to denote procedure application, are called **combinations**. The leftmost element in the list is called the **operator**, and the other elements are called **operands**. The value of a combinations is obtained by applying the procedure specified by the operator to the **arguments** that are the values of the operands.
+Expressions such as these, formed by delimiting a list of expressions within parentheses in order to denote procedure application, are called **combinations**. The leftmost element in the list is called the **operator**, and the other elements are called **operands**. The value of a combination is obtained by applying the procedure specified by the operator to the **arguments** that are the values of the operands.
 
 The convention of placing the operator to the left of the operands is known as **prefix notation**, and it may be somewhat confusing at first because it departs significantly from the customary mathematical convention. Prefix notation has several advantages, however. One of them is that it can accommodate procedures that may take an arbitrary number of arguments, as in the following examples:
 
@@ -73,8 +73,8 @@ which the interpreter would readily evalute to be $57$. We can help ourselves by
 (+ (* 3
       (+ (* 2 4)
          (+ 3 5)))
-    (+ (- 10 7)
-        6))
+   (+ (- 10 7)
+      6))
 ```
 
 following a formatting convention known as **pretty-printing**, in which each long combination is written so that the operands are aligned vertically. The resulting indentations display clearly the structure of the expression.
@@ -378,8 +378,7 @@ Actually, we allow a procedure to have internal definitions that are local to th
     (sqrt-iter 1.0 x))
 ```
 
-Such nesting of definitions, called **block structure**, is basically the right solution to the simplest name-packaging problem. But there is a better idea lurking here. In addition to internalizing the definitions of the auxiliary procedures, we can simplify them. Since `x` is bound in the definition of `sqrt`, the procedures `good-enough?`, `improve`, and `sqrt-iter` which are defined internally to `sqrt` are in the scope of `x`. Thus, it is not necessary to pass `x` explicitly to each of these procedures. Instead,
-we allow `x` to be a free variable in the internal definitions, as shown below. Then `x` gets its value from the argument with which the enclosing procedure `sqrt` is called. This discipline is called **lexical scoping**.
+Such nesting of definitions, called **block structure**, is basically the right solution to the simplest name-packaging problem. But there is a better idea lurking here. In addition to internalizing the definitions of the auxiliary procedures, we can simplify them. Since `x` is bound in the definition of `sqrt`, the procedures `good-enough?`, `improve`, and `sqrt-iter` which are defined internally to `sqrt` are in the scope of `x`. Thus, it is not necessary to pass `x` explicitly to each of these procedures. Instead, we allow `x` to be a free variable in the internal definitions, as shown below. Then `x` gets its value from the argument with which the enclosing procedure `sqrt` is called. This discipline is called **lexical scoping**.
 
 ```lisp
 (define (sqrt x)
@@ -395,7 +394,7 @@ we allow `x` to be a free variable in the internal definitions, as shown below. 
 
 # Procedures and the Processes They Generate
 
-A procedure is a pattern for the local evolution of a computational process. It specifies how each stage of the process is built upon the previous stage. We would like to be able to make statements about the overall, or global, behavior of a process whose local evolution has been specified by a procedure.
+A procedure is a pattern for the **local evolution** of a computational process. It specifies how each stage of the process is built upon the previous stage. We would like to be able to make statements about the overall, or global, behavior of a process whose local evolution has been specified by a procedure.
 
 ## Linear Recursion and Iteration
 
@@ -405,7 +404,7 @@ We begin by considering the factorial function, defined by
 <center>$n! = n \cdot (n-1) \cdot (n-2) \cdots 3 \cdot 2 \cdot 1$</center>
 {% endnote %}
 
-There are many ways to compute factorials. One way is to make use of the observation that $n!$ is equal to $n$ times $(n-1)!$ for any positive integer $n$. Thus, we can compute $n!$ by computing $(n-1)!$ and multiplying the result by $n$. If we add the stipulation that $1!$ is equal to $1$, this observation translates directly into a procedure
+There are many ways to compute factorials. One way is to make use of the observation that $n!$ is equal to $n$ times $(n-1)!$ for any positive integer $n$. Thus, we can compute $n!$ by computing $(n-1)!$ and multiplying the result by $n$. If we add the stipulation that $1!$ is equal to $1$, this observation translates directly into a procedure:
 
 ```lisp
 (define (factorial n)
@@ -462,9 +461,9 @@ Consider the first process. The substitution model reveals a shape of expansion 
 By contrast, the second process does not grow and shrink. At each step, all we need to keep track of, for any $n$, are the current values of the variables `product`, `counter`, and `max-count`. We call this an **iterative process**. In general, an iterative process is one whose state can be summarized by a fixed number of state variables, together with a fixed rule that describes how the state variables should be updated as the process moves from state to state and an (optional) end test that specifies conditions under which the process should terminate. In computing $n!$, the number of steps required grows linearly with $n$. Such a process is called
 a **linear iterative process**.
 
-The contrast between the two processes can be seen in another way. In the iterative case, the program variables provides a complete description of the state of the process at any point. If we stopped the computation between steps, all we would need to do to resume the computation is to supply the interpreter with the values of the three program variables. Not so with the recursive process. In this case there is some additional "hidden" information, maintained by the interpreter and not  contained in the program variables, which indicates "where the process is" in negotiating the chain of deferred operations. The longer the chain, the more information must be maintained.
+The contrast between the two processes can be seen in another way. In the iterative case, the program variables provides a complete description of the state of the process at any point. If we stopped the computation between steps, all we would need to do to resume the computation is to supply the interpreter with the values of the three program variables. Not so with the recursive process. In this case there is some additional "hidden" information, maintained by the interpreter and not contained in the program variables, which indicates "where the process is" in negotiating the chain of deferred operations. The longer the chain, the more information must be maintained.
 
-In contranstin iteration and recursion, we must be careful not to confuse the notion of a **recursive process** with the notion of a **recursive procedure**. When we describe a procedure as recursive, we are referring to the syntactic fact that the procedure definition refers (either directly or indirectle) to the procedure itself. But when we describe a process as following a pattern that is, say, linearly recursive, we are speaking about how the process evolves, not about the syntax of how a procedure is written. It may seem disturbing that we refer to a recursive procedure such as `fact-iter` as generating an iterative process. However, the process really is iterative: **Its state is captured completely by its three state variables, and an interpreter need keep track of only three variables in order to execute the process.**
+In contransting iteration and recursion, we must be careful not to confuse the notion of a **recursive process** with the notion of a **recursive procedure**. When we describe a procedure as recursive, we are referring to the syntactic fact that the procedure definition refers (either directly or indirectle) to the procedure itself. But when we describe a process as following a pattern that is, say, linearly recursive, we are speaking about how the process evolves, not about the syntax of how a procedure is written. It may seem disturbing that we refer to a recursive procedure such as `fact-iter` as generating an iterative process. However, the process really is iterative: **Its state is captured completely by its three state variables, and an interpreter need keep track of only three variables in order to execute the process.**
 
 ## Tree Recursion
 
@@ -480,7 +479,25 @@ Another common pattern of computation is called **tree recursion**. As an exampl
 
 This procedure is instructive as a prototypical tree recursion, but it is a terrible way to compute Fibonacci numbers because it does so much redundant computation.
 
-But one shoule not conclude from this that tree-recursive process are useless. When we consider processes that operate on hierarchically structured data rather than numbers, we will find that tree recursion is a natural processes can be useful in helping us to understand and design programs.
+We can also formulate an iterative process for computing the Fibonacci numbers. The idea is to use a pair of integers $a$ and $b$, initialized to $Fib(1) = 1$ and $Fib(0) = 0$, and to repeatedly apply the simultaneous transformations
+
+{% note info %}
+- $a$ ← $a$ + $b$
+- $b$ ← $a$
+{% endnote %}
+
+It is not hard to show that, after applying this transformation $n$ times, $a$ and $b$ will be equal, respectively, to $Fib(n+1)$ and $Fib(n)$. Thus, we can compute Fibonacci numbers iteratively using the procedure
+
+```lisp
+(define (fib n)
+    (fib-iter 1 0 n))
+(define (fib-iter a b count)
+    (if (= count 0)
+        b
+        (fib-iter (+ a b) a (- count 1))))
+```
+
+One shoule not conclude from this that tree-recursive process are useless. When we consider processes that operate on hierarchically structured data rather than numbers, we will find that tree recursion is a natural processes can be useful in helping us to understand and design programs.
 
 Consider the following problem, how many different ways can we make change of $1.00, given half-dollars, quarters, dimes, nickels, and pennies? More generally, can we write a procedure to compute the number of ways to change any given amount of money?
 
@@ -500,7 +517,26 @@ The latter number is equal to the number of ways to make change for the amount t
 - If $n$ is $0$, we should count that as $0$ ways to make change.
 {% endnote %}
 
-We can easily translate this description into a recursive procedure, however I am a lazy boy.
+We can easily translate this description into a recursive procedure:
+
+```lisp
+(define (count-change amount) (cc amount 5))
+(define (cc amount kinds-of-coins)
+    (cond ((= amount 0) 1)
+          ((or (< amount 0) (= kinds-of-coins 0)) 0
+          (else (+ (cc amount
+                       (- kinds-of-coins 1))
+                   (cc (- amount
+                          (first-denomination
+                           kinds-of-coins))
+                       kinds-of-coins))))))
+(define (first-denomination kinds-of-coins)
+    (cond ((= kinds-of-coins 1) 1)
+          ((= kinds-of-coins 2) 5)
+          ((= kinds-of-coins 3) 10)
+          ((= kinds-of-coins 4) 25)
+          ((= kinds-of-coins 5) 50)))
+```
 
 # Formulating Abstractions with Higher-Order Procedures
 
