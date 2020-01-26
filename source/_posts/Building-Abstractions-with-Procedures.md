@@ -12,12 +12,167 @@ mathjax: true
 When we describe a language, we should pay particular attention to the means that the language provides for combining simple ideas to form more complex ideas. Every powerful language has three mechanisms for accomplishing this:
 
 {% note info %}
-- **primitive expressions**
-- **means of combination**
-- **means of abstraction**
+- **primitive expressions**: represent the simplest entities the language is concerned with
+- **means of combination**: compound elements are built from simpler ones
+- **means of abstraction**: compound elements can be named and manipulated as units
 {% endnote %}
 
+## Expressions
+
+One easy way to get started at programming is to examine some typical interactions with an interpreter for the Scheme dialect of Lisp. Imagine that you are sitting at a computer terminal. You type an **expression**, and the interpreter responds by displaying the result of its **evaluating** that expression.
+
+One kind of primitive expression you might type is a number. If you present Lisp with a number
+
+```lisp
+486
+```
+
+the interpreter will respond by printing
+
+```lisp
+486
+```
+
+Expressions representing numbers may be combined with an expression representing a primitive procedure (such as `+` or `*`) to from a compound expression that represents the application of the procedure to those numbers. For example:
+
+```lisp
+(+ 137 349)
+486
+
+(- 1000 334)
+666
+```
+
+Expressions such as these, formed by delimiting a list of expressions within parentheses in order to denote procedure application, are called **combinations**. The leftmost element in the list is called the **operator**, and the other elements are called **operands**. The value of a combinations is obtained by applying the procedure specified by the operator to the **arguments** that are the values of the operands.
+
+The convention of placing the operator to the left of the operands is known as **prefix notation**, and it may be somewhat confusing at first because it departs significantly from the customary mathematical convention. Prefix notation has several advantages, however. One of them is that it can accommodate procedures that may take an arbitrary number of arguments, as in the following examples:
+
+```lisp
+(+ 21 35 12 7)
+75
+```
+
+No ambiguity can rise, because the operator is always the leftmost element and the entire combination is delimited by the parentheses.
+
+A second advantage of prefix notation is that it extends in a straightforward way to allow combinations to be **nested**, that is, to have combinations whose elements are themselves combinations:
+
+```lisp
+(+ (* 3 5) (- 10 6))
+19
+```
+
+There is no limit (in principle) to the depth of such nesting and to the overall complexity of the expressions that the Lisp interpreter can evaluate. It is we humans who get confused by still relatively simple expressions such as
+
+```lisp
+(+ (* 3 (+ (* 2 4) (+ 3 5))) (+ (- 10 7) 6))
+```
+
+which the interpreter would readily evalute to be $57$. We can help ourselves by writing such an expression in the form
+
+```lisp
+(+ (* 3
+      (+ (* 2 4)
+         (+ 3 5)))
+    (+ (- 10 7)
+        6))
+```
+
+following a formatting convention known as **pretty-printing**, in which each long combination is written so that the operands are aligned vertically. The resulting indentations display clearly the structure of the expression.
+
+Even with complex expressions, the interpreter always operates in the same basic cycle: It reads an expression from the terminal, evaluates the expression, and prints the result. This mode of operation is often expressed by saying that the interpreter runs in a **read-eval-print** loop. Observe in particular that it is not necessary to explicitly instruct the interpreter to print the value of the expression.
+
+## Naming and the Environment
+
+A critical aspect of a programming language is the means it provides for using names to refer to computational objects. We say that the name identifies a **variable** whose **value** is the object.
+
+In the Scheme dialect of Lisp, we name things with `define`. Typing
+
+```lisp
+(define size 2)
+```
+
+causes the interpreter to associate the value $2$ with the name size. Once the name `size` has been associated with the number $2$, we can refer to the value $2$ by name:
+
+```lisp
+size
+2
+
+(* 5 size)
+10
+```
+
+Here are further examples of the use of `define`:
+
+```lisp
+(define pi 3.14159)
+(define radius 10)
+(* pi (* radius radius))
+314.159
+(define circumference (* 2 pi radius))
+circumference
+62.8318
+```
+
+`define` is our language's simplest means of abstraction, for it allows us to use simple names to refer to the results of compound operations, such as the `circumference` computed above. In general, computational objects may have very complex structures, and it would be extremely inconvenient to have to remember and repeat their details each time we want to use them. Indeed, complex programs are constructed by building, step by step, computational objects of increasing complexity. The interpreter makes this step-by-step program construction particularly convenient because name-object associations can be created incrementally in successive interactions. This feature encourages the incremental development and testing of programs and is largely responsible for the fact that a Lisp program usually consist of a large number of relatively simple procedures.
+
+It should be clear that the possibility of associating values with symbols and later retrieving them means that the interpreter must maintain some sort of memory that keeps track of the name-object pairs. This memory is called the **environment**.
+
+## Evaluating Combinations
+
+As a case in point, let us consider that, in evaluating combinations, the interpreter is itself following a procedure.
+
+To evaluate a combination, do the following:
+
+{% note info %}
+1. Evaluate the subexpressions of the combination
+2. Apply the procedure that is the value of the leftmost subexpression (the operator) to the arguments that are the values of the other subexpressions (the operands)
+{% endnote %}
+
+Even this simple rule illustrates some important points about processes in general. First, observe that the first step dictates that in order to accomplish the evaluation process on each element of the combination. Thus, the evaluation rule is **recursive** in nature; that is, it includes, as one of its steps, the need to invoke the rule itself.
+
+Notice how succinctly the idea of recursion can be used to express what, in the case of a deeply nested combination, would otherwise be viewed as a rather complicated process. For example, evaluating
+
+```lisp
+(* (+ 2 (* 4 6))
+   (+ 3 5 7))
+```
+
+requires that the evaluation rule be applied to four different combinations. We can obtain a picture of this process by representing the combination in the form of a tree.
+
+![tree representation, showing the value of each subcombination](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/tree%20representation%2C%20showing%20the%20value%20of%20each%20subcombination.png)
+
+Each combination is represented by a node with branches corresponding to the operator and the operands. The terminal nodes (that is, nodes with no branches stemming from them) respent either operators or numbers. Viewing evaluation in terms of the tree, we can imagine that the values of the operands percolate upward, starting from the terminal nodes and then combining at higher and higher levels. In general, we shall see that recursion is a very powerful technique for dealing with hierarchical, treelike objects. In fact, the "percolate values upward" form of the evaluation rule is an example of a general kind of process knowns as **tree accumulation**.
+
+Next, observe that the repeated application of the first step brings us to the point where we need to evaluate, not combinations, but primitive expressions such as numerals, built-in operators, or other names. We take care of the primitive cases by stipulating that
+
+{% note info %}
+- the values of numerals are the numbers that they name
+- the values of built-in operators are the machine instruction sequences that carry out the corresponding operations
+- the values of other names are the objects associated with those names in the environment
+{% endnote %}
+
+We may regard the second rule as a special case of the third one by stipulating that symbols such as `+` and `*` are also included in the global environment, and are associated with the sequences of machine instructions that are their "values". The key point to notice is the role of the environment in determining the meaning of the symbols in expressions. In an interactive language such as Lisp. it is meaningless to speak of the value of an expression such as `(+ x 1)` without specifying any information about the environment that would provide a meaning for the symbol `x` (or even for the symbol `+`). The general notion of the environment as providing a context in which evaluation takes place will play an important role in our understanding of program execution.
+
 ## Compound Procedures
+
+We have identified in Lisp some of the elements that must appear in any powerful programming language:
+
+{% note info %}
+- Numbers and arithmetic operations are primitive data and procedures
+- Nesting of combinations provides a means of combining operations
+- Definitions that associate names with values provide a limited means of abstraction
+{% endnote %}
+
+Now we will learn about **procedure definitions**, a much more powerful abstraction technique by with a compound operation can be given a name and then referred to as a unit.
+
+The general form of a procedure definition is
+
+```lisp
+(define (<name> <formal parameters>)
+    <body>)
+```
+
+The `<name>` is a symbol to be associated with the procedure definition in the environment. The `<formal parameters>` are the names used within the body of the procedure to refer to the corresponding arguments of the procedure. The `<body>` is an expression that will yield the value of the procedure application when the formal parameters are replaced by the actual arguments to which the procedure is applied. The `<name>` and the `<formal parameters>` are grouped within parentheses, just as they would be in an actual call to the procedure being defined.
 
 We begin by examining how to express the idea of "squaring". We might say, "To square something, multiply it by itself". This is expressed in Lisp as
 
@@ -47,24 +202,28 @@ Now we can use `sum-of-squares` as a building block in constructing further proc
 
 ## The Substitution Model for Procedure Application
 
+{% note warning %}
+The purpose of the substitution is to help us think about procedure application, not to provide a description of how the interpreter really works. Typical interpreters do not evaluate procedure applications by manipulating the text of a procedure to substitute values for the formal parameters. In practice, the "substitution" is accomplished by using a local environment for the formal parameters.
+{% endnote %}
+
 ### Applicative Order
 
 The interpreter first evaluates the operator and operands and then applies the resulting procedure to the resulting arguments
 
 ```lisp
-<!-- step 1 -->
+; step 1
 (f 5)
 
-<!-- step 2 -->
+; step 2
 (sum-of-squares (+ 5 1) (* 5 2))
 
-<!-- step 3 -->
+; step 3
 (+ (square 6) (square 10))
 
-<!-- step 4 -->
+; step 4
 (+ 36 100)
 
-<!-- step 5 -->
+; step 5
 136
 ```
 
@@ -73,27 +232,46 @@ The interpreter first evaluates the operator and operands and then applies the r
 The interpreter first substitute operand expressions for parameters until it obtained an expression involving only primitive operators, and would then perform the evaluation
 
 ```lisp
-<!-- step 1 -->
+; step 1
 (f 5)
 
-<!-- step 2 -->
+; step 2
 (sum-of-squares (+ 5 1) (* 5 2))
 
-<!-- step 3 -->
+; step 3
 (+ (square (+ 5 1)) (square (* 5 2)) )
 
-<!-- step 4 -->
+; step 4
 (+ (* (+ 5 1) (+ 5 1)) (* (* 5 2) (* 5 2)))
 
-<!-- step 5 -->
+; step 5
 (+ (* 6 6) (* 10 10))
 
-<!-- step 6 -->
+; step 6
 (+ 36 100)
 
-<!-- step 7 -->
+; step 7
 136
 ```
+
+## Conditional Expressions and Predicates
+
+The general form of a conditional expression is
+
+```lisp
+(cond (p1 e1)
+      (p2 e2)
+      ...
+      (pn en))
+```
+
+The general form of an `if` expression is
+
+```lisp
+(if predicate consequent alternative)
+```
+
+blablabla...
 
 ## Example: Square Roots by Newton’s Method
 
@@ -130,7 +308,7 @@ Now let’s formalize the process in terms of procedures. We start with a value 
         guess
         (sqrt-iter (improve guess x) x)))
 
-<!-- there subprocedures -->
+; subprocedures
 (define (improve guess x)
     (average guess (/ x guess)))
 
@@ -147,6 +325,44 @@ Finally, we need a way to get started. For instance, we can always guess that th
 (define (sqrt x)
     (sqrt-iter 1.0 x))
 ```
+
+If we type these definitions to the interpreter, we can use `sqrt` just as we can use any procedure:
+
+```lisp
+(sqrt 9)
+3.00009155413138
+```
+
+## Procedure as Block-Box Abstractions
+
+Observe that the problem of computing square roots breaks up naturally into a number of subproblems. Each of these tasks is accomplished by a separate procedure. The entire `sqrt` program can be viewed as a cluster of procedures that mirrors the decomposition of the problem into subproblems.
+
+The importance of this decomposition strategy is not simply that one is dividing the program into parts. After all, we could take any large program and divide it into parts -- the first ten lines, the next ten lines, the next ten lines, and so on. Rather, it is crucial that each procedure accomplishes an identifiable task that can be used as a module in defining other procedures. For example, when we define the `good-enough?` procedure in terms of `square`, we are able to regard the `square` procedure as a "black box". We are not at that moment concerned with how the procedure computes its result, only with the fact that it computes the square. The details of how the square is computed can be suppressed, to be considered at a later time. Indeed, as far as the `good-enough?` procedure is concerned, `square` is not quite a procedure but rather an abstraction of a procedure, a so-called **procedural abstraction**. At this level of abstraction, any procedure that computes the square is equally good.
+
+### Local names
+
+One detail of a procedures's implementation that should not matter to the user of the procedure is the implementer's choice of names for the procedure's formal parameters. Thus, the following procedures should not be distinguishable:
+
+```lisp
+(define (square x) (* x x))
+(define (square y) (* y y))
+```
+
+This principle -- that the meaning of a procedure should be independent of the parameter names used by its author -- seems on the surface to be self-evident, but its consequences are profound. The simplest consequence is that the parameter names of a procedure must be local to the body of the procedure. For example, we used `square` in the definition of `good-enough?` in our `square-root` procedure.
+
+```lisp
+(define (good-enough? guess x)
+    (< (abs (- (square guess) x))
+       0.001))
+```
+
+The intention of the author of `good-enough?` is to determine if the square of the first argument is within a given tolerance of the second argument. We see that the author of `good-enough?` used the name `guess` to refer to the first argument and `x` to refer to the second argument. The argument of `square` is `guess`. If the author of `square` used `x` (as above) to refer to that argument, we see that the `x` in `good-enough?` must be a different `x` than the one in `square`. Running the procedure `square` must not affect the value of `x` that is used by `good-enough?`, because that value of `x` may be needed by `good-enough?` after `square` is done computing.
+
+If the parameters were not local to the bodies of their respective procedures, then the parameter `x` in `square` could be confused with the parameter `x` in `good-enough?`, and the behavior of `good-enough?` would depend upon which version of `square` we used. Thus, `square` would not be the black box we desired.
+
+A formal parameter of a procedure has a very special role in the procedure definition, in that it doesn't matter what name the formal parameter has. Such a name is called a **bound variable**, and we say that the procedure definition **binds** its formal parameters. The meaning of a procedure definition is unchanged if a bound variable is consistently renamed throughout the definition. If a variable is not bound, we say that it is **free**. The set of expressions for which a binding defines a name is called the **scope** of that name. In a procedure definition, the bound variables declared as the formal parameters of the procedure have the body of the procedures as their scope.
+
+### Internal definitions and block structure
 
 Actually, we allow a procedure to have internal definitions that are local to that procedure. For example, in the square-root problem we can write
 
@@ -251,4 +467,46 @@ The contrast between the two processes can be seen in another way. In the iterat
 In contranstin iteration and recursion, we must be careful not to confuse the notion of a **recursive process** with the notion of a **recursive procedure**. When we describe a procedure as recursive, we are referring to the syntactic fact that the procedure definition refers (either directly or indirectle) to the procedure itself. But when we describe a process as following a pattern that is, say, linearly recursive, we are speaking about how the process evolves, not about the syntax of how a procedure is written. It may seem disturbing that we refer to a recursive procedure such as `fact-iter` as generating an iterative process. However, the process really is iterative: **Its state is captured completely by its three state variables, and an interpreter need keep track of only three variables in order to execute the process.**
 
 ## Tree Recursion
+
+Another common pattern of computation is called **tree recursion**. As an example, consider computing the sequence of Fibonacci numbers
+
+```lisp
+(define (fib n)
+    (cond ((= n 0) 0)
+          ((= n 1) 1)
+          (else (+ (fib (- n 1)
+                   (fib (- n 2)))))))
+```
+
+This procedure is instructive as a prototypical tree recursion, but it is a terrible way to compute Fibonacci numbers because it does so much redundant computation.
+
+But one shoule not conclude from this that tree-recursive process are useless. When we consider processes that operate on hierarchically structured data rather than numbers, we will find that tree recursion is a natural processes can be useful in helping us to understand and design programs.
+
+Consider the following problem, how many different ways can we make change of $1.00, given half-dollars, quarters, dimes, nickels, and pennies? More generally, can we write a procedure to compute the number of ways to change any given amount of money?
+
+This problem has a simple solution as a recursive procedure. Suppose we think of the types of coins available as arranged in some order. Then the following relation holds:
+
+{% note info %}
+The number of ways to change amount $a$ using $n$ kinds of coins equals the sum of the following two cases
+- the number of ways to change amount $a$ using all but the first kind of coin, plus
+- the number of ways to change amount $a-d$ using all $n$ kinds of coins, where $d$ is the denomination of the first kind of coin.
+{% endnote %}
+
+The latter number is equal to the number of ways to make change for the amount that remains after using a coin of the first kind. Thus, we can recursively reduce the problem of changing a given amount to the problem of changing smaller amounts using fewer kinds of coins. Consider this reduction rule carefully, and convince yourself that we can use it to describe an algorithm if we specify the following degenerate cases.
+
+{% note info %}
+- If $a$ is exactly $0$, we should count that as $1$ way to make change.
+- If $a$ is less than $0$, we should count that as $0$ ways to make change.
+- If $n$ is $0$, we should count that as $0$ ways to make change.
+{% endnote %}
+
+We can easily translate this description into a recursive procedure, however I am a lazy boy.
+
+# Formulating Abstractions with Higher-Order Procedures
+
+Even in numerical processing we will be severely limited in our ability to create abstractions if we are restricted to procedures whose parameters must be numbers. Often the same programming pattern will be used with a number of different procedures. To express such patterns as concepts, we will need to construct procedures that can accept procedures as arguments or return procedures as values. Procedures that manipulate procedures are called **higher-order procedures**.
+
+## Procedures as Arguments
+
+Consider the following three procedures. The first computes the sum of the integers from a through b
 
