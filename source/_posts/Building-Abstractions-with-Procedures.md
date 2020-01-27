@@ -259,10 +259,10 @@ The interpreter first substitute operand expressions for parameters until it obt
 The general form of a conditional expression is
 
 ```lisp
-(cond (p1 e1)
-      (p2 e2)
+(cond (<p_1> <e_1>)
+      (<p_2> <e_2>)
       ...
-      (pn en))
+      (<p_n> <e_n>))
 ```
 
 The general form of an `if` expression is
@@ -544,5 +544,181 @@ Even in numerical processing we will be severely limited in our ability to creat
 
 ## Procedures as Arguments
 
-Consider the following three procedures. The first computes the sum of the integers from a through b
+Consider the following three procedures. The first computes the sum of the integers from `a` through `b`:
+
+```lisp
+(define (sum-integers a b)
+    (if (> a b)
+        0
+        (+ a (sum-integers (+ a 1) b))))
+```
+
+The second computes the sum of the cubes of the integers in the given range:
+
+```lisp
+(define (sum-cubes a b)
+    (if (> a b)
+        0
+        (+ (cube a)
+           (sum-cubes (+ a 1) b))))
+```
+
+The third computes the sum of a sequence of terms in the series
+
+{% note info %}
+<center>$\frac{1}{1 \cdot 3} + \frac{1}{5 \cdot 7} + \frac{1}{9 \cdot 11} + \cdots$</center>
+{% endnote %}
+
+```lisp
+(define (pi-sum a b)
+    (if (> a b)
+        0
+        (+ (/ 1.0 (* a (+ a 2)))
+           (pi-sum (+ a 4) b))))
+```
+
+These three procedures clearly share a common underlying pattern. They are for the most part identical, differing only in the name of the procedure, the function of `a` used to computed the term to be added, and the function that provides the next value of `a`. We could generate each of the procedures by filling in slots in the same template:
+
+```lisp
+(define (<name> a b)
+    (if (> a b)
+        0
+        (+ (<term> a)
+           (<name> (<next> a) b))))
+```
+
+The presence of such a common pattern is strong evidence that there is a useful abstraction waiting to be brought to the surface. Indeed, mathematicians long ago identified the abstraction of summation of a series and invented "sigma notation", for example
+
+{% note info %}
+<center>$\sum_{n=a}^b f(n) = f(a) + \cdots + f(b)$</center>
+{% endnote %}
+
+to express this concept. The power of sigma notation is that it allows mathematicians to deal with the concept of summation itself rather than only with particular sums -- for example, to formulate general results about sums that are independent of the particular series being summed.
+
+Similary, as program designers, we would like our language to be powerful enough so that we can write a procedure that expresses the concept of summation itself rather than only procedures that compute particular sums. We can do so readily in our procedural language by taking the common template shown above and transforming the "slots" into formal parameters:
+
+```lisp
+(define (sum term a next b)
+    (if (> a b)
+        0
+        (+ (term a)
+           (sum term (next a) next b))))
+```
+
+## Constructing Procedures Using lambda
+
+In general, lambda is used to create procedures in the same way as `define`, except that no name is specified for the procedure:
+
+```lisp
+(define (<formal-parameters>) <body>)
+```
+
+The resulting procedure is just as much as a procedure as one that is created using `define`. The only difference is that it has not been associated with any name in the environment.
+
+Like any expression that has a procedure as its value, a lambda expression can be used as the operator in a combination such as
+
+```lisp
+((lambda (x y z) (+ x y (square z)))
+ 1 2 3)
+12
+```
+
+Another use of lambda is in creating local variables. We often need local variables in our procedures other than those that have been bound as formal parameters. For example, suppose we wish to compute the function
+
+{% note info %}
+<center>$f(x,y) = x(1+xy)^2 + y(1-y) + (1+xy)(1-y)$</center>
+which we could also express as
+<center>$a = 1 + xy$</center>
+<center>$b = 1 - y$</center>
+<center>$f(x,y) = xa^2 + yb + ab$</center>
+{% endnote %}
+
+In writing a procedure to compute `f`, we would like to include as local variables not only `x` and `y` but also the names of intermeditate quantities like `a` and `b`. One way to accomplish this is to use an auxiliary procedure to bind the local variables:
+
+```lisp
+(define (f x y)
+    (define (f-helper a b)
+        (+ (* x (square a))
+           (* y b)
+           (* a b)))
+    (f-helper (+ 1 (* x y))
+              (- 1 y)))
+```
+
+Of course, we could use a lambda expression to specify an anonymous procedure for binding our local variables. The body of `f` then becomes a single call to that procedure:
+
+```lisp
+(define (f x y)
+    ((lambda (a b)
+        (+ (* x (square a))
+           (* y b)
+           (* a b)))
+    (+ 1 (* x y))
+    (- 1 y)))
+```
+
+This construct is so useful that there is a special form called `let` to make its use more convenient. Using `let`, the `f` procedure could be written as
+
+```lisp
+(define (f x y)
+    (let ((a (+ 1 ( * x y)))
+          (b (- 1 y)))
+        (+ (* x (square a))
+           (* y b)
+           (* a b))))
+```
+
+The general form of a `let` expression is
+
+```lisp
+(let ((<var_1> <exp_1>)
+      (<var_2> <exp_2>)
+      ...
+      (<var_n> <exp_n>))
+    <body>)
+```
+
+## Procedures as General Methods
+
+The half-interval method is simple but powerful technique for finding roots of an equation $f(x) = 0$, where $f$ is a continuous function.
+
+```lisp
+(define (search f neg-point pos-point)
+    (let ((midpoint (average neg-point pos-point)))
+        (if (close-enough? neg-point pos-point)
+            midpoint
+            (let ((test-value (f midpoint)))
+                (cond ((positive? test-value)
+                       (search f neg-point midpoint))
+                      ((negative? test-value)
+                       (search f midpoint pos-point))
+                      (else midpoint))))))
+(define (close-enough? x y) (< (abs (- x y)) 0.001))
+```
+
+`search` is awkward to use directly, because we can accidentally give it points at which $f's$ value do not have the required sign, in which case we get a wrong answer. Instead we will use `search` via the following procedure, which checks to see which of the endpoints has a negative function value and which has a positive value, and calls the `search` procedure accordingly. If the function has the same sign on the two given points, the half-interval method cannot be used, in which case the procedure signals an error.
+
+```lisp
+(define (half-interval-method f a b)
+    (let ((a-value (f a))
+          (b-value (f b)))
+        (cond ((and (negative? a-value) (positive? b-value))
+               (search f a b))
+              ((and (negative? b-value) (positive? a-value))
+               (search f b a))
+              (else
+               (error "Values are not of opposite sign" a b)))))
+```
+
+The following example uses the half-interval method to approximate $\pi$ as the root between $2$ and $4$ of $\sin x = 0$
+
+```lisp
+(half-interval-method sin 2.0 4.0)
+3.14111328125
+```
+
+## Procedures as Return Values
+
+
+
 
