@@ -717,8 +717,10 @@ The following example uses the half-interval method to approximate $\pi$ as the 
 3.14111328125
 ```
 
-## Procedures as Return Values
+## Procedures as Returned Values
 
+The above examples demonstrate how the ability to pass procedures as arguments significantly enhances the expressive power of our programming language. We can achieve even more expressive power by creating procedures whose returned values are themselves procedures.
 
+But because I am a little bit lazy, I won't summary the content of this section of the book.
 
 
