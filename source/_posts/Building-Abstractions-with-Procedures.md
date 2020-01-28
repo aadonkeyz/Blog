@@ -653,8 +653,8 @@ Of course, we could use a lambda expression to specify an anonymous procedure fo
         (+ (* x (square a))
            (* y b)
            (* a b)))
-    (+ 1 (* x y))
-    (- 1 y)))
+     (+ 1 (* x y))
+     (- 1 y)))
 ```
 
 This construct is so useful that there is a special form called `let` to make its use more convenient. Using `let`, the `f` procedure could be written as
