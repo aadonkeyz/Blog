@@ -186,10 +186,10 @@ This point of view can serve to define not only "high-level" data objects, such 
 This use of procedures corresponds to nothing like our intuitive notion of what data should be. Nevertheless, all we need to do to show that this is a valid way to represent pairs is to verify that these procedures satisfy the condition given above.
 
 {% note warning %}
-The subtle point to notive is that the value returned by `(cons x y)` is a procedure -- namely the internally defined procedure `dispatch`.
+The subtle point to notice is that the value returned by `(cons x y)` is a procedure -- namely the internally defined procedure `dispatch`.
 {% endnote %}
 
-Therefor, this procedural implementation of pairs is a valid implementation, and if we access pairs using only `cons`, `car` and `cdr` we cannot distinguish this implementation from one that uses "real" data structures.
+Therefore, this procedural implementation of pairs is a valid implementation, and if we access pairs using only `cons`, `car` and `cdr` we cannot distinguish this implementation from one that uses "real" data structures.
 
 The point of exhibiting the procedural representation of pairs is not that our language works this way (Scheme, and Lisp systems in general, implement pairs directly, for efficiency reasons) but that it could work this way. The procedural representation, althougn obscure, is a perfectly adequate way to represent pairs, since it fulfills the only conditions that pairs need to fulfill. This example also demonstrates that the ability to manipulate procedures as objects automatically provides the ability to represent compound data. This may seem a curiosity now, but procedure representations of data will play a central role in our programming repertoire.
 
