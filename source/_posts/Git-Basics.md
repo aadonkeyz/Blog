@@ -1,5 +1,5 @@
 ---
-title: Tutorial of Git
+title: Git Basics
 abbrlink: 22d36175
 date: 2020-02-02 18:40:30
 categories:
@@ -61,7 +61,7 @@ Each file in your working directory can be in one of two states:
 # determine which files are in which state
 $ git status
 
-# move files from the working directory to the staging area
+# move a file from the working directory to the staging area
 # "git add ." means move all files in current directory
 $ git add <file>
 
@@ -69,8 +69,22 @@ $ git add <file>
 # you can only use this command on tracked files
 $ git checkout -- <file>
 
-# move files from the staging area to the working directory
+# move a file from the staging area to the working directory
 $ git reset HEAD <file>
+
+# see what you've changed but not yet staged
+$ git diff
+# see what you've staged that will go into your next commit
+$ git diff --staged
+
+# remove a file from Git, and also removes the file from the working directory (which means delete the file)
+$ git rm <file>
+# keep the file in the working directory but remove it from the staging area
+# this is particulary useful if you forgot to add something to your .gitignore file and accidentally staged it
+$ git rm --cached <file>
+
+# commit your changes that are in the staging area
+$ git commit [-m <msg>]
 ```
 
 Often, you'll have a class of files that you don't want Git to automatically add or even show you as being untracked. In such cases, you can create a file listing patterns to match them named `.gitignore`
@@ -104,4 +118,64 @@ doc/*.txt
 
 # ignore all .pdf files in the doc/ directory and any of its subdirectories
 doc/**/*.pdf
+```
+
+# Working with Remotes
+
+Remote repositories are versions of your project that are hosted on the Internet or network somewhere.
+
+```zsh
+# show the list of the shortnames of each remote handle you've specified
+$ git remote
+
+# show the URLs that Git has stored for the shortname
+$ git remote -v
+
+# add a new remote Git repository
+$ git remote add <name> <url>
+
+# get data from remote repository
+# this command only downloads the data to your local repository
+# it doesn't automatically merge it with any of your work of modify what you're currently working on
+$ git fetch <remote>
+
+# push any commits you've done back up to the server
+$ git push <remote> <branch>
+
+# inspect a remote
+$ git remote show <name>
+
+# change a remote's shortname
+$ git remote rename <old> <new>
+
+# remove a remote
+$ git remote remove <name>
+```
+
+# Tagging
+
+```zsh
+# list the existing tags
+$ git tag
+
+# create an tag
+$ git tag <tagname> [<commit>] [-a] [-m <msg>]
+
+# the `git push` command doesn't transfer tags to remote servers
+# you will have to explicitly push tags to a shared server after you have created them
+$ git push <remote> <tagname>
+
+# transfer all of your tags to the remote server that are not already there
+$ git push <remote> --tags
+
+# delete local tag
+$ git tag -d <tagname>
+
+# delete remote tag
+$ git push <remote> :refs/tags/<tagname>
+# or
+$ git push <remote> --delete <tagname>
+
+# checkout tag
+$ git checkout <tagname>
 ```
