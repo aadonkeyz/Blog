@@ -11,19 +11,18 @@ categories:
 ```zsh
 # create a branch
 # only create, don't switch
-$ git branch <branchname>
+# if you don't type existbranch, use current branch
+$ git branch <newbranch> [existbranch]
 
 # switch branch
 $ git checkout <branchname>
 
 # create a branch and switch to it
-$ git checkout -b <branchname>
+# if you don't type existbranch, use current branch
+$ git checkout -b <newbranch> [existbranch]
 
 # merge the target branch into your current branch
 $ git merge <targetbranchname>
-
-# delete a branch
-$ git branch -d <branchname>
 
 # no options => local branches list
 # -r => remote branches list
@@ -35,6 +34,30 @@ $ git branch -v
 
 # filter the list to branches that you have or haven't merged into your current branch
 $ git branch [--merged | --no-merged]
+
+# fetch any data from the given remote that you don't yet have
+# update your local database
+# move your remote/branch pointer to its new, more up-to-data position.
+$ git fetch <remote>
+
+# push the local branch to the remote branch
+$ git push <remote> <localbranch:remotebranch>
+
+# fetch the upstream branch and merge into the tracking branch
+$ git pull
+
+# set the current branch to track remotebranch
+# you can use this command to change the relationship between a tracking branch and a upstream branch
+$ git branch <-u | --set-upstream-to> <remotebranch>
+
+# see what tracking branches you have set up
+$ git branch -vv
+
+# delete a local branch
+$ git branch -d <branchname>
+
+# delete a remote branch
+$ git push <remote> --delete <branchname>
 ```
 
 # Branches in a Nutshell
@@ -61,6 +84,41 @@ $ git merge bugFix
 
 ![after-merge](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Git%20Branching/after-merge.png)
 
+# Remote Branches
 
+Look at an example, let's say you have a Git server on your network at `git.ourcompany.com`. If you clone from this, Git's `clone` command automatically names it `origin` for you, pulls down all its data, creates some pointers to correspond to remote branches, the name is like `origin/master`. Git also gives you your own local `master` branch starting at the same places as origin's `master` branch, so you have something to work from.
 
+![Server and local repositories after cloning](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Git%20Branching/Server%20and%20local%20repositories%20after%20cloning.png)
 
+If you do some work on your local `master` branch, and, in the meantime, someone else pushes to `git.ourcompany.com` and updates its `master` branch, then your histories move forward differently. Also, as long as you stay out of contact with your `origin` server, your `origin/master` pointer doesn't move.
+
+![Local and remote work can diverge](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Git%20Branching/Local%20and%20remote%20work%20can%20diverge.png)
+
+To synchronize your work with a given remote, you run a `git fetch <remote>` command. This command fetches any data from the given remote that you don't yet have, and updates your local database, moving your `origin/master` pointer to its new, more up-to-data position.
+
+{% note warning %}
+**It's important to note that when you do a fetch that brings down new remote-tracking branches, you don't automatically have local, editable copies of them. In other words, in this case, you don't have a new branch -- you have only an `origin/master` pointer that you can't modify.**
+{% endnote %}
+
+![git fetch updates your remote-tracking branches](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Git%20Branching/git%20fetch%20updates%20your%20remote-tracking%20branches.png)
+
+When you want to share a branch with the world, you need to push it up to a remote to which you have write access. Your local branches aren't automatically synchronized to the remotes you write to -- you have to explicitly push the branches you want to share. That way, you can use private branches for work you don't want to share, and push up only the topic branches you want to collaborate on.
+
+If you have a branch named `serverfix` that you want to work on with others, you can push it up the same way you pushed your first branch. Run `git push <remote> <branch>`:
+
+```zsh
+$ git push origin serverfix
+Counting objects: 24, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (24/24), 1.91 KiB | 0 bytes/s, done.
+Total 24 (delta 2), reused 0 (delta 0)
+To https://github.com/schacon/simplegit
+ * [new branch]      serverfix -> serverfix
+```
+
+This is a bit of a shortcut. Git automatically expands the `serverfix` branchname out to `refs/heads/serverfix:refs/heads/serverfix`, which means, "Take my `serverfix` local branch and push it to update the remote's `serverfix` branch." You can also do `git push origin serverfix:serverfix`, which does the same thing -- it says, "Take my serverfix and make it the remote's serverfix." You can use this format to push a local branch into a remote branch that is named differently. If you didn't want it to be called `serverfix` on the remote, you could instead run `git push origin serverfix:awesomebranch` to push your local `serverfix` branch to the `awesomebranch` branch on the remote project.
+
+Checking out a local branch from a remote-tracking branch automatically creates what is called a "tracking branch", and the branch it tracks is called an "upstream branch". Tracking branches are local branches that have a direct relationship to a remote branch. If you're on a tracking branch and type `git pull`, Git automatically know which server to fetch from and which branch to merge in. If you want to change the upstream branch you're tracking, you can use the `-u` or `--set-upstream-to` option to `git branch` to explicitly set it at any time.
+
+# Rebasing
