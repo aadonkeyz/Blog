@@ -48,7 +48,11 @@ $ git pull
 
 # set the current branch to track remotebranch
 # you can use this command to change the relationship between a tracking branch and a upstream branch
-$ git branch <-u | --set-upstream-to> <remotebranch>
+$ git branch <-u | --set-upstream-to> <[[remotes/]origin/]remotebranch>
+
+# if current branch is not a tracking branch
+# and you want to push it
+$ git push --set-upstream <remote> <remotebranch>
 
 # see what tracking branches you have set up
 $ git branch -vv
@@ -86,7 +90,7 @@ $ git merge bugFix
 
 # Remote Branches
 
-Look at an example, let's say you have a Git server on your network at `git.ourcompany.com`. If you clone from this, Git's `clone` command automatically names it `origin` for you, pulls down all its data, creates some pointers to correspond to remote branches, the name is like `origin/master`. Git also gives you your own local `master` branch starting at the same places as origin's `master` branch, so you have something to work from.
+Look at an example, let's say you have a Git server on your network at `git.ourcompany.com`. If you clone from this, Git's `clone` command automatically names it `origin` for you, pulls down all its data, creates some pointers to correspond to remote branches, the name of remote branchs in local will has a prefix like `remotes/` or `remotes/origin/`. Git also gives you your own local `master` branch starting at the same places as origin's `master` branch, so you have something to work from.
 
 ![Server and local repositories after cloning](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Git%20Branching/Server%20and%20local%20repositories%20after%20cloning.png)
 
