@@ -54,8 +54,8 @@ $ git pull
 # you can use this command to change the relationship between a tracking branch and a upstream branch
 $ git branch <-u | --set-upstream-to> <[[remotes/]origin/]remotebranch>
 
-# if current branch is not a tracking branch
-# and you want to push it
+# if current branch is not a tracking branch, and you want to push it
+# if remotebranch isn't exist, Git will automatically create it
 $ git push --set-upstream <remotename> <remotebranch>
 
 # see what tracking branches you have set up
