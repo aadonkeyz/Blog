@@ -14,15 +14,18 @@ categories:
 # if you don't type existbranch, use current branch
 $ git branch <newbranch> [existbranch]
 
-# switch branch
-$ git checkout <branchname>
+# switch your working directory
+$ git checkout [branchname | tagname | commitsha1]
 
 # create a branch and switch to it
 # if you don't type existbranch, use current branch
 $ git checkout -b <newbranch> [existbranch]
 
+# move the branch pointer
+$ git branch -f [branchname | tagname | commitsha1]
+
 # merge the target branch into your current branch
-$ git merge <targetbranchname>
+$ git merge <targetbranch>
 
 # no options => local branches list
 # -r => remote branches list
@@ -38,10 +41,11 @@ $ git branch [--merged | --no-merged]
 # fetch any data from the given remote that you don't yet have
 # update your local database
 # move your remote/branch pointer to its new, more up-to-data position.
-$ git fetch <remote>
+# if you don't type remote, it will use origin as default
+$ git fetch [remotename]
 
 # push the local branch to the remote branch
-$ git push <remote> <localbranch:remotebranch>
+$ git push <remotename> <localbranch:remotebranch>
 
 # fetch the upstream branch and merge into the tracking branch
 $ git pull
@@ -52,7 +56,7 @@ $ git branch <-u | --set-upstream-to> <[[remotes/]origin/]remotebranch>
 
 # if current branch is not a tracking branch
 # and you want to push it
-$ git push --set-upstream <remote> <remotebranch>
+$ git push --set-upstream <remotename> <remotebranch>
 
 # see what tracking branches you have set up
 $ git branch -vv
@@ -61,7 +65,7 @@ $ git branch -vv
 $ git branch -d <branchname>
 
 # delete a remote branch
-$ git push <remote> --delete <branchname>
+$ git push <remotename> --delete <branchname>
 ```
 
 # Branches in a Nutshell
@@ -72,7 +76,7 @@ To really understand the way Git does branching, we need to take a back and exam
 **A branch in Git is simply a lightweight movable pointer to one of these commits.**
 {% endnote %}
 
-When you create a new branch, Git creates a new pointer for you to move around. And How does Git know what branch you're currently on? It keeps a special pointer called `HEAD`. In Git, this is a pointer to the local branch you're currently on.
+When you create a new branch, Git creates a new pointer for you to move around. And How does Git know what branch you're currently on? Git keeps a special pointer called `HEAD`, it is the symbolic name for the currently checkout out commit -- it's essentially what commit you're working on top of. Normally `HEAD` attaches to a branch, when you commit, the status of that branch is altered. When `HEAD` attaches to a commit instead of a branch, this phenomenon is called **detach**.
 
 # Basic Branching and Merging
 

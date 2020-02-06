@@ -63,14 +63,14 @@ $ git status
 
 # move a file from the working directory to the staging area
 # "git add ." means move all files in current directory
-$ git add <file>
+$ git add <filename>
 
 # discard changes in working directory
 # you can only use this command on tracked files
-$ git checkout -- <file>
+$ git checkout -- <filename>
 
 # move a file from the staging area to the working directory
-$ git reset HEAD <file>
+$ git reset HEAD <filename>
 
 # see what you've changed but not yet staged
 $ git diff
@@ -78,10 +78,10 @@ $ git diff
 $ git diff --staged
 
 # remove a file from Git, and also removes the file from the working directory (which means delete the file)
-$ git rm <file>
+$ git rm <filename>
 # keep the file in the working directory but remove it from the staging area
 # this is particulary useful if you forgot to add something to your .gitignore file and accidentally staged it
-$ git rm --cached <file>
+$ git rm --cached <filename>
 
 # commit your changes that are in the staging area
 $ git commit [-m <msg>]
@@ -137,19 +137,20 @@ $ git remote add <name> <url>
 # get data from remote repository
 # this command only downloads the data to your local repository
 # it doesn't automatically merge it with any of your work of modify what you're currently working on
-$ git fetch <remote>
+# if you don't type remote, it will use origin as default
+$ git fetch [remotename]
 
 # push any commits you've done back up to the server
-$ git push <remote> <branch>
+$ git push <remotename> <branchname>
 
 # inspect a remote
-$ git remote show <name>
+$ git remote show <remotename>
 
 # change a remote's shortname
-$ git remote rename <old> <new>
+$ git remote rename <oldname> <newname>
 
 # remove a remote
-$ git remote remove <name>
+$ git remote remove <remotename>
 ```
 
 # Tagging
@@ -163,19 +164,19 @@ $ git tag <tagname> [<commit>] [-a] [-m <msg>]
 
 # the `git push` command doesn't transfer tags to remote servers
 # you will have to explicitly push tags to a shared server after you have created them
-$ git push <remote> <tagname>
+$ git push <remotename> <tagname>
 
 # transfer all of your tags to the remote server that are not already there
-$ git push <remote> --tags
+$ git push <remotename> --tags
 
 # delete local tag
 $ git tag -d <tagname>
 
 # delete remote tag
-$ git push <remote> :refs/tags/<tagname>
+$ git push <remotename> :refs/tags/<tagname>
 # or
-$ git push <remote> --delete <tagname>
+$ git push <remotename> --delete <tagname>
 
-# checkout tag
-$ git checkout <tagname>
+# switch your working directory
+$ git checkout [branchname | tagname | commitsha1]
 ```
