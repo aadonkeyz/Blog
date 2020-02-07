@@ -130,3 +130,33 @@ This is a bit of a shortcut. Git automatically expands the `serverfix` branchnam
 Checking out a local branch from a remote-tracking branch automatically creates what is called a "tracking branch", and the branch it tracks is called an "upstream branch". Tracking branches are local branches that have a direct relationship to a remote branch. If you're on a tracking branch and type `git pull`, Git automatically know which server to fetch from and which branch to merge in. If you want to change the upstream branch you're tracking, you can use the `-u` or `--set-upstream-to` option to `git branch` to explicitly set it at any time.
 
 # Rebasing
+
+{% note warning %}
+**It turns out that in addition to the commit SHA-1 checksum, Git also calculates a checksum that is based just on the patch introduced with the commit, this is called a "patch-id".**
+{% endnote %}
+
+In addition to `merge`, if you want to integrate changes from `experiment` into `master`, there is another way.
+
+![Simple divergent history](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Git%20Branching/Simple%20divergent%20history.png)
+
+You can take the patch of the change that was introduce in `C4` and reapply it on top of `C3`. In Git, this is called **rebasing**. With the `rebase` command, you can take all the changes that were committed on one branch and replay them on a different branch.
+
+```zsh
+$ git checkout experiment
+$ git rebase master
+```
+
+![Rebasing the change introduced in C4 onto C3](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Git%20Branching/Rebasing%20the%20change%20introduced%20in%20C4%20onto%20C3.png)
+
+At this point, you can go back to the `master` branch and do a fast-forward merge.
+
+```zsh
+$ git checkout master
+$ git merge experiment
+```
+
+![Fast-forwarding the master branch](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/Git%20Branching/Fast-forwarding%20the%20master%20branch.png)
+
+{% note info %}
+**Rebasing replays changes from one line of work onto another in the order they were introduced, whereas merging takes the endpoints and merges them together. There is no difference in the end product of the integration, but rebasing makes for a cleaner history. In addition, when you rebase stuff, you're abanding existing commits and creating new ones that are similar but different.**
+{% endnote %}
