@@ -66,6 +66,12 @@ $ git branch -d <branchname>
 
 # delete a remote branch
 $ git push <remotename> --delete <branchname>
+
+# take the patch(s) and replay it/them on top of somewhere else
+$ git rebase <branchname | tagname | commitsha1>
+
+# if there is any conflict while rebasing, use this command
+$ git rebase <--continue | --abort | --skip>
 ```
 
 # Branches in a Nutshell
@@ -159,4 +165,8 @@ $ git merge experiment
 
 {% note info %}
 **Rebasing replays changes from one line of work onto another in the order they were introduced, whereas merging takes the endpoints and merges them together. There is no difference in the end product of the integration, but rebasing makes for a cleaner history. In addition, when you rebase stuff, you're abanding existing commits and creating new ones that are similar but different.**
+{% endnote %}
+
+{% note warning %}
+**If there is any conflict while you are rebasing, you should fix the confilct, and then use `git add` to stage the files, use `git rebase --continue` to finish the rebasing process. In this process, do not use `git commit`, it will create a commit and detach the HEAD!**
 {% endnote %}
