@@ -168,5 +168,5 @@ $ git merge experiment
 {% endnote %}
 
 {% note warning %}
-**If there is any conflict while you are rebasing, you should fix the confilct, and then use `git add` to stage the files, use `git rebase --continue` to finish the rebasing process. In this process, do not use `git commit`, it will create a commit and detach the HEAD!**
+**If there is any conflict while you are rebasing, you should fix the conflict, and then use `git add` to stage the files, use `git rebase --continue` to finish the rebasing process. In this process, do not use `git commit`, it will create a commit and detach the HEAD!**
 {% endnote %}
