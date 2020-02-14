@@ -68,7 +68,8 @@ $ git branch -d <branchname>
 $ git push <remotename> --delete <branchname>
 
 # take the patch(s) and replay it/them on top of somewhere else
-$ git rebase <branchname | tagname | commitsha1>
+# if there is no argument, it will rebase on the upstream of current local branch
+$ git rebase [branchname | tagname | commitsha1]
 
 # if there is any conflict while rebasing, use this command
 $ git rebase <--continue | --abort | --skip>
