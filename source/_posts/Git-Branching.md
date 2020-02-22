@@ -17,6 +17,12 @@ $ git branch <newbranch> [existbranch]
 # switch your working directory
 $ git checkout [branchname | tagname | commitsha1]
 
+# rename a branch
+# if the newbranch is already existed
+# -m => rename fail
+# -M => delete the existed one, and then rename
+$ git branch (-m | -M) [oldbranch] <newbranch>
+
 # create a branch and switch to it
 # if you don't type existbranch, use current branch
 $ git checkout -b <newbranch> [existbranch]
@@ -26,6 +32,11 @@ $ git branch -f [branchname | tagname | commitsha1]
 
 # merge the target branch into your current branch
 $ git merge <targetbranch>
+
+# merge the target branch into your current branch
+# create a merge commit in all cases
+# even when the merge could instead be resolved as a fast-forward
+$ git merge <targetbranch> --no-ff
 
 # no options => local branches list
 # -r => remote branches list

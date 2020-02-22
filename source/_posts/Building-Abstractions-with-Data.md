@@ -195,9 +195,146 @@ The point of exhibiting the procedural representation of pairs is not that our l
 
 # Hierarchical Data and the Closure Property
 
+The ability to create pairs whose elements are pairs is the essence of list structure's importance as a representation tool. In general, an operation for combining data objects satisfies the **closure property** if the results of combining things with that operation can themselves be combined using the same operation. Closure is the key to power in any means of combination because it permits us to create **hiearchical structures** -- structures made up of parts, which themselves are made up of parts, and so on.
+
+{% note warning %}
+The use of the word "closure" here comes from abstract algebra, where a set of elements is said to be closed under an operation if applying the operation to elements in the set produces an element that is again an element of the set. The Lisp community also (unfortunately) uses the word "closure" to describe a totally unrelated concept: A closure is an implementation technique for representing procedures with free variables. We do not use the world "closure" in this second sense in this book.
+{% endnote %}
+
+## Representing Sequences
+
+One of the useful structures we can build with paires is a sequence -- an ordered collection of data objects. There are, of course, many ways to represent sequence in term of pairs. One particularly straightforward representation is illustrated in the picture, where the sequence `1, 2, 3, 4` is represented as a chain of pairs. 
+
+![The sequence 1, 2, 3, 4 represented as a chain
+of pairs.](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/The%20sequence%201%2C%202%2C%203%2C%204%20represented%20as%20a%20chain%20of%20pairs.png)
+
+The `car` of each pairs is the corresponding item in the chain, and the `cdr` of the pair is the next pair in the chain. The `cdr` of the final pair signals the end of the sequence by pointing to a distinguished value that is not a pair, represented in box-and-pointer diagrams as a diagonal line and in programs as the value of the variable `nil`. The entrie sequence is constructed by nested cons operations:
+
+```lisp
+(cons 1
+      (cons 2
+            (cons 3
+                  (cons 4 nil))))
+```
+
+Such a sequence of pairs, formed by nested consed, is called a list, and Scheme provides a primitive called list to help in constructing lists. The above sequence could be produced by `(list 1 2 3 4)`. In general,
+
+```lisp
+(list <a1> <a2> ... <an>)
+```
+
+is equivalent to
+
+```lisp
+(cons <a1>
+      (cons <a2>
+            (cons ...
+                  (cons <an>
+                        nil))))
+```
+
+### List operations
+
+The use of pairs to represent sequences of elements as lists is accompanied by conventional programming techniques for manipulating lists by successively "cdring down" the lists. For example, the procedure `list-ref` takes as arguments a list and a number `n` and returns the $n^{th}$ item of the list. It is customary to number the elements of the list beginning with 0. The method for computing `list-ref` is the following:
+
+```lisp
+(define (list-ref items n)
+    (if (= n 0)
+        (car items)
+        (list-ref (cdr items) (- n 1))))
+
+(define squares (list 1 4 9 16 25))
+(list-ref squares 3)
+16
+```
+
+Often we `cdr` down the whole list. To aid in this, Scheme includes a primitive predicate `null?`, which tests whether its argument is the empty list. The procedure `length`, which returns the number of items in a list, illustrate this typical pattern of use:
+
+```lisp
+(define (length items)
+    (if (null? items)
+        0
+        (+ 1 (length (cdr items)))))
+
+(define odds (list 1 3 5 7))
+(length odds)
+4
+```
+
+Another conventional programming technique is to "cons up" an answer list while cdring down a list, as in the procedure `append`, which takes two lists as arguments and combinds their elements to make a new list:
+
+```lisp
+(define (append list1 list2)
+    (if (null? list1)
+        list2)
+        ((cons (car list1) (append (cdr list1) list2))))
+
+(append squares odds)
+(1 4 9 16 25 1 3 5 7)
+(appen odds squares)
+(1 3 5 7 1 4 9 16 25)
+```
+
+### Mapping over lists
+
+One extremely useful operation is to apply some transfomation to each element in a list and generate the list of results. For instance, the following procedure scales each number in a list by a given factor:
+
+```lisp
+(define (scale-list items factor)
+    (if (null? items)
+        nil
+        (cons (* (car items) factor)
+              (scale-list (cdr items)
+                          factor))))
+
+(scale-list (list 1 2 3 4 5) 10)
+(10 20 30 40 50)
+```
+
+We can abstract this general and capture it as a common pattern expressed as a higher-order procedure. The higher-order procedure here is called `map`. `map` takes as arguments as a procedure of one argument and a list, and returns a list of the results produced by applying the procedure to each element in the list:
+
+```lisp
+(define (map proc items)
+    (if (null? items)
+        nil
+        (cons (proc (car items))
+              (map proc (cdr items)))))
+
+(map abs (list -10 2.5 -11.6 17))
+(10 2.5 11.6 17)
+```
+
+Now we can give a new definition of `scale-list` in terms of map:
+
+```lisp
+(define (scale-list items factor)
+    (map (lambda (x) (* x factor))
+         items))
+```
+
+{% note warning %}
+`map` is an important construct, not only because it captures a common pattern, but because it establishes a higher level of abstraction in dealing with lists. In the original definition of `scale-list`, the recursive structure of the program draws attention to the element-by-element processing of the list. Defining `scale-list` in terms of `map` supresses that level of detail and emphasizes that scaling transforms a list of elements to a list of results. The difference between the two definitions is not that the computer is performing a different process (it isn't) but that we think about the process differently. In effect, `map` helps establish an abstraction barrier that isolates the implementation of procedures that transform lists from the details of how the elements of the list are extracted and combined. Like the barriers shown previously, this abstraction gives us the flexibility to change the low-level details of how sequences are implemented, while preserving the conceptual framework of operations that transform sequenecs to sequences.
+{% endnote %}
+
+## Hierarchical Structures
 
 
 
 
 
+### Mapping over trees
 
+
+
+## Sequences as Conventional Interfaces
+
+
+
+### Sequence Operations
+
+
+
+### Nested Mappings
+
+
+## Example
