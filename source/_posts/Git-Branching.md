@@ -6,29 +6,29 @@ categories:
     - Git
 ---
 
-# Commands About Branch
+# Commands
 
 ```zsh
 # create a branch
 # only create, don't switch
 # if you don't type existbranch, use current branch
-$ git branch <newbranch> [existbranch]
+$ git branch <newbranch> [<existbranch>]
 
 # switch your working directory
-$ git checkout [branchname | tagname | commitsha1]
+$ git checkout [<branchname> | <tagname> | <commitsha1>]
 
 # rename a branch
 # if the newbranch is already existed
 # -m => rename fail
 # -M => delete the existed one, and then rename
-$ git branch (-m | -M) [oldbranch] <newbranch>
+$ git branch (-m | -M) [<oldbranch>] <newbranch>
 
 # create a branch and switch to it
 # if you don't type existbranch, use current branch
-$ git checkout -b <newbranch> [existbranch]
+$ git checkout -b <newbranch> [<existbranch>]
 
 # move the branch pointer
-$ git branch -f [branchname | tagname | commitsha1]
+$ git branch -f [<branchname> | <tagname> | <commitsha1>]
 
 # merge the target branch into your current branch
 $ git merge <targetbranch>
@@ -53,7 +53,7 @@ $ git branch [--merged | --no-merged]
 # update your local database
 # move your remote/branch pointer to its new, more up-to-data position.
 # if you don't type remote, it will use origin as default
-$ git fetch [remotename]
+$ git fetch [<remotename>]
 
 # push the local branch to the remote branch
 $ git push <remotename> <localbranch:remotebranch>
@@ -80,7 +80,7 @@ $ git push <remotename> --delete <branchname>
 
 # take the patch(s) and replay it/them on top of somewhere else
 # if there is no argument, it will rebase on the upstream of current local branch
-$ git rebase [branchname | tagname | commitsha1]
+$ git rebase [<branchname> | <tagname> | <commitsha1>]
 
 # if there is any conflict while rebasing, use this command
 $ git rebase <--continue | --abort | --skip>

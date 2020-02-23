@@ -138,7 +138,7 @@ $ git remote add <name> <url>
 # this command only downloads the data to your local repository
 # it doesn't automatically merge it with any of your work of modify what you're currently working on
 # if you don't type remote, it will use origin as default
-$ git fetch [remotename]
+$ git fetch [<remotename>]
 
 # push any commits you've done back up to the server
 $ git push <remotename> <branchname>
@@ -178,5 +178,5 @@ $ git push <remotename> :refs/tags/<tagname>
 $ git push <remotename> --delete <tagname>
 
 # switch your working directory
-$ git checkout [branchname | tagname | commitsha1]
+$ git checkout [<branchname> | <tagname> | <commitsha1>]
 ```
