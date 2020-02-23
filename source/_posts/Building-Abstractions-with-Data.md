@@ -195,6 +195,10 @@ The point of exhibiting the procedural representation of pairs is not that our l
 
 # Hierarchical Data and the Closure Property
 
+As we have seen, pairs provide a primitive "glue" that we can use to construct compound data object. The picutre shows a standard way to visualize a pair -- in this case, the pair formed by `(cons 1 2)`. In this representation, which is called **box-and-pointer** notation, each object is shown as a pointer to a box. The box for a primitive object contains a representation of the object. For example, the box for a number contains a numeral. The box for a pair is actually a double box, the left part containing (a pointer to) the `car` of the pair and the right part containing the `cdr`.
+
+![box-and-pointer](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/box-and-pointer.png)
+
 The ability to create pairs whose elements are pairs is the essence of list structure's importance as a representation tool. In general, an operation for combining data objects satisfies the **closure property** if the results of combining things with that operation can themselves be combined using the same operation. Closure is the key to power in any means of combination because it permits us to create **hiearchical structures** -- structures made up of parts, which themselves are made up of parts, and so on.
 
 {% note warning %}
@@ -318,23 +322,198 @@ Now we can give a new definition of `scale-list` in terms of map:
 
 ## Hierarchical Structures
 
+The representation of sequences in terms of lists generalizes naturally to represent sequences whose elements may themselves be sequences. For example, we can regard the object `((1, 2), 3, 4)` constructed by `(cons (list 1 2) (list 3 4))` as a list of three items, the first of which is itself a list. Indeed, this is suggested by the form in which the result is printed by the interpreter. The picture shows the representation of this structure in terms of pairs.
 
+![Structure formed by (cons (list 1 2) (list 3 4))](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/Structure%20formed%20by%20%28cons%20%28list%201%202%29%20%28list%203%204%29%29.png)
 
+Another way to think of sequences whose elements are sequences is as tree. The elements of the sequences are the branches of the tree, and elements that are themselves sequences are subtrees.
 
+![The list structure viewed as a tree](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/The%20list%20structure%20viewed%20as%20a%20tree.png)
+
+Recursion is a natural tool for dealing with tree structures, since we can often reduce operations on trees to operations on their branches, which reduce in turn to operations on the branches of the branches, and so on, until we reach the leaves of the tree. As an example, compare the `length` procedure with the `count-leaves` procedure, which returns the total number of leaves of a tree:
+
+```lisp
+(define (count-leaves x)
+    (cond ((null? x) 0)
+          ((not (pair? x)) 1)
+          (else (+ (count-leaves (car x))
+                   (count-leaves (cdr x))))))
+
+(define x (cons (list 1 2) (list 3 4)))
+(length x)
+3
+(count-leaves x)
+4
+```
 
 ### Mapping over trees
 
+Just as `map` is a powerful abstraction for dealing with sequences, `map` together with recursion is a powerful abstraction for dealing with trees. For instance, the `scale-tree` procedure, analogous to `scale-list`, takes as arguments a numeric factor and a tree whose leaves are numbers. It returns a tree of the same shape, where each number is multiplied by the factor. The recursive plan for `scale-tree` is similar to the one for `count-leaves`:
 
+```lisp
+(define (scale-tree tree factor)
+    (cond ((null? tree) nil)
+          ((not (pair? tree)) (* tree factor))
+          (else (cons (scale-tree (car tree) factor)
+                      (scale-tree (cdr tree) factor)))))
+
+(scale-tree (list 1 (list 2 (list 3 4) 5) (list 6 7)) 10)
+(10 (20 (30 40) 50) (60 70))
+```
+
+Another way to implement `scale-tree` is to regard the tree as a sequence of sub-trees and use `map`. We map over the sequence, scaling each sub-tree in turn, and return the list of the results. In the base case, where the tree is a leaf, we simply multiply by the factor:
+
+```lisp
+(define (scale-tree tree factor)
+    (map (lambda (sub-tree)
+            （if (pair? sub-tree)
+                 (scale-tree sub-tree factor)
+                 (* sub-tree factor)))
+         tree)
+```
 
 ## Sequences as Conventional Interfaces
 
+In working with compoind data, we've stressed how data abstraction permits us to design programs without becoming enmeshed in the details of data representations, and how abstraction preserves for us the flexibility to experiment with alternative representations. In this section, we introduce another powerful design principle for working with data structures -- the use of **conventional interfaces**.
 
+We havs seen how program abstractions, implemented as higher-order procedures, can capture common patterns in programs that deal with numerical data. Our ability to formulate analogous operations for working with compound data depends crucially on the style in which we manipulate our data structures. Consider, for example, the following procedure, analogous to the `count-leaves` procedure:
+
+```lisp
+(define (sum-odd-squares tree)
+    (cond ((null? tree) 0)
+          ((not (pair? tree)) (if (odd? tree) (square tree) 0))
+          (else (+ (sum-odd-squares (car tree))
+                   (sum-odd-squares (cdr tree))))))
+```
+
+On the surface, this procedure is very different from the following one, which constructs a list of all the even Fibonacci numbers Fib($k$), where $k$ is less than or equal to a given integer $n$:
+
+```lisp
+(define (even-fibs n)
+    (define (next k)
+        (if (> k n)
+            nil
+            (let ((f (fib k)))
+                (if (even? f)
+                    (cons f (next (+ k 1)))
+                    (next (+ k 1))))))
+    (next 0))
+```
+
+Despite the fact that these two procedures are structurally very different, a more abstract description of the two computations reveals a great deal of similarity. 
+
+{% note info %}
+The first program:
+1. enumerates the leaves of a tree;
+2. filters them, selecting the odd ones;
+3. squares each of the selected ones;
+4. accumulates the results using `+`, starting with 0.
+
+---
+The second program:
+1. enumeratres the integers from 0 to $n$;
+2. computes the Fibonacci number for each integer;
+3. filters them, selecting the even ones;
+4. accumulates the results using `cons`, starting with the empty list.
+{% endnote %}
+
+A signal-processing engineer would find it natural to conceptualize these processes in terms of signals flowing through a cascade of stages, each of which implements part of the program plan, as shown in the following picture.
+
+![signal-flow](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/signal-flow.png)
+
+In `sum-odd-squares`, we begin with an `enumerator`, which generates a "signal" consisting of the leaves of a given tree. This signal is passed through a `filter`, which eliminates all but the odd elements. The resulting signal is in turn passed through a `map`, which is a "transducer" that applies the square procedure to each element. The output of the map is then fed to an `accumulator`, which combines the elements using `+`, starting from an initial 0. The plan for `even-fibs` is analogous.
+
+Unfortunately, the two procedure definitions above fail to exhibit this signal-flow structure. For instance, if we examine the `sum-odd-squares` procedure, we find that the enumeration is implemented partly by the `null?` and `pair?` tests and partly by the tree-recursive structure of the procedure. Similarly, the accumulation is found partly in the tests and partly in the addition used in the recrusion. In general, there are no distinct parts of either procedure that correspond to the elements in the signal-flow description. Our two procedures decompose the computations in a different way, spreading the enumeration over the program and mingling it with the map, the filter, and the accumulation. If we could organize our programs to make the signal-flow structure manifest in the procedure we write, this would increase the conceptual clarity of the resulting code.
 
 ### Sequence Operations
 
+The key to organizing programs so as to more clearly reflect the signal-flow structure is to concentrate on the "signals" that flow from one stage in the process to the next. If we represent these signals as lists, then we can use list operations to implement the processing at each of the stages. For instance, we can implement the mapping stages of the signal-flow diagrams using the `map` procedure.
 
+```lisp
+(map square (list 1 2 3 4 5))
+(1 4 9 16 25)
+```
 
-### Nested Mappings
+Filtering a sequence to select only those elements that satisfy a given predicate is accomplished by
 
+```lisp
+(define (filter predicate sequence)
+    (cond ((null? sequence) nil)
+          ((predicate (car sequence))
+            (cons (car sequence) (filter predicate (cdr sequence))))
+          (else (filter predicate (cdr sequence)))))
 
-## Example
+(filter odd? (list 1 2 3 4 5))
+(1 3 5)
+```
+
+Accumulations can be implemented by
+
+```lisp
+(define (accumulate op initial sequence)
+    (if (null? sequence)
+        initial
+        (op (car sequence)
+            (accumulate op initial (cdr sequence)))))
+
+(accumulate + 0 (list 1 2 3 4 5))
+15
+```
+
+All that remains to implement signal-flow diagrams is to enumerate the sequence of elements to be processed. For `even-fibs`, we need to generate the sequence of integers in a given range, which we can do as follows:
+
+```lisp
+(define (enumerate-interval low high)
+    (if (> low high)
+        nil
+        (cons low (enumerate-interval (+ low 1) high))))
+
+(enumerate-interval 2 7)
+(2 3 4 5 6 7)
+```
+
+To enumerate the leaves of a tree, we can use:
+
+```lisp
+(define (enumerate-tree tree)
+    (cond ((null? tree) nil
+          ((not (pair? tree)) (list tree))
+          (else (append (enumerate-tree (car tree))
+                        (enumerate-tree (cdr tree)))))))
+
+(enumerate-tree (list 1 (list 2 (list 3 4)) 5))
+(1 2 3 4 5)
+```
+
+Now we can reformulate `sum-odd-squares` and `even-fibs` as in the signal-flow diagrams.
+
+```lisp
+(define (sum-odd-squares tree)
+    (accumulate
+        +
+        0
+        (map square (filter odd? (enumerate-tree tree)))))
+
+(define (even-fibs n)
+    (accumulate
+        cons
+        nil
+        (filter even? (map fib (enumerate-interval 0 n)))))
+```
+
+The value of expressing programs as sequence operations is that this helps us make program designs that are modular, that is, designs that are constructed by combining relatively independent pieces. We can encourage modular design by providing a library of standard components together with a conventional interface for connecting the components in flexible ways.
+
+Modular construction is a powerful strategy for controlling complexity in engineering design. In real signal-processing applications, for example, designers regularly build systems by cascading elements selected from standardized families of filters and transducers. Similarly, sequence operations provide a library of standard program elements that we can mix and match. For instance, we can reuse pieces from the `sum-odd-squares` and `even-fibs` procedures in a program that constructs a list of the sequence of the first $n+1$ Fibonacci numbers:
+
+```lisp
+(define (list-fib-squares n)
+    (accumulate
+        cons
+        nil
+        (map square (map fib (enumerate-interval 0 n)))))
+
+(list-fib-squares 10)
+(0 1 1 4 9 25 64 169 441 1156 3025)
+```
+
+# Symbolic Data
