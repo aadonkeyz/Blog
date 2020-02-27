@@ -425,8 +425,6 @@ In `sum-odd-squares`, we begin with an `enumerator`, which generates a "signal" 
 
 Unfortunately, the two procedure definitions above fail to exhibit this signal-flow structure. For instance, if we examine the `sum-odd-squares` procedure, we find that the enumeration is implemented partly by the `null?` and `pair?` tests and partly by the tree-recursive structure of the procedure. Similarly, the accumulation is found partly in the tests and partly in the addition used in the recrusion. In general, there are no distinct parts of either procedure that correspond to the elements in the signal-flow description. Our two procedures decompose the computations in a different way, spreading the enumeration over the program and mingling it with the map, the filter, and the accumulation. If we could organize our programs to make the signal-flow structure manifest in the procedure we write, this would increase the conceptual clarity of the resulting code.
 
-### Sequence Operations
-
 The key to organizing programs so as to more clearly reflect the signal-flow structure is to concentrate on the "signals" that flow from one stage in the process to the next. If we represent these signals as lists, then we can use list operations to implement the processing at each of the stages. For instance, we can implement the mapping stages of the signal-flow diagrams using the `map` procedure.
 
 ```lisp
@@ -517,3 +515,206 @@ Modular construction is a powerful strategy for controlling complexity in engine
 ```
 
 # Symbolic Data
+
+## Quotation
+
+In order to manipulate symbols we need a new element in our language: the ability to **quote** a data object. Suppose we want to construct  the list `(a, b)`. We can't accomplish this with `(list a b)`, because this expression constructs a list of the values of `a` and `b` rather than the symbols themselves. This issue is well known in the context of natural languages, where words and sentences may be regarded either as semantic entities or as character strings (syntactic entities). The common practice in natural languages is to use quotation marks to indicate that a word or a sentence is to be treated literally as a string of characters. For instance, if we tell somebody "say your name aloud," we expect to hear that person's name. However, if we tell somebody "say 'your name' aloud," we expect to hear the words "your name." Note that we are forced to nest quotation marks to describe what somebody else might say.
+
+We can follow this same practice to identify lists and symbols that are to be treated as data objects rather than as expressions to be evaluated. However, our format for quoting differs from that of natural languages in that we place a quotation mark only at the beginning of the object to be quoted. We can get away with this in Scheme syntax because we rely on blanks and parentheses to be delimit objects. Thus, the meaning of the single quote character is to quote the next object.
+
+Now we can distinguish between symbols and their values:
+
+```lisp
+(define a 1)
+(define b 2)
+(list a b)
+(1 2)
+(list 'a 'b)
+(a b)
+(list 'a b)
+(a 2)
+(car '(a b c))
+a
+(cdr '(a b c))
+(b c)
+```
+
+One additional primitive used in manipulating symbols is `eq?`, which takes two symbols as arguments and tests whether they are the same. Here is a example:
+
+```lisp
+(define (memq item x)
+    (cond ((null? x) false)
+          ((eq? item (car x)) x
+          (else (memq item (cdr x))))))
+(memq 'apple '(pear banana prune))
+false
+(memq 'apple '(x (apple sauce) y apple pear)
+(apple pear))
+```
+
+## Example: Symbolic Differentiation
+
+As an illustration of symbol manipulation and a further illustration of data abstraction, consider the design of a procedure that performs symbolic differentiation of algebraic expressions. We would like the procedure to take as arguments an algebraic expression and a variable and to return the derivative of the expression with respect to the variable.
+
+In developing the symbolic-differentiation program, we will first define a differentiation algorithm that operates on abstract objects such as "sum", "products", and "variables" without worrying about how these are to be represented. Only afterward will address the representation problem.
+
+```lisp
+(variable? e)           ; Is e a variable?
+(same-variable? v1 v2)  ; Are v1 and v2 the same variable?
+(sum? e)                ; Is e a sum?
+(addend e)              ; Addend of the sum e.
+(augend e)              ; Augend of the sum e.
+(make-sum a1 a2)        ; Construct the sum of a1 and a2.
+(product? e)            ; Is e a product?
+(multiplier e)          ; Multiplier of the product e.
+(multiplicand e)        ; Multiplicand of the product e.
+(make-product m1 m2)    ; Construct the product of m1 and m2.
+
+(define (deriv exp var)
+    (cond ((number? exp) 0)
+          ((variable? exp) (if (same-variable? exp var) 1 0))
+          ((sum? exp) (make-sum (deriv (addend exp) var)
+                                (deriv (augend exp) var)))
+          ((product? exp)
+            (make-sum
+                (make-product (multiplier exp)
+                              (deriv (multiplicand exp) var))
+                (make-product (deriv (multiplier exp) var)
+                              (multiplicand exp))))
+          (else (error "unknown expression type: DERIV" exp))))
+```
+
+The `deriv` procedure incorporates the complete differentiation algorightm. Since it is expressed in terms of abstract data, it will work no matter how we choose to represent algebraic expressions, as long as we design a proper set of selectors and constructors.
+
+## Example: Representing Sets
+
+Informally, a set is simply a collection of distinct objects. To give a more precise definition we can employ the method of data abstraction. That is, we define "set" by specifying the operations that are to be used on sets. These are `union-set`, `intersection-set`, `element-of-set?`, and `adjoin-set`. `element-of-set?` is a predicate that determines whether a given element is a member of a set. `adjoin-set` takes an object and a set as arguments and returns a set that contains the elements of the original set and also the adjoined element. `union-set` computes the union of two sets, which is the set containing each element that appears in either argument. `intersection-set` computes the intersection of two sets, which is the set containing only elements that appear in both arguments. From the viewpoint of data abstraction, we are free to design any representation that implements these operations in a way consistent with the interpretations given above.
+
+### Sets as unordered lists
+
+One way to represent a set is as a list of its elements in which no element appears more than once. The empty set is represented by the empty list. In this representation, `element-of-set?` is similar to the procedure `memq`. It uses `equal?` instead of `eq?` so that the set elements need not be symbols:
+
+```lisp
+(define (element-of-set? x set)
+    (cond ((null? set) false)
+          ((equal? x (car set)) true)
+          (else (element-of-set? x (cdr set)))))
+```
+
+Using this, we can write `adjoin-set`. If the object to be adjoined is already in the set, we just return the set. Otherwise, we use `cons` to add the object to the list that represents the set:
+
+```lisp
+(define (adjoin-set x set)
+    (if (element-of-set? x set)
+        set
+        (cons x set)))
+```
+
+For `intersection-set` we can use a recursive strategy. If we know how to form the intersection of `set2` and the `cdr` of `set1`, we only need to decide whether to include the `car` of `set` in this. But this depends on whether `(car set1)` is also in `set2`. Here is the resulting procedure:
+
+```lisp
+(define (intersection-set set1 set2)
+    (cond ((or (null? set1) (null? set2)) '())
+          ((element-of-set? (car set1) set2)
+            (cons (car set1) (intersection-set (cdr set1) set2)))
+          (else (intersection-set (cdr set1) set2))))
+```
+
+In designing a representation, one of the issues we should be concerned with is efficiency. Consider the number of steps required by our set operations. Since they all use `element-of-set?`, the speed of this operation has a major impact on the efficiency of the set implementation as a whole. Now, in order to check whether an object is a member of a set, `element-of-set?` may have to scan the entire set. (In the worst case, the object turns out not to be in the set.) Hence, if the set has $n$ elements, `element-of-set?` might take up to $n$ steps. Thus, the number of steps required grows as $\Theta(n)$. The number of steps required by `adjoin-set`, which uses this operation, also grows as $\Theta(n)$. For `intersection-set`, which does an `element-of-set?` check for each element of `set1`, the number of steps required grows as the product of the sizes of the sets involved, or $\Theta(n^2)$ for two sets of size $n$. The same will be true of `union-set`.
+
+### Sets as ordered lists
+
+One way to speed up our set operations is to change the representation so that the set elements are listed in increasing order. To do this, we need some way to compare two objects so that we can say which is bigger. For example, we could compare symbols lexicographically, or we could agree on some method for assigning a unique number to an object and then compare the elements by comparing the corresponding numbers. To keep our discussion simple, we will consider only the case where the set elements are numbers, so that we can compare elements using $>$ and $<$. We will represent a set of numbers by listing its elements in increasing order.
+
+One advantage of ordering shows up in `element-of-set?`: In checking for the presence of an item, we no longer have to scan the entire set. If we reach a set element that is larger than the item we are looking for, then we know that the item is not in the set.
+
+```lisp
+(define (element-of-set? x set)
+    (cond ((null? set) false)
+          ((= x (car set)) true)
+          ((< x (car set)) false)
+          (else (element-of-set? x (cdr set)))))
+```
+
+How many steps does this save? In the worst case, the item we are looking for may be the largest one in the set, so the number of steps is the same as for the unordered representation. On the other hand, if we search for items of many different sizes we can expect that somtimes we will be able to stop searching at a point near the beginning of the list and that other times we will still need to examine most of the list. On the average we should expect to have to examine about half of the items in the set. Thus, the average number of steps required will be about $n/2$. This is still $\Theta(n)$ growth, but it does save us, on the average, a factor of 2 in number of steps over the previous implementation.
+
+We obtain a more impressive speedup with `intersection-seet`. In the unordered representation this operation required $\Theta(n^2)$ steps, because we performed a complete scan of `set2` for each element of `set1`. But with the ordered representation, we can use a more clever method. Begin by comparing the initial elements, `x1` and `x2`, of the two sets. If `x1` equals `x2`, then that gives an element of the intersection, and the rest of the intersection is the intersection of the `cdr` of the two sets. Suppose, however, that `x1` is less than `x2`. Since `x2` is the smallest element in `set2`, we can immediately conclude that `x1` cannot appear anywhere in `set2` and hence is not in the intersection. Hence, the intersection is equal to the intersection of `set2` with the `cdr` of `set1`. Similarly, if `x2` is less than `x1`, then the intersection is given by the intersection of `set1` with the `cdr` of `set2`.
+
+```lisp
+(define (intersection-set set1 set2)
+    (if (or (null? set1) (null? set2))
+        '()
+        (let ((x1 (car set1)) (x2 (car set2)))
+            (cond ((= x1 x2)
+                    (cons x1 (intersection-set (cdr set1)
+                                               (cdr set2))))
+                  ((< x1 x2)
+                    (intersection-set (cdr set1) set2))
+                  ((< x2 x1)
+                    (intersection-set set1 (cdr set2)))))))
+```
+
+To estimate the number of steps required by this process, observe that at each step we reduce the intersection problem to computing intersection of smaller sets-removing the first element from `set1` or `set2` or both. Thus, the number of steps required is at most the sum of the sizes of `set1` and `set2`, rather than the product of the sizes as with the unordered representation. This is $\Theta(n)$ growth rather than $\Theta(n^2)$ -- a considerable speedup, even for sets of moderate size.
+
+### Sets as binary trees
+
+We can do better than the ordered-list representation by arranging the set elements in the form of a tree. Each node of the tree holds one element of the set, called the "entry" at that node, and a link to each of two other (possibly empty) nodes. The "left" link points to elements smaller than the one at the node, and the "right" link to elements greater than the one at the node. The same set may be represented by a tree in a number of different ways. The only thing we require fro a valid representation is that all elements in the left subtree be smaller than the node entry and that all elements in the right subtree be larger.
+
+The advantage of the tree representation is this: Suppose we want to check whether a number $x$ is contained in a set. We begin by comparing $x$ with the entry in the top node. If $x$ is greater, we need only search the right subtree. Now, if the tree is "balanced," each of these subtrees will be about half the size of the original. Thus, in one step we have reduced the problem of searching a tree of size $n$ to searching a tree of size $n/2$. Since the size of the tree is halved at each step, we should expect that the number of steps needed to search a tree of size $n$ grows as $\Theta(logn)$. For large sets, this will be a significant speedup over the previous representations.
+
+We can represent trees by using lists. Each node will be a list of three items: the entry at the node, the left subtree, and the right subtree. A left or a right subtree of the empty list will indicate that there is no subtree connected there.
+
+```lisp
+(define (entry tree) (car tree))
+(define (left-branch tree) (cadr tree))
+(define (right-branch tree) (caddr tree))
+(define (make-tree entry left right) 
+    (list entry left right))
+```
+
+Now we can write the `element-of-set?` procedure using the strategy describe above：
+
+```lisp
+(define (element-of-set? x set)
+    (cond ((null? set) false)
+          ((= x (entry set)) true)
+          ((< x (entry set))
+            (element-of-set? x (left-branch set)))
+          ((> x (entry set))
+            (element-of-set? x (right-branch set)))))
+```
+
+Adjoining an item to a set is implemented similarly and also requires $\Theta(logn)$ steps. To adjoin an item $x$, we compare $x$ with the node entry to determine whether $x$ should be added to the right or to the left branch, and having adjoined $x$ to the appropriate branch we piece this newly constructed branch together with the original entry and the other branch. If $x$ is equal to the entry, we just return the node. If we are asked to adjoin $x$ to an empty tree, we generate a tree that has $x$ as the entry and empty right and left branches.
+
+```lisp
+(define (adjoin-set x set)
+    (cond ((null? set) (make-tree x '() '()))
+          ((= x (entry set)) set)
+          ((< x (entry set))
+            (make-tree (entry set)
+                       (adjoin-set x (left-branch set))
+                       (right-branch set)))
+          ((> x (entry set))
+            (make-tree (entry set) 
+                       (left-branch set)
+                       (adjoin-set x (right-branch set))))))
+```
+
+The above claim that searching the tree can be performed in a logarithmic number of steps rests on the assumption that the tree is "balanced", i.e., that the left and the right subtree of every tree have approximately the same number of elements, so that each subtree contains about half the elements of its parent. But how can we be certain that the trees we construct will be balanced? Even if we start with a balanced tree, adding elements with `adjoin-set` may produce an unbalanced result. One way to solve this problem is to define an operation that transforms an arbitrary tree into a balanced tree with the same elements. Then we can perform this transformation after every few `adjoin-set` operations to keep our set in balance. There are also other ways to solve this problem, most of which involve designing new data structures for which searching and insertion both can be done in $\Theta(logn)$ steps.
+
+### Sets and information retrieval
+
+Consider a data base containing a large number of individual records, such as the personnel files for a company or the transactions in an accounting system. A typical data-management system spends a large amount of time accessing or modifying the data in the records and therefore requires an efficient method for accessing records. This is done by identifying a part of each record to serve as an identifying **key**. A key can be anything that uniquely identifies the record. Whatever the key is, when we define the record as a data structure we should include a key selector procedure that retrieves the key associated with a given record.
+
+Now we represent the data base as a set of records. To locate the record with a given key we use a procedure `lookup`, which takes as arguments a key and a data base and which returns the record that has that key, or false if there is no such record. `lookup` is implemented in almost the same way as `element-of-set?`. For example, if the set of records is implemented as an unordered list, we could use
+
+```lisp
+(define (lookup given-key set-of-records)
+    (cond ((null? set-of-records) false)
+          ((equal? given-key (key (car set-of-records)))
+            (car set-of-records))
+          (else (lookup given-key (cdr set-of-records)))))
+```
+
+Of course, there are better ways to represent large sets than as unordered lists. Information-retrieval systems in which records have to be "randomly accessed" are typically implemented by a tree-based method, such as the binary-tree representation discussed previously. In designing such a system the methodology of data abstraction can be a great help. The designer can create an initial implementation using a simple, straighforward representation such as unordered lists. This will be unsuitable for the eventual system, but it can be useful in providing a "quick and dirty" data base with which to test the rest of the system. Later on, the data representation can be modified to be more sophisticated. If the data base is accessed in terms of abstract selectors and constructors, this change in representation will not require any changes to the rest of the system.
+
