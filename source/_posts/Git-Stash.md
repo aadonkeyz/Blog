@@ -6,10 +6,6 @@ categories:
     - Git
 ---
 
-{% note warning %}
-**I don't know the details, but my colleague once lost the files that he has already stashed**
-{% endnote %}
-
 ```zsh
 # save your local modifications to a new stash entry
 # and roll them back to HEAD
@@ -22,14 +18,14 @@ $ git stash list
 # show the changes recorded in the stash entry as a diff 
 # between the stashed contents and 
 # the commit back when the stash entry was first created
-$ git stash show
+$ git stash show [<stash>]
 
 # remove a single stashed state from the stash list
 # and apply it on top of the current working tree state
-$ git stash pop
+$ git stash pop [<stash>]
 
 # like pop, but do not remove the state from the stash list
-$ git stash apply
+$ git stash apply [<stash>]
 
 # remove all the stash entries
 $ git stash clear
