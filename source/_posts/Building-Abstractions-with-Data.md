@@ -718,3 +718,130 @@ Now we represent the data base as a set of records. To locate the record with a 
 
 Of course, there are better ways to represent large sets than as unordered lists. Information-retrieval systems in which records have to be "randomly accessed" are typically implemented by a tree-based method, such as the binary-tree representation discussed previously. In designing such a system the methodology of data abstraction can be a great help. The designer can create an initial implementation using a simple, straighforward representation such as unordered lists. This will be unsuitable for the eventual system, but it can be useful in providing a "quick and dirty" data base with which to test the rest of the system. Later on, the data representation can be modified to be more sophisticated. If the data base is accessed in terms of abstract selectors and constructors, this change in representation will not require any changes to the rest of the system.
 
+## Example: Huffman Encoding Trees
+
+This section provides practice in the use of list structure and data abstraction to manipulate sets and trees. The application is to methods for representing data as sequences of one and zeros (bits). For example, the ASCII standard code used to represent text in computers encodes each character as a sequence of seven bits. Using seven bits allows us to distinguish $2^7$, or 128, possible different characters. In general, if we want to distinguish $n$ different symbols, we will need to use $log_2n$ bits per symbol. If all our messages are made up of the eight symbols A, B, C, D, E, F, G, and H, we can choose a code with three bits per character, for example
+
+A(000)、B(001)、C(010)、D(011)、E(100)、F(101)、G(110)、H(111)
+
+With this code, the message `BACADAEAFABBAAAGAH` is encoded as the string of 54 bits
+
+`001000010000011000100000101000001001000000000110000111`
+
+Codes such as ASCII and the A-through-H code above are known as **fixed-length** codes, because they represent each symbol in the message with the same number of bits. It is sometimes advantageous to use **variable-length** codes, in which different symbols may be represented by different numbers of bits. For example, Morse code does not use the same number of dots and dashes for each letter of the alphabet. In particular, E, the most frequent letter, is represented by a single dot. In general, if our messages are such that some symbols appera very frequently and some very rarely, we can encode data more efficiently if we assign shorter codes to the frequent symbols. Consider the following alternative code for the letters A through H:
+
+A(0)、B(100)、C(1010)、D(1011)、E(1100)、F(1101)、G(1110)、H(1111)
+
+With this code, the same message as above is encoded as the string
+
+`100010100101101100011010100100000111001111`
+
+This string contains 42 bits, so it saves more than 20% in space in comparison with the fixed-length code shown above.
+
+One of the difficulties of using a variable-length code is knowing when you have reached the end of a symbol in reading a sequence of zeros and ones. Morse code solves this problem by using a **special separator code** after the sequence of dots and dashes for each letter. Another solution is to design the code in such a way that no complete code for any symbol is the beginning of the code for another symbol. Such a code is called a **prefix code**. In the example above, `A` is encoded by `0` and `B` is encoded by `100`, so no other symbol can have a code that begins with `0` or with `100`.
+
+In general, we can attain significant saving if we use variable-length prefix codes that take advantage of the relative frequencies of the symbols in the messages to be encoded. One particular scheme for doing this is called the Huffman encoding method, after its discoverer, David Huffman. A Huffman code can be represented as a binary tree whose leaves are the symbols that are encoded. At each non-leaf node of the tree there is a set containing all the symbols in the leaves that lie below the node. In addition, each symbol at a leaf is assigned a weight (which is its relative frequency), and each non-leaf node contains a weight that is the sum of all the weights of the leaves lying below it. The weights are not used in the encoding or the decoding process. We will see below how they are used to help construct the tree.
+
+![A Huffman encoding tree](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/A%20Huffman%20encoding%20tree.png)
+
+Given a Huffman tree, we can find the encoding of any symbol by starting at the root and moving down until we reach the leaf that holds the symbol. Each time we move down a left branch we add a $0$ to the code, and each time we move down a right branch we add a $1$. For example, staring from the root of the tree, we arrive at the leaf for D by following a right branch, then a left branch, then a right branch, then a right branch; hence, the code for D is `1011`.
+
+To decode a bit sequence using a Huffman tree, we begin at the root and use the successive zeros and ones of the bit sequence to determine whether to move down the left or the right branch. Each time we come to a leaf, we have generated a new symbol in the message, at which point we start over from the root of the tree to find the next symbol. For example, suppose we are given the tree above and the sequence `10001010`, the entire message is BAC.
+
+### Generating Huffman trees
+
+Given an "alphabet" of symbols and their relative frequencies, how do we construct the "best" code? (In other words, which tree will encode messages with the fewest bits?) Huffman gave an algorithm for doing this and showed that the resulting code is indeed the best variable-length code for messages where the relative frequency of the symbols matches the frequencies with which the code was constructed. We will not prove this optimality of Huffman codes here, but we will show how Huffman trees are constructed.
+
+The algorithm for generating a Huffman tree is very simple. The idea is to arrange the tree so that the symbols with the lowest frequency appear farthest away from the root. Begin with the set of leaf nodes, containing symbols and their frequencies, as determined by the initial data from which the code is to be constructed. Now find two leaves with the lowest weights and merge them to produce a node that has these two nodes as its left and right branches. The weight of the new node is sum of the two weights. Remove the two leaves from the original set and replace them by this new node. Now continue this process. At each step, merge two nodes with the smallest weights, removeing them from the set and replacing them with a node that has these two as its left and right branches. The process stops when there is only one node left, which is the root of the entrie tree. The algorithm does not always specify a unique tree, beacuse there may not be unique smallest-weight nodes at each step. Also, the choice of the order in which the two nodes are merged is arbitrary.
+
+### Representing Huffman trees
+
+In the exercise below we will work with a system that uses Huffman trees to encode and decode messages and generates Huffman trees according to the algorithm outlined above. We will begin by discussing how trees are represented.
+
+Leaves of the tree are represented by a list consisting of the symbol leaf, the symbol at the leaf, and the weight:
+
+```lisp
+(define (make-leaf symbol weight) (list 'leaf symbol weight))
+(define (leaf? object) (eq? (car object) 'leaf))
+(define (symbol-leaf x) (cadr x))
+(define (weight-leaf x) (caddr x))
+```
+
+A generate tree will be a list of a left branch, a right branch, a set of symbols, and a weight. The set of symbols will be simply a list of the symbols, rather than some more sophisticated set representation. When we make a tree by merging two nodes, we obtain the weight of the tree as the sum of the weights of the nodes, and the set of symbols as the union of the sets of symbols for the nodes. Since our symbol sets are represented as lists, we can form the union by using the `append` procedure.
+
+```lisp
+(define (make-code-tree left right)
+    (list left
+          right
+          (append (symbols left) (symbols right))
+          (+ (weight left) (weight right))))
+```
+
+If we make a tree in this way, we have the following selectors:
+
+```lisp
+(define (left-branch tree) (car tree))
+(define (right-branch tree) (cadr tree))
+(define (symbols tree)
+    (if (leaf? tree)
+        (list (symbol-leaf tree))
+        (caddr tree)))
+(define (weight tree)
+    (if (leaf? tree)
+        (weight-leaf tree)
+        (cadddr tree)))
+```
+
+The procedures `symbols` and `weight` must do something slightly different depending on whether they are called with a leaf of a general tree. These are simple examples of **generic procedures** (procedures that can handle more than one kind of data)
+
+### The decoding procedure
+
+The following procedure implements the decoding algorithm. It takes as arguments a list of zeros and ones, together with a Huffman tree.
+
+```lisp
+(define (decode bits tree)
+    (define (decode-1 bits current-branch)
+        (if (null? bits)
+            '()
+            (let ((next-branch
+                    (choose-branch (car bits) current-branch)))
+                (if (leaf? next-branch)
+                    (cons (symbol-leaf next-branch)
+                          (decode-1 (cdr bits) tree))
+                    (decode-1 (cdr bits) next-branch)))))
+    (decode-1 bits tree))
+(define (choose-branch bit branch)
+    (cond ((= bit 0) (left-branch branch))
+          ((= bit 1) (right-branch branch))
+          (else (error "bad bit: CHOOSE-BRANCH" bit))))
+```
+
+The procedure `decode-1` takes two arguments: the list of remaining bits and the current position in the tree. It keeps moving "down" the tree, choosing a left or a right branch according to whether the next bit in the list is a zero or a one. When it reaches a leaf, it returns the symbol at that leaf as the next symbol in the message by consing it onto the result of the decoding the rest of the message, starting at the root of the tree. Note the error check in the final clause of `choose-branch`, which complains if the procedure finds something other than a zero or a one in the input data.
+
+### Sets of weighted elements
+
+In our representation of trees, each non-leaf node contains a set of symbols, which we have represented as a simple list. However, the tree-generating algorithm discussed above requires that we also work with sets of leaves and trees, successively merging the two smallest items. Since we will be required to repeatedly find the smallest item in a set, it is convenient to use an ordered representation for this kind of set.
+
+We will represent a set of leaves and trees as a list of elements, arrange in increasing order of weight. 
+
+```lisp
+(define (adjoin-set x set)
+    (cond ((null? set) (list x))
+          ((< (weight x) (weight (car set))) (cons x set))
+          (else (cons (car set)
+                      (adjoin-set x (cdr set))))))
+```
+
+The following procedure takes a list of symbol-frequency pairs such as ((A 4) (B 2) (C 1) (D 1)) and constructs an initial ordered set of leaves, ready to be merged according to the Huffman algorithm:
+
+```lisp
+(define (make-leaf-set pairs)
+    (if (null? pairs)
+        '()
+        (let ((pair (car pairs)))
+            (adjoin-set (make-leaf (car pair)
+                                   (cadr pair))
+                        (make-leaf-set (cdr pairs))))))
+```
+
+
