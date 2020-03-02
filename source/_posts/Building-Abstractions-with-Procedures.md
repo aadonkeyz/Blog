@@ -17,6 +17,8 @@ When we describe a language, we should pay particular attention to the means tha
 - **means of abstraction**: compound elements can be named and manipulated as units
 {% endnote %}
 
+In programming, we deal with two kinds of elements: procedures and data. Later we will discover that they are really not so distinct. Informally, data is "stuff" that we want to manipulate, and procedures are descriptions of the rules for manipulating the data. Thus, any powerful programming languages should have methods for combining and abstracting procedures and data.
+
 ## Expressions
 
 One easy way to get started at programming is to examine some typical interactions with an interpreter for the Scheme dialect of Lisp. Imagine that you are sitting at a computer terminal. You type an **expression**, and the interpreter responds by displaying the result of its **evaluating** that expression.
@@ -91,7 +93,7 @@ In the Scheme dialect of Lisp, we name things with `define`. Typing
 (define size 2)
 ```
 
-causes the interpreter to associate the value $2$ with the name size. Once the name `size` has been associated with the number $2$, we can refer to the value $2$ by name:
+causes the interpreter to associate the value $2$ with the name `size`. Once the name `size` has been associated with the number $2$, we can refer to the value $2$ by name:
 
 ```lisp
 size
@@ -128,7 +130,7 @@ To evaluate a combination, do the following:
 2. Apply the procedure that is the value of the leftmost subexpression (the operator) to the arguments that are the values of the other subexpressions (the operands)
 {% endnote %}
 
-Even this simple rule illustrates some important points about processes in general. First, observe that the first step dictates that in order to accomplish the evaluation process on each element of the combination. Thus, the evaluation rule is **recursive** in nature; that is, it includes, as one of its steps, the need to invoke the rule itself.
+Even this simple rule illustrates some important points about processes in general. First, observe that the first step dictates that in order to accomplish the evaluation process for a combination we must first perform the evaluation process on each element of the combination. Thus, the evaluation rule is **recursive** in nature; that is, it includes, as one of its steps, the need to invoke the rule itself.
 
 Notice how succinctly the idea of recursion can be used to express what, in the case of a deeply nested combination, would otherwise be viewed as a rather complicated process. For example, evaluating
 
@@ -141,7 +143,7 @@ requires that the evaluation rule be applied to four different combinations. We 
 
 ![tree representation, showing the value of each subcombination](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/tree%20representation%2C%20showing%20the%20value%20of%20each%20subcombination.png)
 
-Each combination is represented by a node with branches corresponding to the operator and the operands. The terminal nodes (that is, nodes with no branches stemming from them) respent either operators or numbers. Viewing evaluation in terms of the tree, we can imagine that the values of the operands percolate upward, starting from the terminal nodes and then combining at higher and higher levels. In general, we shall see that recursion is a very powerful technique for dealing with hierarchical, treelike objects. In fact, the "percolate values upward" form of the evaluation rule is an example of a general kind of process knowns as **tree accumulation**.
+Each combination is represented by a node with branches corresponding to the operator and the operands of the combination stemming from it. The terminal nodes (that is, nodes with no branches stemming from them) respent either operators or numbers. Viewing evaluation in terms of the tree, we can imagine that the values of the operands percolate upward, starting from the terminal nodes and then combining at higher and higher levels. In general, we shall see that recursion is a very powerful technique for dealing with hierarchical, treelike objects. In fact, the "percolate values upward" form of the evaluation rule is an example of a general kind of process knowns as **tree accumulation**.
 
 Next, observe that the repeated application of the first step brings us to the point where we need to evaluate, not combinations, but primitive expressions such as numerals, built-in operators, or other names. We take care of the primitive cases by stipulating that
 
@@ -153,6 +155,8 @@ Next, observe that the repeated application of the first step brings us to the p
 
 We may regard the second rule as a special case of the third one by stipulating that symbols such as `+` and `*` are also included in the global environment, and are associated with the sequences of machine instructions that are their "values". The key point to notice is the role of the environment in determining the meaning of the symbols in expressions. In an interactive language such as Lisp. it is meaningless to speak of the value of an expression such as `(+ x 1)` without specifying any information about the environment that would provide a meaning for the symbol `x` (or even for the symbol `+`). The general notion of the environment as providing a context in which evaluation takes place will play an important role in our understanding of program execution.
 
+Notice that the evaluation rule given above does not handle definitions. For instance, evaluating `(define x 3)` does not apply `define` to two arguments, since the purpose of the `define` is precisely to associate `x` with a value. That is, `(define x 3)` is not a combination. Such exceptions to the general evaluation rule are called **special forms**. `define` is the only example of a special form that we have seen so far, but we will meet others shortly.
+
 ## Compound Procedures
 
 We have identified in Lisp some of the elements that must appear in any powerful programming language:
@@ -163,7 +167,7 @@ We have identified in Lisp some of the elements that must appear in any powerful
 - Definitions that associate names with values provide a limited means of abstraction
 {% endnote %}
 
-Now we will learn about **procedure definitions**, a much more powerful abstraction technique by with a compound operation can be given a name and then referred to as a unit.
+Now we will learn about **procedure definitions**, a much more powerful abstraction technique by which a compound operation can be given a name and then referred to as a unit.
 
 The general form of a procedure definition is
 
@@ -319,7 +323,7 @@ Now let’s formalize the process in terms of procedures. We start with a value 
     (< (abs (- (square guess) x)) 0.001))
 ```
 
-Finally, we need a way to get started. For instance, we can always guess that the square root of any number is 1
+Finally, we need a way to get started. For instance, we can always guess that the square root of any number is 1:
 
 ```lisp
 (define (sqrt x)
