@@ -462,12 +462,11 @@ and stipulating that $n!$ is the value of the product when the counter exceeds $
 
 Consider the first process. The substitution model reveals a shape of expansion followed by contraction, the expansion occurs as the process builds up a chain of deferred operations (in this case, a chain of multiplications). The contraction occurs as the operations are actually performed. This type of process, characterized by a chain of deferred operations, is called a **recursive process**. Carrying out this process requires that the interpreter keep track of the operations to be performed later on. In the computation of $n!$, the length of the chain of deferred multiplications, and hence the amount of information needed to keep track of it, grows linearly with $n$ (is proportional to $n$), just like the number of steps. Such a process is called a **linear recursive process**.
 
-By contrast, the second process does not grow and shrink. At each step, all we need to keep track of, for any $n$, are the current values of the variables `product`, `counter`, and `max-count`. We call this an **iterative process**. In general, an iterative process is one whose state can be summarized by a fixed number of state variables, together with a fixed rule that describes how the state variables should be updated as the process moves from state to state and an (optional) end test that specifies conditions under which the process should terminate. In computing $n!$, the number of steps required grows linearly with $n$. Such a process is called
-a **linear iterative process**.
+By contrast, the second process does not grow and shrink. At each step, all we need to keep track of, for any $n$, are the current values of the variables `product`, `counter`, and `max-count`. We call this an **iterative process**. In general, an iterative process is one whose state can be summarized by a fixed number of state variables, together with a fixed rule that describes how the state variables should be updated as the process moves from state to state and an (optional) end test that specifies conditions under which the process should terminate. In computing $n!$, the number of steps required grows linearly with $n$. Such a process is called a **linear iterative process**.
 
-The contrast between the two processes can be seen in another way. In the iterative case, the program variables provides a complete description of the state of the process at any point. If we stopped the computation between steps, all we would need to do to resume the computation is to supply the interpreter with the values of the three program variables. Not so with the recursive process. In this case there is some additional "hidden" information, maintained by the interpreter and not contained in the program variables, which indicates "where the process is" in negotiating the chain of deferred operations. The longer the chain, the more information must be maintained.
+The contrast between the two processes can be seen in another way. In the iterative case, the program variables provide a complete description of the state of the process at any point. If we stopped the computation between steps, all we would need to do to resume the computation is to supply the interpreter with the values of the three program variables. Not so with the recursive process. In this case there is some additional "hidden" information, maintained by the interpreter and not contained in the program variables, which indicates "where the process is" in negotiating the chain of deferred operations. The longer the chain, the more information must be maintained.
 
-In contransting iteration and recursion, we must be careful not to confuse the notion of a **recursive process** with the notion of a **recursive procedure**. When we describe a procedure as recursive, we are referring to the syntactic fact that the procedure definition refers (either directly or indirectle) to the procedure itself. But when we describe a process as following a pattern that is, say, linearly recursive, we are speaking about how the process evolves, not about the syntax of how a procedure is written. It may seem disturbing that we refer to a recursive procedure such as `fact-iter` as generating an iterative process. However, the process really is iterative: **Its state is captured completely by its three state variables, and an interpreter need keep track of only three variables in order to execute the process.**
+In contransting iteration and recursion, we must be careful not to confuse the notion of a **recursive process** with the notion of a **recursive procedure**. When we describe a procedure as recursive, we are referring to the syntactic fact that the procedure definition refers (either directly or indirectle) to the procedure itself. But when we describe a process as following a pattern that is, we are speaking about how the process evolves, not about the syntax of how a procedure is written. It may seem disturbing that we refer to a recursive procedure such as `fact-iter` as generating an iterative process. However, the process really is iterative: **Its state is captured completely by its three state variables, and an interpreter need keep track of only three variables in order to execute the process.**
 
 ## Tree Recursion
 
@@ -501,46 +500,7 @@ It is not hard to show that, after applying this transformation $n$ times, $a$ a
         (fib-iter (+ a b) a (- count 1))))
 ```
 
-One shoule not conclude from this that tree-recursive process are useless. When we consider processes that operate on hierarchically structured data rather than numbers, we will find that tree recursion is a natural processes can be useful in helping us to understand and design programs.
-
-Consider the following problem, how many different ways can we make change of $1.00, given half-dollars, quarters, dimes, nickels, and pennies? More generally, can we write a procedure to compute the number of ways to change any given amount of money?
-
-This problem has a simple solution as a recursive procedure. Suppose we think of the types of coins available as arranged in some order. Then the following relation holds:
-
-{% note info %}
-The number of ways to change amount $a$ using $n$ kinds of coins equals the sum of the following two cases
-- the number of ways to change amount $a$ using all but the first kind of coin, plus
-- the number of ways to change amount $a-d$ using all $n$ kinds of coins, where $d$ is the denomination of the first kind of coin.
-{% endnote %}
-
-The latter number is equal to the number of ways to make change for the amount that remains after using a coin of the first kind. Thus, we can recursively reduce the problem of changing a given amount to the problem of changing smaller amounts using fewer kinds of coins. Consider this reduction rule carefully, and convince yourself that we can use it to describe an algorithm if we specify the following degenerate cases.
-
-{% note info %}
-- If $a$ is exactly $0$, we should count that as $1$ way to make change.
-- If $a$ is less than $0$, we should count that as $0$ ways to make change.
-- If $n$ is $0$, we should count that as $0$ ways to make change.
-{% endnote %}
-
-We can easily translate this description into a recursive procedure:
-
-```lisp
-(define (count-change amount) (cc amount 5))
-(define (cc amount kinds-of-coins)
-    (cond ((= amount 0) 1)
-          ((or (< amount 0) (= kinds-of-coins 0)) 0
-          (else (+ (cc amount
-                       (- kinds-of-coins 1))
-                   (cc (- amount
-                          (first-denomination
-                           kinds-of-coins))
-                       kinds-of-coins))))))
-(define (first-denomination kinds-of-coins)
-    (cond ((= kinds-of-coins 1) 1)
-          ((= kinds-of-coins 2) 5)
-          ((= kinds-of-coins 3) 10)
-          ((= kinds-of-coins 4) 25)
-          ((= kinds-of-coins 5) 50)))
-```
+One shoule not conclude from this that tree-recursive process are useless. When we consider processes that operate on hierarchically structured data rather than numbers, we will find that tree recursion is a natural and powerful tool. But even in numerical operations, tree-recursive processes can be useful in helping us to understand and design programs.
 
 # Formulating Abstractions with Higher-Order Procedures
 
@@ -614,10 +574,10 @@ Similary, as program designers, we would like our language to be powerful enough
 In general, lambda is used to create procedures in the same way as `define`, except that no name is specified for the procedure:
 
 ```lisp
-(define (<formal-parameters>) <body>)
+(lambda (<formal-parameters>) <body>)
 ```
 
-The resulting procedure is just as much as a procedure as one that is created using `define`. The only difference is that it has not been associated with any name in the environment.
+The resulting procedure is just as much a procedure as one that is created using `define`. The only difference is that it has not been associated with any name in the environment.
 
 Like any expression that has a procedure as its value, a lambda expression can be used as the operator in a combination such as
 
@@ -657,8 +617,8 @@ Of course, we could use a lambda expression to specify an anonymous procedure fo
         (+ (* x (square a))
            (* y b)
            (* a b)))
-     (+ 1 (* x y))
-     (- 1 y)))
+    (+ 1 (* x y))
+    (- 1 y)))
 ```
 
 This construct is so useful that there is a special form called `let` to make its use more convenient. Using `let`, the `f` procedure could be written as
@@ -683,6 +643,10 @@ The general form of a `let` expression is
 ```
 
 ## Procedures as General Methods
+
+We introduced [**compound procedures**](https://aadonkeyz.com/posts/38ee15cf/#Compound-Procedures) as a mechanism for abstracting patterns of numerical operations so as to make them independent of the particular numbers involved. With higher-order procedures, we began to see a more powerful kind of abstraction: [**procedures used to express general methods of computation**](https://aadonkeyz.com/posts/38ee15cf/#Procedures-as-Arguments), independent of the particular functions involved. In this section we discuss two more elaborate examples general methods for finding zeros and fixed points of functions, and show how these methods can be expressed directly as procedures.
+
+### Finding roots of equations by the half-interval method
 
 The half-interval method is simple but powerful technique for finding roots of an equation $f(x) = 0$, where $f$ is a continuous function.
 
@@ -721,10 +685,63 @@ The following example uses the half-interval method to approximate $\pi$ as the 
 3.14111328125
 ```
 
+### Finding fixed points of functions
+
+A number $x$ is called a **fixed point** of a function `f` if $x$ satisfies the equation $f(x) = x$. For some functions `f` we can locate a fixed point by beginning with an initial guess and applying `f` repeatedly
+
+{% note info %}
+<center>$f(x), f(f(x)), f(f(f(x))), \dots$</center>
+{% endnote %}
+
+until the value does not change very much. Using this idea, we can devise a procedure `fixed-point` that takes as inputs a function and an initial guess and produces an approximation to a fixed point of the function. We apply the function repeatdly until we find two successive values whose difference is less than some prescribed tolerance:
+
+```lisp
+(define tolerance 0.00001)
+(define (fixed-point f first-guess)
+    (define (close-enough? v1 v2)
+        (< (abs (- v1 v2)) tolerance))
+    (define (try guess)
+        (let ((next (f guess)))
+            (if (close-enough? guess next)
+            next
+            (try next))))
+    (try first-guess))
+```
+
+For example, we can use this method to approximate the fixed point of the cosine function, starting with $1$ as an initial approximation:
+
+```lisp
+(fixed-point cos 1.0)
+0.7390822985224023
+```
+
 ## Procedures as Returned Values
 
 The above examples demonstrate how the ability to pass procedures as arguments significantly enhances the expressive power of our programming language. We can achieve even more expressive power by creating procedures whose returned values are themselves procedures.
 
-But because I am a little bit lazy, I won't summary the content of this section of the book.
+We can illustrate this idea by looking again at the fixed-point example, we formulated a new version of the square-root procedure as a fixed-point search, starting with the observation that $\sqrt{x}$ is a fixed-point of the function $y = x/y$. Then we used average damping to make the approximations converge. Average damping is a useful general technique in itself. Namely, given a function `f`, we consider the function whose value at $x$ is equal to the average of $x$ and $f(x)$.
 
+We can express the idea of average damping by means of the following procedure:
 
+```lisp
+(define (average-damp f)
+    (lambda (x) (average x (f x))))
+```
+
+`average-damp` is a procedure that takes as its argument a procedure `f` and returns as its value a procedure that, when applied to a number `x`, produces the average of `x` and `(f x)`. For example, applying `average-damp` to the `square` procedure produces a procedure whose value at some number $x$ is the average of $x$ and $x^2$.
+
+Using `average-damp`, we can reformulate the square-root procedure as follows:
+
+```lisp
+(define (sqrt x)
+    (fixed-point (average-damp (lambda (y) (/ x y)))
+                 1.0))
+```
+
+It is instructive to compare this formulation of the square-root method with the original version. Bear in mind that these procedures express the same process, and notice how much clearer the idea becomes when we express the process in terms of these abstractions. In general, there are many ways to formulate a process as a procedure. Experienced programmers know how to choose procedural formulations that are particularly perspicuous, and where useful elements of the process are exposed as separate entities that can be reused in other applications. As a simple example of reuse, notice that the cube root of $x$ is a fixed point of the function $y = x/y^2$, so we can immediately generalize our square-root procedure to one that extracts cube roots:
+
+```lisp
+(define (cube-root x)
+    (fixed-point (average-damp (lambda (y) (/ x (square y))))
+                 1.0))
+```
