@@ -15,13 +15,13 @@ The basic idea of data abstraction is to structure the programs that are to use 
 
 ## Example: Arithmetic Operations for Rational Numbers
 
-suppose we want to do arithmetic with rational numbers. We want to be able to add, subtract, multipy, and divide them and to test whether two rational numbers are equal.
+Suppose we want to do arithmetic with rational numbers. We want to be able to add, subtract, multipy, and divide them and to test whether two rational numbers are equal.
 
 Let us begin by assumping that we already have a way of constructing a rational number from a numerator and a denominator. We also assume that, given a rational number, we have a way of extracting (or selecting) its numerator and its denominator. Let us further assume that the constructor and selectors are available as procedures:
 
 {% note info %}
 - `(make-rat <n> <d>)` returns the rational number whose numerator is the integer `<n>` and whose denominator is the integer `<d>`
-- `(number <x>)` returns the numerator of the rational number `<x>`
+- `(numer <x>)` returns the numerator of the rational number `<x>`
 - `(denom <x>)` returns the denominator of the rational number `<x>`
 {% endnote %}
 
@@ -138,9 +138,9 @@ In general, the underlying idea of data abstraction is to identify for each type
 
 ![Data-abstraction barriers in the rational-number package](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/Data-abstraction%20barriers%20in%20the%20rational-number%20package.png)
 
-We can envision the structure of the rational-number system as show above. The horizontal lines represent **abstraction barriers** that isolate different "levels" of the system. At each level, the barrier separates the programs (above) that use the data abstraction from the programs (below) that implement the data abstraction. Programs that use rational numbers manipulate them solely in terms of the procedures supplied "for public use" by the rational-number package: `add-rat`, `sub-rat`, `mul-rat`, `div-rat`, and `equal-rat?`. These, in turn, are implemented solely in terms of the constructor and selectores `make-rat`, `numer`, and `denom`, which themselves are implemented in terms of pairs. The details of how pairs are implemented are irrelevant to the rest of the rational-number package so long as pairs can be manipulated by the use of `cons`, `car`, and `cdr`. In effect, procedures at each level are the interfaces that define the abstraction barriers and connect the different levels.
+We can envision the structure of the rational-number system as shown above. The horizontal lines represent **abstraction barriers** that isolate different "levels" of the system. At each level, the barrier separates the programs (above) that use the data abstraction from the programs (below) that implement the data abstraction. Programs that use rational numbers manipulate them solely in terms of the procedures supplied "for public use" by the rational-number package: `add-rat`, `sub-rat`, `mul-rat`, `div-rat`, and `equal-rat?`. These, in turn, are implemented solely in terms of the constructor and selectores `make-rat`, `numer`, and `denom`, which themselves are implemented in terms of pairs. The details of how pairs are implemented are irrelevant to the rest of the rational-number package so long as pairs can be manipulated by the use of `cons`, `car`, and `cdr`. In effect, procedures at each level are the interfaces that define the abstraction barriers and connect the different levels.
 
-The simple idea has many advantages. One advantage is that it makes programs much easier to maintain and to modify. Any complex data structure can be represented in a variety of ways with the primitive data structures provided by a programming language. Of course, the choice of representation influences the programs that operate on it; thus, if the representation were to be changed at some later time, all such programs might have to be modified accordingly. This task could be time-consuming and expensive in the case of large programs unless the dependence on the representation were to be confined by design to a very few program modules.
+This simple idea has many advantages. One advantage is that it makes programs much easier to maintain and to modify. Any complex data structure can be represented in a variety of ways with the primitive data structures provided by a programming language. Of course, the choice of representation influences the programs that operate on it; thus, if the representation were to be changed at some later time, all such programs might have to be modified accordingly. This task could be time-consuming and expensive in the case of large programs unless the dependence on the representation were to be confined by design to a very few program modules.
 
 For example, an alternate way to address the problem of reducing rational numbers to lowest terms is to perform the reduction whenever we access the parts of a rational number, rather than when we construct it. This leads to different constructor and selector procedures:
 
@@ -154,7 +154,7 @@ For example, an alternate way to address the problem of reducing rational number
         (/ (cdr x) g)))
 ```
 
-The difference between this implementation and the previous one lies in when we compute the `gcd`. If in our typical use of rational numbers we access the numerators and denominators of the same rational numbers many times, it would be preferable to compute the `gcd` when the rational numbers are constructed. If not, we may be better off waiting until access time to compute the `gdc`. In any case, when we change from one representation to the other, the procedures `add-rat`, `sub-rat`, and so on do not have to be modified at all.
+The difference between this implementation and the previous one lies in when we compute the `gcd`. If in our typical use of rational numbers we access the numerators and denominators of the same rational numbers many times, it would be preferable to compute the `gcd` when the rational numbers are constructed. If not, we may be better off waiting until access time to compute the `gcd`. In any case, when we change from one representation to the other, the procedures `add-rat`, `sub-rat`, and so on do not have to be modified at all.
 
 Constraining the dependence on the representation to a few interface procedures helps us design programs as well as modify them, because it allows us to maintain the flexibility to consider alternate implementations. To continue with our simple example, suppose we are designing a rational-number package and we can't decide initially whether to perform the `gcd` at construction time or at selection time. The data-abstraction methodology gives us a way to defer that decision without losing the ability to make progress on the rest of the system.
 
@@ -170,7 +170,9 @@ But exactly what is meant by data? It is not enough to say "whatever is implemen
 
 In fact, this is the only condition `make-rat`, `numer`, and `denom` must fulfill in order to form a suitable basis for a rational-number representation. In general, we can think of data as defined by some collection of selectors and constructors, together with specified conditions that these procedures must fulfill in order to be a valid representation.
 
-This point of view can serve to define not only "high-level" data objects, such as rational numbers, but lower-level objects as well. Consider the notion of a pair, which we used in order to define our rational numbers. We never actually said what a pair was, only that the language supplied procedures `cons`, `car` and `cdr` for operations is that if we glue two objects using `cons` we can retrieve the objects using `car` and `cdr`. That is, the operations satisfy the condition that, for any objects `x` and `y`, if `z` is `(cons x y)` then `(car z)` is x and `(cdr z)` is `y`. Indeed, we mentioned that these three procedures are included as primitives in our language. However, any triple of procedures that satisfies the above condition can be used as the basis for implementing pairs. This point is illustrated strikingly by the fact that we could implement `cons`, `car` and `cdr` without using any data structures at all but only using procedures. Here are the definitions:
+This point of view can serve to define not only "high-level" data objects, such as rational numbers, but lower-level objects as well. Consider the notion of a pair, which we used in order to define our rational numbers. We never actually said what a pair was, only that the language supplied procedures `cons`, `car` and `cdr` for operations on pairs. But the only thing we need to know about these three operations is that if we glue two objects using `cons` we can retrieve the objects using `car` and `cdr`. That is, the operations satisfy the condition that, for any objects `x` and `y`, if `z` is `(cons x y)` then `(car z)` is x and `(cdr z)` is `y`.
+
+Indeed, we mentioned that these three procedures are included as primitives in our language. However, any triple of procedures that satisfies the above condition can be used as the basis for implementing pairs. This point is illustrated strikingly by the fact that we could implement `cons`, `car` and `cdr` without using any data structures at all but only using procedures. Here are the definitions:
 
 ```lisp
 (define (cons x y)
@@ -185,21 +187,15 @@ This point of view can serve to define not only "high-level" data objects, such 
 
 This use of procedures corresponds to nothing like our intuitive notion of what data should be. Nevertheless, all we need to do to show that this is a valid way to represent pairs is to verify that these procedures satisfy the condition given above.
 
-{% note warning %}
-The subtle point to notice is that the value returned by `(cons x y)` is a procedure -- namely the internally defined procedure `dispatch`.
-{% endnote %}
-
-Therefore, this procedural implementation of pairs is a valid implementation, and if we access pairs using only `cons`, `car` and `cdr` we cannot distinguish this implementation from one that uses "real" data structures.
-
-The point of exhibiting the procedural representation of pairs is not that our language works this way (Scheme, and Lisp systems in general, implement pairs directly, for efficiency reasons) but that it could work this way. The procedural representation, althougn obscure, is a perfectly adequate way to represent pairs, since it fulfills the only conditions that pairs need to fulfill. This example also demonstrates that the ability to manipulate procedures as objects automatically provides the ability to represent compound data. This may seem a curiosity now, but procedure representations of data will play a central role in our programming repertoire.
+The point of exhibiting the procedural representation of pairs is not that our language works this way (Scheme, and Lisp systems in general, implement pairs directly, for efficiency reasons) but that it could work this way. The procedural representation, althougn obscure, is a perfectly adequate way to represent pairs, since it fulfills the only conditions that pairs need to fulfill. This example also demonstrates that the ability to manipulate procedures as objects automatically provides the ability to represent compound data.
 
 # Hierarchical Data and the Closure Property
 
-As we have seen, pairs provide a primitive "glue" that we can use to construct compound data object. The picutre shows a standard way to visualize a pair -- in this case, the pair formed by `(cons 1 2)`. In this representation, which is called **box-and-pointer** notation, each object is shown as a pointer to a box. The box for a primitive object contains a representation of the object. For example, the box for a number contains a numeral. The box for a pair is actually a double box, the left part containing (a pointer to) the `car` of the pair and the right part containing the `cdr`.
+As we have seen, pairs provide a primitive "glue" that we can use to construct compound data objects. The picutre shows a standard way to visualize a pair -- in this case, the pair formed by `(cons 1 2)`. In this representation, which is called **box-and-pointer notation**, each object is shown as a pointer to a box. The box for a primitive object contains a representation of the object. For example, the box for a number contains a numeral. The box for a pair is actually a double box, the left part containing (a pointer to) the `car` of the pair and the right part containing the `cdr`.
 
 ![box-and-pointer](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/box-and-pointer.png)
 
-The ability to create pairs whose elements are pairs is the essence of list structure's importance as a representation tool. In general, an operation for combining data objects satisfies the **closure property** if the results of combining things with that operation can themselves be combined using the same operation. Closure is the key to power in any means of combination because it permits us to create **hiearchical structures** -- structures made up of parts, which themselves are made up of parts, and so on.
+The ability to create pairs whose elements are pairs is the essence of list structure's importance as a representation tool. We refer to this ability as the **closure property** of `cons`. In general, an operation for combining data objects satisfies the closure property if the results of combining things with that operation can themselves be combined using the same operation. Closure is the key to power in any means of combination because it permits us to create **hiearchical structures** -- structures made up of parts, which themselves are made up of parts, and so on.
 
 {% note warning %}
 The use of the word "closure" here comes from abstract algebra, where a set of elements is said to be closed under an operation if applying the operation to elements in the set produces an element that is again an element of the set. The Lisp community also (unfortunately) uses the word "closure" to describe a totally unrelated concept: A closure is an implementation technique for representing procedures with free variables. We do not use the world "closure" in this second sense in this book.
@@ -207,12 +203,12 @@ The use of the word "closure" here comes from abstract algebra, where a set of e
 
 ## Representing Sequences
 
-One of the useful structures we can build with paires is a sequence -- an ordered collection of data objects. There are, of course, many ways to represent sequence in term of pairs. One particularly straightforward representation is illustrated in the picture, where the sequence `1, 2, 3, 4` is represented as a chain of pairs. 
+One of the useful structures we can build with paires is a sequence -- an ordered collection of data objects. There are, of course, many ways to represent sequences in term of pairs. One particularly straightforward representation is illustrated in the picture, where the sequence `1, 2, 3, 4` is represented as a chain of pairs. 
 
 ![The sequence 1, 2, 3, 4 represented as a chain
 of pairs.](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/The%20sequence%201%2C%202%2C%203%2C%204%20represented%20as%20a%20chain%20of%20pairs.png)
 
-The `car` of each pairs is the corresponding item in the chain, and the `cdr` of the pair is the next pair in the chain. The `cdr` of the final pair signals the end of the sequence by pointing to a distinguished value that is not a pair, represented in box-and-pointer diagrams as a diagonal line and in programs as the value of the variable `nil`. The entrie sequence is constructed by nested cons operations:
+The `car` of each pair is the corresponding item in the chain, and the `cdr` of the pair is the next pair in the chain. The `cdr` of the final pair signals the end of the sequence by pointing to a distinguished value that is not a pair, represented in box-and-pointer diagrams as a diagonal line and in programs as the value of the variable `nil`. The entrie sequence is constructed by nested `cons` operations:
 
 ```lisp
 (cons 1
@@ -221,7 +217,7 @@ The `car` of each pairs is the corresponding item in the chain, and the `cdr` of
                   (cons 4 nil))))
 ```
 
-Such a sequence of pairs, formed by nested consed, is called a list, and Scheme provides a primitive called list to help in constructing lists. The above sequence could be produced by `(list 1 2 3 4)`. In general,
+Such a sequence of pairs, formed by nested conses, is called a list, and Scheme provides a primitive called `list` to help in constructing lists. The above sequence could be produced by `(list 1 2 3 4)`. In general,
 
 ```lisp
 (list <a1> <a2> ... <an>)
@@ -234,7 +230,7 @@ is equivalent to
       (cons <a2>
             (cons ...
                   (cons <an>
-                        nil))))
+                        nil)...)))
 ```
 
 ### List operations
@@ -263,6 +259,17 @@ Often we `cdr` down the whole list. To aid in this, Scheme includes a primitive 
 (define odds (list 1 3 5 7))
 (length odds)
 4
+```
+
+We could also compute `length` in an iterative style:
+
+```lisp
+(define (lenght items)
+    (define (length-iter a count)
+        (if (null? a)
+            count
+            (length-iter (cdr a) (+ 1 count))))
+    (length-iter items 0))
 ```
 
 Another conventional programming technique is to "cons up" an answer list while cdring down a list, as in the procedure `append`, which takes two lists as arguments and combinds their elements to make a new list:
@@ -295,7 +302,7 @@ One extremely useful operation is to apply some transfomation to each element in
 (10 20 30 40 50)
 ```
 
-We can abstract this general and capture it as a common pattern expressed as a higher-order procedure. The higher-order procedure here is called `map`. `map` takes as arguments as a procedure of one argument and a list, and returns a list of the results produced by applying the procedure to each element in the list:
+We can abstract this general and capture it as a common pattern expressed as a higher-order procedure. The higher-order procedure here is called `map`. `map` takes as arguments a procedure of one argument and a list, and returns a list of the results produced by applying the procedure to each element in the list:
 
 ```lisp
 (define (map proc items)
@@ -316,9 +323,7 @@ Now we can give a new definition of `scale-list` in terms of map:
          items))
 ```
 
-{% note warning %}
 `map` is an important construct, not only because it captures a common pattern, but because it establishes a higher level of abstraction in dealing with lists. In the original definition of `scale-list`, the recursive structure of the program draws attention to the element-by-element processing of the list. Defining `scale-list` in terms of `map` supresses that level of detail and emphasizes that scaling transforms a list of elements to a list of results. The difference between the two definitions is not that the computer is performing a different process (it isn't) but that we think about the process differently. In effect, `map` helps establish an abstraction barrier that isolates the implementation of procedures that transform lists from the details of how the elements of the list are extracted and combined. Like the barriers shown previously, this abstraction gives us the flexibility to change the low-level details of how sequences are implemented, while preserving the conceptual framework of operations that transform sequenecs to sequences.
-{% endnote %}
 
 ## Hierarchical Structures
 
