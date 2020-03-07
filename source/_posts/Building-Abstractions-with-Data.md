@@ -331,7 +331,7 @@ The representation of sequences in terms of lists generalizes naturally to repre
 
 ![Structure formed by (cons (list 1 2) (list 3 4))](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/Structure%20formed%20by%20%28cons%20%28list%201%202%29%20%28list%203%204%29%29.png)
 
-Another way to think of sequences whose elements are sequences is as tree. The elements of the sequences are the branches of the tree, and elements that are themselves sequences are subtrees.
+Another way to think of sequences whose elements are sequences is as trees. The elements of the sequences are the branches of the tree, and elements that are themselves sequences are subtrees.
 
 ![The list structure viewed as a tree](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/The%20list%20structure%20viewed%20as%20a%20tree.png)
 
@@ -426,7 +426,7 @@ A signal-processing engineer would find it natural to conceptualize these proces
 
 ![signal-flow](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/signal-flow.png)
 
-In `sum-odd-squares`, we begin with an `enumerator`, which generates a "signal" consisting of the leaves of a given tree. This signal is passed through a `filter`, which eliminates all but the odd elements. The resulting signal is in turn passed through a `map`, which is a "transducer" that applies the square procedure to each element. The output of the map is then fed to an `accumulator`, which combines the elements using `+`, starting from an initial 0. The plan for `even-fibs` is analogous.
+In `sum-odd-squares`, we begin with an `enumerator`, which generates a "signal" consisting of the leaves of a given tree. This signal is passed through a `filter`, which eliminates all but the odd elements. The resulting signal is in turn passed through a `map`, which is a "transducer" that applies the square procedure to each element. The output of the map is then fed to an `accumulator`, which combines the elements using `+`, starting from an initial $0$. The plan for `even-fibs` is analogous.
 
 Unfortunately, the two procedure definitions above fail to exhibit this signal-flow structure. For instance, if we examine the `sum-odd-squares` procedure, we find that the enumeration is implemented partly by the `null?` and `pair?` tests and partly by the tree-recursive structure of the procedure. Similarly, the accumulation is found partly in the tests and partly in the addition used in the recrusion. In general, there are no distinct parts of either procedure that correspond to the elements in the signal-flow description. Our two procedures decompose the computations in a different way, spreading the enumeration over the program and mingling it with the map, the filter, and the accumulation. If we could organize our programs to make the signal-flow structure manifest in the procedure we write, this would increase the conceptual clarity of the resulting code.
 
@@ -544,7 +544,7 @@ a
 (b c)
 ```
 
-One additional primitive used in manipulating symbols is `eq?`, which takes two symbols as arguments and tests whether they are the same. Here is a example:
+One additional primitive used in manipulating symbols is `eq?`, which takes two symbols as arguments and tests whether they are the same. Using `eq?` we can implement a useful procedure called `memq`. This takes two arguments, a symbol and a list. If the symbol is not contained in the list, then `memq` returns false. Otherwise, it returns the sublist of the list beginning with the first occurrence of the symbol:
 
 ```lisp
 (define (memq item x)
@@ -556,40 +556,6 @@ false
 (memq 'apple '(x (apple sauce) y apple pear)
 (apple pear))
 ```
-
-## Example: Symbolic Differentiation
-
-As an illustration of symbol manipulation and a further illustration of data abstraction, consider the design of a procedure that performs symbolic differentiation of algebraic expressions. We would like the procedure to take as arguments an algebraic expression and a variable and to return the derivative of the expression with respect to the variable.
-
-In developing the symbolic-differentiation program, we will first define a differentiation algorithm that operates on abstract objects such as "sum", "products", and "variables" without worrying about how these are to be represented. Only afterward will address the representation problem.
-
-```lisp
-(variable? e)           ; Is e a variable?
-(same-variable? v1 v2)  ; Are v1 and v2 the same variable?
-(sum? e)                ; Is e a sum?
-(addend e)              ; Addend of the sum e.
-(augend e)              ; Augend of the sum e.
-(make-sum a1 a2)        ; Construct the sum of a1 and a2.
-(product? e)            ; Is e a product?
-(multiplier e)          ; Multiplier of the product e.
-(multiplicand e)        ; Multiplicand of the product e.
-(make-product m1 m2)    ; Construct the product of m1 and m2.
-
-(define (deriv exp var)
-    (cond ((number? exp) 0)
-          ((variable? exp) (if (same-variable? exp var) 1 0))
-          ((sum? exp) (make-sum (deriv (addend exp) var)
-                                (deriv (augend exp) var)))
-          ((product? exp)
-            (make-sum
-                (make-product (multiplier exp)
-                              (deriv (multiplicand exp) var))
-                (make-product (deriv (multiplier exp) var)
-                              (multiplicand exp))))
-          (else (error "unknown expression type: DERIV" exp))))
-```
-
-The `deriv` procedure incorporates the complete differentiation algorightm. Since it is expressed in terms of abstract data, it will work no matter how we choose to represent algebraic expressions, as long as we design a proper set of selectors and constructors.
 
 ## Example: Representing Sets
 
