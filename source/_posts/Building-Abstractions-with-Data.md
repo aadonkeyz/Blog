@@ -629,7 +629,7 @@ To estimate the number of steps required by this process, observe that at each s
 
 ### Sets as binary trees
 
-We can do better than the ordered-list representation by arranging the set elements in the form of a tree. Each node of the tree holds one element of the set, called the "entry" at that node, and a link to each of two other (possibly empty) nodes. The "left" link points to elements smaller than the one at the node, and the "right" link to elements greater than the one at the node. The same set may be represented by a tree in a number of different ways. The only thing we require fro a valid representation is that all elements in the left subtree be smaller than the node entry and that all elements in the right subtree be larger.
+We can do better than the ordered-list representation by arranging the set elements in the form of a tree. Each node of the tree holds one element of the set, called the "entry" at that node, and a link to each of two other (possibly empty) nodes. The "left" link points to elements smaller than the one at the node, and the "right" link to elements greater than the one at the node. The same set may be represented by a tree in a number of different ways. The only thing we require for a valid representation is that all elements in the left subtree be smaller than the node entry and that all elements in the right subtree be larger.
 
 The advantage of the tree representation is this: Suppose we want to check whether a number $x$ is contained in a set. We begin by comparing $x$ with the entry in the top node. If $x$ is greater, we need only search the right subtree. Now, if the tree is "balanced," each of these subtrees will be about half the size of the original. Thus, in one step we have reduced the problem of searching a tree of size $n$ to searching a tree of size $n/2$. Since the size of the tree is halved at each step, we should expect that the number of steps needed to search a tree of size $n$ grows as $\Theta(logn)$. For large sets, this will be a significant speedup over the previous representations.
 
@@ -711,7 +711,7 @@ This string contains 42 bits, so it saves more than 20% in space in comparison w
 
 One of the difficulties of using a variable-length code is knowing when you have reached the end of a symbol in reading a sequence of zeros and ones. Morse code solves this problem by using a **special separator code** after the sequence of dots and dashes for each letter. Another solution is to design the code in such a way that no complete code for any symbol is the beginning of the code for another symbol. Such a code is called a **prefix code**. In the example above, `A` is encoded by `0` and `B` is encoded by `100`, so no other symbol can have a code that begins with `0` or with `100`.
 
-In general, we can attain significant saving if we use variable-length prefix codes that take advantage of the relative frequencies of the symbols in the messages to be encoded. One particular scheme for doing this is called the Huffman encoding method, after its discoverer, David Huffman. A Huffman code can be represented as a binary tree whose leaves are the symbols that are encoded. At each non-leaf node of the tree there is a set containing all the symbols in the leaves that lie below the node. In addition, each symbol at a leaf is assigned a weight (which is its relative frequency), and each non-leaf node contains a weight that is the sum of all the weights of the leaves lying below it. The weights are not used in the encoding or the decoding process. We will see below how they are used to help construct the tree.
+In general, we can attain significant savings if we use variable-length prefix codes that take advantage of the relative frequencies of the symbols in the messages to be encoded. One particular scheme for doing this is called the Huffman encoding method, after its discoverer, David Huffman. A Huffman code can be represented as a binary tree whose leaves are the symbols that are encoded. At each non-leaf node of the tree there is a set containing all the symbols in the leaves that lie below the node. In addition, each symbol at a leaf is assigned a weight (which is its relative frequency), and each non-leaf node contains a weight that is the sum of all the weights of the leaves lying below it. The weights are not used in the encoding or the decoding process. We will see below how they are used to help construct the tree.
 
 ![A Huffman encoding tree](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8A%20Structure%20and%20Interpretation%20of%20Computer%20Programs%20%28Lisp%29%20%E3%80%8B/A%20Huffman%20encoding%20tree.png)
 
@@ -723,7 +723,9 @@ To decode a bit sequence using a Huffman tree, we begin at the root and use the 
 
 Given an "alphabet" of symbols and their relative frequencies, how do we construct the "best" code? (In other words, which tree will encode messages with the fewest bits?) Huffman gave an algorithm for doing this and showed that the resulting code is indeed the best variable-length code for messages where the relative frequency of the symbols matches the frequencies with which the code was constructed. We will not prove this optimality of Huffman codes here, but we will show how Huffman trees are constructed.
 
-The algorithm for generating a Huffman tree is very simple. The idea is to arrange the tree so that the symbols with the lowest frequency appear farthest away from the root. Begin with the set of leaf nodes, containing symbols and their frequencies, as determined by the initial data from which the code is to be constructed. Now find two leaves with the lowest weights and merge them to produce a node that has these two nodes as its left and right branches. The weight of the new node is sum of the two weights. Remove the two leaves from the original set and replace them by this new node. Now continue this process. At each step, merge two nodes with the smallest weights, removeing them from the set and replacing them with a node that has these two as its left and right branches. The process stops when there is only one node left, which is the root of the entrie tree. The algorithm does not always specify a unique tree, beacuse there may not be unique smallest-weight nodes at each step. Also, the choice of the order in which the two nodes are merged is arbitrary.
+The algorithm for generating a Huffman tree is very simple. The idea is to arrange the tree so that the symbols with the lowest frequency appear farthest away from the root. Begin with the set of leaf nodes, containing symbols and their frequencies, as determined by the initial data from which the code is to be constructed. Now find two leaves with the lowest weights and merge them to produce a node that has these two nodes as its left and right branches. The weight of the new node is sum of the two weights. Remove the two leaves from the original set and replace them by this new node. Now continue this process. At each step, merge two nodes with the smallest weights, removeing them from the set and replacing them with a node that has these two as its left and right branches. The process stops when there is only one node left, which is the root of the entrie tree.
+
+The algorithm does not always specify a unique tree, beacuse there may not be unique smallest-weight nodes at each step. Also, the choice of the order in which the two nodes are merged is arbitrary.
 
 ### Representing Huffman trees
 
@@ -815,4 +817,10 @@ The following procedure takes a list of symbol-frequency pairs such as ((A 4) (B
                         (make-leaf-set (cdr pairs))))))
 ```
 
+# Multiple Representations for Abstract Data
 
+
+
+
+
+# Systems with Generic Operations
