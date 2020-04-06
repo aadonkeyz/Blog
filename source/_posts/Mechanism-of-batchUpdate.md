@@ -1,5 +1,5 @@
 ---
-title: Mechanism of batchUpdate
+title: Mechanism of BatchUpdate
 abbrlink: 43124a1
 date: 2020-04-06 15:08:22
 categories:
@@ -118,12 +118,8 @@ class ClassComponent extends Component {
     return (
       <>
         <div>Class Component</div>
-        <button onClick={this.syncAdd} onMouseUp={this.methodAfterSyncAdd}>
-          syncAdd
-        </button>
-        <button onClick={this.asyncAdd} onMouseUp={this.methodAfterAsyncAdd}>
-          asyncAdd
-        </button>
+        <button onClick={this.syncAdd}>syncAdd</button>
+        <button onClick={this.asyncAdd}>asyncAdd</button>
       </>
     );
   }
