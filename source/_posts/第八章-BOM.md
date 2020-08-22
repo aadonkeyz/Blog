@@ -112,7 +112,7 @@ message 事件对象将具有三个属性：
 `location`对象提供了与当前窗口中加载的文档有关的信息和一些导航功能，它既是`window`对象的属性，也是`document`对象的属性，所以`window.location === document.location`
 
 {% note info %}
-- `href`：保存当前的完整URL。如果改变该属性，页面会根据新的URL进行导航。需要注意的是，`location.href = 'aadonkeyz.com'`和`location.href = 'https://aadonkeyz.com'`的结果是不同的，前者用`'aadonkeyz.com'`替换当前URL最后的路径片段（即最后一个`/`后的内容），而后者会将页面导航至**https://aadonkeyz.com**。
+- `href`：保存当前的完整URL。如果改变该属性，页面会根据新的URL进行导航。需要注意的是，`location.href = 'aadonkeyz.com'`、`location.href = 'https://aadonkeyz.com'`和`location.href = '/aadonkeyz.com'`的结果是不同的。
 - `protocol`：保存URL中的协议，包括`:`。如`https:`、`http:`。
 - `host`：保存URL中的域名和端口。如`localhost:4000`、`aadonkeyz.com`。
 - `hostname`：保存URL中的域名。
