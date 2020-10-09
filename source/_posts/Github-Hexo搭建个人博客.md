@@ -1,5 +1,5 @@
 ---
-title: Windows下Github+Hexo搭建个人博客
+title: Github+Hexo搭建个人博客
 categories:
     - Blog
 abbrlink: d4a0c543

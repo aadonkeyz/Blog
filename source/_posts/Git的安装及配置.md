@@ -1,5 +1,5 @@
 ---
-title: Windows下Git的安装及配置
+title: Git的安装及配置
 categories:
     - Git
 abbrlink: 6749cdaf
