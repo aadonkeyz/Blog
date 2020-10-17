@@ -26,25 +26,38 @@ date: 2019-03-03 12:14:38
 数组的每一项都可以保存任何类型的数据，下面用例子展示下几种创建数组的方式：
 
 ```js
-// new 操作可以省略，即 Array() 和 new Array()效果一样
-var a = new Array()                     // a = []
+/**
+ * new 操作可以省略，即 Array() 和 new Array() 效果一样
+ */
+// a = []
+var a = new Array()
 
-var b = Array('red')                    // b = ['red']
+// b = ['red']
+var b = Array('red')
 
-// 只传递一个数值，会创建一个有length属性的数组，但内部空空如也，无法进行迭代等操作
-var c = Array(3)                        // c = [empty × 3]
+/**
+ * 只传递一个数值，会创建一个有 length 属性的数组，但内部空空如也，无法进行迭代等操作
+ */
+// c = [empty × 3]
+var c = Array(3)
 
-var d = Array(3, 4)                     // d = [3, 4]
+// d = [3, 4]
+var d = Array(3, 4)
 
-var e = ['red', 'blue', ]               // 不要这样！会创建一个包含2或3项的数组
+// 不要这样！会创建一个包含2或3项的数组
+var e = ['red', 'blue', ]
 
-var f = Array.apply(null, { length: 3 })  // f = [undefined, undefined, undefined]
+// f = [undefined, undefined, undefined]
+var f = Array.apply(null, { length: 3 })
 
-var g = Array.from(Array(3).keys())       // g = [0, 1, 2]
+// g = [0, 1, 2]
+var g = Array.from(Array(3).keys())
 
-var h = Array.from(Array(3), () => 1)     // h = [1, 1, 1]
+// h = [1, 1, 1]
+var h = Array.from(Array(3), () => 1)     
 
-var i = [...Array(3).keys()]              // i = [0, 1, 2]
+// i = [0, 1, 2]
+var i = [...Array(3).keys()]              
 ```
 
 {% note warning %}
@@ -106,10 +119,14 @@ console.log([{ a: 1 }, { b: 2 }].join())
 var a = [1, 3, 2, 6]
 
 a.reverse()
-console.log(a)    // [6, 2, 3, 1]
+
+// [6, 2, 3, 1]
+console.log(a)
 
 a.sort()
-console.log(a)    // [1, 2, 3, 6]
+
+// [1, 2, 3, 6]
+console.log(a)
 
 function compare (value1, value2) {
   if (value1 > value2) {
@@ -123,7 +140,9 @@ function compare (value1, value2) {
 
 var values = [0, 1, 5, 10, 15]
 values.sort(compare)
-console.log(values)    // [15, 10, 5, 1, 0]
+
+// [15, 10, 5, 1, 0]
+console.log(values)    
 ```
 
 ## 操作方法
@@ -139,8 +158,10 @@ console.log(values)    // [15, 10, 5, 1, 0]
 var colors = ['red', 'green', 'blue']
 var colors2 = colors.concat('yellow', ['black', 'brown'])
 
-console.log(colors)     // ['red', 'green', 'blue']
-console.log(colors2)    // ['red', 'green', 'blue', 'yellow', 'black', 'brown']
+// ['red', 'green', 'blue']
+console.log(colors)  
+// ['red', 'green', 'blue', 'yellow', 'black', 'brown']   
+console.log(colors2)    
 ```
 
 ### slice
@@ -155,12 +176,24 @@ console.log(colors2)    // ['red', 'green', 'blue', 'yellow', 'black', 'brown']
 
 ```js
 var colors = [1, 2, 3, 4]
-var colors2 = colors.slice(1, 3)           // colors2 = [2, 3]
-var colors3 = colors.slice(undefined, 3)   // colors3 = [1, 2, 3]
-var colors4 = colors.slice(1)              // colors4 = [2, 3, 4]
-var colors5 = colors.slice(1, 100)         // colors5 = [2, 3, 4]
-var colors6 = colors.slice(1, 2)           // colors6 = [2]
-var colors7 = colors.slice(-3, -2)         // colors7 = [2]
+
+// colors2 = [2, 3]
+var colors2 = colors.slice(1, 3)       
+
+// colors3 = [1, 2, 3]
+var colors3 = colors.slice(undefined, 3)   
+
+// colors4 = [2, 3, 4]
+var colors4 = colors.slice(1)  
+
+// colors5 = [2, 3, 4]    
+var colors5 = colors.slice(1, 100)
+
+// colors6 = [2]        
+var colors6 = colors.slice(1, 2) 
+
+// colors7 = [2]         
+var colors7 = colors.slice(-3, -2)         
 ```
 
 ### splice
@@ -176,16 +209,25 @@ var colors7 = colors.slice(-3, -2)         // colors7 = [2]
 ```js
 var colors = ['red', 'green', 'blue']
 var removed = colors.splice(0, 1)
-console.log(colors)        // ['green', 'blue']
-console.log(removed)       // ['red']
+
+// ['green', 'blue']
+console.log(colors)        
+// ['red']
+console.log(removed)       
 
 removed = colors.splice(1, 0, 'yellow', 'orange')
-console.log(colors)        // ['green', 'yellow', 'orange', 'blue']
-console.log(removed)       // []
+
+// ['green', 'yellow', 'orange', 'blue']
+console.log(colors)      
+// []  
+console.log(removed)       
 
 removed = colors.splice(1, 1, 'red', 'purple')
-console.log(colors)        // ['green', 'red', 'purple', 'orange', 'blue']
-console.log(removed)       // ['yellow']
+
+// ['green', 'red', 'purple', 'orange', 'blue']
+console.log(colors)    
+// ['yellow']    
+console.log(removed)       
 ```
 
 ## 位置方法
@@ -320,8 +362,10 @@ var sum2 = values.reduce((acc, cur, index, array) => {
 // acc: 11 cur: 2 index: 1
 // acc: 13 cur: 3 index: 2
 
-console.log(sum1)       // 6
-console.log(sum2)       // 16
+// 6
+console.log(sum1)    
+// 16   
+console.log(sum2)       
 ```
 
 ### reduceRight
@@ -353,8 +397,10 @@ var sum2 = values.reduceRight((acc, cur, index, array) => {
 // acc: 13 cur: 2 index: 1
 // acc: 15 cur: 1 index: 0
 
-console.log(sum1)       // 6
-console.log(sum2)       // 16
+// 6
+console.log(sum1)       
+// 16
+console.log(sum2)
 ```
 
 # Date类型
@@ -515,15 +561,27 @@ ES提供了 3 个**特殊的引用类型**：`Boolean`、`Number` 和 `String`�
 **引用类型与基本包装类型的主要区别就是对象的生存期。**使用 `new` 操作符创建的引用类型的实例，在执行流离开当前作用域之前都一直保存在内存中。而**自动创建**的基本包装类型的对象，则只存在于一行代码的执行瞬间，然后立即被销毁。
 
 ```js
-var s1 = 'some text'        // 创建了一个基本类型值并保存在s1中
-s1.color = 'red'            // 调用对应的基本包装类型
-console.log(s1.color)       // undefined，因为基本包装类型的生存期已过
-console.log(typeof s1)      // string
+// 创建了一个基本类型值并保存在s1中
+var s1 = 'some text'        
 
-var s2 = new String('some text')    // 显示的创建了String的实例对象并保存在s2中，实际上就是创建了一个引用类型值
+// 调用对应的基本包装类型
+s1.color = 'red'       
+
+// undefined，因为基本包装类型的生存期已过
+console.log(s1.color)    
+
+// string
+console.log(typeof s1)      
+
+// 显示的创建了String的实例对象并保存在s2中，实际上就是创建了一个引用类型值
+var s2 = new String('some text')    
 s2.color = 'red'
-console.log(s2)             // String {"some text", color: "red"}
-console.log(typeof s2)      // object
+
+// String {"some text", color: "red"}
+console.log(s2)        
+
+// object
+console.log(typeof s2)      
 ```
 
 通过上面例子认识到通过 `new` 显示创建的就是一个引用类型值，它已经不能称之为基本包装类型了。换句话说，基本包装类型都是后台自己创建的，不存在显示创建的情况。在第六章会介绍，通过 `new` 显示创建的就是一个引用类型的实例对象。**记住最好别用new将基本包装类型给实例化就行。**
@@ -532,11 +590,18 @@ console.log(typeof s2)      // object
 
 ```js
 var value = '25'
-var number = Number(value)      // 转型函数
-console.log(typeof number)      // number
 
-var obj = new Number(value)     // 构造函数
-console.log(typeof obj)         // object
+// 转型函数
+var number = Number(value)      
+
+// number
+console.log(typeof number)      
+
+// 构造函数
+var obj = new Number(value)     
+
+// object
+console.log(typeof obj)         
 ```
 
 ## Boolean类型
@@ -559,15 +624,20 @@ console.log(typeof obj)         // object
 
 ```js
 var string = 'hello world'
-console.log(string.charAt(1))       // e
-console.log(string.charCodeAt(1))   // 101
+
+// e
+console.log(string.charAt(1))       
+// 101
+console.log(string.charCodeAt(1))   
 ```
 
 ES5 还定义了访问个别字符的方法，可以像数组那样使用索引来访问某个位置的字符。
 
 ```js
 var string = 'hello'
-console.log(string[1])      // e
+
+// e
+console.log(string[1])      
 ```
 
 ### 字符串操作方法
@@ -588,13 +658,19 @@ console.log(string[1])      // e
 ```js
 var string = 'hello world'
 
-console.log(string.slice(-3))           // rld
-console.log(string.substring(-3))       // hello world
-console.log(string.substr(-3))          // rld
+// rld
+console.log(string.slice(-3))         
+// hello world  
+console.log(string.substring(-3))     
+// rld  
+console.log(string.substr(-3))          
 
-console.log(string.slice(3, -4))        // lo w
-console.log(string.substring(3, -4))    // hel
-console.log(string.substr(3, -4))       // ''
+// lo w
+console.log(string.slice(3, -4))       
+// hel 
+console.log(string.substring(3, -4))    
+// ''
+console.log(string.substr(3, -4))       
 ```
 
 ### 字符串位置方法
@@ -649,13 +725,19 @@ console.log(text.match(/mom (and dad (and baby)?)?/))
 ```js
 var text = 'cat, bat, sat, fat'
 var result = text.replace('at', 'ond')
-console.log(result)     // cond, bat, sat, fat
+
+// cond, bat, sat, fat
+console.log(result)     
 
 result = text.replace(/at/g, 'ond')
-console.log(result)     // cond, bond, sond, fond
+
+// cond, bond, sond, fond
+console.log(result)     
 
 result = text.replace(/(.at)/g, 'word ($1)')
-console.log(result)     // word (cat), word (bat), word (sat), word (fat)
+
+// word (cat), word (bat), word (sat), word (fat)
+console.log(result)     
 ```
 
 #### split
@@ -666,12 +748,24 @@ console.log(result)     // word (cat), word (bat), word (sat), word (fat)
 
 ```js
 var colorText = 'red,blue,green,yellow'
-console.log(colorText.split(','))           // [ 'red', 'blue', 'green', 'yellow' ]
-console.log(colorText.split(',', 2))        // [ 'red', 'blue' ]
-console.log(colorText.split(/\,/))          // [ 'red', 'blue', 'green', 'yellow' ]
-console.log(colorText.split(/(\,)/))        // [ 'red', ',', 'blue', ',', 'green', ',', 'yellow' ]
-console.log(colorText.split(/[^\,]+/))      // [ '', ',', ',', ',', '' ]
-console.log(colorText.split(/([^\,]+)/))    // [ '', 'red', ',', 'blue', ',', 'green', ',', 'yellow', '' ]
+
+// [ 'red', 'blue', 'green', 'yellow' ]
+console.log(colorText.split(','))         
+
+// [ 'red', 'blue' ]  
+console.log(colorText.split(',', 2))       
+
+// [ 'red', 'blue', 'green', 'yellow' ]
+console.log(colorText.split(/\,/))          
+
+// [ 'red', ',', 'blue', ',', 'green', ',', 'yellow' ]
+console.log(colorText.split(/(\,)/))        
+
+// [ '', ',', ',', ',', '' ]
+console.log(colorText.split(/[^\,]+/))      
+
+// [ '', 'red', ',', 'blue', ',', 'green', ',', 'yellow', '' ]
+console.log(colorText.split(/([^\,]+)/))    
 ```
 
 ### localeCompare
@@ -694,9 +788,9 @@ console.log(colorText.split(/([^\,]+)/))    // [ '', 'red', ',', 'blue', ',', 'g
 ES虽然没有指出如何直接访问 `Global` 对象,但 Web 浏览器都是将这个全局对象作为 `window` 对象的一部分加以实现的。
 
 ```js
-// 取得Global对象的方法
+// 取得 Global 对象的方法
 var global = function () {
-    return this
+  return this
 }
 ```
 
@@ -710,11 +804,12 @@ Gloabl对象的 `encodeURI()` 和 `encodeURIComponent()` 方法可以对URI进�
 
 ```js
 var uri = 'http://www.wrox.com/illegal value.html#start'
-console.log(encodeURI(uri))
-// http://www.wrox.com/illegal%20value.html#start
 
-console.log(encodeURIComponent(uri))
+// http://www.wrox.com/illegal%20value.html#start
+console.log(encodeURI(uri))
+
 // http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.html%23start
+console.log(encodeURIComponent(uri))
 ```
 
 ## Math对象
