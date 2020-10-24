@@ -14,8 +14,8 @@ date: 2019-03-03 12:14:38
 我所知道的例外有 `Object.create(null)` 返回的空对象。
 
 {% note info %}
-- 创建 Object 实例方式有：`new Object()` 和**对象字面量表示法**；
-- 对象属性名一定是**字符串**或**符号**，如果不是，会自动转换为字符串；
+- 创建 Object 实例方式有：`new Object()` 和**对象字面量表示法**。
+- 对象属性名一定是**字符串**或**符号**，如果不是，会自动转换为字符串。
 - 访问对象属性的方式：**点表示法**和**方括号表示法**。
 {% endnote %}
 
@@ -98,7 +98,7 @@ console.log([{ a: 1 }, { b: 2 }].join())
 栈是一种后进先出的数据结构，ECMAScript 为数组提供了 `push()` 和 `pop()` 方法来实现类似栈的行为。
 
 {% note info %}
-- `push()` 方法接收任意数量的参数，把他们逐个添加到数组末尾，然后返回修改后数组的长度；
+- `push()` 方法接收任意数量的参数，把他们逐个添加到数组末尾，然后返回修改后数组的长度.
 - `pop()` 方法从数组末尾移除最后一项，将数组长度减 1，然后返回移除的项。
 {% endnote %}
 
@@ -108,7 +108,7 @@ console.log([{ a: 1 }, { b: 2 }].join())
 
 {% note info %}
 - `unshift()` 方法在数组前端添加任意个项, 然后返回新数组的长度。
-- `shift()` 方法移除数组中的第一项，将数组长度减 1，然后返回移除的项；
+- `shift()` 方法移除数组中的第一项，将数组长度减 1，然后返回移除的项.
 {% endnote %}
 
 ## 重排序方法
@@ -169,7 +169,7 @@ console.log(colors2)
 `slice(start, end)` 方法返回一个由原数组索引从 `start` 到 `end-1` 的项组成的新数组。
 
 {% note info %}
-- 如果省略 `start`，则默认从 0 开始；
+- 如果省略 `start`，则默认从 0 开始。
 - 如果省略 `end` 或 `end` 大于数组长度，则 `slice` 方法会一直提取到数组末尾（包括最后一个元素）
 - 如果 `start` 或 `end` 中有负数，则用数组长度加上该数来确定相应的索引。
 {% endnote %}
@@ -201,8 +201,8 @@ var colors7 = colors.slice(-3, -2)
 `splice(start, deleteNum, replaceItem, replaceItem, replaceItem, ...)` 方法返回一个数组，该数组包含从原始数组中删除的项（如果没有删除任何项，则返回一个空数组）。它是最灵活的一个数组操作方法，它可以实现对原始数组的删除、插入和替换操作。
 
 {% note info %}
-- `start`：操作起始位置的索引；
-- `deleteNum`：要删除的项数；
+- `start`：操作起始位置的索引。
+- `deleteNum`：要删除的项数。
 - `replaceItem`：要插入的项,一个或多个。
 {% endnote %}
 
@@ -338,9 +338,9 @@ console.log(newArr);
 {% note info %}
 - `arr.reduce(callback[, initialValue])`：对每个数组元素调用 `callback()` 方法，返回最后一个 `callback()` 的返回值。
   - `callback(accumulator, currentValue[, index[, array]])`：该回调函数会在数组中进行迭代，它的返回值将传递给下一次迭代的 `accumulator` 参数，它的参数介绍如下：
-    - `accumulator`：上一次迭代的返回值；
-    - `currentValue`：迭代的当前值；
-    - `index`：当前索引；
+    - `accumulator`：上一次迭代的返回值。
+    - `currentValue`：迭代的当前值。
+    - `index`：当前索引。
     - `array`：数组对象。
   - `initialValue`：作为 `callback()` 进行第一次迭代时 `accumulator` 的值。如果没有传入这个参数，那么 `callback()` 在第一次迭代时会将数组的第一项作为 `accumulator` 的值。
 {% endnote %}
@@ -373,9 +373,9 @@ console.log(sum2)
 {% note info %}
 - `arr.reduceRight(callback[, initialValue])`：按照倒序对每个数组元素调用 `callback()` 方法，返回最后一个 `callback()` 的返回值。
   - `callback(accumulator, currentValue[, index[, array]])`：该回调函数会在数组中进行迭代，它的返回值将传递给下一次迭代的 `accumulator` 参数，它的参数介绍如下：
-    - `accumulator`：上一次迭代的返回值；
-    - `currentValue`：迭代的当前值；
-    - `index`：当前索引；
+    - `accumulator`：上一次迭代的返回值。
+    - `currentValue`：迭代的当前值。
+    - `index`：当前索引。
     - `array`：数组对象。
   - `initialValue`：作为 `callback()` 进行第一次迭代时 `accumulator` 的值。如果没有传入这个参数，那么 `callback()` 在第一次迭代时会将数组的最后一项作为 `accumulator` 的值。
 {% endnote %}
@@ -408,7 +408,7 @@ console.log(sum2)
 通过 `var now = new Date()` 可以创建一个日期对象，在调用 `Data` 构造函数而不传参数时，新创建的对象自动获得当前日期和时间（**当前日期和时间是浏览器从本机操作系统获取的时间，所以不一定准确！**）。如果想根据特定的日期和时间创建日期对象，必须传入表示该日期的毫秒数（即从 UTC 时间 2017 年 1 月 1 日午夜起至该日期经过的毫秒数）。为了简化这一计算过程，ES提出了两个方法：`Date.parse()`和`Date.UTC()`。
 
 {% note info %}
-- `Date.parse()`：接收一个表示日期的字符串参数，然后尝试根据这个字符串返回相应日期的毫秒数。但是它支持哪种日期格式并不一定；
+- `Date.parse()`：接收一个表示日期的字符串参数，然后尝试根据这个字符串返回相应日期的毫秒数。但是它支持哪种日期格式并不一定。
 - `Date.UTC()`：同样返回表示日期的毫秒数，但接收参数分别为年份、**基于0的月份**、月中的哪一天、小时、分钟、秒以及毫秒。这些参数中只有年和月是必需的。
 {% endnote %}
 
@@ -433,9 +433,10 @@ now.getMilliseconds()  // 0-999
 正则表达式可以通过 `var expression = /pattern/flags` 的字面量形式来创建。其中的 `pattern` 代表任何简单或复杂的正则表达式，`flag` 代表一个或多个标志。
 
 {% note info %}
-- `g`：表示全局模式，即模式将被应用于所有字符串，而非在发现第一个匹配项时立即停止；
-- `i`：表示不区分大小写模式；
+- `g`：表示全局模式，即模式将被应用于所有字符串，而非在发现第一个匹配项时立即停止。
+- `i`：表示不区分大小写模式。
 - `m`：表示多行模式。
+- `y`：表示从正则表达式的 `lastIndex` 属性值的位置开始向后检索字符串中的匹配字符。如果在该位置没有匹配成功，那么正则表达式将停止检索并返回 `null`
 {% endnote %}
 
 同样也支持使用 `RegExp` 构造函数来创建正则表达式，它接收两个参数：一个是要匹配的字符串模式，另一个是可选的标志字符串。
@@ -447,8 +448,149 @@ var pattern2 = new RegExp('[bc]at', 'i')
 ```
 
 {% note warning %}
-由于`RegExp` 构造函数的模式参数都是字符串，所以在某些情况下要对字符进行双重转义。所有元字符都必须双重转义，那些已经转义过的字符也是如此。
+由于 `RegExp` 构造函数的模式参数都是字符串，所以在某些情况下要对字符进行双重转义。所有元字符都必须双重转义，那些已经转义过的字符也是如此。
 {% endnote %}
+
+## 复制正则表达式
+
+在 ES5 中，你可以将正则表达式传递给 `RegExp` 构造器来复制它，就像这样：
+
+```js
+var re1 = /ab/i
+var re2 = new RegExp(re1)
+```
+
+`re2` 变量只是 `re1` 的一个副本。但如果你向 `RegExp` 构造器传递了第二个参数，即正则表达式的标志，那么该代码就无法正常工作，正如该范例：
+
+```js
+var re1 = /ab/i
+
+// ES5中会抛出错误，ES6中可用
+var re2 = new RegExp(re1, 'g')
+```
+
+如果你在 ES5 中运行这段代码，那么你会收到一条错误信息，表示在第一个参数已经是正则表达式的情况下不能再使用第二个参数。ES6 则修改了这个行为，允许使用第二个参数，并且让它覆盖第一个参数中的标志。例如：
+
+```js
+var re1 = /ab/i
+
+// ES5 中会抛出错误，ES6 中可用
+var re2 = new RegExp(re1, 'g')
+
+// /ab/i
+console.log(re1.toString())     
+
+// /ab/g
+console.log(re2.toString())     
+
+// true
+console.log(re1.test('ab'))     
+
+// true
+console.log(re2.test('ab'))     
+
+// true
+console.log(re1.test('AB'))     
+
+// false
+console.log(re2.test('AB'))     
+```
+
+## flags
+
+在 ES5 中，你可以使用 `source` 属性来获取正则表达式的文本，但若想获取标志字符串，你必须解析 `toString()` 方法的输出，就像下面展示的那样：
+
+```js
+function getFlags (re) {
+  var text = re.toString();
+  return text.substring(text.lastIndexOf('/') + 1, text.length);
+}
+
+// toString() 的输出为 "/ab/g"
+var re = /ab/g;
+
+console.log(getFlags(re));
+```
+
+ES6 新增了 `flags` 属性用于配合 `source` 属性，让标志的获取变得更容易。这两个属性均为只有 `get` 函数，无 `set` 函数的访问器属性，因此都是只读的。
+
+```js
+var re = /ab/gi
+
+// ab
+console.log(re.source)      
+
+// gi
+console.log(re.flags)       
+```
+
+## y 标志
+
+```js
+var text = 'hello1 hello2 hello3'
+var pattern = /hello\d\s?/
+var globalPattern = /hello\d\s?/g
+var stickyPattern = /hello\d\s?/y
+
+var result = pattern.exec(text)
+var globalResult = globalPattern.exec(text)
+var stickyResult = stickyPattern.exec(text)
+
+// hello1
+console.log(result[0])                  
+
+// hello1
+console.log(globalResult[0])            
+
+// hello1
+console.log(stickyResult[0])            
+
+// 0
+console.log(pattern.lastIndex)          
+
+// 7
+console.log(globalPattern.lastIndex)    
+
+// 7
+console.log(stickyPattern.lastIndex)    
+
+pattern.lastIndex = 1
+globalPattern.lastIndex = 1
+stickyPattern.lastIndex = 1
+
+result = pattern.exec(text)
+globalResult = globalPattern.exec(text)
+stickyResult = stickyPattern.exec(text)
+
+// hello1
+console.log(result[0])                  
+
+// hello2
+console.log(globalResult[0])            
+
+// Uncaught TypeError: Cannot read property '0' of null
+console.log(stickyResult[0])            
+```
+
+有两个关于粘连标志的微妙细节需要牢记：
+
+{% note warning %}
+- 只有调用正则表达式对象上的方法（例如 `exec()` 与 `test()` 方法），`lastIndex` 属性才会生效。而将正则表达式作为参数传递给字符串上的方法（例如 `match()` 方法），并不会体现粘连特性；
+- 当使用 `^` 字符来匹配字符串的起始处时，粘连的正则表达式只会匹配字符串的起始处（或者在多行模式下匹配行首）。当 `lastIndex` 为 0 时，`^` 不会让粘连的正则表达式与非粘连的有任何区别。而当 `lastIndex` 不为 0 时，粘连的正则表达式永远不会匹配成功。
+{% endnote %}
+
+可以使用如下方法来检测粘连标志是否被支持：
+
+```js
+function hasRegExpY () {
+  try {
+    var pattern = new RegExp('.', 'y')
+    return true
+  } catch (ex) {
+    return false
+  }
+}
+```
 
 ## exec
 
@@ -536,7 +678,7 @@ ES 中的函数是对象，因此函数也有属性和方法。
 ### 属性
 
 {% note info %}
-- `length`：表示函数希望接收的命名参数的个数；
+- `length`：表示函数希望接收的命名参数的个数。
 - `prototype`：后续会详细介绍，此处知道该属性是不可枚举的，使用 `for-in` 无法发现即可。
 {% endnote %}
 
@@ -611,8 +753,8 @@ console.log(typeof obj)
 ## Number类型
 
 {% note info %}
-- `toFixed()`：按照指定的小数位返回数值的字符串表示，银行家喜欢用这个方法，这个方法不是真正意义的四舍五入；
-- `toExponential()`：返回以指数表示法表示的数值的字符串形式；
+- `toFixed()`：按照指定的小数位返回数值的字符串表示，银行家喜欢用这个方法，这个方法不是真正意义的四舍五入。
+- `toExponential()`：返回以指数表示法表示的数值的字符串形式。
 - `toPrecision()`：返回固定大小格式，也可能返回指数格式。
 {% endnote %}
 
@@ -620,7 +762,7 @@ console.log(typeof obj)
 
 ### 字符方法
 
-`charAt()` 和 `charCodeAt()`方法都接收一个参数，即基于0的字符位置。`charAt()` 方法以单字符字符串的形式返回给定位置的那个字符，而 `charCodeAt()` 方法返回的是字符编码。
+`charAt()` 和 `charCodeAt()`方法都接收一个参数，即基于 0 的字符位置。`charAt()` 方法以单字符字符串的形式返回给定位置的那个字符，而 `charCodeAt()` 方法返回的是字符编码。
 
 ```js
 var string = 'hello world'
@@ -640,18 +782,17 @@ var string = 'hello'
 console.log(string[1])      
 ```
 
-### 字符串操作方法
+### 操作方法
 
-**下面所列的四个方法，返回值均是被操作字符串的子字符串。并且这些方法都不会对原始字符串产生任何影响。**
+#### 提取子字符串方法
 
 {% note info %}
-- `concat()`：类比于数组的`concat()`方法；
-- `slice()`：类比于数组的`slice()`方法；
+- `slice()`：类比于数组的`slice()`方法。
 - `substr()`：第一个参数用于指定子字符串的开始位置，第二个参数用于指定返回的字符个数;
 - `substring()`：类比于数组的`slice()`方法。
 {% endnote %}
 
-当传递负值作为参数时，`slice()` 方法会将传入的负值与字符串的长度相加；`substr()` 方法将负的第一个参数加上字符串的长度，而将负的第二个参数转换为0；`substring()` 方法会把所有负值参数都转换为0。
+当传递负值作为参数时，`slice()` 方法会将传入的负值与字符串的长度相加。`substr()` 方法将负的第一个参数加上字符串的长度，而将负的第二个参数转换为0。`substring()` 方法会把所有负值参数都转换为0。
 
 **另外需要注意的是，`substring()` 方法会将参数中较小的数作为开始位置，将较大的数作为结束位置。即 `string.substring(3, 0)` 等价于 `string.substring(0, 3)`**。
 
@@ -673,19 +814,38 @@ console.log(string.substring(3, -4))
 console.log(string.substr(3, -4))       
 ```
 
-### 字符串位置方法
+#### concat
+
+类比于数组的`concat()`方法。
+
+#### trim
+
+ES5 定义了这个方法，会创建一个字符串的副本，删除前置及后缀的所有空格，然后返回结果。
+
+#### repeat
+
+该方法接收一个参数作为字符串的重复次数，返回一个将初始字符串重复指定次数的新字符串。
+
+```js
+// xxx
+console.log('x'.repeat(3))          
+
+// hellohello
+console.log('hello'.repeat(2))      
+
+// abcabcabcabc
+console.log('abc'.repeat(4))        
+```
+
+### 位置方法
 
 `indexOf(searchValue[, fromIndex])` 和 `lastIndexOf(searchValue[, fromIndex])` 都是找到就返回索引，找不到就返回 -1。
 
-### trim
-
-ES5定义了这个方法，会创建一个字符串的副本，删除前置及后缀的所有空格，然后返回结果。
-
-### 字符串大小写转换方法
+### 大小写转换方法
 
 `toLowerCase()`、`toLocaleLowerCase()`、`toUpperCase()` 和 `toLocaleUpperCase()` 方法。
 
-### 字符串的模式匹配方法
+### 模式匹配方法
 
 #### match
 
@@ -768,6 +928,43 @@ console.log(colorText.split(/[^\,]+/))
 console.log(colorText.split(/([^\,]+)/))    
 ```
 
+#### 识别子字符串的方法
+
+ES6新增了三个方法：
+
+{% note info %}
+- `includes(searchString[, fromIndex])`：在给定文本出现在字符串的任意位置时返回 `true`，否则返回 `false`；
+- `startsWith(searchString[, fromIndex])`：在给定文本出现在字符串起始处时返回 `true`，否则返回 `false`；
+- `endsWith(searchString[, length])`：在给定文本出现在字符串结尾处时返回 `true`，否则返回 `false`。
+{% endnote %}
+
+详细 API 请移步 MDN，这里有 demo。
+
+```js
+var msg = 'hello world!'
+
+// true
+console.log(msg.startsWith('hello'))   
+// false
+console.log(msg.startsWith('o')) 
+// true
+console.log(msg.startsWith('o', 4)) 
+
+// true
+console.log(msg.endsWith('!'))         
+// true
+console.log(msg.endsWith('world!'))  
+// true
+console.log(msg.endsWith('o', 8)) 
+
+// true
+console.log(msg.includes('o'))
+// false
+console.log(msg.includes('x'))
+// false
+console.log(msg.includes('o', 8))       
+```
+
 ### localeCompare
 
 [MDN 上的介绍](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
@@ -777,13 +974,121 @@ console.log(colorText.split(/([^\,]+)/))
 
 该方法接收一个或多个字符编码，然后将它们转换成字符串。
 
+### 模板字面量
+
+#### 基本语法
+
+模板字面量的最简单语法，是使用反引号（`）来包裹普通字符串，而不是用双引号或单引号。若你想在字符串中包含反引号，只需要使用反斜杠（\）转义即可。
+
+```js
+let message = `hello \` world`
+
+// hello ` world
+console.log(message)        
+```
+
+#### 多行字符串
+
+ES6 的模板字面量使多行字符串更易创建，因为它不需要特殊的语法。只需在想要的位置包含换行即可，而且它会显示在结果中。
+
+```js
+let message = `Multiline
+string`
+
+// Multiline
+// string
+console.log(message)            
+                                
+// 16
+console.log(message.length)     
+```
+
+反斜杠之内的所有空白符都是字符串的一部分，因此需要留意缩进。
+
+```js
+let message = `Multiline
+              string`
+
+// Multiline
+//              string
+console.log(message)            
+
+// 30
+console.log(message.length)     
+```
+
+如果让多行文本保持合适的缩进对你来说很重要，请考虑将多行模板字面量的第一行空置并在此后进行缩进，如下所示：
+
+```js
+let html = `
+<div>
+  <h1>Title</h1>
+</div>
+`.trim()
+```
+
+#### 制造替换位
+
+此时模板字面量看上去仅仅是普通 JavaScript 字符串的升级版，但二者之间真正的区别在于前置的“替换位”。替换位允许你将任何有效的 JavaScript 表达式嵌入到模板字面量中，并将其结果输出为字符串的一部分。
+
+替换位由起始的 `${` 与结束的 `}` 来界定，之间允许放入任意的 JavaScript 表达式。例如：
+
+```js
+var name = 'Nicholas'
+var message = `hello, ${name}.`
+
+// hello, Nicholas.
+console.log(message)        
+
+var count = 10
+var price = 0.25
+var message = `${count} items cost $${(count * price).toFixed(2)}.`
+
+// 10 items cost $2.50.
+console.log(message)        
+
+var name = 'Nicholas'
+var message = `hello, ${
+  `my name is ${name}`
+}.`
+
+// hello, my name is Nicholas.
+console.log(message)        
+```
+
+#### 标签化模板
+
+一个标签仅是一个函数，只不过这个函数的调用形式有些特别：``tagName`模板字面量数据` ``
+
+标签函数会将调用时接收的模板字面量数据中的非替换位提取出来保存为一个数组，这个数组将作为标签函数的第一个参数；数据中的每个替换位的解释值都将作为标签函数的参数传递进来。为了方便处理，一般在定义标签函数时使用[**剩余参数**](http://aadonkeyz.com/posts/9595c646/#剩余参数)形式。
+
+```js
+function passthru (literals, ...substitutions) {
+  // ["", " items cost $", ""]
+  console.log(literals)           
+
+  // [10, "2.50"]
+  console.log(substitutions)     
+ 
+  return '返回啥都行'
+}
+
+var count = 10
+var price = 0.25
+var message = passthru`${count} items cost $${(count * price).toFixed(2)}`
+```
+
+注意观察上面的例子，**`literals` 数组的第一个和最后一个元素均为空字符串，说明标签函数在对传入的模板字面量进行处理时，总是以非替换位形式的字符串作为数据的开始和结尾；如果模板字面量实际上是以替换位作为开始和结尾，那么会自动在开始和结尾处添加上空字符串！所以 `literals` 的长度总是比 `substitutions` 的长度多 1**。
+
+模板标签也能访问字符串的原始信息，主要指的是可以访问字符在转义之前的形式。获取原始字符串值的最简单方式是使用内置的 `String.raw()` 标签。不过我按照书中例子试验的时候，关于原始形式这里有些出入，详细的就不介绍了。
+
 # 单体内置对象
 
 内置对象的定义是：“由ECMAScript实现提供的、不依赖于宿主环境的对象，这些对象在ECMAScript程序执行之前就已经存在了。”意思就是说，开发人员不必显示地实例化内置对象，因为它们已经实例化了。前面介绍的 `Object`、`Array`、`String` 等都是内置对象，除此之外还有两个单体内置对象：`Global` 和 `Math`。
 
 ## Global对象
 
-`Global` (全局)对象可以说是 ECMAScript 中最特别的一个对象了，因为不管你从什么角度上看，这个对象都是不存在的。ES中的`Global` 对象在某种意义上是作为一个终极的“兜底儿的对象”来定义的。换句话说，不属于任何其他对象的属性和方法，最终都是它的属性和方法。事实上，没有全局变量或全局函数；所有在全局作用域中定义的属性和函数，都是 `Global` 对象的属性。
+`Global` (全局)对象可以说是 ECMAScript 中最特别的一个对象了，因为不管你从什么角度上看，这个对象都是不存在的。ES中的`Global` 对象在某种意义上是作为一个终极的“兜底儿的对象”来定义的。换句话说，不属于任何其他对象的属性和方法，最终都是它的属性和方法。事实上，没有全局变量或全局函数。所有在全局作用域中定义的属性和函数，都是 `Global` 对象的属性。
 
 ES虽然没有指出如何直接访问 `Global` 对象,但 Web 浏览器都是将这个全局对象作为 `window` 对象的一部分加以实现的。
 
@@ -847,8 +1152,8 @@ console.log(Math.max.apply(Math, values))   // 8
 ### 舍入方法
 
 {% note info %}
-- `Math.ceil()`：执行向上（大）舍入，即它总是将数值向上舍入为最接近的整数；
-- `Math.floor()`：执行向下（小）舍入，即它总是将数值向下舍入为最接近的整数；
+- `Math.ceil()`：执行向上（大）舍入，即它总是将数值向上舍入为最接近的整数。
+- `Math.floor()`：执行向下（小）舍入，即它总是将数值向下舍入为最接近的整数。
 - `Math.round()`：执行标准舍入，即它总是将数值四舍五入为最接近的整数。
 
 ---
