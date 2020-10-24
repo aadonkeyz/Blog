@@ -353,9 +353,9 @@ var Person = (function () {
 })()
 ```
 
-此例用IIFE包裹了`Person`的定义，其中含有两个私有属性：`privateData`和`privateId`。`privateData`对象存储了每个实例的私有信息，而`privateId`则被用于为每个实例产生一个唯一ID。当`Person`构造器被调用时，一个不可枚举、不可配置、不可写入的`_id`属性就被添加了。
+此例用 IIFE 包裹了`Person`的定义，其中含有两个私有属性：`privateData`和`privateId`。`privateData`对象存储了每个实例的私有信息，而`privateId`则被用于为每个实例产生一个唯一ID。当`Person`构造器被调用时，一个不可枚举、不可配置、不可写入的`_id`属性就被添加了。
 
-接下来在`privateData`对象中建立了与实例ID对应的一个入口，其中存储着`name`的值。随后在`getName()`函数中，就能使用`this._id`作为`privateData`的键来提取该值。由于`privateData`无法从IIFE外部进行访问，实际的数据就是安全的，尽管`this._id`在`privateData`对象上依然是公开暴露的。
+接下来在`privateData`对象中建立了与实例ID对应的一个入口，其中存储着`name`的值。随后在`getName()`函数中，就能使用`this._id`作为`privateData`的键来提取该值。由于`privateData`无法从 IIFE 外部进行访问，实际的数据就是安全的，尽管`this._id`在`privateData`对象上依然是公开暴露的。
 
 此方式的最大问题在于`privateData`中的数据永远不会消失，因为在对象实例被销毁时没有任何方法可以获知该数据，`privateData`对象就将永远包含多余的数据。这个问题现在可以换用Weak Map来解决了，如下：
 
