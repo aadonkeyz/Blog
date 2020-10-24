@@ -202,6 +202,42 @@ Object.defineProperties(book, {
 
 使用ES5的 `Object.getOwnPropertyDescriptor()` 方法可以取得给定属性的描述符。该方法接收两个参数：属性所在的对象和要读取其描述符的属性名称。返回值是一个对象。**这个方法只能用于实例属性，要取得原型属性的描述符，必须直接在原型对象上调用。**
 
+## 禁止扩展
+
+如果你想禁止一个对象添加新属性并且保留已有属性，可以使用 `Object.preventExtensions()`。如果想检测一个对象是否可以添加新属性，可以使用 `Object.isExtensible()`。
+
+{% note warning %}
+**不可以添加新属性，但是删除旧属性还是可以的。**
+{% endnote %}
+
+```js
+var myObject = { a: 2 }
+Object.preventExtensions(myObject)
+
+// false
+console.log(Object.isExtensible(myObject))  
+
+myObject.b = 3
+
+// undefined
+console.log(myObject.b)
+
+delete myObject.a
+
+// undefined
+console.log(myObject.a) 
+```
+
+在非严格模式下，创建属性 `b` 会静默失败。在严格模式下，将会抛出 `TypeError` 错误。
+
+## 密封
+
+`Object.seal()` 会创建一个“密封”的对象，这个方法实际上会在一个现有对象上调用 `Object.preventExtensions()` 并把所有现有属性标记为 `configurable: false`。
+
+## 冻结
+
+`Object.freeze()` 会创建一个冻结对象，这个方法实际上会在一个现有对象上调用 `Object.seal()` 并把所有“数据访问”属性标记为 `writable: false`。
+
 # 创建对象
 
 ## 工厂模式
