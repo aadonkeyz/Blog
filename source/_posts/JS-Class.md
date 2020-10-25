@@ -1,8 +1,7 @@
 ---
-title: 第九章 JS的类
+title: Class
 categories:
-    - JavaScript
-    - 《深入理解ES6》
+  - JavaScript
 abbrlink: e1a12c4d
 date: 2019-04-10 20:14:09
 ---

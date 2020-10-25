@@ -9,21 +9,23 @@ date: 2019-03-03 12:14:38
 
 # Object类型
 
-https://aadonkeyz.com/posts/a7625ff7/
+[对象&原型&继承](https://aadonkeyz.com/posts/bb5d40f2/)
+
+[Object](https://aadonkeyz.com/posts/a7625ff7/)
 
 # Array类型
 
-https://aadonkeyz.com/posts/6e01c1fe/
+[Array](https://aadonkeyz.com/posts/6e01c1fe/)
 
 # RegExp类型
 
-https://aadonkeyz.com/posts/ce76031c/
+[RegExp](https://aadonkeyz.com/posts/ce76031c/)
 
 # Function类型
 
-https://aadonkeyz.com/posts/f1587c53/
+[函数&作用域&闭包](https://aadonkeyz.com/posts/f1587c53/)
 
-https://aadonkeyz.com/posts/9595c646/
+[函数](https://aadonkeyz.com/posts/9595c646/)
 
 # Date类型
 

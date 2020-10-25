@@ -1,8 +1,7 @@
 ---
-title: 第八章 迭代器与生成器
+title: 迭代器与生成器
 categories:
-    - JavaScript
-    - 《深入理解ES6》
+  - JavaScript
 abbrlink: 990a6acc
 date: 2019-04-03 19:03:47
 ---
