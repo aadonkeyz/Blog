@@ -8,47 +8,198 @@ categories:
 
 # 创建数组
 
-数组的每一项都可以保存任何类型的数据，下面用例子展示下几种创建数组的方式：
+## ES5 及之前
+数组的每一项都可以保存任何类型的数据，可以通过 `Array` 构造器和数组字面量语法两种方式创建数组，如果通过 `Array` 构造器创建数组，`new` 操作符可以省略。
 
 ```js
-/**
- * new 操作可以省略，即 Array() 和 new Array() 效果一样
- */
-// a = []
-var a = new Array()
+var a = new Array('red', 1);
+var b = Array('red', 1);
+var c = ['red', 1];
 
-// b = ['red']
-var b = Array('red')
+// [ 'red', 1 ]
+console.log(a)
 
-/**
- * 只传递一个数值，会创建一个有 length 属性的数组，但内部空空如也，无法进行迭代等操作
- */
-// c = [empty × 3]
-var c = Array(3)
+// [ 'red', 1 ]
+console.log(b)
 
-// d = [3, 4]
-var d = Array(3, 4)
+// [ 'red', 1 ]
+console.log(c)
+```
+{% note warning %}
+- **通过数组的 length 可以清空或截断数组。**
+- **数组会自动将字符串索引转换为对应数值索引，即`array['0'] === array[0]`。**
+{% endnote %}
 
-// 不要这样！会创建一个包含2或3项的数组
-var e = ['red', 'blue', ]
+## Array 构造器的怪异点
 
-// f = [undefined, undefined, undefined]
-var f = Array.apply(null, { length: 3 })
+{% note warning %}
+**通过 `Array` 构造器创建数组时，如果只传递一个数值，会创建一个有 `length` 属性的数组，但内部空空如也，无法进行如 `forEach` 等迭代操作。**
+{% endnote %}
 
-// g = [0, 1, 2]
-var g = Array.from(Array(3).keys())
+```js
+var normal = Array('3');
 
-// h = [1, 1, 1]
-var h = Array.from(Array(3), () => 1)     
+// [ '3' ]
+console.log(normal);
 
-// i = [0, 1, 2]
-var i = [...Array(3).keys()]              
+var empty = Array(3);
+
+// [ <3 empty items> ]
+console.log(empty);
+
+// 3
+console.log(empty.length);
+
+for (let i = 0; i < empty.length; i++) {
+  // 0 undefined
+  // 1 undefined
+  // 2 undefined
+  console.log(i, empty[i]);
+}
+
+empty.forEach(item => {
+  console.log(item);
+})
+// 等价于
+var a = [];
+a.forEach((item, index) => {
+  console.log(item);
+})
+```
+
+## 用 Array.apply 创建数组
+
+```js
+var a = Array.apply(null, { length: 3 });
+
+// [ undefined, undefined, undefined ]
+console.log(a);
+
+a.forEach((item, index) => {
+  // 0 undefined
+  // 1 undefined
+  // 2 undefined
+  console.log(index, item);
+})
+```
+
+## 通过解构&迭代器创建数组
+
+```js
+var a = [...Array(3).entries()];
+var b = [...Array(3).keys()];
+var c = [...Array(3).values()];
+
+// [ [ 0, undefined ], [ 1, undefined ], [ 2, undefined ] ]
+console.log(a);
+
+// [ 0, 1, 2 ]
+console.log(b);
+
+// [ undefined, undefined, undefined ]
+console.log(c);
+```
+
+## Array.of
+
+ES6 引入了 `Array.of()` 方法来解决 `Array` 构造器创建数组的怪异点。该方法的作用非常类似 `Array` 构造器，但在使用单个数值参数的时候并不会导致特殊结果。`Array.of()` 方法总会创建一个包含所有传入参数的数组，而不管参数的数量与类型。下面例子演示了 `Array.of()` 的用法：
+
+```js
+var a = Array.of(1, 2)
+
+// 2
+console.log(a.length)       
+
+// 1
+console.log(a[0])           
+
+// 2
+console.log(a[1])           
+
+var b = Array.of(2)
+
+// 1
+console.log(b.length)       
+
+// 2
+console.log(b[0])           
+
+var c = Array.of('2')
+
+// 1
+console.log(c.length)       
+
+// '2'
+console.log(c[0])           
 ```
 
 {% note warning %}
-- **通过数组的length可以清空或截断数组.**
-- **数组会自动将字符串索引转换为对应数值索引，即`array['0'] === array[0]`。**
+`Array.of()` 方法并没有使用 `Symbol.species` 属性来决定返回值的类型，而是使用了当前的构造器（即 `of()` 方法内部的 `this`）来做决定。例如，`MyArray.of()` 返回 `MyArray` 类型的实例，`Array.of()` 返回 `Array` 类型的实例。
 {% endnote %}
+
+## Array.from
+
+将**可迭代对象**或者**类数组对象**作为第一个参数传入，`Array.from()` 就能返回一个数组。这里有个简单的例子：
+
+```js
+function doSomething() {
+  var args = Array.from(arguments)
+
+  // 使用 args
+}
+```
+
+此处调用 `Array.from()` 方法，使用 `arguments` 对象创建了一个新数组 `args`，它是一个数组实例，并且包含了 `arguments` 对象的所有项，同时还保持了项的顺序。
+
+{% note warning %}
+与 `Array.of()` 一样，`Array.from()` 方法同样使用当前的构造器（即 `from()` 方法内部的 `this`）来决定要返回什么类型的数组。例如，`MyArray.from()` 返回 `MyArray` 类型的实例，`Array.from()` 返回 `Array` 类型的实例。
+{% endnote %}
+
+如果你想实行进一步的数组转换，你可以向 `Array.from()` 方法传递一个映射用的函数作为第二个参数。此函数会将类数组对象的每一个值转换为目标形式，并将其存储在目标数组的对应位置上。例如：
+
+```js
+function translate () {
+  return Array.from(arguments, value => value + 1)
+}
+
+const numbers = translate(1, 2, 3)
+
+// [ 2, 3, 4 ]
+console.log(numbers)
+```
+
+如果映射函数需要在对象上工作，你可以手动传递第三个参数给 `Array.from()` 方法，从而指定映射函数内部的 `this` 值。
+
+```js
+let helper = {
+  diff: 1,
+  add (value) {
+    return value + this.diff
+  }
+}
+
+function translate () {
+  return Array.from(arguments, helper.add, helper)
+}
+
+let numbers = translate(1, 2, 3)
+
+// [ 2, 3, 4 ]
+console.log(numbers)
+```
+
+{% note warning %}
+**只要一个对象有 `length` 属性，`Array.from()` 就会可以通过它得到对应长度的数组**
+{% endnote %}
+
+```js
+let a = {
+  length: 3
+}
+
+// [ undefined, undefined, undefined ]
+console.log(Array.from(a))
+```
 
 # 检测数组
 
@@ -132,8 +283,6 @@ console.log(values)
 
 # 操作方法
 
-**`concat()` 和 `slice()`都不会影响原始数组,但是 `splice()` 会！**
-
 ## concat
 
 `concat()` 方法会创建当前数组的一个副本，然后将接收到的参数添加到这个副本的末尾，最后返回新构建的数组。
@@ -214,6 +363,84 @@ console.log(colors)
 // ['yellow']    
 console.log(removed)       
 ```
+
+## fill
+
+{% note info %}
+`fill(value, start, end + 1)` 方法使用参数 `value` 去替换数组索引从 `start` 至 `end` 的项。如果提供的起始位置（`start`）或结束位置（`end + 1`）为负数，则它们会被加上数组的长度来算出最终的位置。请观察下面的例子：
+{% endnote %}
+
+```js
+let numbers = [1, 2, 3, 4]
+
+numbers.fill(1)
+
+// [ 1, 1, 1, 1 ]
+console.log(numbers)
+
+numbers.fill(2, 1)
+
+// [ 1, 2, 2, 2 ]
+console.log(numbers)
+
+numbers.fill(3, 1, 3)
+
+// [ 1, 3, 3, 2 ]
+console.log(numbers)
+```
+
+{% note warning %}
+**需要注意的是，`fill()` 方法是使用浅复制来完成的。**
+{% endnote %}
+
+```js
+let a = [1, 2];
+a.fill([]);
+
+// [ [], [] ]
+console.log(a);
+
+a[1].push(33);
+
+// [ [ 33 ], [ 33 ] ]
+console.log(a);
+
+// true
+console.log(a[0] === a[1]);
+```
+
+## copyWith
+
+`copyWithin()` 方法与 `fill()` 类似，可以一次性修改数组的多个元素。不过，与 `fill()` 使用单个值来修改数组不同，`copyWithin()` 方法允许你在数组内部复制自身元素。为此你需要传递两个参数给 `copyWithin()` 方法：从什么位置开始进行修改，以及被用来复制的数据的起始位置索引。
+
+```js
+let numbers = [1, 2, 3, 4]
+
+// 从索引 2 的位置开始粘贴
+// 从索引 0 的位置开始复制数据
+numbers.copyWithin(2, 0)
+
+// [ 1, 2, 1, 2 ]
+console.log(numbers)     
+```
+
+默认情况下，`copyWithin()` 方法总是会一直复制到数组末尾，不过你还可以提供一个可选参数来限制到底有多少元素会被修改。这第三个参数指定了复制停止的位置（不包括该位置自身），这里有个范例：
+
+```js
+let numbers = [1, 2, 3, 4]
+
+// 从索引 2 的位置开始粘贴
+// 从索引 0 的位置开始复制数据
+// 在索引 1 的位置停止复制
+numbers.copyWithin(2, 0, 1)
+
+// [ 1, 2, 1, 4 ]
+console.log(numbers)
+```
+
+{% note info %}
+类似于 `fill()` 方法，如果你向 `copyWithin()` 方法传递负数参数，数组的长度会自动被加到该参数的值上，以便算出正确的索引位置。
+{% endnote %}
 
 # 位置方法
 
@@ -356,7 +583,7 @@ console.log(sum2)
 ## reduceRight
 
 {% note info %}
-- `arr.reduceRight(callback[, initialValue])`：按照倒序对每个数组元素调用 `callback()` 方法，返回最后一个 `callback()` 的返回值。
+- `arr.reduceRight(callback[, initialValue])`：按照**倒序**对每个数组元素调用 `callback()` 方法，返回最后一个 `callback()` 的返回值。
   - `callback(accumulator, currentValue[, index[, array]])`：该回调函数会在数组中进行迭代，它的返回值将传递给下一次迭代的 `accumulator` 参数，它的参数介绍如下：
     - `accumulator`：上一次迭代的返回值。
     - `currentValue`：迭代的当前值。
@@ -386,4 +613,46 @@ var sum2 = values.reduceRight((acc, cur, index, array) => {
 console.log(sum1)       
 // 16
 console.log(sum2)
+```
+
+## find
+
+{% note info %}
+- `arr.find(callback[, thisArg])`：对每个数组元素调用 `callback()` 方法，如果某一个 `callback()` 返回值为 `true`，则返回其对应的数组元素。如果有多个 `callback()` 都返回 `true`，则只返回第一个。如果所有 `callback()` 都返回 `false`，则返回 `undefined`。
+  - `callback(item, index, array)`：
+    - `item`：元素。
+    - `index`：元素对应索引。
+    - `array`：`arr` 的引用。
+  - `thisArg`：作用域对象。
+{% endnote %}
+
+```js
+const a = [1, 2, 3];
+
+// 2
+console.log(a.find((item, index) => item === 2 || index === 2));
+
+// undefined
+console.log(a.find(item => item === 4));
+```
+
+## findIndex
+
+{% note info %}
+- `arr.find(callback[, thisArg])`：对每个数组元素调用 `callback()` 方法，如果某一个 `callback()` 返回值为 `true`，则返回其对应的索引。如果有多个 `callback()` 都返回 `true`，则只返回第一个。如果所有 `callback()` 都返回 `false`，则返回 -1`。
+  - `callback(item, index, array)`：
+    - `item`：元素。
+    - `index`：元素对应索引。
+    - `array`：`arr` 的引用。
+  - `thisArg`：作用域对象。
+{% endnote %}
+
+```js
+const a = [1, 2, 3];
+
+// 1
+console.log(a.findIndex((item, index) => item === 2 || index === 2));
+
+// -1
+console.log(a.findIndex(item => item === 4));
 ```
