@@ -1,8 +1,7 @@
 ---
-title: 第十二章 代理与反射接口
+title: Proxy
 categories:
-    - JavaScript
-    - 《深入理解ES6》
+  - JavaScript
 abbrlink: 27777a89
 date: 2019-04-14 10:32:54
 ---

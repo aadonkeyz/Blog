@@ -1,8 +1,7 @@
 ---
-title: 第十三章 用模块封装代码
+title: import&export
 categories:
-    - JavaScript
-    - 《深入理解ES6》
+  - JavaScript
 abbrlink: 588c1481
 date: 2019-04-17 16:05:23
 ---
