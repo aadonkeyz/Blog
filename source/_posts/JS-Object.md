@@ -247,6 +247,35 @@ console.log(descriptor.value)
 console.log(descriptor.get)
 ```
 
+# Object.create
+
+`Object.create(proto, [propertiesObject])` 以 `proto` 为原型创建一个新的对象。`Object.create()` 方法的第二个参数与 `Object.defineProperties()` 方法的第二个参数格式相同。
+
+```js
+var person = {
+  name: 'Nicholas',
+  friend: ['Shelby', 'Court', 'Van']
+}
+var anotherPerson = Object.create(person, {
+  name: {
+    value: 'Greg',
+    enumerable: false,
+  }
+})
+
+// true
+console.log(person.isPrototypeOf(anotherPerson))
+
+// {}
+console.log(anotherPerson)
+
+// Greg
+console.log(anotherPerson.name)
+
+// [ 'Shelby', 'Court', 'Van' ]
+console.log(anotherPerson.friend)
+```
+
 # Object.is
 
 当比较两个值的时候，大多数开发者倾向于使用严格相等运算符（`===`），但是它有一点小瑕疵。例如，它认为 `+0` 与 `-0` 相等，即使这两者在引擎中有不同的表示。另外 `NaN === NaN` 会返回 `false`，因此有必要使用 `Number.isNaN()` 函数来正确检测 `NaN`。
