@@ -299,9 +299,9 @@ console.log(messages2)
 
 ## Symbol.match、Symbol.replace、Symbol.search 与 Symbol.split
 
-在 JS 中，字符串与正则表达式有着密切的联系，尤其是字符串具有几个可以接受正则表达式作为参数的方法：[match、replace、search和split方法](https://aadonkeyz.com/posts/71de0ab2/#字符串的模式匹配方法)。
+在 JS 中，字符串与正则表达式有着密切的联系，尤其是字符串具有几个可以接受正则表达式作为参数的方法：[match、replace、search和split方法](https://aadonkeyz.com/posts/71de0ab2/#模式匹配方法)。
 
-在 ES6 之前这些方法的实现细节对开发者是隐藏的，使得开发者无法将自定义对象模拟成正则表达式（并将它们传递给字符串的这些方法）。而ES6定义了4个符号以及对应的方法，将原生行为外包到内置的 `RegExp` 对象上。
+在 ES6 之前这些方法的实现细节对开发者是隐藏的，使得开发者无法将自定义对象模拟成正则表达式（并将它们传递给字符串的这些方法）。而 ES6 定义了 4 个符号以及对应的方法，将原生行为外包到内置的 `RegExp` 对象上。
 
 {% note info %}
 - `Symbol.match`：此函数接受一个字符串参数，并返回一个包含匹配结果的数组。若匹配失败，则返回 `null`。

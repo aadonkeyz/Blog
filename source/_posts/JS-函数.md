@@ -268,7 +268,7 @@ var person = new AnotherPerson('Nicholas')
 
 # 箭头函数
 
-ES6 最有意思的一个新部分就是箭头函数。箭头函数正如名称所示那样使用一个“箭头”（`=>`）来定义，但它的行为在很多重要方面与传统的JavaScript函数不同：
+ES6 最有意思的一个新部分就是箭头函数。箭头函数正如名称所示那样使用一个“箭头”（`=>`）来定义，但它的行为在很多重要方面与传统的 JavaScript 函数不同：
 
 {% note info %}
 - **没有 `this`、`super`、`arguments` 和 `new.target`**：箭头函数本身没有 `this`、`super`、`arguments` 和 `new.target`，如果在箭头函数中引用了这些变量，那这些变量也是外层作用域的，跟它没关系。
@@ -336,7 +336,7 @@ var doNothing = function () {}
 
 但若使用箭头函数，只有 `(()=>{/*函数体*/})()` 这一种方式可行，也就是说括号必须仅包裹箭头函数的定义。
 
-## 没有this绑定
+## 没有 this 绑定
 
 JavaScript 最常见的错误领域之一就是在函数内的 `this` 绑定。请看下面的例子：
 
