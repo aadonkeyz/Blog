@@ -1,5 +1,5 @@
 ---
-title: Proxy
+title: Reflect 与 Proxy
 categories:
   - JavaScript
 abbrlink: 27777a89
