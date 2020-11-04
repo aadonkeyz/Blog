@@ -32,7 +32,7 @@ console.log('JS');
 1. 执行 `console.log('Hi')`。
 2. 执行 `setTimeout`，它会调用专门的 api，负责在定时器完成后将 `cb` 函数推到 task queue 中。
 3. 执行 `console.log('JS')`。
-4. 同步代码运行完成 & task queue 中有 task 时，将 task 推到 stack 中去执行。
+4. execution context stack 为空且 task queue 中有 task 时，将 task 推到 stack 中去执行。
 5. 执行 `console.log('there')`。
 {% endnote %}
 
