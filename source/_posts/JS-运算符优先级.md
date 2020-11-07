@@ -1,8 +1,7 @@
 ---
 title: 运算符优先级
 categories:
-    - JavaScript
-    - 《你不知道的JavaScript（中卷）》
+  - JavaScript
 abbrlink: 9393c5c
 date: 2019-05-06 19:36:04
 ---
