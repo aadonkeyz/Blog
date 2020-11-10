@@ -1,7 +1,7 @@
 ---
 title: DOM
 categories:
-- JavaScript
+  - JavaScript
 abbrlink: ee93c80b
 date: 2019-04-21 11:49:47
 ---

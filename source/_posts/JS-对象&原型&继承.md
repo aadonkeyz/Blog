@@ -1,7 +1,7 @@
 ---
 title: 对象&原型&继承
 categories:
-    - JavaScript
+  - JavaScript
 abbrlink: bb5d40f2
 date: 2019-03-08 22:46:34
 ---
