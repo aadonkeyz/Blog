@@ -37,12 +37,12 @@ console.log('JS');
 {% endnote %}
 
 {% note warning %}
-这里介绍的比较粗略，实际上除了 task，还有一个 microtask。因此，除了 task queue，还有一个 microtask queue。他们有如下区别：
+上面介绍的比较粗略，实际上除了 task，还有一个 microtask。因此，除了 task queue，还有一个 microtask queue。他们有如下区别：
 - When executing tasks from the task queue, the runtime executes each task that is in the queue at the moment a new iteration of the event loop begins. Tasks added to the queue after the iteration begins will not run until the next iteration.
 - Each time a task exits, and the execution context stack is empty, each microtask in the microtask queue is executed, one after another. The difference is that execution of microtasks continues until the queue is empty—even if new ones are scheduled in the interim. In other words, microtasks can enqueue new microtasks and those new microtasks will execute before the next task begins to run, and before the end of the current event loop iteration.
 
 ---
-同样都是 task 或 microtask，它们之间也是存在优先级的：
+同样都是 task 或 microtask，优先级也是有差别的：
 1. **microtask（优先级递减）**：
   1. `process.nextTick`
   2. `Promise.then`、`Promise.catch`、`Promise.finally`

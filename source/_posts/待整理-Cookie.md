@@ -1,0 +1,161 @@
+---
+title: Cookie
+categories:
+  - 待整理
+abbrlink: 4fd0352
+date: 2019-05-22 20:39:34
+---
+
+# Cookie
+
+## 为什么需要Cookie
+
+以下描述摘抄自[**认识HTTP----Cookie和Session篇**](https://zhuanlan.zhihu.com/p/27669892)
+
+HTTP是无状态协议，说明它不能以状态来区分和管理请求和响应。也就是说，无法根据之前的状态进行本次的请求处理。
+
+我们登陆淘宝的时候首先要登陆，我们看到了一个商品点进去，进行了页面跳转/刷新，按照HTTP的无状态协议岂不是又要登陆一次？
+
+所以为了解决这个问题，Cookie诞生了。
+
+## Cookie简介
+
+{% note info %}
+Cookie的使用顺序如下：
+1. 浏览器在没有Cookie的状态下向服务器发送请求
+2. 服务器在响应头部添加`Set-Cookie`字段，浏览器接收后将其保存下来
+3. 浏览器再向该服务器发送请求时，会自动在请求头部添加`Cookie`字段
+4. 服务器通过请求头部的`Cookie`认出了发送请求的浏览器
+
+---
+Cookie的限制：
+- 每个域名下能保存的Cookie个数是有上限的，不同浏览器情况不一样
+- Cookie的大小有限制，最好将每个Cookie的限制在4095B（含4095）以内
+
+---
+Cookie由浏览器保存的以下几块信息构成：
+- `名称`：一个唯一确定Cookie的名称，不区分大小写，然而实践中最好将名称看做是区分大小写的，且名称必须是经过URL编码的。
+- `值`：储存在Cookie中的字符串值，必须是被URL编码的。
+- `Domain`：Cookie对于哪个域是有效的。所有向该域发送的请求中都会携带这个Cookie信息。
+  - 默认情况下，设置`Domain`值为当前的域。
+  - 在低级域，可以将`Domain`设置为比他高级的域。例如，在域为`a.b.wrox.com`时，可以设置`Domain=wrox.com`或`Domain=b.wrox.com`。
+  - 在高级域，可以通过将`Domain`设置为`.`加当前域，来让所有发往低级域的请求带上该高级域的 Cookie。例如，在域为`wrox.com`时，设置`Domain=.wrox.com`，则所有发往低级域的请求也会自动带上该 Cookie。**这条其实是老规范中定义的，新规范定义中浏览器会忽略前导`.`，默认低级域可以使用比他高级的域设置的 Cookie**。
+- `Path`：指定了一个 URL 路径片段，该路径片段必须出现在要请求的资源路径中才可以携带这个 Cookie。假设`Path=/docs`，那么`/docs/Web`会携带 Cookie，`/test`则不会携带 Cookie。
+- `Expires`：表示Cookie何时应该被删除的时间戳。默认值为`Session`表示浏览器会话结束时会将Cookie删除，不过也可以自己设置删除时间。删除操作是有浏览器完成的，如果客户端和服务端的时间不一致会造成删除时间存在一定偏差。
+- `Max-age`：表示Cookie应该在多少秒后被删除。**如果同时设置`Expires`和`Max-age`，`Max-age`的优先级更高**。
+- `Secure`：指定后，Cookie只有在使用SSL连接的时候才发送到服务器。例如，Cookie信息只能发送给`https://www.wrox.com`，而`http://www.wrox.com`的请求则不能发送Cookie。
+- `HttpOnly`：指定后，使用`document.cookie`就无法获取Cookie的内容了。
+- `SameSite`：指定在跨站时是否使用携带 Cookie。
+  - `Lax`：第三方网站通过顶级导航发送 Get 请求可以携带 Cookie。
+  - `Strict`：第三方网站发送的所有请求均不可以携带 Cookie。
+  - `None`：第三方网站发送的所有请求都可以携带 Cookie。该值只有当 Cookie 设置了`Secure`时才有效。同时部分浏览器会把`SameSite=None`识别成`SameSite=Strict`，所以服务端必须在下发`Set-Cookie`响应头时进行`User-Agent`检测，对这些浏览器不下发`SameSite=None`。
+
+每一段信息都作为`Set-Cookie`的一部分，使用分号加空格号分隔每一段
+`Set-Cookie: myCookieName=myCookieValue; Domain=.wrox.com; Path=/; Expires=Mon, 22-Jan-20 00:00:00 GMT; Secure; HttpOnly`
+
+{% endnote %}
+
+### SameSite
+
+参考链接：[预测最近面试会考 Cookie 的 SameSite 属性](https://juejin.im/post/5e718ecc6fb9a07cda098c2d)
+
+{% note info %}
+首先要理解下面的概念：
+- **同站（same-site） === 第一方（first-party）**：二级域名相同
+- **跨站（cross-site）=== 第三方（third-party）**：二级域名不相同
+- **同源（same-origin）**：协议、域名、端口完全相同
+- **跨域（cross-origin）**：协议、域名、端口不完全相同
+
+---
+人们对二级域名的定义有不同的看法。本篇文章的尺度是，顶级域名为 Mozilla 维护的公共后缀表（Public Suffix List）。例如，`.com`、`.co.uk`、`.github.io`等，而二级域名则是`taobao.com`、`a.github.io`等
+{% endnote %}
+
+下图中展示了 SameSite 在不同场景下的表现
+
+![SameSite在跨站时的不同表现](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E3%80%8AJavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B/SameSite.png)
+
+## JavaScript中的Cookie
+
+在JavaScript中处理Cookie有些复杂，因为其众所周知的蹩脚的接口，即BOM的`document.cookie`属性。这个属性的独特之处在于它会因为使用它的方式不同而表现出不同的行为。
+
+### 读取Cookie
+
+当用来获取属性值时，`document.cookie`返回当前页面可用的所有 Cookie 的字符串，一系列由分号隔开的键值对儿，每个键值对儿代表一个域下的 Cookie。如下所示：
+
+```md
+name1=value1;name2=value2;name3=value3
+```
+
+所有名字和值都是经过URL编码的，所以必须使用`decodeURIComponent()`来解码
+
+### 设置Cookie
+
+当用于设置值的时候，`document.cookie`属性可以设置为一个新的Cookie字符串。这个Cookie字符串会被解释并添加到现有的Cookie集合中。设置`document.cookie`并不会覆盖Cookie，除非设置的Cookie的名称已经存在。设置Cookie的格式如下，和`Set-Cookie`头中使用的格式一样。
+
+```js
+document.cookie = encodeURIComponent(myCookieName) + '=' + encodeURIComponent(myCookieValue) + '; Domain=.wrox.com; Path=/; Expires=Mon, 22-Jan-20 00:00:00 GMT; Secure; HttpOnly'
+```
+
+这些参数中，只有名称和值是必需的。
+
+由于JavaScript中读写Cookie不是非常直观，常常需需要写一些函数来简化Cookie的功能。基本的Cookie操作有三种：读取、写入和删除。它们在`CookieUtil`对象中如下表示
+
+```js
+var CookieUtil = {
+  get: function (name) {
+    var cookieName = encodeURIComponent(name) + '=',
+      cookieStart = document.cookie.indexOf(cookieName),
+      cookieValue = null
+    
+    if (cookieStart > -1) {
+      var cookieEnd = document.cookie.indexOf(';', cookieStart)
+      if (cookieEnd == -1) {
+        cookieEnd = document.cookie.length
+      }
+
+      cookieValue = encodeURIComponent(document.cookie.substring(cookieStart + cookieName.length, cookieEnd))
+
+      return cookieValue
+    }
+  },
+
+  set: function (name, value, Expires, Path, Domain, Secure, HttpOnly) {
+    var cookieText = encodeURIComponent(name) + '=' + encodeURIComponent(value)
+
+    if (Expires instanceof Date) {
+      cookieText += '; Expires=' + Expires.toGMTString()
+    }
+
+    if (Path) {
+      cookieText += '; Path=' + Path
+    }
+
+    if (Domain) {
+      cookieText += '; Domain=' + Domain
+    }
+
+    if (Secure) {
+      cookieText += '; Secure=' + Secure
+    }
+
+    if (HttpOnly) {
+      cookieText += '; HttpOnly=' + HttpOnly
+    }
+
+    document.cookie = cookieText
+  },
+
+  unset: function (name, Path, Domain, Secure, HttpOnly) {
+    this.set(name, '', new Date(0), Path, Domain, Secure, HttpOnly)
+  }
+}
+```
+
+### 子Cookie
+
+为了绕开浏览器的单域名下的Cookie数限制，一些开发人员使用了一种称为子Cookie的概念。子Cookie是存放在单个Cookie中的更小的数据，也就是使用Cookie值来存储多个名值对儿。子Cookie最常见的格式如下所示
+
+```md
+name=name1=value1&name2=value2&name3=value3
+```
+
