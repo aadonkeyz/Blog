@@ -1,9 +1,9 @@
 ---
 title: XSS和CSRF
+categories:
+    - 待整理
 abbrlink: 5c76f87e
 date: 2019-07-20 16:21:12
-categories:
-    - 前端
 ---
 
 # XSS

@@ -1,7 +1,7 @@
 ---
 title: 浏览器的渲染原理
 categories:
-    - 前端
+    - 待整理
 abbrlink: b5fc6f17
 date: 2019-07-31 19:41:24
 ---

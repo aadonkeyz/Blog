@@ -1,8 +1,7 @@
 ---
 title: 手动实现一个Promise
 categories:
-    - JavaScript
-    - 杂七杂八
+    - 待整理
 abbrlink: 90beba90
 date: 2019-07-31 15:54:42
 ---

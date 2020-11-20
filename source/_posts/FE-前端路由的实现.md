@@ -1,7 +1,7 @@
 ---
 title: 前端路由的实现
 categories:
-    - 前端
+    - 待整理
 abbrlink: eb815672
 date: 2019-07-12 08:34:26
 ---

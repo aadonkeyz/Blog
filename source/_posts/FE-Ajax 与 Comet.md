@@ -1,7 +1,7 @@
 ---
 title: Ajax 与 Comet
 categories:
-  - JavaScript
+  - FE
 abbrlink: 5ffed448
 date: 2019-04-27 12:43:38
 ---
@@ -242,7 +242,7 @@ Comte 是 Alex Russell 发明的一个词儿，指的是一种更高级的 Ajax 
 无论是短轮询还是长轮询，浏览器都要在接收数据之前，先发起对服务器的链接。两者最大的区别在于服务器如何发送数据。短轮询是服务器立即发送响应，无论数据是否有效，而长轮询是等待发送响应。
 {% endnote %}
 
-![长短轮询时间线](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/JavaScript/%E9%95%BF%E7%9F%AD%E8%BD%AE%E8%AF%A2%E6%97%B6%E9%97%B4%E7%BA%BF.png)
+![长短轮询时间线](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E9%95%BF%E7%9F%AD%E8%BD%AE%E8%AF%A2%E6%97%B6%E9%97%B4%E7%BA%BF.png)
 
 {% note info %}
 第二种流行的 Comet 实现是 HTTP 流。流不同于上述两种轮询，因为它在页面的整个生命周期内只使用一个 HTTP 连接。具体来说，就是浏览器向服务器发送一个请求，而服务器保持连接打开，然后周期性地向浏览器发送数据。

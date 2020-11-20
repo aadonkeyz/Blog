@@ -3,7 +3,7 @@ title: CSS解析原理
 abbrlink: df6afb91
 date: 2019-08-17 23:37:54
 categories:
-    - 前端
+   - 待整理
 ---
 
 本文参考自[**探究 CSS 解析原理**](https://juejin.im/entry/5a123c55f265da432240cc90)

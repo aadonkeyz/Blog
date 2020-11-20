@@ -1,7 +1,7 @@
 ---
 title: Event
 categories:
-  - JavaScript
+  - FE
 abbrlink: 9c2b83ad
 date: 2019-04-25 14:31:19
 ---
@@ -28,19 +28,19 @@ JavaScript 与 HTML 之间的交互是通过事件实现的。事件，就是文
 
 如果你单击了页面中的 `<div>` 元素，那么这个 click 事件会按照如下顺序传播
 
-![事件冒泡](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/JavaScript/%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1.png)
+![事件冒泡](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1.png)
 
 ## 事件捕获
 
 事件捕获的顺序与事件冒泡的顺序正好相反，以前面的HTML页面为例，它的顺序为：
 
-![事件捕获](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/JavaScript/%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7.png)
+![事件捕获](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7.png)
 
 ## 事件流
 
 DOM2 级事件规定的事件流包括三个阶段：**事件捕获阶段**、**处于目标阶段**和**事件冒泡阶段**。首先发生的是事件捕获，为截获事件提供了机会。然后是实际的目标接收到事件。最后一个阶段是冒泡阶段，可以在这个阶段对事件做出响应。还是以前面的HTML页面为例，它的顺序如下所示：
 
-![事件流](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/JavaScript/%E4%BA%8B%E4%BB%B6%E6%B5%81.png)
+![事件流](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E4%BA%8B%E4%BB%B6%E6%B5%81.png)
 
 在 DOM 事件流中，实际的目标在捕获阶段不会接收到事件。这意味着在捕获阶段，事件从 `document` 到 `<html>` 再到 `<body>` 后就停止了。下一个阶段是“处于目标”阶段，于是事件在 `<div>` 上发生，并在事件处理（后面将会讨论这个概念）中被看成冒泡阶段的一部分。然后，冒泡阶段发生，事件又传播回文档。
 
