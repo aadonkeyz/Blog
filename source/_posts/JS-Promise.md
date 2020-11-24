@@ -10,7 +10,7 @@ date: 2019-04-12 10:26:31
 
 本来想仔细描述一下 Promises 的各种特性的，但由于翻译水平有限，最后觉得还是直接查看 Promises/A+ 的规范更精确。
 
-所以，请先移步 [Promises/A+](https://promisesaplus.com/#point-49)。
+所以，请先移步 [Promises/A+](https://promisesaplus.com)。
 
 {% note warning %}
 - 规范中提到“then may be called multiple times on the same promise”，它的意思是同一个 `Promise` 实例上可以挂载多个 `then`，而不是同一个 `then` 被调用多次。
@@ -70,11 +70,11 @@ rejected.catch(function (value) {
 
 无论 `Promise` 实例是否已被决议，你都可以在任何时候调用 `then()` 或 `catch()` 并使它们正确工作，这导致很难准确知道一个 `Promise` 实例何时会被处理。
 
-虽然下个版本的 ES 可能会处理此问题，不过 Node.js 与浏览器已经实施了变更来解决开发者的这个痛点。这些变更不是 ES6 规范的一部分，但却是使用 Promise 时的宝贵工具。
+虽然下个版本的 ES 可能会处理此问题，不过 Node 与浏览器已经实施了变更来解决开发者的这个痛点。这些变更不是 ES6 规范的一部分，但却是使用 Promise 时的宝贵工具。
 
-## Node.js 的拒绝处理
+## Node 的拒绝处理
 
-在 Node.js 中，`process` 对象上存在两个关联到 `Promise` 实例的拒绝处理的事件：
+在 Node 中，`process` 对象上存在两个关联到 `Promise` 实例的拒绝处理的事件：
 
 {% note info %}
 - `unhandledRejection`：当一个 `Promise` 实例被拒绝、而在事件循环本轮次中没有任何拒绝处理函数被调用时，该事件就会被触发。
@@ -149,14 +149,14 @@ setInterval(function () {
 
 ## 浏览器的拒绝处理
 
-浏览器同样能触发两个事件，来帮助识别未处理的拒绝。这两个事件会被 `window` 对象触发，并完全等效于 Node.js 的相关事件：
+浏览器同样能触发两个事件，来帮助识别未处理的拒绝。这两个事件会被 `window` 对象触发，并完全等效于 Node 的相关事件：
 
 {% note info %}
 - `unhandledrejection`：当一个 `Promise` 实例被拒绝、而在事件循环的本轮次中没有任何拒绝处理函数被调用时，该事件就会被触发。
 - `rejectionhandled`：当一个 `Promise` 实例被拒绝、并从事件循环的下一个轮次开始才有拒绝处理函数被调用时，该事件就会被触发。
 {% endnote %}
 
-Node.js 的实现会传递分离的参数给事件处理函数，而浏览器的两个事件处理函数则只会接收到包含下列属性的一个对象：
+Node 的实现会传递分离的参数给事件处理函数，而浏览器的两个事件处理函数则只会接收到包含下列属性的一个对象：
 
 {% note info %}
 - `type`：事件的名称（`unhandledrejection` 或 `rejectionhandled`）。
@@ -164,4 +164,4 @@ Node.js 的实现会传递分离的参数给事件处理函数，而浏览器的
 - `reason`：`Promise` 实例的值。
 {% endnote %}
 
-除了事件处理函数接收的参数有所区别外，浏览器的事件处理函数用法可以仿照 Node.js。
+除了事件处理函数接收的参数有所区别外，浏览器的事件处理函数用法可以仿照 Node。

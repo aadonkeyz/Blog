@@ -1,14 +1,14 @@
 ---
 title: CommonJS
 categories:
-    - Node.js
+    - Node
 abbrlink: b3fe2fad
 date: 2019-04-19 14:33:00
 ---
 
 # CommonJs模块规范
 
-CommonJs是Node.js的规范，是一直沿用至今的一个模块规范,。虽然ES6提出了新的模块规范，但目前为止Node.js无法直接兼容ES6，我们按照ES6的模块规范来书写代码，但是实际上它们最终会被编译为CommonJs规范对应的代码来执行。
+CommonJs是 Node 的规范，是一直沿用至今的一个模块规范,。虽然ES6提出了新的模块规范，但目前为止 Node 无法直接兼容ES6，我们按照ES6的模块规范来书写代码，但是实际上它们最终会被编译为CommonJs规范对应的代码来执行。
 
 需要记住，Node对获取的JavaScript文件内容进行了头尾包装。在头部添加了`function (exports, require, module, __filename, __dirname) {\n`，而在尾部添加了`\n}`。所以一个正常的JavaScript文件会被包装成如下的样子：
 

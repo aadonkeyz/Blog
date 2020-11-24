@@ -1,5 +1,5 @@
 ---
-title: Event
+title: 事件
 categories:
   - FE
 abbrlink: 9c2b83ad
