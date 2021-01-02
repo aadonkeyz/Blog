@@ -98,20 +98,18 @@
 
 
 
-  <meta name="description" content="缓存的存放位置是浏览器，但是要区分开HTTP缓存和客户端存储（如cookie、localStorage等）的概念。            缓存的优点             减少冗余数据的传输。缓解了带宽瓶颈的问题。降低了对原始服务器的要求。降低了距离时延。            基本概念             缓存命中：用已有的副本为某些到达缓存的请求提供服务。缓存未">
+  <meta name="description" content="我是 MDN 的搬运工。">
 <meta name="keywords" content="前端博客,JavaScript,html5,css3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTTP缓存">
+<meta property="og:title" content="HTTP Caching">
 <meta property="og:url" content="https://aadonkeyz.com/posts/8837602f/index.html">
 <meta property="og:site_name" content="aadonkeyz的博客">
-<meta property="og:description" content="缓存的存放位置是浏览器，但是要区分开HTTP缓存和客户端存储（如cookie、localStorage等）的概念。            缓存的优点             减少冗余数据的传输。缓解了带宽瓶颈的问题。降低了对原始服务器的要求。降低了距离时延。            基本概念             缓存命中：用已有的副本为某些到达缓存的请求提供服务。缓存未">
+<meta property="og:description" content="我是 MDN 的搬运工。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png">
-<meta property="og:updated_time" content="2020-12-12T23:39:43.981Z">
+<meta property="og:updated_time" content="2021-01-02T15:58:06.963Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HTTP缓存">
-<meta name="twitter:description" content="缓存的存放位置是浏览器，但是要区分开HTTP缓存和客户端存储（如cookie、localStorage等）的概念。            缓存的优点             减少冗余数据的传输。缓解了带宽瓶颈的问题。降低了对原始服务器的要求。降低了距离时延。            基本概念             缓存命中：用已有的副本为某些到达缓存的请求提供服务。缓存未">
-<meta name="twitter:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png">
+<meta name="twitter:title" content="HTTP Caching">
+<meta name="twitter:description" content="我是 MDN 的搬运工。">
 
 
 
@@ -128,7 +126,7 @@
   };
 </script>
 
-  <title>HTTP缓存 | aadonkeyz的博客</title>
+  <title>HTTP Caching | aadonkeyz的博客</title>
   
 
 
@@ -366,7 +364,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HTTP缓存
+          <h1 class="post-title" itemprop="name headline">HTTP Caching
 
               
             
@@ -409,7 +407,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+                <time title="修改时间：2021-01-02 23:58:06" itemprop="dateModified" datetime="2021-01-02T23:58:06+08:00">2021-01-02</time>
               
             
           </span>
@@ -426,14 +424,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Network/" itemprop="url" rel="index"><span itemprop="name">Network</span></a></span>
 
                 
                 
@@ -468,48 +459,7 @@
       
 
       
-        <div class="note warning">
-            <p>缓存的存放位置是浏览器，但是要区分开HTTP缓存和<a href="https://aadonkeyz.com/posts/4fd0352/">客户端存储</a>（如cookie、localStorage等）的概念。</p>
-          </div>
-<h1 id="缓存的优点"><a href="#缓存的优点" class="headerlink" title="缓存的优点"></a>缓存的优点</h1><div class="note info">
-            <ul><li>减少冗余数据的传输。</li><li>缓解了带宽瓶颈的问题。</li><li>降低了对原始服务器的要求。</li><li>降低了距离时延。</li></ul>
-          </div>
-<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><div class="note info">
-            <ul><li><strong>缓存命中</strong>：用已有的副本为某些到达缓存的请求提供服务。</li><li><strong>缓存未命中</strong>：缓存中无可用副本，需要将请求转发给原始服务器。</li><li><strong>再验证</strong>：原始服务器的内容可能会发生变化，缓存要不时对其进行检测，看看缓存中保存的副本是否仍是服务器上最新的副本，这种“新鲜度检测”被称为HTTP再验证。</li><li><strong>再验证命中或缓慢命中</strong>：缓存对副本进行再验证时，会向原始服务器发送一个小的再验证请求。如果副本仍是新鲜的，则将副本提供给客户端。这种方式比单纯的缓存命中要慢，比缓存未命中要快。</li><li><strong>缓存命中率</strong>：由缓存提供服务的请求所占的比例。，有时也被称为<strong>文档命中率</strong>。</li><li><strong>字节命中率</strong>：缓存提供的字节在传输的所有字节中所占的比例。</li></ul>
-          </div>
-<h1 id="相关的首部字段"><a href="#相关的首部字段" class="headerlink" title="相关的首部字段"></a>相关的首部字段</h1><h2 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h2><p>HTTP/1.1定义的<code>Cache-Control</code>首部字段用来区分对缓存机制的支持情况，请求头和响应头都支持这个属性。通过它提供的不同的值来定义缓存策略。指令不区分大小写，并且具有可选参数，可以用令牌或者带引号的字符串语法。多个指令以逗号分隔。</p>
-<div class="note info">
-            <p>请求中的<code>Cache-Control</code>：</p><ul><li><code>max-age</code>：设置缓存副本存储的最大周期，超过这个时间的副本被认为过期（单位为秒，且是从发起请求的那一时刻开始计时的）。</li><li><code>max-stale</code>：表明客户端愿意接收一个已经过期的资源。可以设置一个可选的秒数，表示响应不能已经过时超过该给定时间。</li><li><code>max-fresh</code>：表明客户端希望获取一个能在指定的秒数内保持其最新状态的响应。</li><li><code>no-cache</code>：在发布缓存副本之前，强制要求缓存把请求提交给原始服务器进行验证。</li><li><code>no-store</code>：缓存不应存储有关客户端请求或服务器响应的任何内容。</li><li><code>no-transform</code>：不得对资源进行转换或改变。</li><li><code>only-if-cached</code>：如果在缓存中有可用资源，不需要进行再验证，直接使用。如果没有可用资源的话在去原始服务器获取，然后保存对应的副本。</li></ul><hr><p>响应中的<code>Cache-Control</code>：</p><ul><li><code>must-revalidate</code>：一旦资源过期，在再验证之前，缓存不能使用该资源响应后续请求。</li><li><code>no-cache</code>：在发布缓存副本之前，强制要求缓存把请求提交给原始服务器进行验证。</li><li><code>no-store</code>：缓存不应存储有关客户端请求或服务器响应的任何内容。</li><li><code>no-transform</code>：不得对资源进行转换或改变。</li><li><code>public</code>：表明响应可以被任何应用（包括：发送请求的客户端、代理服务器，等等）缓存，即使是通常不可缓存的内容。</li><li><code>private</code>：表明响应只能被单个用户缓存，不能作为共享缓存（即代理服务器不能缓存它）。私有缓存可以缓存响应内容。</li><li><code>proxy-revalidate</code>：与<code>must-revalidate</code>作用相同，但它仅适用于共享缓存，并被私有缓存忽略。</li><li><code>max-age</code>：设置缓存副本存储的最大周期，超过这个时间副本被认为过期（单位为秒，且是从发起请求的那一时刻开始计时的）。</li><li><code>s-maxage</code>：覆盖<code>Cache-Control</code>首部字段的<code>max-age</code>或者<code>Expires</code>首部字段，但是仅适用于共享缓存，私有缓存会忽略它。</li></ul>
-          </div>
-<h2 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h2><div class="note info">
-            <ul><li><code>Expires</code>属于响应首部字段。</li><li>它的值为具体的日期，如<code>Expires: Fri, 05 Jul 2002, 05:00:00 GMT</code>。</li><li>超过它设定的日期后，对应的副本就会被标记为过期。</li><li>如果在<strong>响应</strong>的<code>Cache-Control</code>字段设置了<code>max-age</code>或者<code>s-max-age</code>指令，那么<code>Expires</code>字段会被忽略。</li><li><code>Expires</code>字段依赖于计算机时钟的正确设置。</li></ul>
-          </div>
-<h2 id="If-Modified-Since"><a href="#If-Modified-Since" class="headerlink" title="If-Modified-Since"></a>If-Modified-Since</h2><div class="note info">
-            <ul><li><code>If-Modified-Since</code>首部字段只能用于GET或HEAD的请求首部。</li><li><code>If-Modified-Since</code>的值为一个绝对日期，用于作为判断的给定日期。</li><li>如果所请求资源最后的修改日期在给定日期之前，那么服务器会向客户端返回一个不包含主体的<code>304 Not Modified</code>。</li><li>如果所请求资源最后的修改日期在给定日期之后，那么服务器根据实际情况对客户端进行响应。</li><li>如果<code>If-Modified-Since</code>和<code>If-Node-Match</code>同时出现，则<code>If-Modified-Since</code>会被忽略。</li></ul>
-          </div>
-<h2 id="Last-Modified"><a href="#Last-Modified" class="headerlink" title="Last-Modified"></a>Last-Modified</h2><div class="note info">
-            <ul><li><code>Last-Modified</code>属于响应首部字段，它包含的是对应资源的最后修改日期。</li><li>它的日期精确到秒。</li></ul>
-          </div>
-<h2 id="Etag"><a href="#Etag" class="headerlink" title="Etag"></a>Etag</h2><div class="note info">
-            <ul><li><code>Etag</code>属于响应首部字段，它的值代表对应资源的独一无二的<strong>实体标签</strong>。</li><li>由服务器自己确定<code>Etag</code>的值。</li></ul>
-          </div>
-<h2 id="If-None-Match"><a href="#If-None-Match" class="headerlink" title="If-None-Match"></a>If-None-Match</h2><div class="note info">
-            <ul><li><code>If-None-Match</code>属于请求首部字段。</li><li><code>If-None-Match</code>可以包含多个<code>Etag</code>。如，<code>If-None-Match: &quot;v2.4&quot;, &quot;v2.5&quot;, &quot;v2.6&quot;</code>。</li><li>如果请求的方法是GET或HEAD，且所请求资源与<code>If-None-Match</code>包含的<code>Etag</code>匹配，那么服务器会向客户端返回一个不包含主体的<code>304 Not Modified</code>。</li><li>如果请求的方法是GET或HEAD，且所请求资源与<code>If-None-Match</code>包含的<code>Etag</code>不匹配，那么服务器根据实际情况对客户端进行响应。</li><li>如果使用其他方法发送请求，那么只有当所请求资源与<code>If-None-Match</code>包含的<code>Etag</code>不匹配时，服务器才会进行对应的响应。</li><li>如果<code>If-Modified-Since</code>和<code>If-Node-Match</code>同时出现，则<code>If-Node-Match</code>优先级高。</li></ul>
-          </div>
-<h1 id="缓存工作流程"><a href="#缓存工作流程" class="headerlink" title="缓存工作流程"></a>缓存工作流程</h1><p>人们管使用<code>Cache-Control</code>或者<code>Expires</code>字段的方式叫作<strong>强缓存</strong>，而使用<code>If-Modified-Since</code>或<code>If-None-Match</code>的方式叫作<strong>协商缓存</strong>。</p>
-<div class="note info">
-            <ol><li>浏览器首先查看是否有缓存。</li><li>如果有缓存，接着检查是否命中强缓存（即缓存是否过期）。</li><li>如果缓存过期，则通过协商缓存来请求服务器，根据服务器返回的状态码进行不同的操作。</li></ol>
-          </div>
-<p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" alt="缓存工作流程"></p>
-<div class="note info">
-            <ol><li><strong><code>Cache-Control</code>和<code>Expires</code>的比较。</strong><ul><li><code>Cache-Control</code>的优先级高于<code>Expires</code>。</li><li>由于<code>Cache-Control</code>使用的是相对时间而不是绝对时间，并且<code>Expires</code>使用的绝对时间依赖于计算机时钟的正确设置，所以更倾向于使用<code>Cache-Control</code>。</li></ul></li><li><strong>相比于<code>Last-Modified</code>，<code>Etag</code>的优势。</strong><ul><li>有的文档可能会被周期性地重写，但实际包含的数据常常是一样的。尽管内容没有变化，但是修改日期会发生变化。</li><li>有些文档可能被修改了，但所做修改并不重要，不需要重新缓存。</li><li>有些服务器无法精确地判定最后修改日期。</li><li>有些服务器提供的文档会以亚秒间隙发生变化，对这些服务器来说，以一秒为粒度的修改日期可能就不够用了。</li></ul></li></ol>
-          </div>
-<div class="note warning">
-            <p><strong>不同域名下，如果加载同一个 URL 的资源，可以共用一份缓存。</strong></p>
-          </div>
-<h1 id="刷新与缓存"><a href="#刷新与缓存" class="headerlink" title="刷新与缓存"></a>刷新与缓存</h1><div class="note info">
-            <ul><li>通过 F5 刷新（MAC 下是 command + R），浏览器发送的请求会设置<code>Cache-Control: max-age=0</code>和<code>If-Modified-Since</code>，也就是说会将本地缓存过期，然后使用协商缓存。</li><li>通过 Ctrl + F5 强制刷新（MAC 下是 command + shift + R），浏览器发送的请求会设置<code>Cache-Control: max-age=0</code>，也就是说会将本地缓存过期，并且不使用协商缓存。</li></ul><p>你可以使用 Firefox 浏览器（Chrome 看不到所有请求头）试验一下，分别采用以上两种方式刷新本页面，观察请求和响应的不同。</p>
-          </div>
+        <p>我是 <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching" target="_blank" rel="noopener">MDN</a> 的搬运工。</p>
 
       
     </div>
@@ -568,7 +518,7 @@
           </li>
           <li class="post-copyright-link">
             <strong>本文链接：</strong>
-            <a href="/posts/8837602f/" title="HTTP缓存">https://aadonkeyz.com/posts/8837602f/</a>
+            <a href="/posts/8837602f/" title="HTTP Caching">https://aadonkeyz.com/posts/8837602f/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明：</strong>
@@ -645,17 +595,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -755,23 +696,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存的优点"><span class="nav-number">1.</span> <span class="nav-text">缓存的优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关的首部字段"><span class="nav-number">3.</span> <span class="nav-text">相关的首部字段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache-Control"><span class="nav-number">3.1.</span> <span class="nav-text">Cache-Control</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expires"><span class="nav-number">3.2.</span> <span class="nav-text">Expires</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#If-Modified-Since"><span class="nav-number">3.3.</span> <span class="nav-text">If-Modified-Since</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Last-Modified"><span class="nav-number">3.4.</span> <span class="nav-text">Last-Modified</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Etag"><span class="nav-number">3.5.</span> <span class="nav-text">Etag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#If-None-Match"><span class="nav-number">3.6.</span> <span class="nav-text">If-None-Match</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存工作流程"><span class="nav-number">4.</span> <span class="nav-text">缓存工作流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#刷新与缓存"><span class="nav-number">5.</span> <span class="nav-text">刷新与缓存</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
