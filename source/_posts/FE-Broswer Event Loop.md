@@ -3,6 +3,7 @@ title: Broswer Event Loop
 abbrlink: cf159629
 date: 2020-11-25 21:48:52
 categories:
+  - FE
 ---
 
 {% note info %}
