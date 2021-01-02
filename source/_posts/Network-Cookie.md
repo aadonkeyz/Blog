@@ -66,11 +66,11 @@ cookie 的最长有效时间，形式为符合 HTTP-date 规范的时间戳。
 很多浏览器支持会话恢复功能，这个功能可以使浏览器保留所有的tab标签，然后在重新打开浏览器的时候将其还原。与此同时，会话期 cookie 也会恢复，就跟从来没有关闭浏览器一样。
 {% endnote %}
 
-## Max-age
+## Max-Age
 
-在 cookie 失效前需要经过的秒数。秒数为 `0` 或 负数会使 cookie 直接过期。
+在 cookie 失效前需要经过的秒数。秒数为 `0` 或负数会使 cookie 直接过期。
 
-如果同时设置了 `Expires` 和 `Max-age`，`Max-age` 的优先级更高。
+如果同时设置了 `Expires` 和 `Max-Age`，`Max-Age` 的优先级更高。
 
 ## Secure
 
