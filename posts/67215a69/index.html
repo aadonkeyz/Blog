@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="PG1_de1e4chdQFka3s4-JmiALHwBxtpSgqAPMmtP8E0">
+<meta name="baidu-site-verification" content="mTxN7FYES6">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在 JS 已有的基本类型之外，ES6 引入了一种新的基本类型：符号（Symbol）。符号起初被设计用于创建对象私有成员，而这也是JS开发者期待已久的特性。 创建符号值符号没有字面量形式，这在JS的基本类型中是独一无二的。你可以使用全局 Symbol 函数来创建一个符号值，正如下面这个例子： 1234567let firstName = Symbol()let person = &amp;#123;&amp;#12">
+<meta name="keywords" content="前端博客,JavaScript,html5,css3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="符号与符号属性">
+<meta property="og:url" content="https://aadonkeyz.com/posts/67215a69/index.html">
+<meta property="og:site_name" content="aadonkeyz的博客">
+<meta property="og:description" content="在 JS 已有的基本类型之外，ES6 引入了一种新的基本类型：符号（Symbol）。符号起初被设计用于创建对象私有成员，而这也是JS开发者期待已久的特性。 创建符号值符号没有字面量形式，这在JS的基本类型中是独一无二的。你可以使用全局 Symbol 函数来创建一个符号值，正如下面这个例子： 1234567let firstName = Symbol()let person = &amp;#123;&amp;#12">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-12T23:39:43.988Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="符号与符号属性">
+<meta name="twitter:description" content="在 JS 已有的基本类型之外，ES6 引入了一种新的基本类型：符号（Symbol）。符号起初被设计用于创建对象私有成员，而这也是JS开发者期待已久的特性。 创建符号值符号没有字面量形式，这在JS的基本类型中是独一无二的。你可以使用全局 Symbol 函数来创建一个符号值，正如下面这个例子： 1234567let firstName = Symbol()let person = &amp;#123;&amp;#12">
+
+
+
+
+
+
+  <link rel="canonical" href="https://aadonkeyz.com/posts/67215a69/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>符号与符号属性 | aadonkeyz的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">aadonkeyz的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">程序猿的学习笔记</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">85</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://aadonkeyz.com/posts/67215a69/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aadonkeyz">
+      <meta itemprop="description" content="本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aadonkeyz的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">符号与符号属性
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-30 22:20:15" itemprop="dateCreated datePublished" datetime="2019-03-30T22:20:15+08:00">2019-03-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在 JS 已有的基本类型之外，ES6 引入了一种新的基本类型：符号（Symbol）。符号起初被设计用于创建对象私有成员，而这也是JS开发者期待已久的特性。</p>
+<h1 id="创建符号值"><a href="#创建符号值" class="headerlink" title="创建符号值"></a>创建符号值</h1><p><strong>符号没有字面量形式</strong>，这在JS的基本类型中是独一无二的。你可以使用全局 <code>Symbol</code> 函数来创建一个符号值，正如下面这个例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstName = <span class="built_in">Symbol</span>()</span><br><span class="line"><span class="keyword">let</span> person = &#123;&#125;</span><br><span class="line"></span><br><span class="line">person[firstName] = <span class="string">'Nicholas'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Nicholas</span></span><br><span class="line"><span class="built_in">console</span>.log(person[firstName])</span><br></pre></td></tr></table></figure>
+<p>此代码创建了一个符号类型的 <code>firstName</code> 变量，并将它作为 <code>person</code> 对象的一个属性，而每次访问该属性都要使用这个符号值。</p>
+<p><strong>由于符号值是基本类型的值，因此调用 <code>new Symbol()</code> 将会抛出错误。你可以通过 <code>new Object(yourSymbol)</code> 来创建一个符号实例，但尚不清楚这能有什么作用。</strong></p>
+<p><code>Symbol</code> 函数还可以接受一个额外的参数用于描述符号值，该描述并不能用来访问对应属性，但它能用于调试，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstName = <span class="built_in">Symbol</span>(<span class="string">'first name'</span>)</span><br><span class="line"><span class="keyword">let</span> person = &#123;&#125;</span><br><span class="line"></span><br><span class="line">person[firstName] = <span class="string">'Nicholas'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'first name'</span> <span class="keyword">in</span> person)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Nicholas</span></span><br><span class="line"><span class="built_in">console</span>.log(person[firstName])</span><br><span class="line"></span><br><span class="line"><span class="comment">// Symbol(first name)</span></span><br><span class="line"><span class="built_in">console</span>.log(firstName)</span><br></pre></td></tr></table></figure>
+<p>符号的描述信息被存储在内部属性 <code>[[Description]]</code> 中，当符号的 <code>toString()</code> 方法被显式或隐式调用时，该属性都会被读取。</p>
+<p>由于符号是基本类型的值，你可以使用 <code>typeof</code> 运算符来判断一个变量是否为符号。ES6 扩充了 <code>typeof</code> 的功能以便让它在作用于符号值的时候能够返回 <code>symbol</code>。</p>
+<h1 id="使用符号值"><a href="#使用符号值" class="headerlink" title="使用符号值"></a>使用符号值</h1><p>你可以在任意能使用“需计算属性名”的场合使用符号。此外还可以在 <code>Object.defineProperty()</code> 或 <code>Object.defineProperties()</code> 调用中使用它。</p>
+<p><strong>由于符号不存在字面量形式，所以如果以符号作为对象的属性名，就算该属性的 <code>enumerable</code> 被设置为 <code>true</code>，该属性也无法用 <code>for-in</code> 循环，并且不会显示在 <code>Object.keys()</code> 的结果中。但是你可以使用 <code>in</code> 操作符来判断该属性是否存在！</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstName = <span class="built_in">Symbol</span>(<span class="string">'first name'</span>)</span><br><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">  [firstName]: <span class="string">'Nicholas'</span>,</span><br><span class="line">  normalAttr: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> desc = <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, firstName)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Nicholas</span></span><br><span class="line"><span class="built_in">console</span>.log(desc.value)</span><br><span class="line"></span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(desc.writable)</span><br><span class="line"></span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(desc.enumerable)</span><br><span class="line"></span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(desc.configurable)</span><br><span class="line"></span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(firstName <span class="keyword">in</span> person)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'normalAttr' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(person))    </span><br><span class="line"></span><br><span class="line"><span class="comment">// normalAttr</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> person) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key)    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="共享符号值"><a href="#共享符号值" class="headerlink" title="共享符号值"></a>共享符号值</h1><p>你或许想在不同的代码段中使用相同的符号值，例如：假设在应用中需要在两个不同的对象类型中使用同一个符号属性，用来表示一个唯一标识符。跨越文件或代码来追踪符号值是很困难并且易错的，为此，ES6 提供了“全局符号注册表”供你在任意时间点进行访问。</p>
+<p>若你想创建共享符号值，应使用 <code>Symbol.for()</code> 方法而不是 <code>Symbol()</code> 方法。<strong><code>Symbol.for()</code> 方法仅接受单个字符串类型的参数，作为目标符号值的标识符，同时此参数也会成为该符号的描述信息</strong>。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uid = <span class="built_in">Symbol</span>.for(<span class="string">'uid'</span>)</span><br><span class="line"><span class="keyword">let</span> object = &#123;&#125;</span><br><span class="line"></span><br><span class="line">object[uid] = <span class="number">123456</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 123456</span></span><br><span class="line"><span class="built_in">console</span>.log(object[uid])</span><br><span class="line"></span><br><span class="line"><span class="comment">// Symbol(uid)</span></span><br><span class="line"><span class="built_in">console</span>.log(uid)</span><br></pre></td></tr></table></figure>
+<p><code>Symbol.for()</code> 方法首先会搜索全局符号注册表，看是否存在一个键值为 <code>&quot;uid&quot;</code> 的符号值。若是，该方法会返回这个已存在的符号值。否则，会创建一个新的符号值，并使用该键值将其记录到全局符号注册表中，然后返回这个新的符号值。这就意味着此后使用同一个键值去调用 <code>Symbol.for()</code> 方法都将返回同一个符号值，就像下面这个例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uid = <span class="built_in">Symbol</span>.for(<span class="string">'uid'</span>)</span><br><span class="line"><span class="keyword">let</span> object = &#123;</span><br><span class="line">  [uid]: <span class="number">123456</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 123456</span></span><br><span class="line"><span class="built_in">console</span>.log(object[uid])</span><br><span class="line"></span><br><span class="line"><span class="comment">// Symbol(uid)</span></span><br><span class="line"><span class="built_in">console</span>.log(uid)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> uid2 = <span class="built_in">Symbol</span>.for(<span class="string">'uid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(uid === uid2)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 123456</span></span><br><span class="line"><span class="built_in">console</span>.log(object[uid2])</span><br><span class="line"></span><br><span class="line"><span class="comment">// Symbol(uid)</span></span><br><span class="line"><span class="built_in">console</span>.log(uid2)</span><br></pre></td></tr></table></figure>
+<p>共享符号值还有另一个独特用法，你可以使用 <code>Symbol.keyFor()</code> 方法在全局符号注册表中根据符号值检索出对应的键值，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uid = <span class="built_in">Symbol</span>.for(<span class="string">'uid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// uid</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(uid))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> uid2 = <span class="built_in">Symbol</span>.for(<span class="string">'uid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// uid</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(uid2))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> uid3 = <span class="built_in">Symbol</span>(<span class="string">'uid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(uid3))</span><br></pre></td></tr></table></figure>
+<p>注意：使用符号值 <code>uid</code> 与 <code>uid2</code> 都返回了键值 <code>&quot;uid&quot;</code>，而符号值 <code>uid3</code> 在全局符号注册表中并不存在，因此没有关联的键值，<code>Symbol.keyFot()</code> 只会返回 <code>undefined</code>。</p>
+<h1 id="符号值的转换"><a href="#符号值的转换" class="headerlink" title="符号值的转换"></a>符号值的转换</h1><p>类型转换是 JS 语言重要的一部分，能够非常灵活地将一种数据类型转换为另一种。然而符号类型在进行转换时非常不灵活，因为其他类型缺乏与符号值的合理等价，尤其是符号值无法被转换为字符串值或数值。因此将符号作为属性所达成的效果，是其他类型所无法替代的。</p>
+<p>在之前的例子中使用了 <code>console.log()</code> 来展示符号值的输出，能这么做是由于自动调用了符号值的 <code>String()</code> 方法来产生输出。你也可以直接调用 <code>String()</code> 方法来获取相同的结果，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uid = <span class="built_in">Symbol</span>.for(<span class="string">'uid'</span>)</span><br><span class="line"><span class="keyword">let</span> desc = <span class="built_in">String</span>(uid)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Symbol(uid)</span></span><br><span class="line"><span class="built_in">console</span>.log(desc)</span><br></pre></td></tr></table></figure>
+<p><code>String()</code> 方法调用了 <code>uid.toString()</code> 来获取符号的字符串描述信息。但若你想直接将符号转换为字符串，则会引发错误：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uid = <span class="built_in">Symbol</span>.for(<span class="string">'uid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引发错误</span></span><br><span class="line"><span class="keyword">let</span> desc = uid + <span class="string">''</span></span><br></pre></td></tr></table></figure>
+<p>将<code>uid</code>与空字符串相连接，会首先要求把<code>uid</code>转换为一个字符串，而这会引发错误，从而阻止了转换行为。</p>
+<p>相似地，你也不能将符号转换为数值，对符号使用所有数学运算符都会引发错误，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uid = <span class="built_in">Symbol</span>.for(<span class="string">'uid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引发错误</span></span><br><span class="line"><span class="keyword">let</span> desc = uid / <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>此例试图把符号值除以 1，同样引发了错误。无论对符号使用哪种数学运算符都会导致错误，但使用逻辑运算符则不会，因为符号值在运算符中会被认为等价于 <code>true</code>。</p>
+<h1 id="检索符号属性"><a href="#检索符号属性" class="headerlink" title="检索符号属性"></a>检索符号属性</h1><p><strong>只能使用 ES6 新增的 <code>Object.getOwnPropertySymbols()</code> 方法用来检索对象的符号属性。<code>Object.keys()</code> 和 <code>Object.getOwnPropertyNames()</code> 方法都不行。</strong></p>
+<h1 id="使用知名符号暴露内部方法"><a href="#使用知名符号暴露内部方法" class="headerlink" title="使用知名符号暴露内部方法"></a>使用知名符号暴露内部方法</h1><p>ES6 定义了“知名符号”来代表JS中一些公共行为，而这些行为此前被认为只能是内部操作。每一个知名符号都对应全局 <code>Symbol</code> 对象的一个属性，这些知名符号是：</p>
+<div class="note info">
+            <ul><li><code>Symbol.hasInstance</code>：供 <code>instanceof</code> 运算符使用的一个方法，用于判断对象继承关系。</li><li><code>Symbol.isConcatSpreadable</code>：一个布尔类型值，在集合对象作为参数传递给 <code>Array.prototype.concat()</code> 方法时，指示是否要将该集合的元素扁平化。</li><li><code>Symbol.iterator</code>：返回迭代器的一个方法。</li><li><code>Symbol.match</code>：供 <code>String.prototype.match()</code> 函数使用的一个方法，用于比较字符串。</li><li><code>Symbol.replace</code>：供 <code>String.prototype.replace()</code> 函数使用的一个方法，用于替换子字符串。</li><li><code>Symbol.search</code>：供 <code>String.prototype.search()</code> 函数使用的一个方法，用于定位子字符串。</li><li><code>Symbol.species</code>：用于产生派生对象的构造器。</li><li><code>Symbol.split</code>：供 <code>String.prototype.split()</code> 函数使用的一个方法，用于分割字符串。</li><li><code>Symbol.toPrimitive</code>：返回对象所对应的基本类型值的一个方法。</li><li><code>Symbol.toStringTag</code>：供 <code>String.prototype.toString()</code> 函数使用的一个方法，用于创建对象的描述信息。</li><li><code>Symbol.unscopables</code>：一个对象，该对象的属性指示了那些属性名不允许被包含在 <code>with</code> 语句中。</li></ul>
+          </div>
+<p>下面将介绍其中的一些知名符号。</p>
+<h2 id="Symbol-hasInstance"><a href="#Symbol-hasInstance" class="headerlink" title="Symbol.hasInstance"></a>Symbol.hasInstance</h2><p>每个函数都具有一个 <code>Symbol.hasInstance</code> 方法，用于判断指定对象是否为本函数的一个实例。这个方法定义在 <code>Function.prototype</code> 上，因此所有函数都继承了面对 <code>instanceof</code> 运算符时的默认行为。<code>Symbol.hasInstance</code> 属性自身是不可写入、不可配置、不可枚举的，从而保证它不会被错误地重写。</p>
+<p><code>Symbol.hasInstance</code> 方法只接受单个参数，即需要检测的值。如果该值是本函数的一个实例，则方法会返回 <code>true</code>。为了理解该方法是如何工作的，可研究下述代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">obj <span class="keyword">instanceof</span> <span class="built_in">Array</span></span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="built_in">Array</span>[<span class="built_in">Symbol</span>.hasInstance](obj)</span><br></pre></td></tr></table></figure>
+<p>ES6 从本质上将 <code>instanceof</code> 运算符重定义为上述方法调用的简写语法，这样使用 <code>instanceof</code> 便会出发一次方法调用，实际上允许你改变该运算符的工作。</p>
+<p>假设你想定义一个函数，使得任意对象都不会被判断为该函数的一个实例，你可以采用硬编码的方式来让该函数的 <code>Symbol.hasInstance</code> 方法始终返回 <code>false</code>，就像这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyObject</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(MyObject, <span class="built_in">Symbol</span>.hasInstance, &#123;</span><br><span class="line">  value (v) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> MyObject()</span><br><span class="line"></span><br><span class="line"><span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(obj <span class="keyword">instanceof</span> MyObject)</span><br></pre></td></tr></table></figure>
+<p>上例中通过 <code>Object.defineProperty()</code> 方法在 <code>MyObject</code> 对象上设置了 <code>Symbol.hasInstance</code> 属性，从而屏蔽了原型上不可写入的 <code>Symbol.hasInstance</code> 属性。</p>
+<h2 id="Symbol-isConcatSpreadable"><a href="#Symbol-isConcatSpreadable" class="headerlink" title="Symbol.isConcatSpreadable"></a>Symbol.isConcatSpreadable</h2><p>首先请看下面数组 <code>concat()</code> 方法的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> colors1 = [ <span class="string">'red'</span>, <span class="string">'green'</span> ]</span><br><span class="line"><span class="keyword">let</span> colors2 = colors1.concat([ <span class="string">'blue'</span>, <span class="string">'black'</span> ])</span><br><span class="line"><span class="keyword">let</span> colors3 = colors1.concat([ <span class="string">'blue'</span>, <span class="string">'black'</span> ], <span class="string">'brown'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'red', 'green', 'blue', 'black' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(colors2)    </span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'red', 'green', 'blue', 'black', 'brown' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(colors3)</span><br></pre></td></tr></table></figure>
+<p><code>concat()</code> 方法会区别对待自己接收到的参数，如果参数为数组类型，那么它会自动的将数组扁平化（即分离数组中的元素）。而其他非数组类型的参数无需如此处理。在 ES6 之前，没有任何手段可以改变这种行为。</p>
+<p><code>Symbol.isConcatSpreadable</code> 属性是一个布尔类型的属性，它默认情况下并不会作为任意常规对象的属性。它只出现在特定类型的对象上，用来标示该对象作为 <code>concat()</code> 参数时应如何工作。</p>
+<p>成功使用这个属性的前提条件是拥有该属性的对象，要在两个方面与数组类似：<strong>拥有数值类型的键</strong>和<strong>拥有 <code>length</code> 属性</strong>。</p>
+<p>当该属性为 <code>true</code> 时，将该属性所属对象传递给 <code>concat()</code> 方法时，将所属对象扁平化。当该属性为 <code>false</code> 时，所属对象不会被扁平化。请看下面的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = &#123;</span><br><span class="line">  <span class="number">0</span>: <span class="string">'hello'</span>,</span><br><span class="line">  <span class="number">1</span>: <span class="string">'world'</span>,</span><br><span class="line">  length: <span class="number">2</span>,</span><br><span class="line">  [<span class="built_in">Symbol</span>.isConcatSpreadable]: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> messages1 = [ <span class="string">'hi'</span> ].concat(obj1)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'hi', 'hello', 'world' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(messages1)      </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj2 = &#123;</span><br><span class="line">  <span class="number">0</span>: <span class="string">'hello'</span>,</span><br><span class="line">  length: <span class="number">2</span>,</span><br><span class="line">  [<span class="built_in">Symbol</span>.isConcatSpreadable]: <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> messages2 = [ <span class="string">'hi'</span> ].concat(obj2)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'hi', &#123; '0': 'hello', length: 2, [Symbol.isConcatSpreadable]: false &#125; ]</span></span><br><span class="line"><span class="built_in">console</span>.log(messages2)</span><br></pre></td></tr></table></figure>
+<h2 id="Symbol-match、Symbol-replace、Symbol-search-与-Symbol-split"><a href="#Symbol-match、Symbol-replace、Symbol-search-与-Symbol-split" class="headerlink" title="Symbol.match、Symbol.replace、Symbol.search 与 Symbol.split"></a>Symbol.match、Symbol.replace、Symbol.search 与 Symbol.split</h2><p>在 JS 中，字符串与正则表达式有着密切的联系，尤其是字符串具有几个可以接受正则表达式作为参数的方法：<a href="https://aadonkeyz.com/posts/71de0ab2/#模式匹配方法">match、replace、search和split方法</a>。</p>
+<p>在 ES6 之前这些方法的实现细节对开发者是隐藏的，使得开发者无法将自定义对象模拟成正则表达式（并将它们传递给字符串的这些方法）。而 ES6 定义了 4 个符号以及对应的方法，将原生行为外包到内置的 <code>RegExp</code> 对象上。</p>
+<div class="note info">
+            <ul><li><code>Symbol.match</code>：此函数接受一个字符串参数，并返回一个包含匹配结果的数组。若匹配失败，则返回 <code>null</code>。</li><li><code>Symbol.replace</code>：此函数接受一个字符串参数与一个替换用的字符串，并返回替换后的结果字符串。</li><li><code>Symbol.search</code>：此函数接受一个字符串参数，并返回匹配结果的数值索引。若匹配失败，则返回 -1。</li><li><code>Symbol.split</code>：此函数接受一个字符串参数，并返回一个用匹配值分割而成的字符串数组。</li></ul>
+          </div>
+<p>在对象上定义这些属性，允许你创建能过进行模式匹配的对象，而无需使用这则表达式，并且允许在任何需要正则表达式的方法中使用该对象。这里有一个例子，展示了这些符号的使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 有效等价于/^.&#123;10&#125;$/</span></span><br><span class="line"><span class="keyword">let</span> hasLengthOf10 = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>.match] (value) &#123;</span><br><span class="line">    <span class="keyword">return</span> value.length === <span class="number">10</span> ? [value.substring(<span class="number">0</span>, <span class="number">10</span>)] : <span class="literal">null</span></span><br><span class="line">  &#125;,</span><br><span class="line">  [<span class="built_in">Symbol</span>.replace] (value, replacement) &#123;</span><br><span class="line">    <span class="keyword">return</span> value.length === <span class="number">10</span> ?</span><br><span class="line">      replacement + value.substring(<span class="number">10</span>) : value</span><br><span class="line">  &#125;,</span><br><span class="line">  [<span class="built_in">Symbol</span>.search] (value) &#123;</span><br><span class="line">    <span class="keyword">return</span> value.length === <span class="number">10</span> ? <span class="number">0</span> : <span class="number">-1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  [<span class="built_in">Symbol</span>.split] (value) &#123;</span><br><span class="line">    <span class="keyword">return</span> value.length === <span class="number">10</span> ? [ <span class="string">''</span>, <span class="string">''</span> ] : [value]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 11 characters</span></span><br><span class="line"><span class="keyword">let</span> message1 = <span class="string">'Hello world'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 10 characters</span></span><br><span class="line"><span class="keyword">let</span> message2 = <span class="string">'Hello John'</span>     </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> match1 = message1.match(hasLengthOf10)</span><br><span class="line"><span class="keyword">let</span> match2 = message2.match(hasLengthOf10)</span><br><span class="line"></span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"><span class="built_in">console</span>.log(match1)     </span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'Hello John' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(match2)     </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> replace1 = message1.replace(hasLengthOf10, <span class="string">'Howdy!'</span>)</span><br><span class="line"><span class="keyword">let</span> replace2 = message2.replace(hasLengthOf10, <span class="string">'Howdy!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Hello world</span></span><br><span class="line"><span class="built_in">console</span>.log(replace1)   </span><br><span class="line"></span><br><span class="line"><span class="comment">// Howdy!</span></span><br><span class="line"><span class="built_in">console</span>.log(replace2)   </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> search1 = message1.search(hasLengthOf10)</span><br><span class="line"><span class="keyword">let</span> search2 = message2.search(hasLengthOf10)</span><br><span class="line"></span><br><span class="line"><span class="comment">// -1</span></span><br><span class="line"><span class="built_in">console</span>.log(search1)    </span><br><span class="line"></span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(search2)    </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> split1 = message1.split(hasLengthOf10)</span><br><span class="line"><span class="keyword">let</span> split2 = message2.split(hasLengthOf10)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'Hello world' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(split1)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [ '', '' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(split2)</span><br></pre></td></tr></table></figure>
+<h2 id="Symbol-toPrimitive"><a href="#Symbol-toPrimitive" class="headerlink" title="Symbol.toPrimitive"></a>Symbol.toPrimitive</h2><p><code>Symbol.toPrimitive</code> 方法被定义在所有常规类型的原型上，规定了在对象被转换为基本类型值的时候会发生什么。当需要转换时，<code>Symbol.toPrimitive</code> 会被调用，并按照规范传入一个提示性的字符串参数。该参数有 3 种可能：当参数值为 <code>number</code> 的时候，应当返回一个数值。当参数值为 <code>string</code> 的时候，应当返回一个字符串。而当参数为 <code>default</code> 的时候，对返回值类型没有特别要求。</p>
+<p>对于大部分常规对象，“数值模式”依次会有下述行为：</p>
+<div class="note info">
+            <ol><li>调用 <code>valueOf()</code> 方法，如果方法返回值是一个基本类型值，那么返回它。</li><li>否则，调用 <code>toString()</code> 方法，如果方法返回值是一个基本类型值，那么返回它。</li><li>否则，抛出一个错误。</li></ol>
+          </div>
+<p>类似的，对于大部分常规对象，“字符串模式”依次会有下述行为：</p>
+<div class="note info">
+            <ol><li>调用 <code>toString()</code> 方法，如果方法返回值是一个基本类型值，那么返回它。</li><li>否则，调用 <code>valueOf()</code> 方法，如果方法返回值是一个基本类型值，那么返回它。</li><li>否则，抛出一个错误。</li></ol>
+          </div>
+<p>在多数情况下，常规对象的默认模式都等价于数值模式（只有 <code>Date</code> 类型例外，它默认使用字符串模式）。通过定义 <code>Symbol.toPrimitive</code> 方法，你可以重写这些默认的转换行为。</p>
+<p>使用 <code>Symbol.toPrimitive</code> 属性并将一个函数赋值给它，便可以重写默认的转换行为，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Temperature</span> (<span class="params">degrees</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.degrees = degrees</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Temperature.prototype[<span class="built_in">Symbol</span>.toPrimitive] = <span class="function"><span class="keyword">function</span> (<span class="params">hint</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (hint) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'string'</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.degrees + <span class="string">'\u00b0'</span></span><br><span class="line">    <span class="keyword">case</span> <span class="string">'number'</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.degrees</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'default'</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.degrees + <span class="string">' degrees'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> freezing = <span class="keyword">new</span> Temperature(<span class="number">32</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 32 degrees!</span></span><br><span class="line"><span class="built_in">console</span>.log(freezing + <span class="string">'!'</span>)     </span><br><span class="line"></span><br><span class="line"><span class="comment">// 16</span></span><br><span class="line"><span class="built_in">console</span>.log(freezing / <span class="number">2</span>)       </span><br><span class="line"></span><br><span class="line"><span class="comment">// 32°</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(freezing))</span><br></pre></td></tr></table></figure>
+<h2 id="Symbol-toStringTag"><a href="#Symbol-toStringTag" class="headerlink" title="Symbol.toStringTag"></a>Symbol.toStringTag</h2><p>JS 最有趣的课题之一是在多个不同的全局执行环境中使用，这种情况会在浏览器页面包含内联帧（iframe）的时候出现，此时页面与内联帧均拥有各自的全局执行环境。大多数情况下这并不是一个问题，使用一些轻量级的转换操作就能够在不同的运行环境之间传递数据。问题出现在想要识别目标对象到底是什么类型的时候，而此时该对象已经在环境之间经历了传递。</p>
+<p>该问题的典型例子就是从内联帧向容器页面传递数组，或者反过来。在 ES6 术语中，内联帧与包含它的容器页面分别拥有一个不同的“域”，以作为 JS 的运行环境，每个“域”都拥有各自的全局作用域以及各自的全局对象拷贝。无论哪个“域”创建的数组都是正规的数组，但当它跨域进行传递时，使用 <code>instanceof Array</code> 进行检测却会得到 <code>false</code> 的结果，因为该数组是由另外一个“域”的数组构造器创建的，有别于当前“域”的数组构造器。</p>
+<h3 id="识别问题的变通解决方案"><a href="#识别问题的变通解决方案" class="headerlink" title="识别问题的变通解决方案"></a>识别问题的变通解决方案</h3><p>变通的解决方案为 <code>Object.prototype.toString.call()</code>。</p>
+<h3 id="ES6-给出的答案"><a href="#ES6-给出的答案" class="headerlink" title="ES6 给出的答案"></a>ES6 给出的答案</h3><p>ES6 通过 <code>Symbol.toStringTag</code> 重定义了相关行为，该符号是对象的一个属性，定义了 <code>Object.prototype.toString.call()</code> 被调用时应当返回什么值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype[<span class="built_in">Symbol</span>.toStringTag] = <span class="string">'Person'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> me = <span class="keyword">new</span> Person(<span class="string">'Nicholas'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [object Person]</span></span><br><span class="line"><span class="built_in">console</span>.log(me.toString())                          </span><br><span class="line"></span><br><span class="line"><span class="comment">// [object Person]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(me))     </span><br><span class="line"></span><br><span class="line">Person.prototype.toString = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Nicholas</span></span><br><span class="line"><span class="built_in">console</span>.log(me.toString())                          </span><br><span class="line"></span><br><span class="line"><span class="comment">// [object Person]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(me))</span><br></pre></td></tr></table></figure>
+<h2 id="Symbol-unscopables"><a href="#Symbol-unscopables" class="headerlink" title="Symbol.unscopables"></a>Symbol.unscopables</h2><p>尽管将来的代码无疑会停用 <code>with</code> 语句，但 ES6 仍然在非严格模式中提供了对于 <code>with</code> 语句的支持，以便向下兼容。为此需要寻找方法让使用 <code>with</code> 语句的代码能够适当地继续工作。为了理解这个任务的复杂性，可研究如下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> values = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">let</span> colors = [<span class="string">'red'</span>, <span class="string">'green'</span>, <span class="string">'blue'</span>]</span><br><span class="line"><span class="keyword">let</span> color = <span class="string">'black'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> (colors) &#123;</span><br><span class="line">  push(color)</span><br><span class="line">  push(...values)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'red', 'green', 'blue', 'black', 1, 2, 3 ]</span></span><br><span class="line"><span class="built_in">console</span>.log(colors)</span><br></pre></td></tr></table></figure>
+<p>在此例中，<code>...values</code> 引用了 <code>with</code> 语句之外的变量 <code>values</code>。</p>
+<p>但ES6为数组添加了一个 <code>values</code> 方法（迭代器与生成器的知识），这意味着在 ES6 的环境中，<code>with</code> 语句内部的 <code>values</code> 并不会指向 <code>with</code> 语句之外的变量 <code>values</code>，而是会指向数组的 <code>values</code> 方法，从而会破坏代码的意图。这也是 <code>Symbol.unscopables</code> 符号出现的理由。</p>
+<p><code>Symbol.unscopables</code> 符号在 <code>Array.prototype</code> 上使用，以指定哪些属性不允许在 <code>with</code> 语句内被绑定。<code>Symbol.unscopables</code> 属性是一个对象，当提供该属性时，它的键就是用于忽略 <code>with</code> 语句绑定的标识符，键值为 <code>true</code> 代表屏蔽绑定。以下是数组的 <code>Symbol.unscopables</code> 属性的默认值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认内置在 ES6 中</span></span><br><span class="line"><span class="built_in">Array</span>.prototype[<span class="built_in">Symbol</span>.unscopables] = <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(<span class="literal">null</span>), &#123;</span><br><span class="line">  copyWithin: <span class="literal">true</span>,</span><br><span class="line">  entries: <span class="literal">true</span>,</span><br><span class="line">  fill: <span class="literal">true</span>,</span><br><span class="line">  find: <span class="literal">true</span>,</span><br><span class="line">  findIndex: <span class="literal">true</span>,</span><br><span class="line">  keys: <span class="literal">true</span>,</span><br><span class="line">  values: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div><br><br>感谢您的阅读，如果发现文章中有错误或漏洞，请批评指正。<br>邮箱：aadonkeyz@gmail.com<br><br></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById(&quot;QR&quot;); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="aadonkeyz 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="aadonkeyz 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <div>
+      
+      
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            aadonkeyz
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/posts/67215a69/" title="符号与符号属性">https://aadonkeyz.com/posts/67215a69/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明：</strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/2798ec73/" rel="next" title="解构">
+                <i class="fa fa-chevron-left"></i> 解构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/d766545b/" rel="prev" title="Set 与 Map">
+                Set 与 Map <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">aadonkeyz</p>
+              <p class="site-description motion-element" itemprop="description">本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a rel="external nofollow" href="/archives/">
+                
+                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a rel="external nofollow" href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/aadonkeyz" title="GitHub &rarr; https://github.com/aadonkeyz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建符号值"><span class="nav-number">1.</span> <span class="nav-text">创建符号值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用符号值"><span class="nav-number">2.</span> <span class="nav-text">使用符号值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#共享符号值"><span class="nav-number">3.</span> <span class="nav-text">共享符号值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#符号值的转换"><span class="nav-number">4.</span> <span class="nav-text">符号值的转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检索符号属性"><span class="nav-number">5.</span> <span class="nav-text">检索符号属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用知名符号暴露内部方法"><span class="nav-number">6.</span> <span class="nav-text">使用知名符号暴露内部方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-hasInstance"><span class="nav-number">6.1.</span> <span class="nav-text">Symbol.hasInstance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-isConcatSpreadable"><span class="nav-number">6.2.</span> <span class="nav-text">Symbol.isConcatSpreadable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-match、Symbol-replace、Symbol-search-与-Symbol-split"><span class="nav-number">6.3.</span> <span class="nav-text">Symbol.match、Symbol.replace、Symbol.search 与 Symbol.split</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-toPrimitive"><span class="nav-number">6.4.</span> <span class="nav-text">Symbol.toPrimitive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-toStringTag"><span class="nav-number">6.5.</span> <span class="nav-text">Symbol.toStringTag</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#识别问题的变通解决方案"><span class="nav-number">6.5.1.</span> <span class="nav-text">识别问题的变通解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-给出的答案"><span class="nav-number">6.5.2.</span> <span class="nav-text">ES6 给出的答案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-unscopables"><span class="nav-number">6.6.</span> <span class="nav-text">Symbol.unscopables</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aadonkeyz</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'manual') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+          if (result) $(this).text('复制成功');
+          else $(this).text('复制失败');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="PG1_de1e4chdQFka3s4-JmiALHwBxtpSgqAPMmtP8E0">
+<meta name="baidu-site-verification" content="mTxN7FYES6">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Ajax 是 Asynchronous JavaScript + XML 的简写，这一技术能够向服务器请求额外的数据而无须卸载页面，会带来更好的用户体验。 Ajax 技术的核心是 XMLHttpRequest 对象（简称 XHR），XHR 为向服务器发送请求和解析服务器响应提供了流畅的接口。 XHR 对象XHR 属性             readyState（只读）：代表XHR对象的当前状态。">
+<meta name="keywords" content="前端博客,JavaScript,html5,css3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajax 与 Comet">
+<meta property="og:url" content="https://aadonkeyz.com/posts/5ffed448/index.html">
+<meta property="og:site_name" content="aadonkeyz的博客">
+<meta property="og:description" content="Ajax 是 Asynchronous JavaScript + XML 的简写，这一技术能够向服务器请求额外的数据而无须卸载页面，会带来更好的用户体验。 Ajax 技术的核心是 XMLHttpRequest 对象（简称 XHR），XHR 为向服务器发送请求和解析服务器响应提供了流畅的接口。 XHR 对象XHR 属性             readyState（只读）：代表XHR对象的当前状态。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E9%95%BF%E7%9F%AD%E8%BD%AE%E8%AF%A2%E6%97%B6%E9%97%B4%E7%BA%BF.png">
+<meta property="og:updated_time" content="2020-12-12T23:39:43.978Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ajax 与 Comet">
+<meta name="twitter:description" content="Ajax 是 Asynchronous JavaScript + XML 的简写，这一技术能够向服务器请求额外的数据而无须卸载页面，会带来更好的用户体验。 Ajax 技术的核心是 XMLHttpRequest 对象（简称 XHR），XHR 为向服务器发送请求和解析服务器响应提供了流畅的接口。 XHR 对象XHR 属性             readyState（只读）：代表XHR对象的当前状态。">
+<meta name="twitter:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E9%95%BF%E7%9F%AD%E8%BD%AE%E8%AF%A2%E6%97%B6%E9%97%B4%E7%BA%BF.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://aadonkeyz.com/posts/5ffed448/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Ajax 与 Comet | aadonkeyz的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">aadonkeyz的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">程序猿的学习笔记</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">85</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://aadonkeyz.com/posts/5ffed448/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aadonkeyz">
+      <meta itemprop="description" content="本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aadonkeyz的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ajax 与 Comet
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-27 12:43:38" itemprop="dateCreated datePublished" datetime="2019-04-27T12:43:38+08:00">2019-04-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/FE/" itemprop="url" rel="index"><span itemprop="name">FE</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Ajax 是 Asynchronous JavaScript + XML 的简写，这一技术能够向服务器请求额外的数据而无须卸载页面，会带来更好的用户体验。</p>
+<p>Ajax 技术的核心是 <code>XMLHttpRequest</code> 对象（简称 XHR），XHR 为向服务器发送请求和解析服务器响应提供了流畅的接口。</p>
+<h1 id="XHR-对象"><a href="#XHR-对象" class="headerlink" title="XHR 对象"></a>XHR 对象</h1><h2 id="XHR-属性"><a href="#XHR-属性" class="headerlink" title="XHR 属性"></a>XHR 属性</h2><div class="note info">
+            <ul><li><code>readyState</code>（只读）：代表XHR对象的当前状态。<ul><li><code>0</code>：未初始化。尚未调用 <code>open()</code> 方法。</li><li><code>1</code>：启动。已经调用 <code>open()</code> 方法，但尚未调用 <code>send()</code> 方法。</li><li><code>2</code>：发送。已经调用 <code>send()</code>方法，但尚未接收到响应。</li><li><code>3</code>：接收。已经接收到部分响应数据。</li><li><code>4</code>：完成。已经接收到全部响应数据，而且已经可以在客户端使用了。</li></ul></li><li><code>onreadystatechange</code>：它是 XHR 对象的一个方法，只要 <code>readyState</code> 属性值发生变化，就会调用该方法。<strong>必须在调用 <code>open()</code> 方法之前为 <code>onreadystatechange</code> 赋值才能确保跨浏览器兼容性。并且在这个事件处理程序中最好不要使用 <code>this</code> 对象，否则可能会出问题。</strong></li><li><code>response</code>（只读）：返回响应的主体部分。主体部分内容的格式由 <code>responseType</code> 属性决定。</li><li><code>responseText</code>（只读）：返回响应的主体内容的字符串形式。</li><li><code>responseType</code>：通过这个属性指定期望的 <code>response</code> 的类型。该属性的默认值为 <code>text</code>。</li><li><code>responseURL</code>（只读）：返回响应的序列化URL，如果 URL 为空则返回空字符串。如果URL有锚点，则位于 <code>#</code> 后面的内容会被删除。如果 URL 有重定向， <code>responseURL</code> 的值会是经过多次重定向后的最终URL。</li><li><code>responseXML</code>（只读）：如果响应的内容类型是 <code>&quot;text/xml&quot;</code> 或 <code>&quot;application/xml&quot;</code>，这个属性中将保存包含着响应数据的 XML DOM 文档。</li><li><code>status</code>（只读）：HTTP 状态码。</li><li><code>statusText</code>（只读）：HTTP 状态码对应的描述信息。</li><li><code>timeout</code>：设置请求超时的毫秒数。超时后会触发 <code>ontimeout</code> 事件处理程序。</li><li><code>upload</code>（只读）：该属性专门用于上传文件，可用于显示上传进度。它返回的是一个 <code>XMLHttpRequestUpload</code> 对象，该对象也拥有 loadstart、progress、error、abort、load、loadend 和 timeout 事件。</li><li><code>withCredentials</code>：该属性为布尔值，它指示了是否该使用类似 cookies，authorization headers 或者 TLS 客户端证书这一类资格证书来创建一个跨站点访问控制请求。在同一个站点下使用 withCredentials 属性是无效的。默认值为 <code>false</code>。</li></ul>
+          </div>
+<h2 id="XHR方法"><a href="#XHR方法" class="headerlink" title="XHR方法"></a>XHR方法</h2><div class="note info">
+            <ul><li><code>open(method, url, async, user, password)</code>：初始化一个 XHR 对象。<ul><li><code>method</code>：一个字符串，用于表示要发送的请求类型，比如：<code>&quot;get&quot;</code>、<code>&quot;post&quot;</code>。</li><li><code>url</code>：请求的 URL。</li><li><code>async</code>（可选）：一个布尔值，用于表示是否发送是异步请求，默认为 <code>true</code>。</li><li><code>user</code>（可选）：用户名，默认为 <code>null</code>。</li><li><code>password</code>（可选）：密码，默认为 <code>null</code>。</li></ul></li><li><code>send(body)</code>：在 <code>send()</code> 之后，通过调用该发送请求。<code>body</code> 参数是请求主体要发送的数据，如果不需要通过请求主体发送数据，则传入 <code>null</code>。</li><li><code>abort()</code>：终止已经发送的请求。当调用该方法时，被终止的 XHR 对象的 <code>readyState</code> 值变为 <code>0</code>，<code>status</code> 值也变为 <code>0</code>。</li><li><code>getResponseHeader(headerName)</code>：用于获取对应首部字段的值。</li><li><code>getAllResponseHeaders()</code>：用于获取所有的首部字段内容。各个首部字段被 <code>CRLF</code> 分隔，如果无首部字段，则返回 <code>null</code>。</li><li><code>setRequestHeader(header，value)</code>：设置首部字段。<strong>必须在调用 <code>open()</code> 之后，调用 <code>send()</code> 之前使用该方法才有效。</strong></li><li><code>overrideMimeType(mimeType)</code>：重写响应的MIME类型。<strong>必须在调用 <code>send()</code> 之前使用该方法才有效。</strong></li></ul>
+          </div>
+<h2 id="XHR事件"><a href="#XHR事件" class="headerlink" title="XHR事件"></a>XHR事件</h2><div class="note info">
+            <p>需要在调用 <code>open()</code> 之前注册事件处理程序的事件：</p><ul><li><code>loadstart</code>：在接收到响应数据的第一个字节时触发。</li><li><code>progress</code>：在接收响应期间持续不断地触发。</li><li><code>error</code>：在请求发生错误时触发。</li><li><code>abort</code>：在因为调用 <code>abort()</code> 方法而终止连接时触发。</li><li><code>load</code>：在接收到完整的响应数据时触发。</li><li><code>loadend</code>：在通信完成或者触发 error、abort 或 load 事件后触发。</li></ul><hr><p>需要在调用 <code>open()</code> 之后，调用 <code>send()</code> 之前注册事件处理程序的事件：</p><ul><li><strong>timeout</strong>：在请求超时时触发。</li></ul>
+          </div>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><p>demo 用于展示如何利用 XHR 发送请求，并没有进行什么特殊配置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br><span class="line">xhr.open(<span class="string">'get'</span>, <span class="string">'example.txt'</span>)</span><br><span class="line">xhr.send(<span class="literal">null</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><p>通过 XHR 实现 Ajax 通信的一个主要限制，来源于跨域安全策略（同源策略）。默认情况下，使用 XHR 对象发送请求的 URL 域名必须和当前页面完全一致。完全一致的意思是，域名要相同（<code>www.example.com</code> 和 <code>example.com</code> 不同），协议要相同（<code>http</code> 和 <code>https</code>不同），端口号也要相同。有的浏览器比较宽松，允许端口不同，大多数浏览器都会严格遵守这个限制。这种安全策略可以预防某些恶意行为。但是，实现合理的跨域请求对开发某些浏览器应用程序也是至关重要的。</p>
+<div class="note warning">
+            <p><strong>就算是域名和域名对应的 IP 之间发起请求，也算作跨域。</strong></p>
+          </div>
+<h2 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h2><p>CORS（Cross-Origin Resource Sharing，跨域资源共享）是 W3C 的一个工作草案，定义了在必须访问跨域资源时，浏览器与服务器应该如何沟通。CORS 背后的基本思想，就是使用自定义的 HTTP 头部让浏览器与服务器进行沟通，从而决定请求或响应是应该成功，还是应该失败。</p>
+<p>比如一个简单的使用 GET 或 POST 发送的请求，它没有自定义的头部，而主体内容是 <code>text/plain</code>。在发送该请求时，需要给它附加一个额外的 <code>Origin</code> 头部，其中包含请求页面的源信息（协议、域名和端口），以便服务器根据这个头部信息来决定是否给予响应。下面是 <code>Origin</code> 头部的一个示例：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Origin: http://www.nczonline.net</span><br></pre></td></tr></table></figure>
+<p>如果服务器认为这个请求可以接收，就在响应的 <code>Access-Control-Allow-Origin</code> 头部中回发相同的源信息（如果是公共资源，可以回发 <code>&quot;*&quot;</code>）。例如：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: http://www.nczonline.net</span><br></pre></td></tr></table></figure>
+<p>如果响应没有这个头部，或者有这个头部但源信息不匹配，浏览器就会驳回请求。正常情况下，浏览器会处理请求。<strong>注意，请求和响应都不包含 <code>cookie</code> 信息。</strong></p>
+<p>现代浏览器都通过 <code>XMLHttpRequest</code> 对象对象实现了对CORS的源生支持，在尝试打开不同来源的资源时，无需额外编写代码就可以触发这个行为。</p>
+<div class="note warning">
+            <p>跨域 XHR 对象也有一些限制，但为了安全这些限制是必需的。以下就是这些限制：</p><ul><li>不能使用 <code>setRequestHeader()</code> 设置自定义头部。</li><li>默认不能发送和接收 <code>cookie</code>，但是可以通过 XHR 对象的 <code>withCredentials</code> 来发送带凭据的跨域请求。</li><li>调用 <code>getAllResponseHeaders()</code> 方法总会返回空字符串。</li></ul><p>由于无论同源请求还是跨源请求都使用相同的接口，因此对于本地资源，最好使用相对 URL，在访问远程资源时再使用绝对 URL。这样做能消除歧义，避免出现限制访问头部或本地 <code>cookie</code> 信息等问题。</p>
+          </div>
+<h2 id="Preflight-request"><a href="#Preflight-request" class="headerlink" title="Preflight request"></a>Preflight request</h2><p>参考资料：<a href="https://www.jianshu.com/p/b55086cbd9af" target="_blank" rel="noopener"><strong>前端 | 浅谈preflight request</strong></a></p>
+<p>想象一个场景，我们发送一个 POST 跨域请求，服务器收到请求后对数据库进行了相应的操作并返回响应，但是由于浏览器的跨域限制，导致我们收到的是请求失败的结果。这种情况就是明明用户请求的操作成功了，但是用户不知道他成功了。</p>
+<p>预检请求（Preflight request）就是为了解决上述问题的。某些情况下浏览器在发送跨域请求之前会先发送一个相应的预检请求，从而获知服务器是否允许该跨域请求。如果允许，就发送跨域请求。如果不允许，则阻止发送跨域请求。</p>
+<div class="note info">
+            <p>触发预检请求的条件：</p><ul><li>如果请求方法不是 GET、HEAD 或 POST，那么将发送预检请求。</li><li>如果人为设置了对 CORS 安全的首部字段集合之外的首部字段，那么将发送预检请求。对 CORS 安全的首部字段集合包含：<ol><li><code>Accept</code></li><li><code>Accept-Language</code></li><li><code>Content-Language</code></li><li><code>Content-Type</code></li><li><code>DPR</code></li><li><code>Downlink</code></li><li><code>Save-Data</code></li><li><code>Viewport-Width</code></li><li><code>Width</code></li></ol></li><li>如果请求头的 <code>Content-Type</code> 的值不是 <code>application/x-www-form-urlencoded</code>、<code>multipart/form-data</code>、<code>text/plain</code> 之一的话，那么将发送预检请求。</li></ul><hr><p>预检请求使用的是 OPTIONS 方法，发送下列头部：</p><ul><li><code>Origin</code>：源信息。</li><li><code>Access-Control-Allow-Method</code>：跨域请求使用的方法。</li><li><code>Access-Control-Allow-Headers</code>（可选）：跨域请求会额外发送的头部字段，这些头部字段用逗号分隔。</li></ul><hr><p>预检请求的响应会包含如下头部字段：</p><ul><li><code>Access-Control-Allow-Origin</code>：源信息。</li><li><code>Access-Control-Allow-Methods</code>：允许的方法，多个方法以逗号分隔。</li><li><code>Access-Control-Allow-Headers</code>：允许的头部，多个头部以逗号分隔。</li><li><code>Access-Control-Max-Age</code>（可选）：应该将这个预检请求缓存多长时间（以秒表示），也就是说在这个时间范围内，不会再发送相同的预检请求。</li></ul>
+          </div>
+<h2 id="带凭据的请求"><a href="#带凭据的请求" class="headerlink" title="带凭据的请求"></a>带凭据的请求</h2><p>默认情况下，跨域请求不提供凭据（<code>cookie</code>、HTTP 认证及客户端 SSL 证明等）。通过将 <code>withCredentials</code> 属性设置为 <code>true</code>，可以指定某个请求应该发送凭据。如果服务器接受带凭据的请求，会用下面的 HTTP 头部来响应：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Credentials: true</span><br></pre></td></tr></table></figure>
+<p>如果发送的是带凭据的请求，但服务器的响应中没有包含这个头部，那么浏览器就不会把响应交给 JavaScript（于是，<code>responseText</code> 中将是空字符串，<code>status</code> 的值为 <code>0</code>，而且会调用 <code>onerror()</code> 事件处理程序）。另外，服务器还可以在预检请求的响应中发送这个 HTTP 头部，表示允许源发送带凭据的请求。</p>
+<h1 id="其他跨域技术"><a href="#其他跨域技术" class="headerlink" title="其他跨域技术"></a>其他跨域技术</h1><h2 id="图像-Ping"><a href="#图像-Ping" class="headerlink" title="图像 Ping"></a>图像 Ping</h2><p>图像 Ping 是与服务器进行简单、单向的跨域通信的一种方式。请求的数据是通过查询字符串形式发送的，而响应可以是任意内容，但通常是像素图或 204 响应。通过图像 Ping，浏览器得不到任何具体的数据，但通过侦听 load 和 error 事件，它能知道响应是什么时候接收到的。来看下面的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">img.onload = img.onerror = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'Done!'</span>)</span><br><span class="line">&#125;</span><br><span class="line">img.src = <span class="string">'http://www.example.com/test?name=Nicholas'</span></span><br></pre></td></tr></table></figure>
+<p>图像 Ping 最常用于跟踪用户点击页面或动态广告曝光次数。图像 Ping 有两个主要缺点，一是只能发送 GET 请求，二是无法访问服务器的响应文本。因此，图像 Ping 只能用于浏览器与服务器的单向通信。</p>
+<h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h2><p>JSONP 是 JSON with padding（填充式 JSON 或参数式 JSON）的简写，是应用 JSON 的一种方法。JSONP 看起来与 JSON 差不多，只不过是被包含在函数调用中的 JSON，就像下面这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">handleResponse(&#123; <span class="string">"name"</span>: <span class="string">"Nicholas"</span> &#125;)</span><br></pre></td></tr></table></figure>
+<p>JSONP 由两部分组成：回调函数和数据。回调函数是当响应到来时应该在页面中调用的函数，回调函数一般是在请求中通过 <code>callback</code> 查询字段指定的。而数据就是传入回调函数中的 JSON 数据。下面是一个典型的 JSONP 请求：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://aadonkeyz.com/example.js?callback=handleResponse</span><br></pre></td></tr></table></figure>
+<p>JSONP 的原理很简单，它是通过动态 <code>&lt;script&gt;</code> 元素来发送请求的，然后将收到的响应内容（JSONP 格式）当作是 JavaScript 代码处理。</p>
+<p>请看下面的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleResponse</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>)</span><br><span class="line">script.src = <span class="string">'http://aadonkeyz.com/example.js?callback=handleResponse'</span></span><br><span class="line"><span class="built_in">document</span>.body.insertBefore(script, <span class="built_in">document</span>.body.firstChild)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 收到 JSONP 为 'handleResponse(&#123; "name": "Nicholas" &#125;)' 时，则等价于下面</span></span><br><span class="line"><span class="comment">// &lt;script&gt;</span></span><br><span class="line"><span class="comment">//     handleResponse(&#123; "name": "Nicholas" &#125;)</span></span><br><span class="line"><span class="comment">// &lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<div class="note info">
+            <p>这个例子的执行顺序为：</p><ol><li>浏览器通过 <code>&lt;script&gt;</code> 标签发送请求。</li><li>服务器收到请求后，发现这个是 JSONP 的请求，根据请求的 <code>callback</code> 查询字段获取回调函数的名称，然后准备要返回的 JSON 数据，最后以 JSONP 的格式结合回调函数名称和 JSON 数据。</li><li>浏览器接收到 JSONP 格式的响应，开始执行代码，即 <code>handleResponse({ &quot;name&quot;: &quot;Nicholas&quot; })</code>。</li></ol>
+          </div>
+<p>与图像 Ping相比，JSONP 非常简单易用并且能够直接访问响应文本，支持在浏览器与服务器之间双向通信。不过它也有自己的缺点：</p>
+<p>首先，JSONP 是从其他域中加载代码执行，如果其他域不安全，很可能会在响应中夹带一些恶意代码，而此时除了完全放弃 JSONP 调用之外，没有办法追究。因此在使用不是你自己运维的 Web 服务时，一定要保证它安全可靠。</p>
+<p>其次，要确定 JSONP 请求是否失败并不容易。但是 HTML5 给 <code>&lt;script&gt;</code> 标签新增了一个 <code>onerror</code> 事件处理程序，现在来说这个应该不算缺点了吧……</p>
+<h1 id="服务器推送技术"><a href="#服务器推送技术" class="headerlink" title="服务器推送技术"></a>服务器推送技术</h1><h2 id="Comte"><a href="#Comte" class="headerlink" title="Comte"></a>Comte</h2><p>Comte 是 Alex Russell 发明的一个词儿，指的是一种更高级的 Ajax 技术（经常也有人称为“服务器推送”）。<strong>Ajax 是一种从页面向服务器请求数据的技术，而 Comte 则是一种服务器向页面推送数据的技术。Comte 能够让信息近乎实时地被推送到页面上。</strong></p>
+<p>有两种实现 Comte 的方式：<strong>长轮询</strong>和<strong>流</strong>。</p>
+<div class="note info">
+            <p>短轮询是浏览器定时向服务器发送请求，查看是否有更新的数据。</p><p>长轮询是在页面发起一个到服务器的请求，然后服务器一直保持连接打开，直到有数据可发送。发送完数据之后，浏览器关闭连接，随即又发起一个到服务器的新请求。这一过程在页面打开期间一直持续不断。</p><p>无论是短轮询还是长轮询，浏览器都要在接收数据之前，先发起对服务器的链接。两者最大的区别在于服务器如何发送数据。短轮询是服务器立即发送响应，无论数据是否有效，而长轮询是等待发送响应。</p>
+          </div>
+<p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E9%95%BF%E7%9F%AD%E8%BD%AE%E8%AF%A2%E6%97%B6%E9%97%B4%E7%BA%BF.png" alt="长短轮询时间线"></p>
+<div class="note info">
+            <p>第二种流行的 Comet 实现是 HTTP 流。流不同于上述两种轮询，因为它在页面的整个生命周期内只使用一个 HTTP 连接。具体来说，就是浏览器向服务器发送一个请求，而服务器保持连接打开，然后周期性地向浏览器发送数据。</p><p>在浏览器中，通过注册 <code>onreadystatechange</code> 事件处理程序及检测 <code>readyState</code> 的值，就可以利用 XHR 对象实现 HTTP 流。随着不断从服务器接收数据，<code>readyState</code> 的值会周期性地变为 <code>3</code>，而浏览器将接收的所有数据均保存在 <code>responseText</code> 属性中。</p>
+          </div>
+<p>使用 XHR 对象实现 HTTP 流的典型代码如下所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createStreamingClient</span>(<span class="params">url, progress, finished</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">  <span class="keyword">var</span> received = <span class="number">0</span></span><br><span class="line">  </span><br><span class="line">  xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState === <span class="number">3</span>) &#123;</span><br><span class="line">      result = xhr.responseText.substring(received)</span><br><span class="line">      received += result.length</span><br><span class="line"></span><br><span class="line">      progress(result)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">      finished(xhr.responseText)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  xhr.open(<span class="string">'get'</span>, url)</span><br><span class="line">  xhr.send(<span class="literal">null</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> xhr</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> client = createStreamingClient(</span><br><span class="line">  <span class="string">'http://demo.com'</span>,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">'Received: '</span> + data)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">'Done!'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="SSE"><a href="#SSE" class="headerlink" title="SSE"></a>SSE</h2><div class="note warning">
+            <p><strong>使用 SSE 可以跨域。</strong></p>
+          </div>
+<p>SSE（Server-Sent Events，服务器发送事件）是围绕只读 Comet 交互推出的 API。SSE API 用于创建到服务器的单向连接，服务器通过这个连接可以发送任意数量的数据。服务器响应的 MIME 类型必须是 <code>text/event-stream</code>，而且是浏览器中的 JavaScript API 能解析格式输出。SSE 支持短轮询、长轮询和 HTTP 流，而且能在断开连接时自动确定何时重新连接。</p>
+<p>SSE 的 JavaScript API与其他传递消息的JavaScript API很相似。要预订新的事件流，首先要创建一个新的<code>EventSource</code>对象实例，并传进一个入口点：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> source = <span class="keyword">new</span> EventSource(url)</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="keyword">var</span> source = <span class="keyword">new</span> EventSource(url, &#123; <span class="attr">withCredentials</span>: <span class="literal">true</span> &#125;)</span><br></pre></td></tr></table></figure>
+<p>上面的 <code>url</code> 可以与当前网页同域，也可以跨域。跨域时，可以指定第二个参数。<code>withCredentials</code> 是一个布尔值，表示是否一起发送 <code>cookie</code>。</p>
+<p>默认情况下，<code>EventSource</code> 对象会保持与服务器的活动连接。如果连接断开，还会重新连接。这就意味着 SSE 适合长轮询和 HTTP 流。如果想强制立即断开连接并且不再重新连接，可以调用 <code>close()</code> 方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source.close()</span><br></pre></td></tr></table></figure>
+<div class="note info">
+            <p><code>EventSource</code> 的实例有一个 <code>readyState</code> 属性</p><ul><li>值为 <code>0</code> 表示正连接到服务器。</li><li>值为 <code>1</code> 表示打开了连接。</li><li>值为 <code>2</code> 表示关闭了连接。</li></ul><hr><p>另外，还有以下三个事件：</p><ul><li><code>open</code>：在建立连接时触发。</li><li><code>message</code>：在从服务器接收到新事件时触发。</li><li><code>error</code>：在无法建立连接时触发。</li></ul><p>服务器发回的数据已字符串形式保存在 <code>event.data</code> 中。</p>
+          </div>
+<p>所谓的服务器事件会通过一个持久的 HTTP 响应发送，这个响应的 MIME 类型为 <code>text/event-stream</code>。响应数据的格式是纯文本，最简单的情况是每个数据项都带有前缀 <code>data:</code>，例如：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data: foo</span><br><span class="line"></span><br><span class="line">data: bar</span><br><span class="line"></span><br><span class="line">data: foo</span><br><span class="line">data bar</span><br></pre></td></tr></table></figure>
+<p>对以上响应而言，事件流中的第一个 message 事件返回的 <code>event.data</code> 值为 <code>&quot;foo&quot;</code>，第二个 message 事件返回的 <code>event.data</code> 值为 <code>&quot;bar&quot;</code>，第三个 message 事件返回的 <code>event.data</code> 值为 <code>&quot;foo\nbar&quot;</code>（注意中间的换行符）。对于多个连续的以 <code>data:</code> 开头的数据行，将作为多段数据解析，每个值之间以一个换行符分隔。<strong>只有在包含 <code>data:</code> 的数据行后面有空格时，才会触发 message 事件，因此在服务器上生成事件流时不能忘了多添加这一行。</strong></p>
+<p>通过 <code>id:</code> 前缀可以给特定的事件指定一个关联的 ID，这个 ID 行位于 <code>data:</code> 行前面或后面皆可：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data: foo</span><br><span class="line">id: 1</span><br></pre></td></tr></table></figure>
+<p>设置了 ID 后，<code>EventSource</code> 对象会跟踪上一次触发的事件。如果连接断开，会向服务器发送一个包含名为 <code>Last-Event-ID</code> 的特殊 HTTP 头部的请求，以便服务器知道下一次该触发哪个事件。在多次连接的事件流中，这种机制可以确保浏览器以正确的顺序收到连接的数据段。</p>
+<h2 id="Web-Sockets"><a href="#Web-Sockets" class="headerlink" title="Web Sockets"></a>Web Sockets</h2><p>Web Sockets 的目标是在一个单独的持久连接上提供全双工、双向通信。在 JavaScript 中创建了 Web Sockets 之后，会有一个 HTTP 请求发送到浏览器以发起连接。在取得服务器响应后，建立的连接会使用 Web Sockets 协议。也就是说，使用标准的 HTTP 服务器无法实现 Web Sockets，只有支持 Web Sockets 协议的专门服务器才能正常工作。</p>
+<p>由于 Web Sockets 使用了自定义的协议，所以 URL 模式也略有不同。<strong>未加密得到连接不再是 <code>http://</code> 而是 <code>ws://</code>。加密的连接也不是 <code>https://</code> 而是 <code>wss://</code>。</strong>在使用 Web Sockets URL 时，必须带着这个模式，因为将来还有可能支持其他模式。</p>
+<p>要创建 Web Sockets，先实例一个 <code>WebSocket</code> 对象并传入要连接的URL：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">'ws://www.example.com/server.php'</span>)</span><br></pre></td></tr></table></figure>
+<div class="note warning">
+            <ul><li>必须给 <code>WebSocket</code> 构造函数传入绝对 URL。</li><li>同源策略对 Web Sockets 不适用，因此可以通过它打开到任何站点的连接（不存在跨域问题）。</li><li>实例化了 <code>WebSocket</code> 对象后，浏览器就会马上尝试创建连接。</li></ul>
+          </div>
+<div class="note info">
+            <p>与 XHR 类似，<code>WebSocket</code> 也有一个表示当前状态的 <code>readyState</code> 属性。不过，这个属性的值与 XHR 并不相同，而是如下所示：</p><ul><li><code>WebSocket.OPENING(0)</code>：正在建立连接。</li><li><code>WebSocket.OPEN(1)</code>：已经建立连接。</li><li><code>WebSocket.CLOSING(2)</code>：正在关闭连接。</li><li><code>WebSocket.CLOSE(3)</code>：已经关闭连接。</li></ul><p><strong><code>WebSocket</code> 没有 readystatechange 事件。</strong></p>
+          </div>
+<p>要关闭 Web Sockets 连接，可以在任何时候调用 <code>close()</code> 方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socket.close()</span><br></pre></td></tr></table></figure>
+<p>调用了 <code>close()</code> 方法之后，<code>readyState</code> 属性的值立即变为 <code>2</code>，而在关闭连接后就会变成 <code>3</code>。</p>
+<p>Web Sockets 打开之后，就可以通过连接发送和接收数据。要向服务器发送数据，使用 <code>send()</code> 方法并传入任意字符串，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">'ws://www.example.com/server.php'</span>)</span><br><span class="line">socket.send(<span class="string">'Hello World!'</span>)</span><br></pre></td></tr></table></figure>
+<p>当服务器向客户端发来消息时，<code>WebSocket</code> 对象就会触发 message 事件。这个 message 事件与其他传递消息的协议类似，也是把返回的数据保存在 <code>event.data</code> 属性中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">socket.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event.data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note warning">
+            <ul><li>在使用 Web Sockets 连接发送和接收数据时，需要注意传递的数据只能是纯文本数据。</li><li><code>WebSocket</code> 对象还有其他三个事件，在连接生命周期的不同阶段触发，分别是 <code>open</code>、<code>error</code> 和 <code>close</code>。<code>WebSocket</code> 对象不支持 DOM2 级事件侦听器，因此必须使用 DOM0 级语法分别注册每个事件处理程序。</li></ul>
+          </div>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">'ws://www.example.com/server.php'</span>)</span><br><span class="line"></span><br><span class="line">socket.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'Connection established.'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">socket.onerror = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'Connection error.'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">socket.onclose = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'Connection closed.'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这三个事件中，只要 close 事件的 <code>event</code> 对象有额外的信息。这个事件的事件对象有三个额外属性：<code>wasClean</code>、<code>code</code> 和 <code>reason</code>。其中，<code>wasClean</code> 是一个布尔值，表示连接是否已经明确地关闭。<code>code</code> 是服务器返回的数值状态码。而 <code>reason</code> 是一个字符串，包含服务器发回的消息。</p>
+<h2 id="SSE-与-Web-Sockets"><a href="#SSE-与-Web-Sockets" class="headerlink" title="SSE 与 Web Sockets"></a>SSE 与 Web Sockets</h2><p>面对某个具体的用例，在考虑是使用 SSE 还是使用 Web Sockets 时，可以考虑如下几个因素。首先，你是否有自由度建立和维护 Web Sockets 服务器？因为 Web Sockets 协议不同于 HTTP，所以现有服务器不能用于 Web Sockets 通信。SSE 倒是通过常规 HTTP 通信，因此现有服务器就可以满足需求。</p>
+<p>第二个要考虑的问题是到底需不需要双向通信。如果用例只需读取服务器数据，那么 SSE 比较容易实现。如果用例必须双向通信，那么 Web Sockets 显然更好。别忘了，在不能选择 Web Sockets 的情况下，组合 XHR 和 SSE 也是能实现双向通信的。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div><br><br>感谢您的阅读，如果发现文章中有错误或漏洞，请批评指正。<br>邮箱：aadonkeyz@gmail.com<br><br></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById(&quot;QR&quot;); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="aadonkeyz 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="aadonkeyz 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <div>
+      
+      
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            aadonkeyz
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/posts/5ffed448/" title="Ajax 与 Comet">https://aadonkeyz.com/posts/5ffed448/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明：</strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/fdc54b8c/" rel="next" title="JSON">
+                <i class="fa fa-chevron-left"></i> JSON
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/1750eb3e/" rel="prev" title="强制类型转换">
+                强制类型转换 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">aadonkeyz</p>
+              <p class="site-description motion-element" itemprop="description">本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a rel="external nofollow" href="/archives/">
+                
+                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a rel="external nofollow" href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/aadonkeyz" title="GitHub &rarr; https://github.com/aadonkeyz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#XHR-对象"><span class="nav-number">1.</span> <span class="nav-text">XHR 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XHR-属性"><span class="nav-number">1.1.</span> <span class="nav-text">XHR 属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XHR方法"><span class="nav-number">1.2.</span> <span class="nav-text">XHR方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XHR事件"><span class="nav-number">1.3.</span> <span class="nav-text">XHR事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#demo"><span class="nav-number">1.4.</span> <span class="nav-text">demo</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#跨域"><span class="nav-number">2.</span> <span class="nav-text">跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CORS"><span class="nav-number">2.1.</span> <span class="nav-text">CORS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preflight-request"><span class="nav-number">2.2.</span> <span class="nav-text">Preflight request</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带凭据的请求"><span class="nav-number">2.3.</span> <span class="nav-text">带凭据的请求</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他跨域技术"><span class="nav-number">3.</span> <span class="nav-text">其他跨域技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图像-Ping"><span class="nav-number">3.1.</span> <span class="nav-text">图像 Ping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONP"><span class="nav-number">3.2.</span> <span class="nav-text">JSONP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器推送技术"><span class="nav-number">4.</span> <span class="nav-text">服务器推送技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Comte"><span class="nav-number">4.1.</span> <span class="nav-text">Comte</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSE"><span class="nav-number">4.2.</span> <span class="nav-text">SSE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-Sockets"><span class="nav-number">4.3.</span> <span class="nav-text">Web Sockets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSE-与-Web-Sockets"><span class="nav-number">4.4.</span> <span class="nav-text">SSE 与 Web Sockets</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aadonkeyz</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'manual') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+          if (result) $(this).text('复制成功');
+          else $(this).text('复制失败');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+</body>
+</html>

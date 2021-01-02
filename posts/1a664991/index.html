@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="PG1_de1e4chdQFka3s4-JmiALHwBxtpSgqAPMmtP8E0">
+<meta name="baidu-site-verification" content="mTxN7FYES6">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="整数表示无符号数的编码假设有一个整数数据类型有 $w$ 位。我们可以将位向量写成 $\vec{x}$，表示整个向量，或者写成 $[x{w-1},x{w-2},\cdot\cdot\cdot,x_{0}]$，表示向量中的每一位。把 $\vec{x}$ 看做一个二进制表示的数，就获得了 $\vec{x}$ 的无符号表示。在这个编码中，每个位 $x_i$ 都取值为 0 或 1，后一种取值意味着数值 $2">
+<meta name="keywords" content="前端博客,JavaScript,html5,css3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数的表示及运算">
+<meta property="og:url" content="https://aadonkeyz.com/posts/1a664991/index.html">
+<meta property="og:site_name" content="aadonkeyz的博客">
+<meta property="og:description" content="整数表示无符号数的编码假设有一个整数数据类型有 $w$ 位。我们可以将位向量写成 $\vec{x}$，表示整个向量，或者写成 $[x{w-1},x{w-2},\cdot\cdot\cdot,x_{0}]$，表示向量中的每一位。把 $\vec{x}$ 看做一个二进制表示的数，就获得了 $\vec{x}$ 的无符号表示。在这个编码中，每个位 $x_i$ 都取值为 0 或 1，后一种取值意味着数值 $2">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/%E8%A1%A5%E7%A0%81.png">
+<meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/%E5%8E%9F%E7%A0%81.png">
+<meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/%E5%8F%8D%E7%A0%81.png">
+<meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA.png">
+<meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/exp%E4%B8%89%E7%A7%8D%E6%83%85%E5%86%B5.png">
+<meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/8%E4%BD%8D%E6%B5%AE%E7%82%B9%E6%95%B0%E4%BE%8B%E5%AD%90.png">
+<meta property="og:updated_time" content="2020-12-12T23:39:43.993Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数的表示及运算">
+<meta name="twitter:description" content="整数表示无符号数的编码假设有一个整数数据类型有 $w$ 位。我们可以将位向量写成 $\vec{x}$，表示整个向量，或者写成 $[x{w-1},x{w-2},\cdot\cdot\cdot,x_{0}]$，表示向量中的每一位。把 $\vec{x}$ 看做一个二进制表示的数，就获得了 $\vec{x}$ 的无符号表示。在这个编码中，每个位 $x_i$ 都取值为 0 或 1，后一种取值意味着数值 $2">
+<meta name="twitter:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/%E8%A1%A5%E7%A0%81.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://aadonkeyz.com/posts/1a664991/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数的表示及运算 | aadonkeyz的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">aadonkeyz的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">程序猿的学习笔记</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">85</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://aadonkeyz.com/posts/1a664991/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aadonkeyz">
+      <meta itemprop="description" content="本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aadonkeyz的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数的表示及运算
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-29 13:43:54" itemprop="dateCreated datePublished" datetime="2019-09-29T13:43:54+08:00">2019-09-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/操作系统/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="整数表示"><a href="#整数表示" class="headerlink" title="整数表示"></a>整数表示</h1><h2 id="无符号数的编码"><a href="#无符号数的编码" class="headerlink" title="无符号数的编码"></a>无符号数的编码</h2><p>假设有一个整数数据类型有 $w$ 位。我们可以将位向量写成 $\vec{x}$，表示整个向量，或者写成 $[x<em>{w-1},x</em>{w-2},\cdot\cdot\cdot,x_{0}]$，表示向量中的每一位。把 $\vec{x}$ 看做一个二进制表示的数，就获得了 $\vec{x}$ 的无符号表示。在这个编码中，每个位 $x_i$ 都取值为 0 或 1，后一种取值意味着数值 $2^i$ 应为数字道的一部分。我们用一个函数 $B2U_w$ 来表示。</p>
+<div class="note info">
+            <p>对向量 $\vec{x}=[x<em>{w-1},x</em>{w-2},\cdot\cdot\cdot,x<em>{0}]$，有 $B2U_w(\vec{x})=\sum</em>{i=0}^{w-1}x_i2^i$</p>
+          </div>
+<p>$B2U_4([0001])=0\cdot2^3+0\cdot2^2+0\cdot2^1+1\cdot2^0=0+0+0+1=1$<br>$B2U_4([0101])=0\cdot2^3+1\cdot2^2+0\cdot2^1+1\cdot2^0=0+4+0+1=5$<br>$B2U_4([1011])=1\cdot2^3+0\cdot2^2+1\cdot2^1+1\cdot2^0=8+0+2+1=11$<br>$B2U_4([1111])=1\cdot2^3+1\cdot2^2+1\cdot2^1+1\cdot2^0=8+4+2+1=15$</p>
+<h2 id="补码编码"><a href="#补码编码" class="headerlink" title="补码编码"></a>补码编码</h2><p>对于许多应用，我们还希望表示负数值。最常见的有符号数的计算机表示方式就是补码形式。在这个定义中，将字的最高有效位解释为负权。我们用函数 $B2T_w$ 来表示。</p>
+<div class="note info">
+            <p>对向量 $\vec{x}=[x<em>{w-1},x</em>{w-2},\cdot\cdot\cdot,x<em>{0}]$，有 $B2T_w(\vec{x})=-x</em>{w-1}2^{w-1}+\sum_{i=0}^{w-2}x_i2^i$</p>
+          </div>
+<p>$B2T_4([0001])=-0\cdot2^3+0\cdot2^2+0\cdot2^1+1\cdot2^0=0+0+0+1=1$<br>$B2T_4([0101])=-0\cdot2^3+1\cdot2^2+0\cdot2^1+1\cdot2^0=0+4+0+1=5$<br>$B2T_4([1011])=-1\cdot2^3+0\cdot2^2+1\cdot2^1+1\cdot2^0=-8+0+2+1=-5$<br>$B2T_4([1111])=-1\cdot2^3+1\cdot2^2+1\cdot2^1+1\cdot2^0=-8+4+2+1=-1$</p>
+<p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/%E8%A1%A5%E7%A0%81.png" alt="补码"></p>
+<h2 id="原码和反码"><a href="#原码和反码" class="headerlink" title="原码和反码"></a>原码和反码</h2><div class="note info">
+            <ul><li><strong>原码</strong>：对向量 $\vec{x}=[x<em>{w-1},x</em>{w-2},\cdot\cdot\cdot,x<em>{0}]$，有 $B2S_w(\vec{x})=(-1)^x</em>{w-1}\cdot\sum_{i=0}^{w-2}x_i2^i$</li><li><strong>反码</strong>：对向量 $\vec{x}=[x<em>{w-1},x</em>{w-2},\cdot\cdot\cdot,x<em>{0}]$，有 $B2O_w(\vec{x})=-x</em>{w-1}(2^{w-1}-1)+\sum_{i=0}^{w-2}x_i2^i$</li></ul>
+          </div>
+<p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/%E5%8E%9F%E7%A0%81.png" alt="原码"></p>
+<p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/%E5%8F%8D%E7%A0%81.png" alt="反码"></p>
+<h1 id="整数运算"><a href="#整数运算" class="headerlink" title="整数运算"></a>整数运算</h1><h2 id="无符号加法"><a href="#无符号加法" class="headerlink" title="无符号加法"></a>无符号加法</h2><div class="note info">
+            <p>对满足 $0 \leq x, y \leq 2^w$ 的整数 $x$ 和 $y$ 有：</p><p>$x +^u_w y=<br>\begin{cases}<br>    x + y, &amp; x + y \le 2^w \<br>    \<br>    x + y - 2^w, &amp; 2^w \leq x + y &lt; 2^{w+1}<br>\end{cases}$</p>
+          </div>
+<div class="note warning">
+            <p>对满足 $0 \leq x, y \leq 2^w$ 的 $x$ 和 $y$，令 $s = x +^u_w y$。则 $s &lt; x$ 等价于 $s &lt; y$ 等价于 <strong>溢出</strong>。</p>
+          </div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$x$</th>
+<th style="text-align:center">$y$</th>
+<th style="text-align:center">$s$</th>
+<th style="text-align:center">$x +^u_4 y$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>9<br>[1001]</strong></td>
+<td style="text-align:center"><strong>12<br>[1100]</strong></td>
+<td style="text-align:center"><strong>21<br>[10101]</strong></td>
+<td style="text-align:center"><strong>5<br>[0101]</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="补码加法"><a href="#补码加法" class="headerlink" title="补码加法"></a>补码加法</h2><div class="note info">
+            <p>对满足 $-2^{w-1} \leq x, y \leq 2^{w-1} - 1$ 的整数 $x$ 和 $y$ 有：</p><p>$x +^t_w y=<br>\begin{cases}<br>    x + y - 2^w, &amp; 2^{w-1} \le x + y \<br>    \<br>    x + y, &amp; -2^{w-1} \leq x + y &lt; 2^{w-1} \<br>    \<br>    x + y + 2^w, &amp; x + y &lt; -2^{w-1}<br>\end{cases}$</p>
+          </div>
+<div class="note warning">
+            <p><strong>补码加法和无符号加法有完全相同的位级表示。实际上，大多数计算机使用同样的机器指令来执行无符号或者有符号加法。</strong></p>
+          </div>
+<div class="note warning">
+            <p>对满足 $-2^{w-1} \leq x, y \leq 2^{w-1} - 1$ 的 $x$ 和 $y$，令 $s = x +^t_w y$。</p><ul><li>当且仅当 $x &gt; 0, y &gt; 0, s \leq 0$ 时，发生了<strong>正溢出</strong>。</li><li>当且仅当 $x &lt; 0, y &lt; 0, s \geq 0$ 时，发生了<strong>负溢出</strong>。</li></ul>
+          </div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$x$</th>
+<th style="text-align:center">$y$</th>
+<th style="text-align:center">$s$</th>
+<th style="text-align:center">$x +^t_4 y$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>-8<br>[1000]</strong></td>
+<td style="text-align:center"><strong>-5<br>[1011]</strong></td>
+<td style="text-align:center"><strong>-13<br>[10011]</strong></td>
+<td style="text-align:center"><strong>3<br>[0011]</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>-8<br>[1000]</strong></td>
+<td style="text-align:center"><strong>-8<br>[1000]</strong></td>
+<td style="text-align:center"><strong>-16<br>[10000]</strong></td>
+<td style="text-align:center"><strong>0<br>[0000]</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>-8<br>[1000]</strong></td>
+<td style="text-align:center"><strong>5<br>[0101]</strong></td>
+<td style="text-align:center"><strong>-3<br>[11101]</strong></td>
+<td style="text-align:center"><strong>-3<br>[1101]</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>2<br>[0010]</strong></td>
+<td style="text-align:center"><strong>5<br>[0101]</strong></td>
+<td style="text-align:center"><strong>7<br>[00111]</strong></td>
+<td style="text-align:center"><strong>7<br>[0111]</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>5<br>[0101]</strong></td>
+<td style="text-align:center"><strong>5<br>[0101]</strong></td>
+<td style="text-align:center"><strong>10<br>[01010]</strong></td>
+<td style="text-align:center"><strong>-6<br>[1010]</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="补码的非"><a href="#补码的非" class="headerlink" title="补码的非"></a>补码的非</h2><div class="note info">
+            <p>举例来说，对于补码 [1000]，它的非是 [0111]。也就是说，$～x = - x + 1$。</p>
+          </div>
+<h2 id="无符号乘法"><a href="#无符号乘法" class="headerlink" title="无符号乘法"></a>无符号乘法</h2><div class="note info">
+            <p>对满足 $0 \leq x, y \leq 2^w - 1$ 的整数 $x$ 和 $y$ 有：</p><p>$x *^u_w y = (x \cdot y) mod 2^w$</p><p>乘法的结果，可能需要 $2w$ 位来表示。</p>
+          </div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$x$</th>
+<th style="text-align:center">$y$</th>
+<th style="text-align:center">二进制计算过程</th>
+<th style="text-align:center">$x \cdot y$</th>
+<th style="text-align:center">$x *^u_3 y$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>3<br>[011]</strong></td>
+<td style="text-align:center"><strong>5<br>[101]</strong></td>
+<td style="text-align:center"><strong>[<font color="#dd0000">011</font>]+[0]+[<font color="#dd0000">011</font>00]</strong></td>
+<td style="text-align:center"><strong>15<br>[001111]</strong></td>
+<td style="text-align:center"><strong>7<br>[111]</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>4<br>[100]</strong></td>
+<td style="text-align:center"><strong>7<br>[111]</strong></td>
+<td style="text-align:center"><strong>[<font color="#dd0000">100</font>]+[<font color="#dd0000">100</font>0]+[<font color="#dd0000">100</font>00]</strong></td>
+<td style="text-align:center"><strong>28<br>[011100]</strong></td>
+<td style="text-align:center"><strong>4<br>[100]</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>3<br>[011]</strong></td>
+<td style="text-align:center"><strong>3<br>[011]</strong></td>
+<td style="text-align:center"><strong>[<font color="#dd0000">011</font>]+[<font color="#dd0000">011</font>0]</strong></td>
+<td style="text-align:center"><strong>9<br>[001001]</strong></td>
+<td style="text-align:center"><strong>1<br>[001]</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="补码乘法"><a href="#补码乘法" class="headerlink" title="补码乘法"></a>补码乘法</h2><div class="note info">
+            <p>对满足 $-2^{w-1} \leq x, y \leq 2^{w-1} - 1$ 的整数 $x$ 和 $y$ 有：</p><p>$x *^t_w y = U2T_w((x \cdot y) mod 2^w)$</p>
+          </div>
+<div class="note warning">
+            <p><strong>补码乘法和无符号乘法有完全相同的位级表示。</strong></p>
+          </div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$x$</th>
+<th style="text-align:center">$y$</th>
+<th style="text-align:center">$x \cdot y$</th>
+<th style="text-align:center">$x *^u_3 y$</th>
+<th style="text-align:center">$x *^t_3 y$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>3<br>[011]</strong></td>
+<td style="text-align:center"><strong>-3<br>[101]</strong></td>
+<td style="text-align:center"><strong>-9<br>[110111]</strong></td>
+<td style="text-align:center"><strong>7<br>[111]</strong></td>
+<td style="text-align:center"><strong>-1<br>[111]</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>-4<br>[100]</strong></td>
+<td style="text-align:center"><strong>-1<br>[111]</strong></td>
+<td style="text-align:center"><strong>4<br>[000100]</strong></td>
+<td style="text-align:center"><strong>4<br>[100]</strong></td>
+<td style="text-align:center"><strong>-4<br>[100]</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>3<br>[011]</strong></td>
+<td style="text-align:center"><strong>3<br>[011]</strong></td>
+<td style="text-align:center"><strong>9<br>[001001]</strong></td>
+<td style="text-align:center"><strong>1<br>[001]</strong></td>
+<td style="text-align:center"><strong>1<br>[001]</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="浮点数表示"><a href="#浮点数表示" class="headerlink" title="浮点数表示"></a>浮点数表示</h1><div class="note info">
+            <p>IEEE 浮点标准用 $V = (-1)^s \cdot M \cdot 2^E$ 的形式来表示一个数：</p><ul><li><strong>符号 s</strong>：$s = 0$ 代表正数，$s = 1$ 代表负数，而对于数值 0 的符号位解释作为特殊情况处理。</li><li><strong>阶码 E</strong>：E 的作用是对浮点数加权，这个权重是 2 的 E 次幂。它的值由 $exp = e_{k-1} \cdot\cdot\cdot e_1e_0$ 编码决定的。</li><li><strong>尾数 M</strong>：M 是一个二进制小数，它的范围是 $1 \sim 2 - \epsilon$，或者是 $0 \sim 1 - \epsilon$。它的值由 $frac = f<em>{n-1} \cdot\cdot\cdot f_1f_0$ 和 $exp = e</em>{k-1} \cdot\cdot\cdot e_1e_0$ 共同编码决定的。</li></ul>
+          </div>
+<p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA.png" alt="浮点数表示"></p>
+<p>根据 exp 的值，被编码的值可以分成 3 种不同的情况（最后一种情况有两个变种）。</p>
+<p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/exp%E4%B8%89%E7%A7%8D%E6%83%85%E5%86%B5.png" alt="exp三种情况"></p>
+<div class="note info">
+            <ol><li><strong>规格化的</strong>：<ul><li>$E = [e_{k-1} \cdot\cdot\cdot e_1e_0] - 2^{k-1} - 1$</li><li>$M = 1.f_{n-1} \cdot\cdot\cdot f_1f_0$</li></ul></li><li><strong>非规格化的</strong>：<ul><li>$E = 1 - 2^{k-1} - 1$</li><li>$M = 0.f_{n-1} \cdot\cdot\cdot f_1f_0$</li></ul></li><li><strong>特殊值</strong>：此时这个浮点数为无穷大或 NaN。</li></ol>
+          </div>
+<p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E8%BF%90%E7%AE%97/8%E4%BD%8D%E6%B5%AE%E7%82%B9%E6%95%B0%E4%BE%8B%E5%AD%90.png" alt="8位浮点数例子"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div><br><br>感谢您的阅读，如果发现文章中有错误或漏洞，请批评指正。<br>邮箱：aadonkeyz@gmail.com<br><br></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById(&quot;QR&quot;); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="aadonkeyz 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="aadonkeyz 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <div>
+      
+      
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            aadonkeyz
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/posts/1a664991/" title="数的表示及运算">https://aadonkeyz.com/posts/1a664991/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明：</strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/a9104ae7/" rel="next" title="存储器">
+                <i class="fa fa-chevron-left"></i> 存储器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/cb7b8910/" rel="prev" title="算法的分析">
+                算法的分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">aadonkeyz</p>
+              <p class="site-description motion-element" itemprop="description">本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a rel="external nofollow" href="/archives/">
+                
+                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a rel="external nofollow" href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/aadonkeyz" title="GitHub &rarr; https://github.com/aadonkeyz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#整数表示"><span class="nav-number">1.</span> <span class="nav-text">整数表示</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无符号数的编码"><span class="nav-number">1.1.</span> <span class="nav-text">无符号数的编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补码编码"><span class="nav-number">1.2.</span> <span class="nav-text">补码编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原码和反码"><span class="nav-number">1.3.</span> <span class="nav-text">原码和反码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#整数运算"><span class="nav-number">2.</span> <span class="nav-text">整数运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无符号加法"><span class="nav-number">2.1.</span> <span class="nav-text">无符号加法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补码加法"><span class="nav-number">2.2.</span> <span class="nav-text">补码加法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补码的非"><span class="nav-number">2.3.</span> <span class="nav-text">补码的非</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无符号乘法"><span class="nav-number">2.4.</span> <span class="nav-text">无符号乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补码乘法"><span class="nav-number">2.5.</span> <span class="nav-text">补码乘法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浮点数表示"><span class="nav-number">3.</span> <span class="nav-text">浮点数表示</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aadonkeyz</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'manual') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+          if (result) $(this).text('复制成功');
+          else $(this).text('复制失败');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+</body>
+</html>

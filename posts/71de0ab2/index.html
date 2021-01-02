@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="PG1_de1e4chdQFka3s4-JmiALHwBxtpSgqAPMmtP8E0">
+<meta name="baidu-site-verification" content="mTxN7FYES6">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Object类型对象&amp;amp;原型&amp;amp;继承 Object Array类型Array RegExp类型RegExp Function类型函数&amp;amp;作用域&amp;amp;闭包 函数 Date类型通过 var now = new Date() 可以创建一个日期对象，在调用 Data 构造函数而不传参数时，新创建的对象自动获得当前日期和时间（当前日期和时间是浏览器从本机操作系统获取的时间，所以不一定准">
+<meta name="keywords" content="前端博客,JavaScript,html5,css3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="引用类型">
+<meta property="og:url" content="https://aadonkeyz.com/posts/71de0ab2/index.html">
+<meta property="og:site_name" content="aadonkeyz的博客">
+<meta property="og:description" content="Object类型对象&amp;amp;原型&amp;amp;继承 Object Array类型Array RegExp类型RegExp Function类型函数&amp;amp;作用域&amp;amp;闭包 函数 Date类型通过 var now = new Date() 可以创建一个日期对象，在调用 Data 构造函数而不传参数时，新创建的对象自动获得当前日期和时间（当前日期和时间是浏览器从本机操作系统获取的时间，所以不一定准">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-12T23:39:43.988Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="引用类型">
+<meta name="twitter:description" content="Object类型对象&amp;amp;原型&amp;amp;继承 Object Array类型Array RegExp类型RegExp Function类型函数&amp;amp;作用域&amp;amp;闭包 函数 Date类型通过 var now = new Date() 可以创建一个日期对象，在调用 Data 构造函数而不传参数时，新创建的对象自动获得当前日期和时间（当前日期和时间是浏览器从本机操作系统获取的时间，所以不一定准">
+
+
+
+
+
+
+  <link rel="canonical" href="https://aadonkeyz.com/posts/71de0ab2/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>引用类型 | aadonkeyz的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">aadonkeyz的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">程序猿的学习笔记</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">85</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://aadonkeyz.com/posts/71de0ab2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aadonkeyz">
+      <meta itemprop="description" content="本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aadonkeyz的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">引用类型
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-03 12:14:38" itemprop="dateCreated datePublished" datetime="2019-03-03T12:14:38+08:00">2019-03-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Object类型"><a href="#Object类型" class="headerlink" title="Object类型"></a>Object类型</h1><p><a href="https://aadonkeyz.com/posts/bb5d40f2/">对象&amp;原型&amp;继承</a></p>
+<p><a href="https://aadonkeyz.com/posts/a7625ff7/">Object</a></p>
+<h1 id="Array类型"><a href="#Array类型" class="headerlink" title="Array类型"></a>Array类型</h1><p><a href="https://aadonkeyz.com/posts/6e01c1fe/">Array</a></p>
+<h1 id="RegExp类型"><a href="#RegExp类型" class="headerlink" title="RegExp类型"></a>RegExp类型</h1><p><a href="https://aadonkeyz.com/posts/ce76031c/">RegExp</a></p>
+<h1 id="Function类型"><a href="#Function类型" class="headerlink" title="Function类型"></a>Function类型</h1><p><a href="https://aadonkeyz.com/posts/f1587c53/">函数&amp;作用域&amp;闭包</a></p>
+<p><a href="https://aadonkeyz.com/posts/9595c646/">函数</a></p>
+<h1 id="Date类型"><a href="#Date类型" class="headerlink" title="Date类型"></a>Date类型</h1><p>通过 <code>var now = new Date()</code> 可以创建一个日期对象，在调用 <code>Data</code> 构造函数而不传参数时，新创建的对象自动获得当前日期和时间（<strong>当前日期和时间是浏览器从本机操作系统获取的时间，所以不一定准确！</strong>）。如果想根据特定的日期和时间创建日期对象，必须传入表示该日期的毫秒数（即从 UTC 时间 2017 年 1 月 1 日午夜起至该日期经过的毫秒数）。为了简化这一计算过程，ES提出了两个方法：<code>Date.parse()</code>和<code>Date.UTC()</code>。</p>
+<div class="note info">
+            <ul><li><code>Date.parse()</code>：接收一个表示日期的字符串参数，然后尝试根据这个字符串返回相应日期的毫秒数。但是它支持哪种日期格式并不一定。</li><li><code>Date.UTC()</code>：同样返回表示日期的毫秒数，但接收参数分别为年份、<strong>基于0的月份</strong>、月中的哪一天、小时、分钟、秒以及毫秒。这些参数中只有年和月是必需的。</li></ul>
+          </div>
+<p>其实，在使用 <code>Date()</code> 构造函数创建日期对象时，后台会根据传入的参数自动调用 <code>Date.parse()</code> 或 <code>Date.UTC()</code> 方法，所以根本不需要我们去主动的调用它们。<br>ES5添加了 <code>Date.now()</code> 方法，返回表示调用这个方法时的日期和时间的毫秒数。在不兼容它的情况下可以使用 <code>+ new Date()</code> 来达到相同的效果。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">now                    <span class="comment">// 2020-10-17T04:56:29.512Z</span></span><br><span class="line">now.getFullYear()      <span class="comment">// 2020</span></span><br><span class="line">now.getMonth()         <span class="comment">// 0-11</span></span><br><span class="line">now.getDate()          <span class="comment">// 1-31</span></span><br><span class="line">now.getDay()           <span class="comment">// 0-6，0代表周日，6代表周六</span></span><br><span class="line">now.getHours()         <span class="comment">// 0-23</span></span><br><span class="line">now.getMinutes()       <span class="comment">// 0-59</span></span><br><span class="line">now.getSeconds()       <span class="comment">// 0-59</span></span><br><span class="line">now.getMilliseconds()  <span class="comment">// 0-999</span></span><br></pre></td></tr></table></figure>
+<h1 id="基本包装类型"><a href="#基本包装类型" class="headerlink" title="基本包装类型"></a>基本包装类型</h1><p>ES提供了 3 个<strong>特殊的引用类型</strong>：<code>Boolean</code>、<code>Number</code> 和 <code>String</code>。这些类型与引用类型相似，但同时也具有与各自的基本类型相应的特殊行为，我们称它们为基本包装类型。</p>
+<p><strong>实际上，每当读取一个基本类型值的时候，后台会自动创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。</strong></p>
+<p><strong>引用类型与基本包装类型的主要区别就是对象的生存期。</strong>使用 <code>new</code> 操作符创建的引用类型的实例，在执行流离开当前作用域之前都一直保存在内存中。而<strong>自动创建</strong>的基本包装类型的对象，则只存在于一行代码的执行瞬间，然后立即被销毁。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建了一个基本类型值并保存在s1中</span></span><br><span class="line"><span class="keyword">var</span> s1 = <span class="string">'some text'</span>        </span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用对应的基本包装类型</span></span><br><span class="line">s1.color = <span class="string">'red'</span>       </span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined，因为基本包装类型的生存期已过</span></span><br><span class="line"><span class="built_in">console</span>.log(s1.color)    </span><br><span class="line"></span><br><span class="line"><span class="comment">// string</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> s1)      </span><br><span class="line"></span><br><span class="line"><span class="comment">// 显示的创建了String的实例对象并保存在s2中，实际上就是创建了一个引用类型值</span></span><br><span class="line"><span class="keyword">var</span> s2 = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'some text'</span>)    </span><br><span class="line">s2.color = <span class="string">'red'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// String &#123;"some text", color: "red"&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(s2)        </span><br><span class="line"></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> s2)</span><br></pre></td></tr></table></figure>
+<p>通过上面例子认识到通过 <code>new</code> 显示创建的就是一个引用类型值，它已经不能称之为基本包装类型了。换句话说，基本包装类型都是后台自己创建的，不存在显示创建的情况。在第六章会介绍，通过 <code>new</code> 显示创建的就是一个引用类型的实例对象。<strong>记住最好别用new将基本包装类型给实例化就行。</strong></p>
+<p><strong>要注意的是，使用 <code>new</code> 调用基本包装类型的构造函数，与直接调用同名的转型函数是不一样的。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value = <span class="string">'25'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 转型函数</span></span><br><span class="line"><span class="keyword">var</span> number = <span class="built_in">Number</span>(value)      </span><br><span class="line"></span><br><span class="line"><span class="comment">// number</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> number)      </span><br><span class="line"></span><br><span class="line"><span class="comment">// 构造函数</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Number</span>(value)     </span><br><span class="line"></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> obj)</span><br></pre></td></tr></table></figure>
+<h2 id="Boolean类型"><a href="#Boolean类型" class="headerlink" title="Boolean类型"></a>Boolean类型</h2><p>没啥说的。</p>
+<h2 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a>Number类型</h2><div class="note info">
+            <ul><li><code>toFixed()</code>：按照指定的小数位返回数值的字符串表示，银行家喜欢用这个方法，这个方法不是真正意义的四舍五入。</li><li><code>toExponential()</code>：返回以指数表示法表示的数值的字符串形式。</li><li><code>toPrecision()</code>：返回固定大小格式，也可能返回指数格式。</li></ul>
+          </div>
+<h2 id="String类型"><a href="#String类型" class="headerlink" title="String类型"></a>String类型</h2><h3 id="字符方法"><a href="#字符方法" class="headerlink" title="字符方法"></a>字符方法</h3><p><code>charAt()</code> 和 <code>charCodeAt()</code>方法都接收一个参数，即基于 0 的字符位置。<code>charAt()</code> 方法以单字符字符串的形式返回给定位置的那个字符，而 <code>charCodeAt()</code> 方法返回的是字符编码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> string = <span class="string">'hello world'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// e</span></span><br><span class="line"><span class="built_in">console</span>.log(string.charAt(<span class="number">1</span>))       </span><br><span class="line"><span class="comment">// 101</span></span><br><span class="line"><span class="built_in">console</span>.log(string.charCodeAt(<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<p>ES5 还定义了访问个别字符的方法，可以像数组那样使用索引来访问某个位置的字符。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> string = <span class="string">'hello'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// e</span></span><br><span class="line"><span class="built_in">console</span>.log(string[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><h4 id="提取子字符串方法"><a href="#提取子字符串方法" class="headerlink" title="提取子字符串方法"></a>提取子字符串方法</h4><div class="note info">
+            <ul><li><code>slice()</code>：类比于数组的<code>slice()</code>方法。</li><li><code>substr()</code>：第一个参数用于指定子字符串的开始位置，第二个参数用于指定返回的字符个数;</li><li><code>substring()</code>：类比于数组的<code>slice()</code>方法。</li></ul>
+          </div>
+<p>当传递负值作为参数时，<code>slice()</code> 方法会将传入的负值与字符串的长度相加。<code>substr()</code> 方法将负的第一个参数加上字符串的长度，而将负的第二个参数转换为0。<code>substring()</code> 方法会把所有负值参数都转换为0。</p>
+<p><strong>另外需要注意的是，<code>substring()</code> 方法会将参数中较小的数作为开始位置，将较大的数作为结束位置。即 <code>string.substring(3, 0)</code> 等价于 <code>string.substring(0, 3)</code></strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> string = <span class="string">'hello world'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// rld</span></span><br><span class="line"><span class="built_in">console</span>.log(string.slice(<span class="number">-3</span>))         </span><br><span class="line"><span class="comment">// hello world  </span></span><br><span class="line"><span class="built_in">console</span>.log(string.substring(<span class="number">-3</span>))     </span><br><span class="line"><span class="comment">// rld  </span></span><br><span class="line"><span class="built_in">console</span>.log(string.substr(<span class="number">-3</span>))          </span><br><span class="line"></span><br><span class="line"><span class="comment">// lo w</span></span><br><span class="line"><span class="built_in">console</span>.log(string.slice(<span class="number">3</span>, <span class="number">-4</span>))       </span><br><span class="line"><span class="comment">// hel </span></span><br><span class="line"><span class="built_in">console</span>.log(string.substring(<span class="number">3</span>, <span class="number">-4</span>))    </span><br><span class="line"><span class="comment">// ''</span></span><br><span class="line"><span class="built_in">console</span>.log(string.substr(<span class="number">3</span>, <span class="number">-4</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h4><p>类比于数组的<code>concat()</code>方法。</p>
+<h4 id="trim"><a href="#trim" class="headerlink" title="trim"></a>trim</h4><p>ES5 定义了这个方法，会创建一个字符串的副本，删除前置及后缀的所有空格，然后返回结果。</p>
+<h4 id="repeat"><a href="#repeat" class="headerlink" title="repeat"></a>repeat</h4><p>该方法接收一个参数作为字符串的重复次数，返回一个将初始字符串重复指定次数的新字符串。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// xxx</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'x'</span>.repeat(<span class="number">3</span>))          </span><br><span class="line"></span><br><span class="line"><span class="comment">// hellohello</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'hello'</span>.repeat(<span class="number">2</span>))      </span><br><span class="line"></span><br><span class="line"><span class="comment">// abcabcabcabc</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'abc'</span>.repeat(<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="位置方法"><a href="#位置方法" class="headerlink" title="位置方法"></a>位置方法</h3><p><code>indexOf(searchValue[, fromIndex])</code> 和 <code>lastIndexOf(searchValue[, fromIndex])</code> 都是找到就返回索引，找不到就返回 -1。</p>
+<h3 id="大小写转换方法"><a href="#大小写转换方法" class="headerlink" title="大小写转换方法"></a>大小写转换方法</h3><p><code>toLowerCase()</code>、<code>toLocaleLowerCase()</code>、<code>toUpperCase()</code> 和 <code>toLocaleUpperCase()</code> 方法。</p>
+<h3 id="模式匹配方法"><a href="#模式匹配方法" class="headerlink" title="模式匹配方法"></a>模式匹配方法</h3><h4 id="match"><a href="#match" class="headerlink" title="match"></a>match</h4><div class="note info">
+            <ul><li><code>match()</code>：如果没有匹配成功就返回 <code>null</code>。如果匹配成功了，根据下面情况返回不同的内容。<ul><li>如果正则表达式使用了 <code>g</code> 标志，则返回所有匹配项组成的数组，该数组无特殊属性。</li><li>如果正则表达式没有使用 <code>g</code> 标志，则仅返回第一个匹配项与捕获组组成的数组，该数组还含有3个特殊属性。<ul><li><code>index</code>：匹配项在字符串中的索引。</li><li><code>input</code>：输入的字符串。</li><li><code>group</code>：一个捕获组或 <code>undefined</code>（如果没有定义命名捕获组）。</li></ul></li></ul></li></ul>
+          </div>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> text = <span class="string">'mom and dad and baby'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'mom and dad and baby' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(text.match(<span class="regexp">/mom (and dad (and baby)?)?/g</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'mom and dad and baby', 'and dad and baby', 'and baby', index: 0, input: 'mom and dad and baby', groups: undefined ]</span></span><br><span class="line"><span class="built_in">console</span>.log(text.match(<span class="regexp">/mom (and dad (and baby)?)?/</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="search"><a href="#search" class="headerlink" title="search"></a>search</h4><div class="note info">
+            <p><code>search()</code> 方法接收正则表达式作为参数，返回字符串中第一个匹配项的索引，如果没有找到匹配项则返回-1。</p>
+          </div>
+<h4 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h4><div class="note info">
+            <p><code>replace()</code>：该方法接收两个参数，第一个参数可以是正则表达式或一个字符串，第二个参数可以是一个字符串或一个函数。<strong>如果第一个参数是字符串，那么只会替换第一个子字符串，要想替换所有子字符串，唯一的办法就是提供正则表达式作为第一参数，并且要指定全局标志</strong>。第二个参数与正则表达式的捕获组有关。</p><ul><li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter" target="_blank" rel="noopener">如果第二个参数是字符串</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_function_as_a_parameter" target="_blank" rel="noopener">如果第二个参数是函数</a></li></ul>
+          </div>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> text = <span class="string">'cat, bat, sat, fat'</span></span><br><span class="line"><span class="keyword">var</span> result = text.replace(<span class="string">'at'</span>, <span class="string">'ond'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// cond, bat, sat, fat</span></span><br><span class="line"><span class="built_in">console</span>.log(result)     </span><br><span class="line"></span><br><span class="line">result = text.replace(<span class="regexp">/at/g</span>, <span class="string">'ond'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// cond, bond, sond, fond</span></span><br><span class="line"><span class="built_in">console</span>.log(result)     </span><br><span class="line"></span><br><span class="line">result = text.replace(<span class="regexp">/(.at)/g</span>, <span class="string">'word ($1)'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// word (cat), word (bat), word (sat), word (fat)</span></span><br><span class="line"><span class="built_in">console</span>.log(result)</span><br></pre></td></tr></table></figure>
+<h4 id="split"><a href="#split" class="headerlink" title="split"></a>split</h4><div class="note info">
+            <p><code>split()</code> 方法可以基于指定的分隔符将一个字符串分割成多个子字符串并将结果存放在一个数组中。分隔符可以是字符串，也可以是一个正则表达式。该方法有一个可选的第二参数，用于指定数组的大小。<strong>如果将空字符串作为分隔符传递给 <code>split()</code>，那么字符串会基于每一个 UTF-16 codeunit 进行划分。如果传递给 <code>split()</code> 的正则表达式中包含捕获组，那么捕获组会被保留下来</strong></p>
+          </div>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colorText = <span class="string">'red,blue,green,yellow'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'red', 'blue', 'green', 'yellow' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(colorText.split(<span class="string">','</span>))         </span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'red', 'blue' ]  </span></span><br><span class="line"><span class="built_in">console</span>.log(colorText.split(<span class="string">','</span>, <span class="number">2</span>))       </span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'red', 'blue', 'green', 'yellow' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(colorText.split(<span class="regexp">/\,/</span>))          </span><br><span class="line"></span><br><span class="line"><span class="comment">// [ 'red', ',', 'blue', ',', 'green', ',', 'yellow' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(colorText.split(<span class="regexp">/(\,)/</span>))        </span><br><span class="line"></span><br><span class="line"><span class="comment">// [ '', ',', ',', ',', '' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(colorText.split(<span class="regexp">/[^\,]+/</span>))      </span><br><span class="line"></span><br><span class="line"><span class="comment">// [ '', 'red', ',', 'blue', ',', 'green', ',', 'yellow', '' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(colorText.split(<span class="regexp">/([^\,]+)/</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="识别子字符串的方法"><a href="#识别子字符串的方法" class="headerlink" title="识别子字符串的方法"></a>识别子字符串的方法</h4><p>ES6新增了三个方法：</p>
+<div class="note info">
+            <ul><li><code>includes(searchString[, fromIndex])</code>：在给定文本出现在字符串的任意位置时返回 <code>true</code>，否则返回 <code>false</code>；</li><li><code>startsWith(searchString[, fromIndex])</code>：在给定文本出现在字符串起始处时返回 <code>true</code>，否则返回 <code>false</code>；</li><li><code>endsWith(searchString[, length])</code>：在给定文本出现在字符串结尾处时返回 <code>true</code>，否则返回 <code>false</code>。</li></ul>
+          </div>
+<p>详细 API 请移步 MDN，这里有 demo。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> msg = <span class="string">'hello world!'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.startsWith(<span class="string">'hello'</span>))   </span><br><span class="line"><span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.startsWith(<span class="string">'o'</span>)) </span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.startsWith(<span class="string">'o'</span>, <span class="number">4</span>)) </span><br><span class="line"></span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.endsWith(<span class="string">'!'</span>))         </span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.endsWith(<span class="string">'world!'</span>))  </span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.endsWith(<span class="string">'o'</span>, <span class="number">8</span>)) </span><br><span class="line"></span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.includes(<span class="string">'o'</span>))</span><br><span class="line"><span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.includes(<span class="string">'x'</span>))</span><br><span class="line"><span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(msg.includes(<span class="string">'o'</span>, <span class="number">8</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="localeCompare"><a href="#localeCompare" class="headerlink" title="localeCompare"></a>localeCompare</h3><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare" target="_blank" rel="noopener">MDN 上的介绍</a></p>
+<h3 id="fromCharCode"><a href="#fromCharCode" class="headerlink" title="fromCharCode"></a>fromCharCode</h3><p>该方法接收一个或多个字符编码，然后将它们转换成字符串。</p>
+<h3 id="模板字面量"><a href="#模板字面量" class="headerlink" title="模板字面量"></a>模板字面量</h3><h4 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h4><p>模板字面量的最简单语法，是使用反引号（`）来包裹普通字符串，而不是用双引号或单引号。若你想在字符串中包含反引号，只需要使用反斜杠（\）转义即可。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`hello \` world`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// hello ` world</span></span><br><span class="line"><span class="built_in">console</span>.log(message)</span><br></pre></td></tr></table></figure>
+<h4 id="多行字符串"><a href="#多行字符串" class="headerlink" title="多行字符串"></a>多行字符串</h4><p>ES6 的模板字面量使多行字符串更易创建，因为它不需要特殊的语法。只需在想要的位置包含换行即可，而且它会显示在结果中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Multiline</span></span><br><span class="line"><span class="string">string`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Multiline</span></span><br><span class="line"><span class="comment">// string</span></span><br><span class="line"><span class="built_in">console</span>.log(message)            </span><br><span class="line">                                </span><br><span class="line"><span class="comment">// 16</span></span><br><span class="line"><span class="built_in">console</span>.log(message.length)</span><br></pre></td></tr></table></figure>
+<p>反斜杠之内的所有空白符都是字符串的一部分，因此需要留意缩进。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Multiline</span></span><br><span class="line"><span class="string">              string`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Multiline</span></span><br><span class="line"><span class="comment">//              string</span></span><br><span class="line"><span class="built_in">console</span>.log(message)            </span><br><span class="line"></span><br><span class="line"><span class="comment">// 30</span></span><br><span class="line"><span class="built_in">console</span>.log(message.length)</span><br></pre></td></tr></table></figure>
+<p>如果让多行文本保持合适的缩进对你来说很重要，请考虑将多行模板字面量的第一行空置并在此后进行缩进，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> html = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;div&gt;</span></span><br><span class="line"><span class="string">  &lt;h1&gt;Title&lt;/h1&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string">`</span>.trim()</span><br></pre></td></tr></table></figure>
+<h4 id="制造替换位"><a href="#制造替换位" class="headerlink" title="制造替换位"></a>制造替换位</h4><p>此时模板字面量看上去仅仅是普通 JavaScript 字符串的升级版，但二者之间真正的区别在于前置的“替换位”。替换位允许你将任何有效的 JavaScript 表达式嵌入到模板字面量中，并将其结果输出为字符串的一部分。</p>
+<p>替换位由起始的 <code>${</code> 与结束的 <code>}</code> 来界定，之间允许放入任意的 JavaScript 表达式。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'Nicholas'</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`hello, <span class="subst">$&#123;name&#125;</span>.`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// hello, Nicholas.</span></span><br><span class="line"><span class="built_in">console</span>.log(message)        </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">10</span></span><br><span class="line"><span class="keyword">var</span> price = <span class="number">0.25</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`<span class="subst">$&#123;count&#125;</span> items cost $<span class="subst">$&#123;(count * price).toFixed(<span class="number">2</span>)&#125;</span>.`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 10 items cost $2.50.</span></span><br><span class="line"><span class="built_in">console</span>.log(message)        </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">'Nicholas'</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`hello, <span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">  <span class="string">`my name is <span class="subst">$&#123;name&#125;</span>`</span></span></span></span><br><span class="line"><span class="string"><span class="subst">&#125;</span>.`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// hello, my name is Nicholas.</span></span><br><span class="line"><span class="built_in">console</span>.log(message)</span><br></pre></td></tr></table></figure>
+<h4 id="标签化模板"><a href="#标签化模板" class="headerlink" title="标签化模板"></a>标签化模板</h4><p>一个标签仅是一个函数，只不过这个函数的调用形式有些特别：<code>tagName`模板字面量数据` </code></p>
+<p>标签函数会将调用时接收的模板字面量数据中的非替换位提取出来保存为一个数组，这个数组将作为标签函数的第一个参数；数据中的每个替换位的解释值都将作为标签函数的参数传递进来。为了方便处理，一般在定义标签函数时使用<a href="http://aadonkeyz.com/posts/9595c646/#剩余参数"><strong>剩余参数</strong></a>形式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">passthru</span> (<span class="params">literals, ...substitutions</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ["", " items cost $", ""]</span></span><br><span class="line">  <span class="built_in">console</span>.log(literals)           </span><br><span class="line"></span><br><span class="line">  <span class="comment">// [10, "2.50"]</span></span><br><span class="line">  <span class="built_in">console</span>.log(substitutions)     </span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="string">'返回啥都行'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">10</span></span><br><span class="line"><span class="keyword">var</span> price = <span class="number">0.25</span></span><br><span class="line"><span class="keyword">var</span> message = passthru<span class="string">`<span class="subst">$&#123;count&#125;</span> items cost $<span class="subst">$&#123;(count * price).toFixed(<span class="number">2</span>)&#125;</span>`</span></span><br></pre></td></tr></table></figure>
+<p>注意观察上面的例子，<strong><code>literals</code> 数组的第一个和最后一个元素均为空字符串，说明标签函数在对传入的模板字面量进行处理时，总是以非替换位形式的字符串作为数据的开始和结尾；如果模板字面量实际上是以替换位作为开始和结尾，那么会自动在开始和结尾处添加上空字符串！所以 <code>literals</code> 的长度总是比 <code>substitutions</code> 的长度多 1</strong>。</p>
+<p>模板标签也能访问字符串的原始信息，主要指的是可以访问字符在转义之前的形式。获取原始字符串值的最简单方式是使用内置的 <code>String.raw()</code> 标签。不过我按照书中例子试验的时候，关于原始形式这里有些出入，详细的就不介绍了。</p>
+<h1 id="单体内置对象"><a href="#单体内置对象" class="headerlink" title="单体内置对象"></a>单体内置对象</h1><p>内置对象的定义是：“由ECMAScript实现提供的、不依赖于宿主环境的对象，这些对象在ECMAScript程序执行之前就已经存在了。”意思就是说，开发人员不必显示地实例化内置对象，因为它们已经实例化了。前面介绍的 <code>Object</code>、<code>Array</code>、<code>String</code> 等都是内置对象，除此之外还有两个单体内置对象：<code>Global</code> 和 <code>Math</code>。</p>
+<h2 id="Global对象"><a href="#Global对象" class="headerlink" title="Global对象"></a>Global对象</h2><p><code>Global</code> (全局)对象可以说是 ECMAScript 中最特别的一个对象了，因为不管你从什么角度上看，这个对象都是不存在的。ES中的<code>Global</code> 对象在某种意义上是作为一个终极的“兜底儿的对象”来定义的。换句话说，不属于任何其他对象的属性和方法，最终都是它的属性和方法。事实上，没有全局变量或全局函数。所有在全局作用域中定义的属性和函数，都是 <code>Global</code> 对象的属性。</p>
+<p>ES虽然没有指出如何直接访问 <code>Global</code> 对象,但 Web 浏览器都是将这个全局对象作为 <code>window</code> 对象的一部分加以实现的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 取得 Global 对象的方法</span></span><br><span class="line"><span class="keyword">var</span> global = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="URI编码方法"><a href="#URI编码方法" class="headerlink" title="URI编码方法"></a>URI编码方法</h3><p>Gloabl对象的 <code>encodeURI()</code> 和 <code>encodeURIComponent()</code> 方法可以对URI进行编码，以便发送给浏览器</p>
+<p>它们的主要区别在于，<code>encodeURI()</code> 不会对本身属于URI的特殊字符进行编码，例如冒号、正斜杠、问号和井字号。而 <code>encodeURIComponent()</code> 则会对它发现的任何非标准字符串进行编码</p>
+<p>与它们相对应的方法是 <code>decodeURI()</code> 和 <code>decodeURIComponent()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> uri = <span class="string">'http://www.wrox.com/illegal value.html#start'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// http://www.wrox.com/illegal%20value.html#start</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">encodeURI</span>(uri))</span><br><span class="line"></span><br><span class="line"><span class="comment">// http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.html%23start</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">encodeURIComponent</span>(uri))</span><br></pre></td></tr></table></figure>
+<h2 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a>Math对象</h2><h3 id="属性和方法"><a href="#属性和方法" class="headerlink" title="属性和方法"></a>属性和方法</h3><div class="note info">
+            <p>属性：</p><ul><li><code>Math.E</code>：自然对数的底数，即常量 e 的值。</li><li><code>Math.LN10</code>：10 的自然对数。</li><li><code>Math.LN2</code>：2 的自然对数。</li><li><code>Math.LOG2E</code>：以 2 为底 e 的对数。</li><li><code>Math.LOG10E</code>：以 10 为底 e 的对数。</li><li><code>Math.PI</code>：π 的值。</li><li><code>Math.SQRT1_2</code>：1/2 的平方根（即 2 的平方根的倒数）。</li><li><code>Math.SQRT2</code>：2 的平方根。</li></ul><hr><p>方法：</p><ul><li><code>Math.abs(x)</code>：返回<code>x</code>的绝对值。</li><li><code>Math.pow(x, y)</code>：返回 $x^y$。</li></ul>
+          </div>
+<h3 id="min-amp-amp-max"><a href="#min-amp-amp-max" class="headerlink" title="min &amp;&amp; max"></a>min &amp;&amp; max</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> max = <span class="built_in">Math</span>.max(<span class="number">3</span>, <span class="number">54</span>, <span class="number">32</span>, <span class="number">16</span>)</span><br><span class="line"><span class="keyword">var</span> min = <span class="built_in">Math</span>.min(<span class="number">3</span>, <span class="number">54</span>, <span class="number">32</span>, <span class="number">16</span>)</span><br><span class="line"><span class="built_in">console</span>.log(max, min)       <span class="comment">// 54 3 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> values = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>, values))   <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+<h3 id="舍入方法"><a href="#舍入方法" class="headerlink" title="舍入方法"></a>舍入方法</h3><div class="note info">
+            <ul><li><code>Math.ceil()</code>：执行向上（大）舍入，即它总是将数值向上舍入为最接近的整数。</li><li><code>Math.floor()</code>：执行向下（小）舍入，即它总是将数值向下舍入为最接近的整数。</li><li><code>Math.round()</code>：执行标准舍入，即它总是将数值四舍五入为最接近的整数。</li></ul><hr><p><code>Math.round()</code> 在数值是负数且小数部分恰好是 0.5 时会出现例外，如 <code>Math.round(-1.5)</code> 的值为 -1.</p>
+          </div>
+<h3 id="random"><a href="#random" class="headerlink" title="random"></a>random</h3><p><code>Math.random()</code> 方法返回介于 0 和 1 之间的一个随机数，包括 0，但不包括 1。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 得到一个随机数，包括 min，不包括 max</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandomArbitrary</span> (<span class="params">min, max</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.random() * (max - min) + min </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 得到一个随机整数，包括 min，不包括 max</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandomInt</span> (<span class="params">min, max</span>) </span>&#123;</span><br><span class="line">  min = <span class="built_in">Math</span>.ceil(min)</span><br><span class="line">  max = <span class="built_in">Math</span>.floor(max)</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (max - min)) + min</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 得到一个随机整数，包括 min 和 max</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandomIntInclusive</span> (<span class="params">min, max</span>) </span>&#123;</span><br><span class="line">  min = <span class="built_in">Math</span>.ceil(min)</span><br><span class="line">  max = <span class="built_in">Math</span>.floor(max)</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (max - min + <span class="number">1</span>)) + min</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div><br><br>感谢您的阅读，如果发现文章中有错误或漏洞，请批评指正。<br>邮箱：aadonkeyz@gmail.com<br><br></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById(&quot;QR&quot;); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="aadonkeyz 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="aadonkeyz 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <div>
+      
+      
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            aadonkeyz
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/posts/71de0ab2/" title="引用类型">https://aadonkeyz.com/posts/71de0ab2/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明：</strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/2c31c1a2/" rel="next" title="基本概念">
+                <i class="fa fa-chevron-left"></i> 基本概念
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/bb5d40f2/" rel="prev" title="对象&原型&继承">
+                对象&原型&继承 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">aadonkeyz</p>
+              <p class="site-description motion-element" itemprop="description">本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a rel="external nofollow" href="/archives/">
+                
+                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a rel="external nofollow" href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/aadonkeyz" title="GitHub &rarr; https://github.com/aadonkeyz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Object类型"><span class="nav-number">1.</span> <span class="nav-text">Object类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Array类型"><span class="nav-number">2.</span> <span class="nav-text">Array类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RegExp类型"><span class="nav-number">3.</span> <span class="nav-text">RegExp类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Function类型"><span class="nav-number">4.</span> <span class="nav-text">Function类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Date类型"><span class="nav-number">5.</span> <span class="nav-text">Date类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本包装类型"><span class="nav-number">6.</span> <span class="nav-text">基本包装类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Boolean类型"><span class="nav-number">6.1.</span> <span class="nav-text">Boolean类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Number类型"><span class="nav-number">6.2.</span> <span class="nav-text">Number类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String类型"><span class="nav-number">6.3.</span> <span class="nav-text">String类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符方法"><span class="nav-number">6.3.1.</span> <span class="nav-text">字符方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作方法"><span class="nav-number">6.3.2.</span> <span class="nav-text">操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提取子字符串方法"><span class="nav-number">6.3.2.1.</span> <span class="nav-text">提取子字符串方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concat"><span class="nav-number">6.3.2.2.</span> <span class="nav-text">concat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#trim"><span class="nav-number">6.3.2.3.</span> <span class="nav-text">trim</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#repeat"><span class="nav-number">6.3.2.4.</span> <span class="nav-text">repeat</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位置方法"><span class="nav-number">6.3.3.</span> <span class="nav-text">位置方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大小写转换方法"><span class="nav-number">6.3.4.</span> <span class="nav-text">大小写转换方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式匹配方法"><span class="nav-number">6.3.5.</span> <span class="nav-text">模式匹配方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#match"><span class="nav-number">6.3.5.1.</span> <span class="nav-text">match</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#search"><span class="nav-number">6.3.5.2.</span> <span class="nav-text">search</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#replace"><span class="nav-number">6.3.5.3.</span> <span class="nav-text">replace</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#split"><span class="nav-number">6.3.5.4.</span> <span class="nav-text">split</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#识别子字符串的方法"><span class="nav-number">6.3.5.5.</span> <span class="nav-text">识别子字符串的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#localeCompare"><span class="nav-number">6.3.6.</span> <span class="nav-text">localeCompare</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fromCharCode"><span class="nav-number">6.3.7.</span> <span class="nav-text">fromCharCode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板字面量"><span class="nav-number">6.3.8.</span> <span class="nav-text">模板字面量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本语法"><span class="nav-number">6.3.8.1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多行字符串"><span class="nav-number">6.3.8.2.</span> <span class="nav-text">多行字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#制造替换位"><span class="nav-number">6.3.8.3.</span> <span class="nav-text">制造替换位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标签化模板"><span class="nav-number">6.3.8.4.</span> <span class="nav-text">标签化模板</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单体内置对象"><span class="nav-number">7.</span> <span class="nav-text">单体内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Global对象"><span class="nav-number">7.1.</span> <span class="nav-text">Global对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#URI编码方法"><span class="nav-number">7.1.1.</span> <span class="nav-text">URI编码方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Math对象"><span class="nav-number">7.2.</span> <span class="nav-text">Math对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性和方法"><span class="nav-number">7.2.1.</span> <span class="nav-text">属性和方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min-amp-amp-max"><span class="nav-number">7.2.2.</span> <span class="nav-text">min &amp;&amp; max</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#舍入方法"><span class="nav-number">7.2.3.</span> <span class="nav-text">舍入方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#random"><span class="nav-number">7.2.4.</span> <span class="nav-text">random</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aadonkeyz</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'manual') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+          if (result) $(this).text('复制成功');
+          else $(this).text('复制失败');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+</body>
+</html>
