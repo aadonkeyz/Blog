@@ -6,7 +6,6 @@ abbrlink: 90beba90
 date: 2019-07-31 15:54:42
 ---
 
-
 {% note warning %}
 **本文实现的`MyPromise`在任务队列的优先级上，与ES6的`Promise`存在差异。**
 {% endnote %}
@@ -133,3 +132,5 @@ class MyPromise {
     }
 }
 ```
+
+<!-- aadonkeyz -->

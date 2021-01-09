@@ -31,3 +31,5 @@ CSRF是跨站请求伪造（Cross Site Request Forgery）的简写。
 - 使用HTTP请求的`Referer`首字段检查发送请求的来源地址。`Referer`首字段的另一个用途是“防止图片盗链”。
 - 使用token验证Cookie中不包含的信息。
 {% endnote %}
+
+<!-- aadonkeyz -->

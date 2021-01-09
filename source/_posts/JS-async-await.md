@@ -99,3 +99,5 @@ asyncInstance()
 - `await` 返回的可能是 `rejected`，所以最好把 `await` 命令放在 `try...catch` 代码块中。
 - 与 `yield` 一样，`await` 只能用在 async 函数内部，用于其他任意位置都是语法错误，即使在 async 函数内部的函数中也不行。
 {% endnote %}
+
+<!-- aadonkeyz, const a = await Promise...... -->
