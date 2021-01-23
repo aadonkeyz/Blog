@@ -308,7 +308,7 @@ volumes:
 
 ---
 遇到的坑：
-- **depends_on**：解决容器的依赖、启动先后问题，**但是不会等到所依赖的容器完全启动之后，再启动后续容器**。所以如果在`docker-compose up -d`后，发现`node-worker`部分没有正常工作的话，你在保证`rabbitmq`完全启动后，重启下`node-worker`就可以了。这里有其他的解决办法，比如利用`wait-for-it`脚本等，我简单的试了一下，有些小问题，为了项目进度，暂时搁置，[**相关资料戳这里**](https://docs.docker.com/compose/startup-order/)。
+- **depends_on**：解决容器的依赖、启动先后问题，**但是不会等到所依赖的容器完全启动之后，再启动后续容器**。所以如果在`docker-compose up -d`后，发现`node-worker`部分没有正常工作的话，你在保证`rabbitmq`完全启动后，重启下`node-worker`就可以了。这里有其他的解决办法，比如利用`wait-for-it`脚本等，我简单的试了一下，有些小问题，为了项目进度，暂时搁置，[相关资料戳这里](https://docs.docker.com/compose/startup-order/)。
 {% endnote %}
 
 # portainer

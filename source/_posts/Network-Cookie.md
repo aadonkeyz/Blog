@@ -53,14 +53,14 @@ cookie 的 `Value` 由 US-ASCII 字符组成，不允许包含：控制字符（
 因此，指定 `Domain` 比省略它的限制要少。通常当子域名需要共享有关用户信息时，会指定 `Domain` 属性。
 
 {% note warning %}
-[**stackoverflow: Share cookie between subdomain and domain**](https://stackoverflow.com/a/23086139)
+[stackoverflow: Share cookie between subdomain and domain](https://stackoverflow.com/a/23086139)
 In [RFC 2109](https://tools.ietf.org/html/rfc2109), a domain without a leading dot meant that it could not be used on subdomains, and only a leading dot (`.mydomain.com`) would allow it to be used across multiple subdomains.
 
 However, all modern browsers respect the newer specification [RFC 6265](https://tools.ietf.org/html/rfc6265), and will ignore any leading dot, meaning you can use the cookie on subdomains as well as the top-level domain.
 {% endnote %}
 
 {% note warning %}
-[**stackoverflow: Domain set cookie for subdomain**](https://stackoverflow.com/a/5258477)
+[stackoverflow: Domain set cookie for subdomain](https://stackoverflow.com/a/5258477)
 The user agent will accept a cookie with a Domain attribute of `example.com` or of `foo.example.com` from `foo.example.com`, but the user agent will not accept a cookie with a Domain attribute of `bar.example.com` or of `baz.foo.example.com` from `foo.example.com`.
 {% endnote %}
 

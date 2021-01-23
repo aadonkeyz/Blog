@@ -6,7 +6,7 @@ abbrlink: df94ca98
 date: 2019-07-22 14:13:38
 ---
 
-本文参考链接[**理解css中min-width和max-width，width与它们之间的区别联系**](http://www.fly63.com/article/detial/561)
+本文参考链接[理解css中min-width和max-width，width与它们之间的区别联系](http://www.fly63.com/article/detial/561)
 
 {% note warning %}
 `width`与`height`的情况是一致的，下面以`width`为例进行说明。

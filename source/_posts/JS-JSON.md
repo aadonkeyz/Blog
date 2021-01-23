@@ -63,7 +63,7 @@ JSON 的语法可以表示以下三种类型的值：
 有时候 `JSON.stringify()` 还是不能满足对某些对象进行自定义序列化的需求，这种情况下，就可以在对象中定义 `toJson()` 方法。**当 `JSON.stringify()` 接收的第一个参数包含 `toJson()` 方法时，会先调用其 `toJson()` 方法，然后再对该方法的返回值进行序列化，即实际上的操作是 `JSON.stringify(value.toJson())`。**。
 {% endnote %}
 
-下面的例子来自[**MDN**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+下面的例子来自[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
 
 ```js
 // '{}'
@@ -189,7 +189,7 @@ JSON.stringify([1,2,3], (key, value) => {
 - `receiver`（可选）：该参数是一个函数，这个函数也接受键值对，并且返回一个值。如果返回值是 `undefined`，则表示要从对象中删除相应的属性，或者在数组中将对应的项变成 `<empty>`。关于这个函数是怎么迭代的，请看下面的例子。
 {% endnote %}
 
-例子来自 [**MDN**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
+例子来自 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
 
 ```js
 // {}

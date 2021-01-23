@@ -243,7 +243,7 @@ DOM2 级事件定义了两个方法，`addEventListener()` 和 `removeEventListe
 
 无论注册事件处理程序时使用的是 DOM0 级还是 DOM2 级方法，兼容 DOM 的浏览器都会将一个 `event` 对象传入到事件处理程序中，这样就可以直接在函数内部访问到 `event` 对象了。
 
-`event` 对象包含与创建它的特定事件有关的属性和方法。触发的事件类型不一样，可用的属性和方法也不一样。下面简单的对事件对象的属性和方法进行了介绍，如果想查看详细信息，去移步 [**MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Event)。
+`event` 对象包含与创建它的特定事件有关的属性和方法。触发的事件类型不一样，可用的属性和方法也不一样。下面简单的对事件对象的属性和方法进行了介绍，如果想查看详细信息，去移步 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Event)。
 
 {% note info %}
 属性：
@@ -269,7 +269,7 @@ DOM2 级事件定义了两个方法，`addEventListener()` 和 `removeEventListe
 {% note info %}
 下面我只简单的介绍一下我认为比较常用的事件，如果你想比较全面的了解这里，点击下面的链接！
 
-[**MDN，只有你想不到，没有找不到**](https://developer.mozilla.org/en-US/docs/Web/Events)
+[MDN，只有你想不到，没有找不到](https://developer.mozilla.org/en-US/docs/Web/Events)
 {% endnote %}
 
 # 内存和性能

@@ -6,7 +6,7 @@ categories:
    - 待整理
 ---
 
-本文参考自[**探究 CSS 解析原理**](https://juejin.im/entry/5a123c55f265da432240cc90)
+本文参考自[探究 CSS 解析原理](https://juejin.im/entry/5a123c55f265da432240cc90)
 
 # CSS选择器的解析顺序
 

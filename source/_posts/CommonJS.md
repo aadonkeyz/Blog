@@ -176,7 +176,7 @@ moduleA.show()                  // count is: 1
                                 // obj.num is: 1
 ```
 
-通过`change()`函数同时改变了`count`和`obj.num`的值。在a.js文件中，`count`和`obj.num`的值均变为`1`，而在b.js文件中`moduleA.count`的值还是为0没有变化，`moduleA.obj.num`的值则变为`1`。如果你没看懂，你可能需要[**看这里**](https://aadonkeyz.com/posts/9b1cd8c7/#复制变量值)。
+通过`change()`函数同时改变了`count`和`obj.num`的值。在a.js文件中，`count`和`obj.num`的值均变为`1`，而在b.js文件中`moduleA.count`的值还是为0没有变化，`moduleA.obj.num`的值则变为`1`。如果你没看懂，你可能需要[看这里](https://aadonkeyz.com/posts/9b1cd8c7/#复制变量值)。
 
 # 模块循环require()
 

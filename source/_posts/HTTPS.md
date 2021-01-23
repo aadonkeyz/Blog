@@ -108,7 +108,7 @@ HTTPS就是在安全的传输层上发送的HTTP。HTTPS没有将未加密的HTT
 
 # SSL握手
 
-有关 SSL 握手的内容，参考自[**SSL/TLS 协议运行机制的概述**](http://ruanyifeng.com/blog/2014/02/ssl_tls.html)
+有关 SSL 握手的内容，参考自[SSL/TLS 协议运行机制的概述](http://ruanyifeng.com/blog/2014/02/ssl_tls.html)
 
 {% note info %}
 SSL 握手涉及四次通信，在每一次通信中需要传递的主要内容如下所示：

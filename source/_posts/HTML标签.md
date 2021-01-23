@@ -8,7 +8,7 @@ date: 2019-05-27 15:02:25
 
 # HTML标签大全
 
-太多了，整理一会之后果断放弃，[**MDN上的介绍**](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
+太多了，整理一会之后果断放弃，[MDN上的介绍](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 
 # HTML模板
 

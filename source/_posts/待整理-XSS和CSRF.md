@@ -14,7 +14,7 @@ XSS是跨站脚本攻击（Cross Site Script）的简写。之所以是 X 开头
 **之所以存在XSS攻击，是因为`<script>alert('XSS')</script>`可以内嵌到大部分HTML标签（`<script>`、`<style>`除外）内部，且正常工作（即可以弹出提示框）。**
 {% endnote %}
 
-具体的XSS攻击方式就不在这里展示了，不过[**这里挺详细的**](https://github.com/dwqs/blog/issues/68)
+具体的XSS攻击方式就不在这里展示了，不过[这里挺详细的](https://github.com/dwqs/blog/issues/68)
 
 至于防范XSS攻击的方式，主要为对`<`、`>`、`script`进行转义或过滤。
 

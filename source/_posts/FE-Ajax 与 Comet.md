@@ -119,7 +119,7 @@ Access-Control-Allow-Origin: http://www.nczonline.net
 
 ## Preflight request
 
-参考资料：[**前端 | 浅谈preflight request**](https://www.jianshu.com/p/b55086cbd9af)
+参考资料：[前端 | 浅谈preflight request](https://www.jianshu.com/p/b55086cbd9af)
 
 想象一个场景，我们发送一个 POST 跨域请求，服务器收到请求后对数据库进行了相应的操作并返回响应，但是由于浏览器的跨域限制，导致我们收到的是请求失败的结果。这种情况就是明明用户请求的操作成功了，但是用户不知道他成功了。
 

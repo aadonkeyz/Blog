@@ -260,7 +260,7 @@ console.log(p2.exec(str))
 
 ## 贪婪/非贪婪匹配
 
-参考自[**【正则表达式系列】贪婪与非贪婪模式**](https://dailc.github.io/2017/07/06/regularExpressionGreedyAndLazy.html)
+参考自[【正则表达式系列】贪婪与非贪婪模式](https://dailc.github.io/2017/07/06/regularExpressionGreedyAndLazy.html)
 
 {% note info %}
 - **贪婪匹配**

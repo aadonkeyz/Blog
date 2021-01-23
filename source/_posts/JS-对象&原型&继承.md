@@ -299,7 +299,7 @@ console.log(person2 instanceof Person)
 {% endnote %}
 
 {% note warning %}
-使用 `new` 创建新对象的时候，如果存在类的继承，那么在 ES5 和 ES6 中这个过程是有差别的。[**查看详情**](https://aadonkeyz.com/posts/e1a12c4d/#继承内置对象)
+使用 `new` 创建新对象的时候，如果存在类的继承，那么在 ES5 和 ES6 中这个过程是有差别的。[查看详情](https://aadonkeyz.com/posts/e1a12c4d/#继承内置对象)
 {% endnote %}
 
 构造函数与其他函数的唯一区别，就在于调用它们的方式不同。不过，构造函数毕竟也是函数，不存在定义构造函数的特殊语法。任何函数，只要通过 `new` 操作符来调用，那么它就可以作为构造函数。

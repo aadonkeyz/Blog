@@ -395,7 +395,7 @@ var PageHandler = {
 ```
 
 {% note warning %}
-因为箭头函数没有 `this` 绑定，意味着在箭头函数内部使用 `this` 值时，引擎是通过作用域链来确定的，而 JavaScript 中的作用域机制是[**词法作用域**](https://aadonkeyz.com/posts/f1587c53/#词法作用域)，所以这个箭头函数内部使用的 `this` 是 `init()` 方法的 `this`。
+因为箭头函数没有 `this` 绑定，意味着在箭头函数内部使用 `this` 值时，引擎是通过作用域链来确定的，而 JavaScript 中的作用域机制是[词法作用域](https://aadonkeyz.com/posts/f1587c53/#词法作用域)，所以这个箭头函数内部使用的 `this` 是 `init()` 方法的 `this`。
 
 因为箭头函数没有 `this` 绑定，所以对箭头函数使用 `call()`、`apply()` 或 `bind()` 方法时，函数内的 `this` 并不会受影响。
 

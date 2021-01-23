@@ -18,7 +18,7 @@ date: 2019-07-20 20:22:06
 - Nginx反向代理、Nodejs中间件
 - SSE、Web Socket（它们是服务器推送技术，无跨域问题）
 
-[**详细信息在这里**](https://aadonkeyz.com/posts/5ffed448/)
+[详细信息在这里](https://aadonkeyz.com/posts/5ffed448/)
 {% endnote %}
 
 # 非网络请求跨域
@@ -68,4 +68,4 @@ date: 2019-07-20 20:22:06
 
 # 参考
 
-- [**前端常见跨域解决方案（全）**](https://segmentfault.com/a/1190000011145364)
+- [前端常见跨域解决方案（全）](https://segmentfault.com/a/1190000011145364)

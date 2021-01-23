@@ -80,7 +80,7 @@ droptarget.ondragover = function () {
 
 # demo
 
-这里偷个懒，不自己想例子了。引用 [**https://segmentfault.com/a/1190000012427787**](https://segmentfault.com/a/1190000012427787) 中的例子。
+这里偷个懒，不自己想例子了。引用 [https://segmentfault.com/a/1190000012427787](https://segmentfault.com/a/1190000012427787) 中的例子。
 
 说句题外话，这段代码里还涉及了事件流的相关知识点，如果感兴趣可以将 `ev.target.classList.add('over')` 中的 `ev.target` 换为 `this`，然后观察一下效果。
 

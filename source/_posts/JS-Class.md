@@ -371,7 +371,7 @@ class Square extends Rectangle {
 {% note info %}
 使用 `super()` 时需要牢记以下几点：
 - 你只能在派生类中使用 `super()`。若尝试在非派生的类或函数中使用它，就会抛出错误。
-- 在构造器中，你必须在访问 `this` 之前调用 `super()`。由于 `super()` 负责初始化 `this`，因此试图先访问 `this` 自然就会造成错误（具体原因看本文的[**继承内置对象**](https://aadonkeyz.com/posts/e1a12c4d/#继承内置对象)部分）。
+- 在构造器中，你必须在访问 `this` 之前调用 `super()`。由于 `super()` 负责初始化 `this`，因此试图先访问 `this` 自然就会造成错误（具体原因看本文的[继承内置对象](https://aadonkeyz.com/posts/e1a12c4d/#继承内置对象)部分）。
 - 唯一能避免调用 `super()` 的办法，是从派生类的构造器中返回一个对象。
 {% endnote %}
 

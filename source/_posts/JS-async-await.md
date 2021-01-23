@@ -8,9 +8,9 @@ date: 2019-07-08 09:06:55
 
 # 基础概念
 
-JavaScript 是单线程的，为了处理异步操作，先是使用**回调函数**，接着使用 [**Promise**](https://aadonkeyz.com/posts/9a3eeeca/)，然后又使用 [**generator/yield**](https://aadonkeyz.com/posts/9a3eeeca/#异步任务运行)，最后到本文要介绍的 **async/await**。
+JavaScript 是单线程的，为了处理异步操作，先是使用**回调函数**，接着使用 [Promise](https://aadonkeyz.com/posts/9a3eeeca/)，然后又使用 [generator/yield](https://aadonkeyz.com/posts/9a3eeeca/#异步任务运行)，最后到本文要介绍的 **async/await**。
 
-引用阮一峰大大的一句话 [**async 函数就是 generator 函数的语法糖。**](http://www.ruanyifeng.com/blog/2015/05/async.html)
+引用阮一峰大大的一句话 [async 函数就是 generator 函数的语法糖。](http://www.ruanyifeng.com/blog/2015/05/async.html)
 
 首先看用 generator 函数处理异步的一个例子：
 

@@ -39,7 +39,7 @@ fs.readFile(__filename, () => {
 {% note info %}
 不是我懒惰，是我怕翻译错
 so
-[**Node 官方解读在这里**](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
+[Node 官方解读在这里](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
 {% endnote %}
 
 下面是写的比较好的博客，它们是一个系列哦：

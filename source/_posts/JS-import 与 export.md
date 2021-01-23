@@ -18,7 +18,7 @@ date: 2019-04-17 16:05:23
 - 允许模块从其他模块导入绑定。
 {% endnote %}
 
-CommonJS 是在 ES6 之前的模块规范，至今仍然被广泛使用。[**点击这里了解 CommonJS**](https://aadonkeyz.com/posts/b3fe2fad/)！
+CommonJS 是在 ES6 之前的模块规范，至今仍然被广泛使用。[点击这里了解 CommonJS](https://aadonkeyz.com/posts/b3fe2fad/)！
 
 # 导出
 
