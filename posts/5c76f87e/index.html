@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="aadonkeyz的博客">
 <meta property="og:description" content="XSSXSS是跨站脚本攻击（Cross Site Script）的简写。之所以是 X 开头而不是 C 是为了与CSS进行区分。              之所以存在XSS攻击，是因为&amp;lt;script&amp;gt;alert(&amp;#39;XSS&amp;#39;)&amp;lt;/script&amp;gt;可以内嵌到大部分HTML标签（&amp;lt;script&amp;gt;、&amp;lt;style&amp;gt;除外）内部，且正常工作（即可以弹出">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-12T23:39:43.993Z">
+<meta property="og:updated_time" content="2021-01-09T12:14:25.559Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XSS和CSRF">
 <meta name="twitter:description" content="XSSXSS是跨站脚本攻击（Cross Site Script）的简写。之所以是 X 开头而不是 C 是为了与CSS进行区分。              之所以存在XSS攻击，是因为&amp;lt;script&amp;gt;alert(&amp;#39;XSS&amp;#39;)&amp;lt;/script&amp;gt;可以内嵌到大部分HTML标签（&amp;lt;script&amp;gt;、&amp;lt;style&amp;gt;除外）内部，且正常工作（即可以弹出">
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+                <time title="修改时间：2021-01-09 20:14:25" itemprop="dateModified" datetime="2021-01-09T20:14:25+08:00">2021-01-09</time>
               
             
           </span>
@@ -469,6 +469,7 @@
 <div class="note info">
             <p><strong>之所以存在CSRF攻击，是因为如果浏览器中保存有某一个域名下的Cookie的话，那么每次向该域名下的服务器发送请求都会自动携带上对应的Cookie。而Cookie中通常包含用户的认证信息，所以攻击者可以假冒它是用户来向服务器发起CSRF攻击。</strong></p><hr><p>防范CSRF攻击的方式有：</p><ul><li>使用验证码验证身份。</li><li>使用HTTP请求的<code>Referer</code>首字段检查发送请求的来源地址。<code>Referer</code>首字段的另一个用途是“防止图片盗链”。</li><li>使用token验证Cookie中不包含的信息。</li></ul>
           </div>
+<!-- aadonkeyz -->
 
       
     </div>
