@@ -1998,7 +1998,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #6fab67;
+  background: #ffff3d;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2976,4 +2976,7 @@ hr {
 }
 .links-of-author-item {
   text-align: center;
+}
+a {
+  color: #0064bd;
 }

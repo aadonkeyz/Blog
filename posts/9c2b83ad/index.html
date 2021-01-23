@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E4%BA%8B%E4%BB%B6%E6%B5%81.png">
-<meta property="og:updated_time" content="2020-12-12T23:39:43.979Z">
+<meta property="og:updated_time" content="2021-01-23T15:29:57.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事件">
 <meta name="twitter:description" content="JavaScript 与 HTML 之间的交互是通过事件实现的。事件，就是文档或浏览器窗口中发生的一些特定的交互瞬间，比如：点击按钮、拖动鼠标等。 事件流事件冒泡事件冒泡是指事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）。以下面的 HTML 页面为例： 123456789&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;">
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
               
             
           </span>
@@ -502,12 +502,12 @@
 <p>上例中 <code>captureListener1</code> 和 <code>captureListener2</code> 都是注册在 <code>outer</code> 的捕获阶段，而 <code>noneCaptureListener</code> 和 <code>innerListener</code> 分别注册在 <code>outer</code> 和 <code>inner</code> 的冒泡阶段。并且 <code>captureListener1</code> 会在第一次调用后被移除。请多点击几次 inner 框，查看打印的结果。</p>
 <h1 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h1><p>在触发 DOM 上的某个事件时，会产生一个事件对象 <code>event</code>，这个对象中包含着所有与事件有关的信息。包括导致事件的元素、事件的类型以及其他与特定事件相关的信息。例如，鼠标操作导致的事件对象中，会包含鼠标位置信息，而键盘操作导致的事件对象中，会包含与按下的键有关的信息。这里只介绍 DOM 中的事件对象，忽略 IE 的。</p>
 <p>无论注册事件处理程序时使用的是 DOM0 级还是 DOM2 级方法，兼容 DOM 的浏览器都会将一个 <code>event</code> 对象传入到事件处理程序中，这样就可以直接在函数内部访问到 <code>event</code> 对象了。</p>
-<p><code>event</code> 对象包含与创建它的特定事件有关的属性和方法。触发的事件类型不一样，可用的属性和方法也不一样。下面简单的对事件对象的属性和方法进行了介绍，如果想查看详细信息，去移步 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event" target="_blank" rel="noopener"><strong>MDN</strong></a>。</p>
+<p><code>event</code> 对象包含与创建它的特定事件有关的属性和方法。触发的事件类型不一样，可用的属性和方法也不一样。下面简单的对事件对象的属性和方法进行了介绍，如果想查看详细信息，去移步 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event" target="_blank" rel="noopener">MDN</a>。</p>
 <div class="note info">
             <p>属性：</p><ul><li><code>bubbles</code>（只读）：表明事件是否会冒泡。</li><li><code>cancelBubble</code>：通过将该属性设置为 <code>true</code> 可阻止事件继续冒泡。</li><li><code>cancelable</code>（只读）：表明是否可以取消事件的默认行为。</li><li><code>currentTarget</code>（只读）：事件处理程序注册在哪个元素上，<code>currentTarget</code> 就指向哪个元素。</li><li><code>defaultPrevented</code>（只读）：表明是否已经调用了 <code>preventDefault()</code> 方法。</li><li><code>eventPhase</code>（只读）：表明处于事件流的哪个阶段。<code>1</code> 表示捕获阶段，<code>2</code> 表示处于目标，<code>3</code> 表示冒泡阶段。</li><li><code>target</code>（只读）：触发事件的那个元素，也就是事件流在“处于目标”阶段时的那个目标元素。</li><li><code>timeStamp</code>（只读）：表明事件对象的创建时间。</li><li><code>type</code>（只读）：表明事件对象的类型。</li><li><code>isTrusted</code>（只读）：当事件是由用户触发的时（比如点击鼠标），该属性值为 <code>true</code>。当事件是由脚本触发时，该属性值为 <code>false</code>。</li></ul><hr><p>方法：</p><ul><li><code>preventDefault()</code>：取消事件的默认行为。该方法只有在 <code>cancelable</code> 属性为 <code>true</code> 时才会起作用。</li><li><code>stopImmediatePropagation()</code>：取消事件的进一步捕获或冒泡，同时阻止其后的所有事件处理程序被调用。</li><li><code>stopPropagation()</code>：取消事件的进一步捕获或冒泡，但是不会阻止注册在当前 <code>currentTarget</code> 上的事件处理程序被调用。</li></ul>
           </div>
 <h1 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h1><div class="note info">
-            <p>下面我只简单的介绍一下我认为比较常用的事件，如果你想比较全面的了解这里，点击下面的链接！</p><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank" rel="noopener"><strong>MDN，只有你想不到，没有找不到</strong></a></p>
+            <p>下面我只简单的介绍一下我认为比较常用的事件，如果你想比较全面的了解这里，点击下面的链接！</p><p><a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank" rel="noopener">MDN，只有你想不到，没有找不到</a></p>
           </div>
 <h1 id="内存和性能"><a href="#内存和性能" class="headerlink" title="内存和性能"></a>内存和性能</h1><p>在 JavaScript 中，添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能。导致这一问题的原因是多方面的。首先，每个函数都是对象，都会占用内存。内存中的对象越多，性能就越差。其次，必须事先指定所有事件处理程序而导致的 DOM 访问次数，会延迟整个页面的交互就绪时间。</p>
 <h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><p>对“事件处理程序过多”问题的解决方案就是<strong>事件委托</strong>。事件委托利用了事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。例如，click 事件会一直冒泡到 <code>document</code> 。也就是说，我们可以为整个页面指定一个 <code>onclick</code> 事件处理程序，而不必给每个可单击的元素分别添加事件处理程序。</p>

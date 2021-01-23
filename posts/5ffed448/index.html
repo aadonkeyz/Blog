@@ -107,7 +107,7 @@
 <meta property="og:description" content="Ajax 是 Asynchronous JavaScript + XML 的简写，这一技术能够向服务器请求额外的数据而无须卸载页面，会带来更好的用户体验。 Ajax 技术的核心是 XMLHttpRequest 对象（简称 XHR），XHR 为向服务器发送请求和解析服务器响应提供了流畅的接口。 XHR 对象XHR 属性             readyState（只读）：代表XHR对象的当前状态。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E9%95%BF%E7%9F%AD%E8%BD%AE%E8%AF%A2%E6%97%B6%E9%97%B4%E7%BA%BF.png">
-<meta property="og:updated_time" content="2020-12-12T23:39:43.978Z">
+<meta property="og:updated_time" content="2021-01-23T15:29:57.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ajax 与 Comet">
 <meta name="twitter:description" content="Ajax 是 Asynchronous JavaScript + XML 的简写，这一技术能够向服务器请求额外的数据而无须卸载页面，会带来更好的用户体验。 Ajax 技术的核心是 XMLHttpRequest 对象（简称 XHR），XHR 为向服务器发送请求和解析服务器响应提供了流畅的接口。 XHR 对象XHR 属性             readyState（只读）：代表XHR对象的当前状态。">
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
               
             
           </span>
@@ -488,7 +488,7 @@
 <div class="note warning">
             <p>跨域 XHR 对象也有一些限制，但为了安全这些限制是必需的。以下就是这些限制：</p><ul><li>不能使用 <code>setRequestHeader()</code> 设置自定义头部。</li><li>默认不能发送和接收 <code>cookie</code>，但是可以通过 XHR 对象的 <code>withCredentials</code> 来发送带凭据的跨域请求。</li><li>调用 <code>getAllResponseHeaders()</code> 方法总会返回空字符串。</li></ul><p>由于无论同源请求还是跨源请求都使用相同的接口，因此对于本地资源，最好使用相对 URL，在访问远程资源时再使用绝对 URL。这样做能消除歧义，避免出现限制访问头部或本地 <code>cookie</code> 信息等问题。</p>
           </div>
-<h2 id="Preflight-request"><a href="#Preflight-request" class="headerlink" title="Preflight request"></a>Preflight request</h2><p>参考资料：<a href="https://www.jianshu.com/p/b55086cbd9af" target="_blank" rel="noopener"><strong>前端 | 浅谈preflight request</strong></a></p>
+<h2 id="Preflight-request"><a href="#Preflight-request" class="headerlink" title="Preflight request"></a>Preflight request</h2><p>参考资料：<a href="https://www.jianshu.com/p/b55086cbd9af" target="_blank" rel="noopener">前端 | 浅谈preflight request</a></p>
 <p>想象一个场景，我们发送一个 POST 跨域请求，服务器收到请求后对数据库进行了相应的操作并返回响应，但是由于浏览器的跨域限制，导致我们收到的是请求失败的结果。这种情况就是明明用户请求的操作成功了，但是用户不知道他成功了。</p>
 <p>预检请求（Preflight request）就是为了解决上述问题的。某些情况下浏览器在发送跨域请求之前会先发送一个相应的预检请求，从而获知服务器是否允许该跨域请求。如果允许，就发送跨域请求。如果不允许，则阻止发送跨域请求。</p>
 <div class="note info">

@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="aadonkeyz的博客">
 <meta property="og:description" content="何为模块？             模块是使用不同方式加载的 JS 文件（与 JS 原先的脚本加载方式相对）。这种不同模式很有必要，因为它与脚本（script）有大大不同的语义：模块代码自动运行在严格模式下，并且没有任何办法跳出严格模式。在模块的顶级作用域创建的变量，不会被自动添加到共享的全局作用域，它们只会在模块顶级作用域内部存在。模块顶级作用域的 this 值为 undefined。模块不允许">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-12T23:39:43.983Z">
+<meta property="og:updated_time" content="2021-01-23T15:29:57.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="import 与 export">
 <meta name="twitter:description" content="何为模块？             模块是使用不同方式加载的 JS 文件（与 JS 原先的脚本加载方式相对）。这种不同模式很有必要，因为它与脚本（script）有大大不同的语义：模块代码自动运行在严格模式下，并且没有任何办法跳出严格模式。在模块的顶级作用域创建的变量，不会被自动添加到共享的全局作用域，它们只会在模块顶级作用域内部存在。模块顶级作用域的 this 值为 undefined。模块不允许">
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
               
             
           </span>
@@ -462,7 +462,7 @@
         <h1 id="何为模块？"><a href="#何为模块？" class="headerlink" title="何为模块？"></a>何为模块？</h1><div class="note info">
             <p>模块是使用不同方式加载的 JS 文件（与 JS 原先的脚本加载方式相对）。这种不同模式很有必要，因为它与脚本（script）有大大不同的语义：</p><ul><li>模块代码自动运行在严格模式下，并且没有任何办法跳出严格模式。</li><li>在模块的顶级作用域创建的变量，不会被自动添加到共享的全局作用域，它们只会在模块顶级作用域内部存在。</li><li>模块顶级作用域的 <code>this</code> 值为 <code>undefined</code>。</li><li>模块不允许在代码中使用HTML风格的注释。</li><li>对于需要让模块外部代码访问的内容，模块必须导出它们。</li><li>允许模块从其他模块导入绑定。</li></ul>
           </div>
-<p>CommonJS 是在 ES6 之前的模块规范，至今仍然被广泛使用。<a href="https://aadonkeyz.com/posts/b3fe2fad/"><strong>点击这里了解 CommonJS</strong></a>！</p>
+<p>CommonJS 是在 ES6 之前的模块规范，至今仍然被广泛使用。<a href="https://aadonkeyz.com/posts/b3fe2fad/">点击这里了解 CommonJS</a>！</p>
 <h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><p>ES6 的导出有两种形式：命名导出和默认导出。</p>
 <h2 id="命名导出"><a href="#命名导出" class="headerlink" title="命名导出"></a>命名导出</h2><p>命名导出要求导出的内容必须有自己的标识符，这就意味着不能使用这种方式来导出匿名函数或匿名类。</p>
 <p>你可以将 <code>export</code> 放置在任意变量、函数或类声明之前，从模块中将它们公开出去，就像这样：</p>

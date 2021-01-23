@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="aadonkeyz的博客">
 <meta property="og:description" content="什么是 Cookie对于一个网站来说，如果想要做到仅允许特定用户进行访问，或者为不同用户提供不同的内容，前提条件都是它能够识别当前用户。但由于 HTTP 是无状态协议，所以需要额外使用 Cookie 来辅助完成用户的识别。              Cookie 技术有四个组成部分：HTTP 响应头中的一行 cookie 信息HTTP 请求头中的一行 cookie 信息保存在用户终端的 cooki">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-23T15:20:43.578Z">
+<meta property="og:updated_time" content="2021-01-23T15:29:57.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cookie">
 <meta name="twitter:description" content="什么是 Cookie对于一个网站来说，如果想要做到仅允许特定用户进行访问，或者为不同用户提供不同的内容，前提条件都是它能够识别当前用户。但由于 HTTP 是无状态协议，所以需要额外使用 Cookie 来辅助完成用户的识别。              Cookie 技术有四个组成部分：HTTP 响应头中的一行 cookie 信息HTTP 请求头中的一行 cookie 信息保存在用户终端的 cooki">
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-01-23 23:20:43" itemprop="dateModified" datetime="2021-01-23T23:20:43+08:00">2021-01-23</time>
+                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
               
             
           </span>
@@ -474,10 +474,10 @@
 <p>如果指定了 <code>Domain</code>，则子域名也会包含在内。</p>
 <p>因此，指定 <code>Domain</code> 比省略它的限制要少。通常当子域名需要共享有关用户信息时，会指定 <code>Domain</code> 属性。</p>
 <div class="note warning">
-            <p><a href="https://stackoverflow.com/a/23086139" target="_blank" rel="noopener"><strong>stackoverflow: Share cookie between subdomain and domain</strong></a><br>In <a href="https://tools.ietf.org/html/rfc2109" target="_blank" rel="noopener">RFC 2109</a>, a domain without a leading dot meant that it could not be used on subdomains, and only a leading dot (<code>.mydomain.com</code>) would allow it to be used across multiple subdomains.</p><p>However, all modern browsers respect the newer specification <a href="https://tools.ietf.org/html/rfc6265" target="_blank" rel="noopener">RFC 6265</a>, and will ignore any leading dot, meaning you can use the cookie on subdomains as well as the top-level domain.</p>
+            <p><a href="https://stackoverflow.com/a/23086139" target="_blank" rel="noopener">stackoverflow: Share cookie between subdomain and domain</a><br>In <a href="https://tools.ietf.org/html/rfc2109" target="_blank" rel="noopener">RFC 2109</a>, a domain without a leading dot meant that it could not be used on subdomains, and only a leading dot (<code>.mydomain.com</code>) would allow it to be used across multiple subdomains.</p><p>However, all modern browsers respect the newer specification <a href="https://tools.ietf.org/html/rfc6265" target="_blank" rel="noopener">RFC 6265</a>, and will ignore any leading dot, meaning you can use the cookie on subdomains as well as the top-level domain.</p>
           </div>
 <div class="note warning">
-            <p><a href="https://stackoverflow.com/a/5258477" target="_blank" rel="noopener"><strong>stackoverflow: Domain set cookie for subdomain</strong></a><br>The user agent will accept a cookie with a Domain attribute of <code>example.com</code> or of <code>foo.example.com</code> from <code>foo.example.com</code>, but the user agent will not accept a cookie with a Domain attribute of <code>bar.example.com</code> or of <code>baz.foo.example.com</code> from <code>foo.example.com</code>.</p>
+            <p><a href="https://stackoverflow.com/a/5258477" target="_blank" rel="noopener">stackoverflow: Domain set cookie for subdomain</a><br>The user agent will accept a cookie with a Domain attribute of <code>example.com</code> or of <code>foo.example.com</code> from <code>foo.example.com</code>, but the user agent will not accept a cookie with a Domain attribute of <code>bar.example.com</code> or of <code>baz.foo.example.com</code> from <code>foo.example.com</code>.</p>
           </div>
 <h2 id="Path"><a href="#Path" class="headerlink" title="Path"></a>Path</h2><p><code>Path</code> 属性制定了一个 URL 路径片段，该路径片段必须出现在要请求的资源路径中才可以携带这条 cookie。假设 <code>Path=/docs</code>，那么 <code>/docs/Web</code> 会携带 cookie，<code>/test</code> 则不会携带 cookie。</p>
 <h2 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h2><p>cookie 的最长有效时间，形式为符合 HTTP-date 规范的时间戳。</p>

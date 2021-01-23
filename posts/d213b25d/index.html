@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="aadonkeyz的博客">
 <meta property="og:description" content="关于 this当一个函数被调用时，会创建一个活动记录（执行上下文、执行环境、context）。这个活动记录会包含函数在哪里被调用、函数的调用方法、传入的参数等信息。this 就是活动记录中的一个属性，会在函数执行的过程中用到。 this 是在运行时绑定的，它的绑定取决于函数调用时的各种方式。this 的绑定和函数的声明位置、函数的调用位置没有任何关系，只取决于函数的调用方式。 关于 this 是什">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-12T23:39:43.983Z">
+<meta property="og:updated_time" content="2021-01-23T15:29:57.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="this">
 <meta name="twitter:description" content="关于 this当一个函数被调用时，会创建一个活动记录（执行上下文、执行环境、context）。这个活动记录会包含函数在哪里被调用、函数的调用方法、传入的参数等信息。this 就是活动记录中的一个属性，会在函数执行的过程中用到。 this 是在运行时绑定的，它的绑定取决于函数调用时的各种方式。this 的绑定和函数的声明位置、函数的调用位置没有任何关系，只取决于函数的调用方式。 关于 this 是什">
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
               
             
           </span>
@@ -501,7 +501,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 返回一个箭头函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">a</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// this继承自foo()</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123; <span class="attr">a</span>: <span class="number">2</span> &#125;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123; <span class="attr">a</span>: <span class="number">3</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bar = foo.call(obj1)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line">bar.call(obj2)</span><br></pre></td></tr></table></figure>
 <p><code>foo()</code> 内部创建的箭头函数会捕获调用时 <code>foo()</code> 的 <code>this</code>。由于 <code>foo()</code> 的 <code>this</code> 绑定到 <code>obj1</code>，<code>bar</code>（引用箭头函数）的 <code>this</code> 也会绑定到 <code>obj1</code>，<strong>箭头函数的绑定无法被修改</strong></p>
 <p><strong>箭头函数可以像 <code>bind()</code> 一样确保函数的 <code>this</code> 被绑定到指定对象，此外，其重要性还体现在它用更常见的词法作用域取代了传统的this机制</strong>。</p>
-<p><a href="https://aadonkeyz.com/posts/9595c646/#箭头函数"><strong>有关箭头函数的详细介绍点这里</strong></a></p>
+<p><a href="https://aadonkeyz.com/posts/9595c646/#箭头函数">有关箭头函数的详细介绍点这里</a></p>
 
       
     </div>

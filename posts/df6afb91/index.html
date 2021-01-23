@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="aadonkeyz的博客">
 <meta property="og:description" content="本文参考自探究 CSS 解析原理 CSS选择器的解析顺序在利用 DOM 和 CSSOM 合成 render tree的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。 以下面的例子讲解CSS 选择器的解析规则">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-09T12:14:25.557Z">
+<meta property="og:updated_time" content="2021-01-23T15:29:57.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS解析原理">
 <meta name="twitter:description" content="本文参考自探究 CSS 解析原理 CSS选择器的解析顺序在利用 DOM 和 CSSOM 合成 render tree的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。 以下面的例子讲解CSS 选择器的解析规则">
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-01-09 20:14:25" itemprop="dateModified" datetime="2021-01-09T20:14:25+08:00">2021-01-09</time>
+                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
               
             
           </span>
@@ -459,7 +459,7 @@
       
 
       
-        <p>本文参考自<a href="https://juejin.im/entry/5a123c55f265da432240cc90" target="_blank" rel="noopener"><strong>探究 CSS 解析原理</strong></a></p>
+        <p>本文参考自<a href="https://juejin.im/entry/5a123c55f265da432240cc90" target="_blank" rel="noopener">探究 CSS 解析原理</a></p>
 <h1 id="CSS选择器的解析顺序"><a href="#CSS选择器的解析顺序" class="headerlink" title="CSS选择器的解析顺序"></a>CSS选择器的解析顺序</h1><p>在利用 DOM 和 CSSOM 合成 render tree的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。</p>
 <p>以下面的例子讲解CSS 选择器的解析规则：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"jartto"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span> 111 <span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span> 222 <span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span> 333 <span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">'yellow'</span>&gt;</span> 444 <span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">div &gt; div.jartto p span.yellow&#123;</span><br><span class="line">   color: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>

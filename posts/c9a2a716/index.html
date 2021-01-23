@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/HTTPS%E5%8D%8F%E8%AE%AE%E6%A0%88.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/HTTP%E5%92%8CHTTPS%E4%BA%8B%E5%8A%A1.png">
-<meta property="og:updated_time" content="2020-12-12T23:39:43.981Z">
+<meta property="og:updated_time" content="2021-01-23T15:29:57.119Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTPS">
 <meta name="twitter:description" content="数字加密             密码：对文本进行编码，使偷窥者无法识别的算法。密钥：改变密码行为的数字化参数。对称密钥加密系统：编/解码使用相同的密钥。非对称密钥加密系统：编/解码使用不同的密钥。数字签名：用来验证报文未被伪造或篡改的校验和。数字证书：由一个可信的组织验证和签发的识别信息。            对称密钥加密很多数字加密算法都被称为对称密钥加密技术，这是因为它们在编码时使用的密钥">
@@ -413,7 +413,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
               
             
           </span>
@@ -510,7 +510,7 @@
           </div>
 <h1 id="建立安全传输"><a href="#建立安全传输" class="headerlink" title="建立安全传输"></a>建立安全传输</h1><p>由于SSL安全层的存在，在HTTPS中，客户端首先打开一条到Web服务器端口443（安全HTTP的默认端口）的连接。一旦建立了TCP连接，客户端和服务器就会初始化SSL层，对加密参数进行沟通，并交换密钥。握手完成之后，SSL初始化就完成了，客户端就可以将请求报文发送给安全层了。在将这些报文发送给TCP之前，要先对其进行加密。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/HTTP%E5%92%8CHTTPS%E4%BA%8B%E5%8A%A1.png" alt="HTTP和HTTPS事务"></p>
-<h1 id="SSL握手"><a href="#SSL握手" class="headerlink" title="SSL握手"></a>SSL握手</h1><p>有关 SSL 握手的内容，参考自<a href="http://ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener"><strong>SSL/TLS 协议运行机制的概述</strong></a></p>
+<h1 id="SSL握手"><a href="#SSL握手" class="headerlink" title="SSL握手"></a>SSL握手</h1><p>有关 SSL 握手的内容，参考自<a href="http://ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS 协议运行机制的概述</a></p>
 <div class="note info">
             <p>SSL 握手涉及四次通信，在每一次通信中需要传递的主要内容如下所示：</p><ol><li>客户端发出请求<ul><li>支持的协议版本，比如 TLS 1.0 版</li><li>一个客户端生成的随机数，稍后用于生成“对话密钥”</li><li>支持的加密算法</li><li>支持的压缩方法</li><li>想要请求的服务器域名（与虚拟主机有关）</li></ul></li><li>服务器回应<ul><li>确认使用的加密通信协议版本，比如 TLS 1.0 版。如果浏览器与服务器支持的版本不一致，服务器关闭加密通信</li><li>一个服务器生成的随机数，稍后用于生成“对话密钥”</li><li>确认使用的加密算法</li><li>服务器证书</li></ul></li><li>客户端回应<ul><li>一个客户端生成的随机数，用于生成“对话密钥”。该随机数用服务器公钥加密，防止被窃听</li><li>编码改变通知，表示随后的信息都将用双方商定的加密算法和密钥发送</li><li>客户端握手结束通知，表示客户端的握手阶段已经结束。这一项同时也是前面发送的所有内容的 hash 值，用来供服务器校验</li></ul></li><li>服务器的最后回应<ul><li>编码改变通知，表示随后的信息都将用双方商定的加密算法和密钥发送</li><li>服务器握手结束通知，表示服务器的握手阶段已经结束。这一项同时也是前面发送的所有内容的 hash 值，用来供客户端校验</li></ul></li></ol>
           </div>
