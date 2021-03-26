@@ -15,7 +15,7 @@ date: 2019-04-12 10:26:31
 {% note warning %}
 - 规范中提到“then may be called multiple times on the same promise”，它的意思是同一个 `Promise` 实例上可以挂载多个 `then`，而不是同一个 `then` 被调用多次。
 - 规范中说的 object 是指 `Object.prototype.toString.call(value)` 返回值为 `"[object Object]"` 的数据，而不是广义上的 Object 的实例。
-- 与 `resolve()` 的复杂规则不同。调用 `reject(value)` 时，不论传给它的值是什么，它都会将 `Promise` 实例的状态置为 `rejected`，将 `Promise` 实例的值设置为 `value`。
+- 与 `resolve()` 的复杂规则不同。调用 `reject(reason)` 时，不论传给它的值是什么，它都会将 `Promise` 实例的状态置为 `rejected`，将 `Promise` 实例的值设置为 `reason`。
 {% endnote %}
 
 # Promises/A+ 的补充说明
@@ -62,9 +62,9 @@ let rejected = Promise.reject(42)
 // 在此刻 rejected 不会被处理
 
 // 一段时间后……
-rejected.catch(function (value) {
+rejected.catch(function (reason) {
   // 现在 rejected 已经被处理了
-  console.log(value)
+  console.log(reason)
 })
 ```
 
@@ -113,9 +113,9 @@ rejected = Promise.reject(new Error('Explosion!'))
 
 // 延迟添加拒绝处理函数
 setTimeout(function() {
-  rejected.catch(function (value) {
+  rejected.catch(function (reason) {
     // Explosion!
-    console.log(value.message)          
+    console.log(reason.message)          
   })
 }, 1000)
 ```
@@ -161,7 +161,244 @@ Node 的实现会传递分离的参数给事件处理函数，而浏览器的两
 {% note info %}
 - `type`：事件的名称（`unhandledrejection` 或 `rejectionhandled`）。
 - `promise`：被拒绝的 `Promise` 实例。
-- `reason`：`Promise` 实例的值。
+- `reason`：`Promise` 实例的值，即 `reason`。
 {% endnote %}
 
 除了事件处理函数接收的参数有所区别外，浏览器的事件处理函数用法可以仿照 Node。
+
+# 手写一个 Promise/A+
+
+{% note warning %}
+Implementations should not set arbitrary limits on the depth of thenable chains, and assume that beyond that arbitrary limit the recursion will be infinite. Only true cycles should lead to a TypeError; if an infinite chain of distinct thenables is encountered, recursing forever is the correct behavior.
+{% endnote %}
+
+{% note info %}
+可以使用 [promises-aplus-tests](https://github.com/promises-aplus/promises-tests) 进行测试
+1. `npm install promises-aplus-tests -g`
+2. 将下面代码保存至 test.js
+3. `promises-aplus-tests test.js`
+{% endnote %}
+
+```js
+function privateFulfill (promise, value) {
+  // 2.2.2.3 it must not be called more than once
+  if (promise.status !== MyPromise.PENDING) {
+    return promise;
+  }
+
+  promise.status = MyPromise.FULFILLED;
+  promise.value = value;
+  promise.onFulfilledCallbacks.forEach(item => {
+    item(value);
+  });
+  return promise;
+}
+
+function privateReject (promise, reason) {
+  // 2.2.3.3 it must not be called more than once
+  if (promise.status !== MyPromise.PENDING) {
+    return promise;
+  }
+
+  promise.status = MyPromise.REJECTED;
+  promise.reason = reason;
+  promise.onRejectedCallbacks.forEach(item => {
+    item(reason);
+  });
+  return promise;
+}
+
+
+function resolveEngine (promise, x) {
+  // 2.3.1 If promise and x refer to the same object, reject promise with a TypeError as the reason
+  if (promise === x) {
+    return privateReject(promise, new TypeError('2.3.1 If promise and x refer to the same object, reject promise with a TypeError as the reason'));
+  }
+
+  // 2.3.2 If x is a promise, adopt its state
+  if (x instanceof MyPromise) {
+    // 2.3.2.1 If x is pending, promise must remain pending until x is fulfilled or rejected.
+    // 2.3.2.2 If/when x is fulfilled, fulfill promise with the same value.
+    // 2.3.2.3 If/when x is rejected, reject promise with the same reason.
+    if (x.status === MyPromise.PENDING) {
+      x.then(
+        (value) => {
+          privateFulfill(promise, value);
+        },
+        (reason) => {
+          privateReject(promise, reason);
+        }
+      );
+      return promise;
+    }
+
+    // 2.3.2.2 If/when x is fulfilled, fulfill promise with the same value.
+    if (x.status === MyPromise.FULFILLED) {
+      return privateFulfill(promise, x.value);
+    }
+
+    // 2.3.2.3 If/when x is rejected, reject promise with the same reason.
+    if (x.status === MyPromise.REJECTED) {
+      return privateReject(promise, x.reason);
+    }
+  }
+
+  if (Object.prototype.toString.call(x) === '[object Object]' || typeof x === 'function') {
+    // 2.3.3 Otherwise, if x is an object or function
+    try {
+      // 2.3.3.1 Let then be x.then
+      const then = x.then;
+      if (typeof then === 'function') {
+        // 2.3.3.3 If then is a function, call it with x as this, first argument resolvePromise, and second argument rejectPromise
+        var called = false;
+        try {
+          then.call(
+            x,
+            (y) => {
+              if (called) {
+                return;
+              }
+              called = true;
+              MyPromise.resolve.call(promise, y);
+            },
+            (r) => {
+              if (called) {
+                return;
+              }
+              called = true;
+              MyPromise.reject.call(promise, r);
+            },
+          )
+        } catch (err) {
+          if (called) {
+            return;
+          }
+          MyPromise.reject.call(promise, err);
+        }
+        return promise;
+      } else {
+        // 2.3.3.4 If then is not a function, fulfill promise with x
+        return privateFulfill(promise, x);
+      }
+    } catch (err) {
+      // 2.3.3.2 If retrieving the property x.then results in a thrown exception e, reject promise with e as the reason
+      return privateReject(promise, err);
+    }
+  } else {
+    // 2.3.4 If x is not an object or function, fulfill promise with x
+    return privateFulfill(promise, x);
+  }
+}
+
+class MyPromise {
+  static PENDING = 'pending';
+  static FULFILLED = 'fulfilled';
+  static REJECTED = 'rejected';
+
+  static resolve (value) {
+    if (this === MyPromise) {
+      return resolveEngine(new MyPromise(), value);
+    } else if (this instanceof MyPromise) {
+      return resolveEngine(this, value);
+    } else {
+      return new TypeError('this is not an instance of MyPromise')
+    }
+  }
+
+  static reject (reason) {
+    if (this === MyPromise) {
+      return privateReject(new MyPromise(), reason);
+    } else if (this instanceof MyPromise) {
+      return privateReject(this, reason);
+    }  else {
+      return new TypeError('this is not an instance of MyPromise')
+    }
+  }
+
+  constructor (executor) {
+    this.status = MyPromise.PENDING;
+    this.onFulfilledCallbacks = [];
+    this.onRejectedCallbacks = [];
+
+    if (typeof executor === 'function') {
+      try {
+        executor(MyPromise.resolve.bind(this), MyPromise.reject.bind(this));
+      } catch (err) {
+        privateReject(this, err);
+      }
+    }
+  }
+
+  then (onFulfilled, onRejected) {
+    // 2.2.7 then must return a promise
+    // promise2 = promise1.then(onFulfilled, onRejected)
+    return new MyPromise((resolve, reject) => {
+      // 2.2.1 Both onFulfilled and onRejected are optional arguments
+      // 2.2.2 If onFulfilled is a function
+      // 2.2.3 If onRejected is a function
+      // 2.2.4 onFulfilled or onRejected must not be called until the execution context stack contains only platform code
+      // 2.2.5 onFulfilled and onRejected must be called as functions (i.e. with no this value)
+      const fulfillCallback = () => {
+        setTimeout(() => {
+          if (typeof onFulfilled === 'function') {
+            try {
+              // 2.2.7.1 If either onFulfilled or onRejected returns a value x, run the Promise Resolution Procedure [[Resolve]](promise2, x)
+              resolve(onFulfilled(this.value));
+            } catch (err) {
+              // 2.2.7.2 If either onFulfilled or onRejected throws an exception e, promise2 must be rejected with e as the reason
+              reject(err);
+            }
+          } else {
+            // 2.2.7.3 If onFulfilled is not a function and promise1 is fulfilled, promise2 must be fulfilled with the same value as promise1
+            resolve(this.value);
+          }
+        })
+      };
+      const rejectCallback = () => {
+        setTimeout(() => {
+          if (typeof onRejected === 'function') {
+            try {
+              // 2.2.7.1 If either onFulfilled or onRejected returns a value x, run the Promise Resolution Procedure [[Resolve]](promise2, x)
+              resolve(onRejected(this.reason))
+            } catch (err) {
+              // 2.2.7.2 If either onFulfilled or onRejected throws an exception e, promise2 must be rejected with e as the reason
+              reject(err);
+            }
+          } else {
+            // 2.2.7.4 If onRejected is not a function and promise1 is rejected, promise2 must be rejected with the same reason as promise1
+            reject(this.reason);
+          }
+        })
+      };
+
+      // 2.2.4 onFulfilled or onRejected must not be called until the execution context stack contains only platform code
+      // 2.2.6 then may be called multiple times on the same promise.
+      if (this.status === MyPromise.PENDING) {
+        this.onFulfilledCallbacks.push(fulfillCallback);
+        this.onRejectedCallbacks.push(rejectCallback);
+      } else if (this.status === MyPromise.FULFILLED) {
+        setTimeout(fulfillCallback);
+      } else if (this.status === MyPromise.REJECTED) {
+        setTimeout(rejectCallback);
+      }
+    })
+  }
+
+  catch (onRejected) {
+    this.then(undefined, onRejected);
+  }
+}
+
+// for promises-aplus-tests
+MyPromise.deferred = () => {
+  var result = {};
+  result.promise = new MyPromise(function (resolve, reject) {
+    result.resolve = resolve;
+    result.reject = reject;
+  });
+
+  return result;
+}
+
+module.exports = MyPromise;
+```
