@@ -12,7 +12,7 @@ JavaScript 是单线程的，为了处理异步操作，先是使用**回调函�
 
 引用阮一峰大大的一句话 [async 函数就是 generator 函数的语法糖。](http://www.ruanyifeng.com/blog/2015/05/async.html)
 
-首先看用 generator 函数处理异步的一个例子：
+首先看一个结合 Promise 和 generator 处理异步的例子：
 
 ```js
 var fs = require('fs')
@@ -78,7 +78,7 @@ var readFile = function (fileName){
   })
 }
 
-var asyncInstance = async function  (){
+var asyncInstance = async function () {
   var f1 = await readFile('./verify.js')
   var f2 = await readFile('./readline.js')
   console.log(f1.toString())
@@ -89,15 +89,69 @@ asyncInstance()
 ```
 
 {% note info %}
-**一比较就会发现，async 函数就是将 generator 函数的星号（*）替换成 async，将 yield 替换成 await。而且 async 函数不需要自己定义执行器！**
+**一比较就会发现，`async` 函数就是将 generator 函数的星号（*）替换成 `async`，将 `yield` 替换成 `await`。而且 `async` 函数不需要自己定义执行器！**
 {% endnote %}
 
 # 注意事项
 
 {% note warning %}
-- `await` 和 `return` 返回的结果，都是 `Promise` 的实例。
-- `await` 返回的可能是 `rejected`，所以最好把 `await` 命令放在 `try...catch` 代码块中。
-- 与 `yield` 一样，`await` 只能用在 async 函数内部，用于其他任意位置都是语法错误，即使在 async 函数内部的函数中也不行。
+- 区别于生成器的定义，可以使用箭头函数定义 `async`。
+- 与 `yield` 一样，`await` 只能用在 `async` 函数内部，用于其他任意位置都是语法错误，即使在 `async` 函数内部的函数中也不行。
+- `async` 函数返回的是 `Promise` 实例。
+- 如果 `async` 函数内抛出了错误，并且没有被 `try...catch` 包裹，相当于 `async` 返回的 `Promise` 实例对象被 reject 了。
+- 如果 `await` 后面的 `Promise` 实例被 reject 了，相当于 `async` 函数内部在此处抛出了一个错误。
 {% endnote %}
 
-<!-- aadonkeyz, const a = await Promise...... -->
+```js
+const asyncFun = async () => {
+  return 'resolved'
+}
+
+const promise = asyncFun();
+promise
+  .then(
+    (value) => {
+      // resolved
+      console.log(value)
+    }
+  )
+  .catch(err => {
+    console.log(err)
+  })
+```
+
+```js
+const asyncFun = async () => {
+  throw 'err'
+}
+
+const promise = asyncFun();
+promise
+  .then(
+    (value) => {
+      console.log(value)
+    }
+  )
+  .catch(err => {
+    // err
+    console.log(err)
+  })
+```
+
+```js
+const asyncFun = async () => {
+  await Promise.reject('rejected')
+}
+
+const promise = asyncFun();
+promise
+  .then(
+    (value) => {
+      console.log(value)
+    }
+  )
+  .catch(err => {
+    // rejected
+    console.log(err)
+  })
+```

@@ -128,12 +128,14 @@ console.log(iterator.next())
 
 ```js
 function *createIterator (items) {
-  items.forEach(item => {
+  items.forEach(function (item) {
     // 语法错误
     yield item + 1
   })
 }
 ```
+
+尽管 `yield` 严格位于 `createIterator()` 内部，此代码仍然有语法错误，因为 `yield` 无法穿越函数边界。从这点上来说，`yield` 与 `return` 非常相似，在一个被嵌套的函数中无法将值返回给包含它的函数。
 
 ## 生成器函数表达式
 
@@ -785,6 +787,8 @@ run (function * () {
 ## 异步任务运行器
 
 下面的代码是一个使用生成器来运行异步任务的例子。
+
+ps. 为了保持纯粹，这个例子中并没有使用 Promise
 
 ```js
 let fs = require('fs')
