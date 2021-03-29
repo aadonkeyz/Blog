@@ -95,11 +95,15 @@ asyncInstance()
 # 注意事项
 
 {% note warning %}
-- 区别于生成器的定义，可以使用箭头函数定义 `async`。
-- 与 `yield` 一样，`await` 只能用在 `async` 函数内部，用于其他任意位置都是语法错误，即使在 `async` 函数内部的函数中也不行。
-- `async` 函数返回的是 `Promise` 实例。
-- 如果 `async` 函数内抛出了错误，并且没有被 `try...catch` 包裹，相当于 `async` 返回的 `Promise` 实例对象被 reject 了。
-- 如果 `await` 后面的 `Promise` 实例被 reject 了，相当于 `async` 函数内部在此处抛出了一个错误。
+1. 区别于生成器的定义，可以使用箭头函数定义 `async`。
+2. 与 `yield` 一样，`await` 只能用在 `async` 函数内部，用于其他任意位置都是语法错误，即使在 `async` 函数内部的函数中也不行。
+3. `async` 函数返回的是 `Promise` 实例。
+4. 如果 `async` 函数内抛出了错误，并且没有被 `try...catch` 包裹，`async` 会直接以该错误作为原因，返回一个状态为 rejected 的 `Promise` 实例。
+5. 如果 `await` 后面是一个非 `Promise` 非 thenable 的值，则直接返回。
+6. 如果 `await` 后面是一个 `Promise` 实例。
+  6.1 当 `Promise` 实例被 fulfill 时，返回 `Promise` 实例的值。
+  6.2 当 `Promise` 实例被 reject 时，则将 `Promise` 被 reject 的值作为错误在此处抛出（同 4）。
+7. 如果 `await` 后面是一个 thenable 对象，会现将其作为 `Promise` 实例进行处理（同 6）。
 {% endnote %}
 
 ```js
