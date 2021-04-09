@@ -98,18 +98,20 @@
 
 
 
-  <meta name="description" content="浏览器的进程和线程             浏览器的主要进程：Browser进程：浏览器的主进程，只有一个。作用为：负责浏览器界面显示、与用户的交互。负责各个标签页的管理、创建和关闭。将Renderer进程得到的内存中的Bitmap，绘制到用户界面上网络资源的管理、下载等。插件进程：每种类型的插件对应一个插件进程，仅当使用该插件时才创建对应的插件进程。GPU进程：最多一个，用于3D绘制等。Rend">
+  <meta name="description" content="渲染流程              JavaScript： 构建 DOM + CSSOMStyle： 构建 Render Tree            DOMDocument Object Model 通过在内存中表示文档结构，将网页连接到脚本或编程语言。 DOM 使用逻辑树来表示一个文档结构。树的每一个分之都以一个节点结尾，并且每个节点都包含对象。 DOM 方法允许以编程方式访问树，使用这些方">
 <meta name="keywords" content="前端博客,JavaScript,html5,css3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浏览器的渲染原理">
+<meta property="og:title" content="浏览器是如何渲染一个页面的？">
 <meta property="og:url" content="https://aadonkeyz.com/posts/b5fc6f17/index.html">
 <meta property="og:site_name" content="aadonkeyz的博客">
-<meta property="og:description" content="浏览器的进程和线程             浏览器的主要进程：Browser进程：浏览器的主进程，只有一个。作用为：负责浏览器界面显示、与用户的交互。负责各个标签页的管理、创建和关闭。将Renderer进程得到的内存中的Bitmap，绘制到用户界面上网络资源的管理、下载等。插件进程：每种类型的插件对应一个插件进程，仅当使用该插件时才创建对应的插件进程。GPU进程：最多一个，用于3D绘制等。Rend">
+<meta property="og:description" content="渲染流程              JavaScript： 构建 DOM + CSSOMStyle： 构建 Render Tree            DOMDocument Object Model 通过在内存中表示文档结构，将网页连接到脚本或编程语言。 DOM 使用逻辑树来表示一个文档结构。树的每一个分之都以一个节点结尾，并且每个节点都包含对象。 DOM 方法允许以编程方式访问树，使用这些方">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-23T15:29:57.115Z">
+<meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E7%9A%84/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B.jpg">
+<meta property="og:updated_time" content="2021-04-09T16:34:59.581Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浏览器的渲染原理">
-<meta name="twitter:description" content="浏览器的进程和线程             浏览器的主要进程：Browser进程：浏览器的主进程，只有一个。作用为：负责浏览器界面显示、与用户的交互。负责各个标签页的管理、创建和关闭。将Renderer进程得到的内存中的Bitmap，绘制到用户界面上网络资源的管理、下载等。插件进程：每种类型的插件对应一个插件进程，仅当使用该插件时才创建对应的插件进程。GPU进程：最多一个，用于3D绘制等。Rend">
+<meta name="twitter:title" content="浏览器是如何渲染一个页面的？">
+<meta name="twitter:description" content="渲染流程              JavaScript： 构建 DOM + CSSOMStyle： 构建 Render Tree            DOMDocument Object Model 通过在内存中表示文档结构，将网页连接到脚本或编程语言。 DOM 使用逻辑树来表示一个文档结构。树的每一个分之都以一个节点结尾，并且每个节点都包含对象。 DOM 方法允许以编程方式访问树，使用这些方">
+<meta name="twitter:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E7%9A%84/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B.jpg">
 
 
 
@@ -126,7 +128,7 @@
   };
 </script>
 
-  <title>浏览器的渲染原理 | aadonkeyz的博客</title>
+  <title>浏览器是如何渲染一个页面的？ | aadonkeyz的博客</title>
   
 
 
@@ -266,7 +268,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">84</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
 
   </li>
 
@@ -364,7 +366,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">浏览器的渲染原理
+          <h1 class="post-title" itemprop="name headline">浏览器是如何渲染一个页面的？
 
               
             
@@ -407,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
+                <time title="修改时间：2021-04-10 00:34:59" itemprop="dateModified" datetime="2021-04-10T00:34:59+08:00">2021-04-10</time>
               
             
           </span>
@@ -424,7 +426,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/待整理/" itemprop="url" rel="index"><span itemprop="name">待整理</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/FE/" itemprop="url" rel="index"><span itemprop="name">FE</span></a></span>
 
                 
                 
@@ -459,20 +461,48 @@
       
 
       
-        <h1 id="浏览器的进程和线程"><a href="#浏览器的进程和线程" class="headerlink" title="浏览器的进程和线程"></a>浏览器的进程和线程</h1><div class="note info">
-            <p>浏览器的主要进程：</p><ol><li><strong>Browser进程</strong>：浏览器的主进程，只有一个。作用为：<ul><li>负责浏览器界面显示、与用户的交互。</li><li>负责各个标签页的管理、创建和关闭。</li><li>将Renderer进程得到的内存中的Bitmap，绘制到用户界面上</li><li>网络资源的管理、下载等。</li></ul></li><li><strong>插件进程</strong>：每种类型的插件对应一个插件进程，仅当使用该插件时才创建对应的插件进程。</li><li><strong>GPU进程</strong>：最多一个，用于3D绘制等。</li><li><strong>Renderer进程</strong>：又叫作<strong>浏览器内核</strong>，内部有多个线程。默认每个标签页有一个Renderer进程，互不影响。浏览器的优化机制在某些情况下会将多个标签页的Renderer进程合并为一个。</li></ol><hr><p>Renderer进程的主要线程：</p><ol><li><strong>GUI渲染线程</strong>：负责解析HTML和CSS。</li><li><strong>JS引擎线程</strong>：负责执行JavaScript代码，<strong>JS引擎线程与GUI渲染线程互斥，且JS引擎线程的优先级高。</strong></li><li><strong>事件触发线程</strong>：任务队列和交互事件都是它说了算。</li><li><strong>定时触发器线程</strong>：管理<code>setTimeout</code>和<code>setInterval</code>。</li><li><strong>异步http请求线程</strong>：异步http请求收到响应后，就是通过它将对应回调函数放在任务队列中，然后再交给js引擎线程去执行。</li></ol>
+        <h1 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h1><p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/FE/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E7%9A%84/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B.jpg" alt="浏览器渲染流程"></p>
+<div class="note info">
+            <ul><li>JavaScript： 构建 DOM + CSSOM</li><li>Style： 构建 Render Tree</li></ul>
           </div>
-<h1 id="输入一个url，浏览器都做了什么"><a href="#输入一个url，浏览器都做了什么" class="headerlink" title="输入一个url，浏览器都做了什么"></a>输入一个url，浏览器都做了什么</h1><div class="note info">
-            <ol><li>Browser进程收到url，加载资源，然后将资源传递给该标签页对应的Renderer进程。</li><li>Renderer进程开始分工：<ul><li>GUI渲染线程解析HTML和CSS，分别生成DOM和CSSOM，然后合并为Rendering Tree。</li><li>GUI渲染线程根据Rendering Tree计算布局，然后渲染页面。</li><li>JS引擎线程执行JavaScript代码。因为这一过程可能会改变DOM和CSSOM，所以JS引擎线程和GUI渲染线程被设计为互斥的，且JS引擎线程优先级高。</li></ul></li><li>Renderer进程渲染页面的过程中，可能需要GPU进程来完成3D绘制。</li></ol>
+<h2 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h2><p><strong>Document Object Model</strong> 通过在内存中表示文档结构，将网页连接到脚本或编程语言。 DOM 使用逻辑树来表示一个文档结构。树的每一个分之都以一个节点结尾，并且每个节点都包含对象。 DOM 方法允许以编程方式访问树，使用这些方法可以更改文档的结构、样式或内容。DOM 上的节点并不一定总是 HTML 元素，当浏览器创建 DOM 树时，它还将诸如注释、属性、文本之类的内容另存为树中的单独节点。</p>
+<div class="note warning">
+            <ul><li>构建 DOM 的过程中遇到不携带 <code>async</code> 或 <code>defer</code> 的 <code>&lt;script&gt;</code> 标签，浏览器会停止 DOM 的构建，等待 JS 的下载和执行。</li><li>构建 DOM 的过程中携带 <code>async</code> 的 <code>&lt;script&gt;</code> 标签下载完毕后，浏览器会停止 DOM 的构建，等待 JS 的执行。</li></ul>
           </div>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><div class="note info">
-            <ul><li>为了更好的用户体验，GUI渲染线程将会尽可能早的将内容呈现到屏幕上，并不会等到所有的HTML和CSS都解析完成之后再去构建Rendering Tree和计算布局。它是解析完一部分内容就显示一部分内容，同时，可能还在通过网络下载其余内容。</li><li>reflow一定repaint，repaint不一定reflow。</li></ul>
+<h2 id="CSSOM"><a href="#CSSOM" class="headerlink" title="CSSOM"></a>CSSOM</h2><p><strong>CSS Object Model</strong> 允许通过 JavaScript 操纵 CSS，它非常类似于 DOM。CSSOM 和 DOM 是相互独立的。CSSOM 的构建过程类似于 DOM 的构建，不过它依赖的是样式结构，而不是文档结构。</p>
+<div class="note warning">
+            <p>CSSOM 的构建会阻塞浏览器下载&amp;执行 JS。</p>
+          </div>
+<h2 id="Render"><a href="#Render" class="headerlink" title="Render"></a>Render</h2><p>Render Tree 是将 DOM 和 CSSOM 结合在一起而生成的树状结构。通过 Render Tree 可以知道在每个节点上应用哪些样式规则，但是无法知道这些节点的确切位置及大小信息。在 Render Tree 被构建出来之前，页面上不会呈现任何内容。</p>
+<div class="note warning">
+            <ul><li><code>display: none</code> 的元素不会出现在 Render Tree 中。</li><li>伪元素会出现在 Render Tree 中。</li></ul>
+          </div>
+<h2 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h2><p>Layout Tree 是在 Render Tree 的基础上，为每个节点计算其布局信息，从而构建出的树状结构。</p>
+<div class="note warning">
+            <p>避免在通过 CSSOM 设置完样式后立刻对其进行访问，因为这样要求浏览器在你访问样式时返回最新的样式信息，相当于要求浏览器立刻进入 layout 阶段，从而造成不必要的性能损耗（本来可以在下一帧再更新样式的）。</p>
+          </div>
+<h2 id="Paint"><a href="#Paint" class="headerlink" title="Paint"></a>Paint</h2><p>在这一阶段需要了解两个概念：layer 和 rasterization。Layer 让浏览器知道以何种顺序去渲染相互层叠的元素，同时帮助浏览器在网页的整个生命周期中更有效执行的 paint 操作。Rasterization 是对每一个 layer 进行栅格化，使得浏览器以更高效的方式进行 paint 操作。</p>
+<h2 id="Compositing"><a href="#Compositing" class="headerlink" title="Compositing"></a>Compositing</h2><p>利用计算好的 layer 和每一层 layer 内的栅格，组合出 viewpoint 内应该展示的页面。</p>
+<h1 id="first-paint"><a href="#first-paint" class="headerlink" title="first paint"></a>first paint</h1><p>为了更好的用户体验，浏览器不一定非要等到 DOM 和 CSSOM 构建完，才开始页面的渲染。可以参考 <a href="http://eux.baidu.com/blog/fe/Chrome%E7%9A%84First%20Paint" target="_blank" rel="noopener">Chrome的First Paint</a> 的思路自己在浏览器的 performance 面板中观察下实际的效果。</p>
+<p>最佳实践是将 <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code> 标签放在 <code>&lt;head&gt;</code> 中，将 <code>&lt;script&gt;</code> 标签放在 <code>&lt;/body&gt;</code> 前。当然如果你为 <code>&lt;script&gt;</code> 标签添加 <code>async</code> 或 <code>defer</code> 属性的话，将它们放在 <code>&lt;head&gt;</code> 中也是可以的。</p>
+<p>详细的原理可以参考 <a href="https://medium.com/jspoint/how-the-browser-renders-a-web-page-dom-cssom-and-rendering-df10531c9969" target="_blank" rel="noopener">How the browser renders a web page? — DOM, CSSOM, and Rendering</a>。</p>
+<h1 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法"></a>优化方法</h1><div class="note info">
+            <ul><li>使用 <code>requestAnimationFrame()</code> 代替 <code>setTimeout()</code> 和 <code>setInterval()</code>。</li><li>避免 long task 的出现。</li><li>使用 Web Worker。</li><li>减少样式选择器的复杂度。</li><li>避免 <a href="https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing#avoid_forced_synchronous_layouts" target="_blank" rel="noopener"><strong>强制同步布局</strong></a></li></ul>
           </div>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
-<li><a href="https://zhuanlan.zhihu.com/p/33230026" target="_blank" rel="noopener">从浏览器多进程到JS单线程，JS运行机制最全面的一次梳理</a></li>
-<li><a href="https://www.cnblogs.com/slly/p/6640761.html" target="_blank" rel="noopener">浏览器渲染原理及流程</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Performance/Critical_rendering_path" target="_blank" rel="noopener">Critical rendering path</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Performance/How_browsers_work" target="_blank" rel="noopener">Populating the page: how browsers work</a></li>
+<li><a href="https://medium.com/jspoint/how-the-browser-renders-a-web-page-dom-cssom-and-rendering-df10531c9969" target="_blank" rel="noopener">How the browser renders a web page? — DOM, CSSOM, and Rendering</a></li>
+<li><a href="https://developers.google.com/web/updates/2018/09/inside-browser-part3" target="_blank" rel="noopener">Inside look at modern web browser (part 3)</a></li>
+<li><a href="https://developers.google.com/web/fundamentals/performance/rendering" target="_blank" rel="noopener">Rendering Performance</a></li>
+<li><a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path" target="_blank" rel="noopener">Critical Rendering Path</a></li>
+<li><a href="https://blog.logrocket.com/how-css-works-parsing-painting-css-in-the-critical-rendering-path-b3ee290762d3/" target="_blank" rel="noopener">How CSS works: Parsing &amp; painting CSS in the critical rendering path</a></li>
+<li><a href="https://glenelkins.medium.com/the-secrets-of-the-cssom-why-you-should-care-943a1d50307b" target="_blank" rel="noopener">The Secrets of the CSSOM &amp; Why You Should Care</a></li>
+<li><a href="https://software.intel.com/content/www/us/en/develop/articles/software-vs-gpu-rasterization-in-chromium.html" target="_blank" rel="noopener">Software vs. GPU Rasterization in Chromium</a></li>
+<li><a href="https://www.html5rocks.com/en/tutorials/speed/layers/" target="_blank" rel="noopener">Accelerated Rendering in Chrome</a></li>
+<li><a href="http://eux.baidu.com/blog/fe/Chrome%E7%9A%84First%20Paint" target="_blank" rel="noopener">Chrome的First Paint</a></li>
 </ul>
-<!-- aadonkeyz -->
+
       
     </div>
 
@@ -530,7 +560,7 @@
           </li>
           <li class="post-copyright-link">
             <strong>本文链接：</strong>
-            <a href="/posts/b5fc6f17/" title="浏览器的渲染原理">https://aadonkeyz.com/posts/b5fc6f17/</a>
+            <a href="/posts/b5fc6f17/" title="浏览器是如何渲染一个页面的？">https://aadonkeyz.com/posts/b5fc6f17/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明：</strong>
@@ -632,7 +662,7 @@
                 
                   <a rel="external nofollow" href="/archives/">
                 
-                    <span class="site-state-item-count">84</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -728,7 +758,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的进程和线程"><span class="nav-number">1.</span> <span class="nav-text">浏览器的进程和线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入一个url，浏览器都做了什么"><span class="nav-number">2.</span> <span class="nav-text">输入一个url，浏览器都做了什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项"><span class="nav-number">3.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#渲染流程"><span class="nav-number">1.</span> <span class="nav-text">渲染流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM"><span class="nav-number">1.1.</span> <span class="nav-text">DOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSSOM"><span class="nav-number">1.2.</span> <span class="nav-text">CSSOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Render"><span class="nav-number">1.3.</span> <span class="nav-text">Render</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Layout"><span class="nav-number">1.4.</span> <span class="nav-text">Layout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Paint"><span class="nav-number">1.5.</span> <span class="nav-text">Paint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compositing"><span class="nav-number">1.6.</span> <span class="nav-text">Compositing</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#first-paint"><span class="nav-number">2.</span> <span class="nav-text">first paint</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化方法"><span class="nav-number">3.</span> <span class="nav-text">优化方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>

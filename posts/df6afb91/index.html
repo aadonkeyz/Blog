@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="本文参考自探究 CSS 解析原理 CSS选择器的解析顺序在利用 DOM 和 CSSOM 合成 render tree的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。 以下面的例子讲解CSS 选择器的解析规则">
+  <meta name="description" content="CSS选择器的解析顺序在利用 DOM 和 CSSOM 合成 render tree 的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。 以下面的例子讲解CSS 选择器的解析规则： 12345678910111">
 <meta name="keywords" content="前端博客,JavaScript,html5,css3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS解析原理">
 <meta property="og:url" content="https://aadonkeyz.com/posts/df6afb91/index.html">
 <meta property="og:site_name" content="aadonkeyz的博客">
-<meta property="og:description" content="本文参考自探究 CSS 解析原理 CSS选择器的解析顺序在利用 DOM 和 CSSOM 合成 render tree的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。 以下面的例子讲解CSS 选择器的解析规则">
+<meta property="og:description" content="CSS选择器的解析顺序在利用 DOM 和 CSSOM 合成 render tree 的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。 以下面的例子讲解CSS 选择器的解析规则： 12345678910111">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-23T15:29:57.113Z">
+<meta property="og:updated_time" content="2021-04-09T16:45:52.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS解析原理">
-<meta name="twitter:description" content="本文参考自探究 CSS 解析原理 CSS选择器的解析顺序在利用 DOM 和 CSSOM 合成 render tree的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。 以下面的例子讲解CSS 选择器的解析规则">
+<meta name="twitter:description" content="CSS选择器的解析顺序在利用 DOM 和 CSSOM 合成 render tree 的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。 以下面的例子讲解CSS 选择器的解析规则： 12345678910111">
 
 
 
@@ -266,7 +266,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">84</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
 
   </li>
 
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
+                <time title="修改时间：2021-04-10 00:45:52" itemprop="dateModified" datetime="2021-04-10T00:45:52+08:00">2021-04-10</time>
               
             
           </span>
@@ -424,7 +424,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/待整理/" itemprop="url" rel="index"><span itemprop="name">待整理</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/FE/" itemprop="url" rel="index"><span itemprop="name">FE</span></a></span>
 
                 
                 
@@ -459,25 +459,26 @@
       
 
       
-        <p>本文参考自<a href="https://juejin.im/entry/5a123c55f265da432240cc90" target="_blank" rel="noopener">探究 CSS 解析原理</a></p>
-<h1 id="CSS选择器的解析顺序"><a href="#CSS选择器的解析顺序" class="headerlink" title="CSS选择器的解析顺序"></a>CSS选择器的解析顺序</h1><p>在利用 DOM 和 CSSOM 合成 render tree的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。</p>
+        <h1 id="CSS选择器的解析顺序"><a href="#CSS选择器的解析顺序" class="headerlink" title="CSS选择器的解析顺序"></a>CSS选择器的解析顺序</h1><p>在利用 DOM 和 CSSOM 合成 render tree 的时候，需要将样式表中的每一条 CSS 样式规则与对应的 DOM 元素关联起来。然而实际中，样式规则可能数量很大，但是绝大多数不会匹配到任何 DOM 元素上，所以有一个快速的方法来判断 CSS 选择器是否具有匹配的 DOM 元素是极其重要的。</p>
 <p>以下面的例子讲解CSS 选择器的解析规则：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"jartto"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span> 111 <span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span> 222 <span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span> 333 <span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">'yellow'</span>&gt;</span> 444 <span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">div &gt; div.jartto p span.yellow&#123;</span><br><span class="line">   color: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <div class="note info">
-            <p>如果采用<strong>从左至右</strong>的规则，过程如下所示：</p><ol><li>首先找到所有<code>&lt;div&gt;</code>。</li><li>在每个<code>&lt;div&gt;</code>内寻找所有<code>class=jartto</code>的子<code>&lt;div&gt;</code>。</li><li>在步骤二中找到的每个子<code>&lt;div&gt;</code>内接着按 CSS 选择器进行寻找，直到最后。</li></ol><p><strong>这样的搜索过程对于一个只是匹配很少节点的选择器来说，效率是极低的，因为我们花费了大量的时间在回溯匹配不符合规则的节点。</strong></p>
+            <p>如果采用<strong>从左至右</strong>的规则，过程如下所示：</p><ol><li>首先找到所有 <code>&lt;div&gt;</code>。</li><li>在每个 <code>&lt;div&gt;</code> 内寻找所有 <code>class=jartto</code> 的子 <code>&lt;div&gt;</code>。</li><li>在步骤二中找到的每个子 <code>&lt;div&gt;</code> 内接着按 CSS 选择器进行寻找，直到最后。</li></ol><p><strong>这样的搜索过程对于一个只是匹配很少节点的选择器来说，效率是极低的，因为我们花费了大量的时间在回溯匹配不符合规则的节点。</strong></p>
           </div>
 <div class="note info">
-            <p>如果采用<strong>从右至左</strong>的规则，过程如下所示：</p><ol><li>首先找到所有<code>class=yellow</code>的<code>&lt;span&gt;</code>。</li><li>然后判断这些<code>&lt;span&gt;</code>的父元素是否为<code>&lt;p&gt;</code></li><li>接着判断这些<code>&lt;p&gt;</code>的父元素是否为<code>class=jartto</code>的<code>&lt;div&gt;</code>。</li><li>最后判断这些<code>&lt;div&gt;</code>的父元素是否也是<code>&lt;div&gt;</code>。</li></ol><p><strong>因为每一个元素都只拥有一个父元素，所以从右至左的解析 CSS 选择器可以有效减少无效匹配的次数，从而使匹配更快、性能更优。</strong></p>
+            <p>如果采用<strong>从右至左</strong>的规则，过程如下所示：</p><ol><li>首先找到所有 <code>class=yellow</code> 的 <code>&lt;span&gt;</code>。</li><li>然后判断这些 <code>&lt;span&gt;</code> 的父元素是否为 <code>&lt;p&gt;</code></li><li>接着判断这些 <code>&lt;p&gt;</code> 的父元素是否为 <code>class=jartto</code> 的 <code>&lt;div&gt;</code>。</li><li>最后判断这些 <code>&lt;div&gt;</code> 的父元素是否也是 <code>&lt;div&gt;</code>。</li></ol><p><strong>因为每一个元素都只拥有一个父元素，所以从右至左的解析 CSS 选择器可以有效减少无效匹配的次数，从而使匹配更快、性能更优。</strong></p>
           </div>
 <h1 id="computedStyle的计算"><a href="#computedStyle的计算" class="headerlink" title="computedStyle的计算"></a>computedStyle的计算</h1><p>render tree 生成时，元素的 computedStyle 是经过层叠计算后得到的。在某些特定的情况下，浏览器会让不同元素之间共享它们的 computedStyle。也就是说，如果多个元素的 computedStyle 不通过计算就可以确认它们相等，那么这个 computedStyle 只会被计算一次，从而提高了性能。</p>
 <p>只要元素之间满足以下条件，它们之间就可以共享 computedStyle。</p>
 <div class="note info">
-            <ul><li>元素不能有<code>id</code>属性。</li><li>元素的标签名必须相同，即必须是同类型的元素。</li><li>元素的<code>class</code>属性必须相同。</li><li>元素之间的 mappedAttribute（一些可以影响 CSS ComputedStyle 的 HTML 属性） 必须相等。</li><li>元素不能有<code>style</code>属性，哪怕是这些元素的<code>style</code>属性值相同也不可以。</li><li>不能使用 sibling selector。例如，<code>first-child</code>、<code>:last-selector</code>、<code>+ selector</code>。</li></ul>
+            <ul><li>元素不能有 <code>id</code> 属性。</li><li>元素的标签名必须相同，即必须是同类型的元素。</li><li>元素的 <code>class</code> 属性必须相同。</li><li>元素之间的 mappedAttribute（一些可以影响 CSS ComputedStyle 的 HTML 属性） 必须相等。</li><li>元素不能有 <code>style</code> 属性，哪怕是这些元素的 <code>style</code> 属性值相同也不可以。</li><li>不能使用 sibling selector。例如，<code>first-child</code>、<code>:last-selector</code>、<code>+ selector</code>。</li></ul>
           </div>
 <h1 id="选择器书写建议"><a href="#选择器书写建议" class="headerlink" title="选择器书写建议"></a>选择器书写建议</h1><div class="note info">
             <ul><li>ID 选择器是非常高效的，且 ID 是唯一的，所以在使用的时候应该单独使用，不需要再指定标签名等。</li><li>避免深层次的选择器。</li><li>慎用子代选择器。</li><li>属性选择的的解析速度非常慢，慎用。</li></ul>
           </div>
-<!-- aadonkeyz -->
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="https://juejin.im/entry/5a123c55f265da432240cc90" target="_blank" rel="noopener">探究 CSS 解析原理</a></li>
+</ul>
 
       
     </div>
@@ -638,7 +639,7 @@
                 
                   <a rel="external nofollow" href="/archives/">
                 
-                    <span class="site-state-item-count">84</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -734,7 +735,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS选择器的解析顺序"><span class="nav-number">1.</span> <span class="nav-text">CSS选择器的解析顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#computedStyle的计算"><span class="nav-number">2.</span> <span class="nav-text">computedStyle的计算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择器书写建议"><span class="nav-number">3.</span> <span class="nav-text">选择器书写建议</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS选择器的解析顺序"><span class="nav-number">1.</span> <span class="nav-text">CSS选择器的解析顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#computedStyle的计算"><span class="nav-number">2.</span> <span class="nav-text">computedStyle的计算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择器书写建议"><span class="nav-number">3.</span> <span class="nav-text">选择器书写建议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
