@@ -98,15 +98,14 @@
 
 
 
-  <meta name="description" content="若干定义             一个图G = (V, E) 由顶点的集V和边的集E组成。每一条边就是一个点对（v, w），有时也把边称作弧。如果点对是有序的，那么图就叫作有向的。有向的图叫作有向图（digraph）。当且仅当$(w, v) \in E$时，称w邻接到v。在一个具有边（v, w）从而具有边（w, v）的无向图中，w邻接到v且v也邻接到w。有时候，边上还有第三种成分，称做权或值。图中">
+  <meta name="description" content="拓扑排序拓扑排序是对有向无圈图的顶点的一种排序，使得如果存在一条从 $v_i$ 到 $v_j$ 的路径，那么在排序中 $v_j$ 就在 $v_i$ 的之后出现。它的原理比较简单，直接用下面的图片进行展示了。图片来源与拓扑排序（Topological Sorting）               拓扑排序的结果不是唯一的。            最短路径问题             对于一个有向附权">
 <meta name="keywords" content="前端博客,JavaScript,html5,css3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图论算法">
 <meta property="og:url" content="https://aadonkeyz.com/posts/7de55cdc/index.html">
 <meta property="og:site_name" content="aadonkeyz的博客">
-<meta property="og:description" content="若干定义             一个图G = (V, E) 由顶点的集V和边的集E组成。每一条边就是一个点对（v, w），有时也把边称作弧。如果点对是有序的，那么图就叫作有向的。有向的图叫作有向图（digraph）。当且仅当$(w, v) \in E$时，称w邻接到v。在一个具有边（v, w）从而具有边（w, v）的无向图中，w邻接到v且v也邻接到w。有时候，边上还有第三种成分，称做权或值。图中">
+<meta property="og:description" content="拓扑排序拓扑排序是对有向无圈图的顶点的一种排序，使得如果存在一条从 $v_i$ 到 $v_j$ 的路径，那么在排序中 $v_j$ 就在 $v_i$ 的之后出现。它的原理比较简单，直接用下面的图片进行展示了。图片来源与拓扑排序（Topological Sorting）               拓扑排序的结果不是唯一的。            最短路径问题             对于一个有向附权">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA.svg">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8E%9F%E7%90%86%E5%9B%BE.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/Dijkstra%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86gif%E5%9B%BE.gif">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E4%B8%80%E4%B8%AA%E5%9B%BE%E5%92%8C%E5%AE%83%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B5%81.png">
@@ -114,11 +113,11 @@
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E5%9B%BE%E3%80%81%E6%B5%81%E5%9B%BE%E4%BB%A5%E5%8F%8A%E6%AE%8B%E4%BD%99%E5%9B%BE.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E5%9B%BE%E3%80%81%E6%B5%81%E5%9B%BE%E4%BB%A5%E5%8F%8A%E6%AE%8B%E4%BD%99%E5%9B%BE.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%B1%82%E8%A7%A3%E8%BF%87%E7%A8%8B.png">
-<meta property="og:updated_time" content="2021-01-23T15:29:57.114Z">
+<meta property="og:updated_time" content="2021-11-28T13:59:10.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图论算法">
-<meta name="twitter:description" content="若干定义             一个图G = (V, E) 由顶点的集V和边的集E组成。每一条边就是一个点对（v, w），有时也把边称作弧。如果点对是有序的，那么图就叫作有向的。有向的图叫作有向图（digraph）。当且仅当$(w, v) \in E$时，称w邻接到v。在一个具有边（v, w）从而具有边（w, v）的无向图中，w邻接到v且v也邻接到w。有时候，边上还有第三种成分，称做权或值。图中">
-<meta name="twitter:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA.svg">
+<meta name="twitter:description" content="拓扑排序拓扑排序是对有向无圈图的顶点的一种排序，使得如果存在一条从 $v_i$ 到 $v_j$ 的路径，那么在排序中 $v_j$ 就在 $v_i$ 的之后出现。它的原理比较简单，直接用下面的图片进行展示了。图片来源与拓扑排序（Topological Sorting）               拓扑排序的结果不是唯一的。            最短路径问题             对于一个有向附权">
+<meta name="twitter:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8E%9F%E7%90%86%E5%9B%BE.png">
 
 
 
@@ -256,7 +255,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
 
   </li>
         
@@ -275,7 +274,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">84</span></a>
 
   </li>
 
@@ -416,7 +415,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
+                <time title="修改时间：2021-11-28 21:59:10" itemprop="dateModified" datetime="2021-11-28T21:59:10+08:00">2021-11-28</time>
               
             
           </span>
@@ -433,7 +432,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构与算法/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Data-Structure-and-Algorithm/" itemprop="url" rel="index"><span itemprop="name">Data Structure and Algorithm</span></a></span>
 
                 
                 
@@ -468,42 +467,37 @@
       
 
       
-        <h1 id="若干定义"><a href="#若干定义" class="headerlink" title="若干定义"></a>若干定义</h1><div class="note info">
-            <ul><li>一个<strong>图</strong>G = (V, E) 由<strong>顶点</strong>的集V和<strong>边</strong>的集E组成。每一条边就是一个点对（v, w），有时也把边称作<strong>弧</strong>。</li><li>如果点对是有序的，那么图就叫作有向的。有向的图叫作<strong>有向图（digraph）</strong>。</li><li>当且仅当$(w, v) \in E$时，称w邻接到v。在一个具有边（v, w）从而具有边（w, v）的无向图中，w邻接到v且v也邻接到w。</li><li>有时候，边上还有第三种成分，称做<strong>权</strong>或<strong>值</strong>。</li><li>图中的一条<strong>路径</strong>是一个顶点序列$w<em>1, w_2, w_3, … , w_n$，使得$(w_i, w</em>{i+1}) \in E, 1 \leq i &lt; n$。这样一条路径的长为该路径上的边数（不存在权的情况下）。</li><li>有向图中的<strong>圈</strong>是满足$w_1=w_n$且长至少为1的一条路径。如果有一个有向图没有圈，则称其为<strong>无圈的</strong>。一个有向无圈图也称为<strong>DAG</strong>。</li><li>如果在一个无向图中从每一个顶点到每个其他顶点都存在一条路径，则称该无向图是<strong>连通的</strong>。</li><li>如果在一个有向图中从每一个顶点到每个其他顶点都存在一条路径，则称该有向图是<strong>强连通的</strong>。</li><li>如果一个有向图不是强连通的，但是它的<strong>基础图</strong>（即其弧上去掉方向所形成的图）是连通的，那么该有向图称为是<strong>弱连通的</strong>。</li><li><strong>完全图</strong>是其每一对顶点间都存在一条边的图。</li></ul>
-          </div>
-<p>为了表示一个图，可以使用<strong>邻接矩阵</strong>或者<strong>邻接表</strong>。对于边数较多（即<strong>稠密</strong>）的图，推荐使用邻接矩阵。如果图是<strong>稀疏</strong>的，推荐使用邻接表。</p>
-<p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA.svg" alt="图的表示"></p>
-<h1 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h1><p><strong>拓扑排序</strong>是对有向无圈图的顶点的一种排序，使得如果存在一条从$v_i$到$v_j$的路径，那么在排序中$v_j$就在$v_i$的之后出现。它的原理比较简单，直接用下面的图片进行展示了。图片来源与<a href="https://blog.csdn.net/lisonglisonglisong/article/details/45543451" target="_blank" rel="noopener">拓扑排序（Topological Sorting）</a></p>
+        <h1 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h1><p><strong>拓扑排序</strong>是对有向无圈图的顶点的一种排序，使得如果存在一条从 $v_i$ 到 $v_j$ 的路径，那么在排序中 $v_j$ 就在 $v_i$ 的之后出现。它的原理比较简单，直接用下面的图片进行展示了。图片来源与<a href="https://blog.csdn.net/lisonglisonglisong/article/details/45543451" target="_blank" rel="noopener">拓扑排序（Topological Sorting）</a></p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="拓扑排序原理图"></p>
 <div class="note warning">
-            <p><strong>需要注意的是，在实现拓扑排序时，首先要检查输入是否为有向无圈图。</strong></p>
+            <p><strong>拓扑排序的结果不是唯一的。</strong></p>
           </div>
 <h1 id="最短路径问题"><a href="#最短路径问题" class="headerlink" title="最短路径问题"></a>最短路径问题</h1><div class="note info">
-            <ul><li>对于一个有向附权图，它的边$(v<em>i, v_j)$上的权是$c</em>{i, j+1}$，因此，一条路径$v<em>1v_2…v_n$的值为$\sum</em>{i=1}^{n-1}c_{i,j+1}$，叫作<strong>赋权路径长</strong>。而<strong>无权路径长</strong>只是路径上的边数，即n-1。</li><li><strong>单源最短路径问题</strong>：给定一个有向附权图G和一个特定的顶点s作为输入，找出从s到G中每一个其他顶点的最短赋权路径。</li><li>单源最短路径问题的解可能不唯一。</li><li><strong>负值圈</strong>：如果存在圈，且圈上存在某个边的权值为负数，则称这个圈为负值圈。</li><li>求解单源最短路径问题时，需要分情况进行讨论，分别是：<ol><li>无权或者权值均为非负。</li><li>无负值圈但有负权。</li><li>存在负值圈。这种情况下，在求解最短路径过程中会陷入无限循环，即不存在最短路径。</li></ol></li></ul>
+            <ul><li>对于一个有向附权图，它的边$(v<em>i, v_j)$上的权是$c</em>{i, j+1}$，因此，一条路径$v<em>1v_2…v_n$的值为$\sum</em>{i=1}^{n-1}c_{i,j+1}$，叫作<strong>赋权路径长</strong>。而<strong>无权路径长</strong>只是路径上的边数，即 n-1。</li><li><strong>单源最短路径问题</strong>：给定一个有向附权图 G 和一个特定的顶点 s 作为输入，找出从 s 到 G 中每一个其他顶点的最短赋权路径。</li><li>单源最短路径问题的解可能不唯一。</li><li><strong>负值圈</strong>：如果存在圈，且圈上存在某个边的权值为负数，则称这个圈为负值圈。</li><li>求解单源最短路径问题时，需要分情况进行讨论，分别是： 1. 无权或者权值均为非负。 2. 无负值圈但有负权。 3. 存在负值圈。这种情况下，在求解最短路径过程中会陷入无限循环，即不存在最短路径。</li></ul>
           </div>
-<h2 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h2><p>在这里，我们介绍Dijkstra算法，用它来求解情况1下的最短路径。首先，用一张我在网上发现的图片展示Dijkstra算法的原理。图片来源<a href="https://zhuanlan.zhihu.com/p/34624812" target="_blank" rel="noopener">轻松搞懂dijkstra算法+堆优化 || 原理+实战</a></p>
+<h2 id="Dijkstra-算法"><a href="#Dijkstra-算法" class="headerlink" title="Dijkstra 算法"></a>Dijkstra 算法</h2><p>在这里，我们介绍 Dijkstra 算法，用它来求解情况 1 下的最短路径。首先，用一张我在网上发现的图片展示 Dijkstra 算法的原理。图片来源<a href="https://zhuanlan.zhihu.com/p/34624812" target="_blank" rel="noopener">轻松搞懂 dijkstra 算法+堆优化 || 原理+实战</a></p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/Dijkstra%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86gif%E5%9B%BE.gif" alt="Dijkstra算法原理gif图"></p>
 <div class="note info">
-            <p>Dijkstra算法实现步骤：</p><ol><li>对于每一个顶点，有3条必要信息：<ul><li><code>distance</code>：代表从开始顶点s到当前顶点的最短距离。s的<code>distance = 0</code>，其他顶点在初始时<code>distance</code>为无穷大。</li><li><code>path</code>：与<code>distance</code>对应的路径上的前一个顶点。</li><li><code>known</code>：该值为<code>true</code>时表示当前顶点的<code>distance</code>值已经是最小的，后续不会再进行更新。<strong>初始时，包括s在内的所有顶点<code>known = false</code>。</strong></li></ul></li><li>从s开始遍历每个<code>known = false</code>的顶点，将当前顶点的<code>known</code>标识为<code>true</code>。找出当前顶点可以邻接到的其他顶点，然后依次根据情况决定是否更新这些被邻接到的顶点的<code>distance</code>和<code>path</code>。最后在所有<code>known = false</code>的顶点中找出<code>distance</code>最小的一个，让它成为下一个当前顶点。</li><li>当所有顶点的<code>known</code>均为<code>true</code>时，算法运行结束。</li></ol><hr><p><strong>如果有向图是无圈的，则可以改进Dijkstra算法原有的顶点选择方式，按照拓扑排序的顺序选择顶点。</strong></p>
+            <p>Dijkstra 算法实现步骤：</p><ol><li>对于每一个顶点，有 3 条必要信息：<ul><li><code>distance</code>：代表从开始顶点 s 到当前顶点的最短距离。s 的<code>distance = 0</code>，其他顶点在初始时<code>distance</code>为无穷大。</li><li><code>path</code>：与<code>distance</code>对应的路径上的前一个顶点。</li><li><code>known</code>：该值为<code>true</code>时表示当前顶点的<code>distance</code>值已经是最小的，后续不会再进行更新。<strong>初始时，包括 s 在内的所有顶点<code>known = false</code>。</strong></li></ul></li><li>从 s 开始遍历每个<code>known = false</code>的顶点，将当前顶点的<code>known</code>标识为<code>true</code>。找出当前顶点可以邻接到的其他顶点，然后依次根据情况决定是否更新这些被邻接到的顶点的<code>distance</code>和<code>path</code>。最后在所有<code>known = false</code>的顶点中找出<code>distance</code>最小的一个，让它成为下一个当前顶点。</li><li>当所有顶点的<code>known</code>均为<code>true</code>时，算法运行结束。</li></ol><hr><p><strong>如果有向图是无圈的，则可以改进 Dijkstra 算法原有的顶点选择方式，按照拓扑排序的顺序选择顶点。</strong></p>
           </div>
 <div class="note warning">
-            <p><strong>如果想要Dijkstra算法可以正常工作，必须保证有向图中没有负的权值，否则<code>known</code>将失去存在的意义。</strong></p>
+            <p><strong>如果想要 Dijkstra 算法可以正常工作，必须保证有向图中没有负的权值，否则<code>known</code>将失去存在的意义。</strong></p>
           </div>
 <h2 id="无负值圈但有负权"><a href="#无负值圈但有负权" class="headerlink" title="无负值圈但有负权"></a>无负值圈但有负权</h2><div class="note warning">
-            <p><strong>有的人想到在这种情况下给每个边上的权值都加上一个相同的常数，从而消除负权值，再使用Dijkstra算法进行计算。这样做是行不通的，因为这样做会导致边数多的路径相对于边数少的路径，权重更重了。</strong></p>
+            <p><strong>有的人想到在这种情况下给每个边上的权值都加上一个相同的常数，从而消除负权值，再使用 Dijkstra 算法进行计算。这样做是行不通的，因为这样做会导致边数多的路径相对于边数少的路径，权重更重了。</strong></p>
           </div>
 <div class="note info">
-            <p>这种情况的新算法步骤如下所示：</p><ol><li>每个顶点都有<code>distance</code>和<code>path</code>属性。同时算法还需要维护一个队列，它里面保存的是需要被遍历的顶点。</li><li>将开始顶点s加入队列中。</li><li>取出队列中的第一个顶点，找到所有可以被它邻接到的其他顶点，然后依次根据情况决定是否更新这些被邻接到的顶点的<code>distance</code>和<code>path</code>。</li><li>在进行步骤3时，如果决定更新某个顶点的<code>distance</code>和<code>path</code>，并且这个被更新的顶点不在队列之中，那么就在更新的同时，将它加入到队列中。</li><li>重复步骤3和步骤4，直到队列为空。</li></ol><p><strong>这个算法的重点在于加顶点加入队列的判断机制。</strong></p>
+            <p>这种情况的新算法步骤如下所示：</p><ol><li>每个顶点都有<code>distance</code>和<code>path</code>属性。同时算法还需要维护一个队列，它里面保存的是需要被遍历的顶点。</li><li>将开始顶点 s 加入队列中。</li><li>取出队列中的第一个顶点，找到所有可以被它邻接到的其他顶点，然后依次根据情况决定是否更新这些被邻接到的顶点的<code>distance</code>和<code>path</code>。</li><li>在进行步骤 3 时，如果决定更新某个顶点的<code>distance</code>和<code>path</code>，并且这个被更新的顶点不在队列之中，那么就在更新的同时，将它加入到队列中。</li><li>重复步骤 3 和步骤 4，直到队列为空。</li></ol><p><strong>这个算法的重点在于加顶点加入队列的判断机制。</strong></p>
           </div>
-<h1 id="网络流问题"><a href="#网络流问题" class="headerlink" title="网络流问题"></a>网络流问题</h1><p>设给定有向图G，其任意边$(v<em>i, v_j)$上的容量为$c</em>{i,j}$。这里有两个顶点，一个是<strong>发点s</strong>，一个是<strong>收点t</strong>。在既不是发点s又不是收点t的任意顶点v，总的进入流必须等于总的发出流。<strong>最大流问题</strong>就是确定从s到t可以通过的最大流量。例如，下图展示了一个有向图和它的最大流。</p>
+<h1 id="网络流问题"><a href="#网络流问题" class="headerlink" title="网络流问题"></a>网络流问题</h1><p>设给定有向图 G，其任意边$(v<em>i, v_j)$上的容量为$c</em>{i,j}$。这里有两个顶点，一个是<strong>发点 s</strong>，一个是<strong>收点 t</strong>。在既不是发点 s 又不是收点 t 的任意顶点 v，总的进入流必须等于总的发出流。<strong>最大流问题</strong>就是确定从 s 到 t 可以通过的最大流量。例如，下图展示了一个有向图和它的最大流。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E4%B8%80%E4%B8%AA%E5%9B%BE%E5%92%8C%E5%AE%83%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B5%81.png" alt="一个图和它的最大流"></p>
-<p>从图中看到，顶点s有容量为4和2的两条边流出，而顶点t有容量为3和3的两条边进入。因此，最大流也许可能是6而不是5。然而，下图指出如何证明最大流就是5。我们把图切割成两部分：一部分包含顶点s，而另一部分包含顶点t。既然流必须通过切口，于是切口上所有的边的总容量就是最大流的一个界。从图中恰好可以看到，5就是最大流的一个界。</p>
+<p>从图中看到，顶点 s 有容量为 4 和 2 的两条边流出，而顶点 t 有容量为 3 和 3 的两条边进入。因此，最大流也许可能是 6 而不是 5。然而，下图指出如何证明最大流就是 5。我们把图切割成两部分：一部分包含顶点 s，而另一部分包含顶点 t。既然流必须通过切口，于是切口上所有的边的总容量就是最大流的一个界。从图中恰好可以看到，5 就是最大流的一个界。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E5%88%87%E5%89%B2%E5%9B%BE.png" alt="切割图"></p>
-<p>求解最大流问题的首要想法是分阶段进行。我们从图G开始并构造一个<strong>流图（flow graph）</strong>$G_f$。$G_f$表示在求解的任意阶段已经达到的流。开始时$G_f$的所有的边都是没有流的，我们希望当算法终止时$G_f$包含最大流。另外，我们还构造一个图$G_r$，称为<strong>残余图（residual graph）</strong>，它表示对于每条边还能再添加上多少流。对于每一条边，可以从容量中减去当前的流而计算除残余的流。$G_r$的边叫作<strong>残余边（residual edge）</strong>。在每个阶段，我们寻找图$G_r$中从s到t的一条路径，这条路径叫作<strong>增长通路（augmenting path）</strong>。这条路径上的最小容量就是可以添加到路径每一边上的流的量。下面用一个图展示这些概念。</p>
+<p>求解最大流问题的首要想法是分阶段进行。我们从图 G 开始并构造一个<strong>流图（flow graph）</strong>$G_f$。$G_f$表示在求解的任意阶段已经达到的流。开始时$G_f$的所有的边都是没有流的，我们希望当算法终止时$G_f$包含最大流。另外，我们还构造一个图$G_r$，称为<strong>残余图（residual graph）</strong>，它表示对于每条边还能再添加上多少流。对于每一条边，可以从容量中减去当前的流而计算除残余的流。$G_r$的边叫作<strong>残余边（residual edge）</strong>。在每个阶段，我们寻找图$G_r$中从 s 到 t 的一条路径，这条路径叫作<strong>增长通路（augmenting path）</strong>。这条路径上的最小容量就是可以添加到路径每一边上的流的量。下面用一个图展示这些概念。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E5%9B%BE%E3%80%81%E6%B5%81%E5%9B%BE%E4%BB%A5%E5%8F%8A%E6%AE%8B%E4%BD%99%E5%9B%BE.png" alt="图、流图以及残余图"></p>
 <p>下面给出求解最大流问题的具体步骤：</p>
 <div class="note info">
-            <ol><li>在$G_r$中找到任意一条增长通路，根据该增长通路，更新$G_f$中的的流信息，然后在$G_r$将该增长路径调整为相反方向。</li><li>重复步骤1，直到在$G_r$中找不到增长通路位置。</li></ol><p>其实步骤1中的增长通路的选择上可以做一些文章从而减少时间复杂度，这里暂时不进行详细分析了。</p>
+            <ol><li>在$G_r$中找到任意一条增长通路，根据该增长通路，更新$G_f$中的的流信息，然后在$G_r$将该增长路径调整为相反方向。</li><li>重复步骤 1，直到在$G_r$中找不到增长通路位置。</li></ol><p>其实步骤 1 中的增长通路的选择上可以做一些文章从而减少时间复杂度，这里暂时不进行详细分析了。</p>
           </div>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E5%9B%BE%E3%80%81%E6%B5%81%E5%9B%BE%E4%BB%A5%E5%8F%8A%E6%AE%8B%E4%BD%99%E5%9B%BE.png" alt="图、流图以及残余图"></p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%B1%82%E8%A7%A3%E8%BF%87%E7%A8%8B.png" alt="求解过程"></p>
@@ -667,7 +661,7 @@
                 
                   <a rel="external nofollow" href="/archives/">
                 
-                    <span class="site-state-item-count">83</span>
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -710,7 +704,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -763,7 +759,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#若干定义"><span class="nav-number">1.</span> <span class="nav-text">若干定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拓扑排序"><span class="nav-number">2.</span> <span class="nav-text">拓扑排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最短路径问题"><span class="nav-number">3.</span> <span class="nav-text">最短路径问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dijkstra算法"><span class="nav-number">3.1.</span> <span class="nav-text">Dijkstra算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无负值圈但有负权"><span class="nav-number">3.2.</span> <span class="nav-text">无负值圈但有负权</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络流问题"><span class="nav-number">4.</span> <span class="nav-text">网络流问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#拓扑排序"><span class="nav-number">1.</span> <span class="nav-text">拓扑排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最短路径问题"><span class="nav-number">2.</span> <span class="nav-text">最短路径问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dijkstra-算法"><span class="nav-number">2.1.</span> <span class="nav-text">Dijkstra 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无负值圈但有负权"><span class="nav-number">2.2.</span> <span class="nav-text">无负值圈但有负权</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络流问题"><span class="nav-number">3.</span> <span class="nav-text">网络流问题</span></a></li></ol></div>
             
 
           </div>

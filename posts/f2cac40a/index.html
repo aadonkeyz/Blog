@@ -98,23 +98,23 @@
 
 
 
-  <meta name="description" content="二叉堆什么是二叉堆只要满足下面的结构性质和堆序性质的，就是二叉堆 结构性质二叉堆是一颗被完全填满的二叉树，有可能的例外是在底层，底层上的元素从左到右填入。这样的树称为完全二叉树。  容易证明，一颗高为h的完全二叉树有$2^h$到$2^{h+1} - 1$个节点。这意味着，完全二叉树的高是$\lfloor logN \rfloor$，显然它是$O(logN)$ 一个重要的观察发现，因为完全二叉树这么">
+  <meta name="description" content="二叉堆什么是二叉堆只要满足下面的结构性质和堆序性质的，就是二叉堆 结构性质二叉堆是一颗被完全填满的二叉树，有可能的例外是在底层，底层上的元素从左到右填入。这样的树称为完全二叉树。  容易证明，一颗高为 h 的完全二叉树有$2^h$到$2^{h+1} - 1$个节点。这意味着，完全二叉树的高是$\lfloor logN \rfloor$，显然它是$O(logN)$ 一个重要的观察发现，因为完全二叉树">
 <meta name="keywords" content="前端博客,JavaScript,html5,css3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堆">
 <meta property="og:url" content="https://aadonkeyz.com/posts/f2cac40a/index.html">
 <meta property="og:site_name" content="aadonkeyz的博客">
-<meta property="og:description" content="二叉堆什么是二叉堆只要满足下面的结构性质和堆序性质的，就是二叉堆 结构性质二叉堆是一颗被完全填满的二叉树，有可能的例外是在底层，底层上的元素从左到右填入。这样的树称为完全二叉树。  容易证明，一颗高为h的完全二叉树有$2^h$到$2^{h+1} - 1$个节点。这意味着，完全二叉树的高是$\lfloor logN \rfloor$，显然它是$O(logN)$ 一个重要的观察发现，因为完全二叉树这么">
+<meta property="og:description" content="二叉堆什么是二叉堆只要满足下面的结构性质和堆序性质的，就是二叉堆 结构性质二叉堆是一颗被完全填满的二叉树，有可能的例外是在底层，底层上的元素从左到右填入。这样的树称为完全二叉树。  容易证明，一颗高为 h 的完全二叉树有$2^h$到$2^{h+1} - 1$个节点。这意味着，完全二叉树的高是$\lfloor logN \rfloor$，显然它是$O(logN)$ 一个重要的观察发现，因为完全二叉树">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/insert1.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/insert2.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/deleteMin.png">
-<meta property="og:updated_time" content="2020-12-12T23:39:43.991Z">
+<meta property="og:updated_time" content="2021-11-28T13:59:10.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="堆">
-<meta name="twitter:description" content="二叉堆什么是二叉堆只要满足下面的结构性质和堆序性质的，就是二叉堆 结构性质二叉堆是一颗被完全填满的二叉树，有可能的例外是在底层，底层上的元素从左到右填入。这样的树称为完全二叉树。  容易证明，一颗高为h的完全二叉树有$2^h$到$2^{h+1} - 1$个节点。这意味着，完全二叉树的高是$\lfloor logN \rfloor$，显然它是$O(logN)$ 一个重要的观察发现，因为完全二叉树这么">
+<meta name="twitter:description" content="二叉堆什么是二叉堆只要满足下面的结构性质和堆序性质的，就是二叉堆 结构性质二叉堆是一颗被完全填满的二叉树，有可能的例外是在底层，底层上的元素从左到右填入。这样的树称为完全二叉树。  容易证明，一颗高为 h 的完全二叉树有$2^h$到$2^{h+1} - 1$个节点。这意味着，完全二叉树的高是$\lfloor logN \rfloor$，显然它是$O(logN)$ 一个重要的观察发现，因为完全二叉树">
 <meta name="twitter:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91.png">
 
 
@@ -253,7 +253,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
 
   </li>
         
@@ -272,7 +272,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">84</span></a>
 
   </li>
 
@@ -413,7 +413,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+                <time title="修改时间：2021-11-28 21:59:10" itemprop="dateModified" datetime="2021-11-28T21:59:10+08:00">2021-11-28</time>
               
             
           </span>
@@ -430,7 +430,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构与算法/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Data-Structure-and-Algorithm/" itemprop="url" rel="index"><span itemprop="name">Data Structure and Algorithm</span></a></span>
 
                 
                 
@@ -468,44 +468,44 @@
         <h1 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h1><h2 id="什么是二叉堆"><a href="#什么是二叉堆" class="headerlink" title="什么是二叉堆"></a>什么是二叉堆</h2><p>只要满足下面的结构性质和堆序性质的，就是二叉堆</p>
 <h3 id="结构性质"><a href="#结构性质" class="headerlink" title="结构性质"></a>结构性质</h3><p>二叉堆是一颗被完全填满的二叉树，有可能的例外是在底层，底层上的元素从左到右填入。这样的树称为完全二叉树。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91.png" alt="完全二叉树"></p>
-<p>容易证明，一颗高为h的完全二叉树有$2^h$到$2^{h+1} - 1$个节点。这意味着，完全二叉树的高是$\lfloor logN \rfloor$，显然它是$O(logN)$</p>
+<p>容易证明，一颗高为 h 的完全二叉树有$2^h$到$2^{h+1} - 1$个节点。这意味着，完全二叉树的高是$\lfloor logN \rfloor$，显然它是$O(logN)$</p>
 <p>一个重要的观察发现，因为完全二叉树这么有规律，所以它可以用一个数组表示</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0.png" alt="完全二叉树的数组实现"></p>
-<p>该数组索引为0的位置是空的，元素是从索引为1的位置开始放入的。这样的话，对于数组中的任意位置$i$上的元素，其左儿子在位置$2i$上，右儿子在左儿子后的单元$2i+1$中，它的父亲则在位置$\lfloor i/2 \rfloor$上。</p>
-<h3 id="堆序性质"><a href="#堆序性质" class="headerlink" title="堆序性质"></a>堆序性质</h3><p>使操作被快速执行的性质是<strong>堆序性质</strong>。由于我们想要能够快速地找出最小/大元，因此最小/大元应该在根上。</p>
+<p>该数组索引为 0 的位置是空的，元素是从索引为 1 的位置开始放入的。这样的话，对于数组中的任意位置$i$上的元素，其左儿子在位置$2i$上，右儿子在左儿子后的单元$2i+1$中，它的父亲则在位置$\lfloor i/2 \rfloor$上。</p>
+<h3 id="堆序性质"><a href="#堆序性质" class="headerlink" title="堆序性质"></a>堆序性质</h3><p>使操作被快速执行的性质是<strong>堆序性质</strong>。由于我们想要能够快速地找出最小/大元，因此最小/大元应该在根上。如果我们考虑任意子树也应该是一个堆，那么任意节点就应该小/大于它的所有后裔。</p>
 <h2 id="最小-大堆"><a href="#最小-大堆" class="headerlink" title="最小/大堆"></a>最小/大堆</h2><div class="note info">
-            <p>二叉堆分为最小堆和最大堆</p><ul><li><strong>最小堆</strong>：在最小堆中，对于每一个节点X，X的父亲中的关键字小于（或等于）X中的关键字，根节点除外（它没有父亲）</li><li><strong>最大堆</strong>：在最大堆中，对于每一个节点X，X的父亲中的关键字大于（或等于）X中的关键字，根节点除外（它没有父亲）</li></ul>
+            <p>二叉堆分为最小堆和最大堆</p><ul><li><strong>最小堆</strong>：在最小堆中，对于每一个节点 X，X 的父亲中的关键字小于（或等于）X 中的关键字，根节点除外（它没有父亲）</li><li><strong>最大堆</strong>：在最大堆中，对于每一个节点 X，X 的父亲中的关键字大于（或等于）X 中的关键字，根节点除外（它没有父亲）</li></ul>
           </div>
 <h2 id="二叉堆的操作"><a href="#二叉堆的操作" class="headerlink" title="二叉堆的操作"></a>二叉堆的操作</h2><p>下面的操作，均以最小堆为例</p>
-<h3 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h3><p>为了将一个元素X插入到堆中，我们必须在下一个可用位置创建一个<strong>空穴</strong>，否则该堆将不是完全二叉树了。如果X可以放在该空穴中而并不破坏堆的序，那么插入完成。否则，我们把空穴的副节点上的元素移入该空穴中，这样，空穴就朝着根的方向上冒一步。继续该过程直到X能被放入空穴中位置。这种一般的策略叫作<strong>上滤</strong>。</p>
+<h3 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h3><p>为了将一个元素 X 插入到堆中，我们必须在下一个可用位置创建一个<strong>空穴</strong>，否则该堆将不是完全二叉树了。如果 X 可以放在该空穴中而并不破坏堆的序，那么插入完成。否则，我们把空穴的父节点上的元素移入该空穴中，这样，空穴就朝着根的方向上冒一步。继续该过程直到 X 能被放入空穴中位置。这种一般的策略叫作<strong>上滤</strong>。</p>
 <div class="note info">
             <p><strong>时间复杂度（最坏）</strong>：$O(logN)$</p>
           </div>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/insert1.png" alt="insert1"><br><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/insert2.png" alt="insert2"></p>
-<h3 id="deleteMin"><a href="#deleteMin" class="headerlink" title="deleteMin"></a>deleteMin</h3><p>当删除一个最小元时，要在根节点建立一个空穴。由于现在的堆少了一个元素，因此堆中最后一个元素X必须移动到该堆的某个地方。如果X可以被放到空穴中，那么<code>deleteMin</code>就完成。否则我们将空穴的两个儿子中较小者移入空穴，这样就把空穴向下推了一层。重复该步骤直到X可以被放入空穴中。因此，我们的做法是将X置入沿着从根节点开始包含最小儿子的一条路径上的一个正确的位置。这种一般的策略叫作<strong>下滤</strong>。</p>
+<h3 id="deleteMin"><a href="#deleteMin" class="headerlink" title="deleteMin"></a>deleteMin</h3><p>当删除一个最小元时，要在根节点建立一个空穴。由于现在的堆少了一个元素，因此堆中最后一个元素 X 必须移动到该堆的某个地方。如果 X 可以被放到空穴中，那么 <code>deleteMin</code> 就完成。否则我们将空穴的两个儿子中较小者移入空穴，这样就把空穴向下推了一层。重复该步骤直到 X 可以被放入空穴中。因此，我们的做法是将 X 置入沿着从根节点开始包含最小儿子的一条路径上的一个正确的位置。这种一般的策略叫作<strong>下滤</strong>。</p>
 <div class="note info">
             <p><strong>时间复杂度（最坏）</strong>：$O(logN)$</p>
           </div>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A0%86/deleteMin.png" alt="deleteMin"></p>
-<h3 id="decreaseKey"><a href="#decreaseKey" class="headerlink" title="decreaseKey"></a>decreaseKey</h3><p><code>decreaseKey(p, △)</code>操作降低在位置<code>p</code>处的项的值，降值的幅度为正的量<code>△</code>。由于这可能破坏堆序性质，因此必须通过上滤堆堆进行调整。</p>
-<h3 id="increaseKey"><a href="#increaseKey" class="headerlink" title="increaseKey"></a>increaseKey</h3><p><code>increaseKey(p, △)</code>操作增加在位置<code>p</code>处的项的值，增值的幅度为正的量<code>△</code>。这可以用下滤来完成。</p>
-<h3 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h3><p><code>remove(p)</code>操作删除堆中位置<code>p</code>上的节点。该操作通过首先执行<code>decreaseKey(p, ∞)</code>然后再执行<code>deleteMin</code>来完成</p>
-<h3 id="buildHeap"><a href="#buildHeap" class="headerlink" title="buildHeap"></a>buildHeap</h3><p>有时二叉堆是由一些项的一个初始集合构造而得的，当然可以使用连续的<code>insert</code>操作来完成堆的构建，但是这样的话最坏情况下的时间复杂度为$O(NlogN)$，这并不是最优的方案。</p>
+<h3 id="decreaseKey"><a href="#decreaseKey" class="headerlink" title="decreaseKey"></a>decreaseKey</h3><p><code>decreaseKey(p, △)</code> 操作降低在位置 <code>p</code> 处的项的值，降值的幅度为正的量 <code>△</code>。由于这可能破坏堆序性质，因此必须通过上滤堆堆进行调整。</p>
+<h3 id="increaseKey"><a href="#increaseKey" class="headerlink" title="increaseKey"></a>increaseKey</h3><p><code>increaseKey(p, △)</code> 操作增加在位置 <code>p</code> 处的项的值，增值的幅度为正的量 <code>△</code>。这可以用下滤来完成。</p>
+<h3 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h3><p><code>remove(p)</code> 操作删除堆中位置 <code>p</code> 上的节点。该操作通过首先执行 <code>decreaseKey(p, ∞)</code> 然后再执行 <code>deleteMin</code> 来完成。</p>
+<h3 id="buildHeap"><a href="#buildHeap" class="headerlink" title="buildHeap"></a>buildHeap</h3><p>有时二叉堆是由一些项的一个初始集合构造而得的，当然可以使用连续的 <code>insert</code> 操作来完成堆的构建，但是这样的话最坏情况下的时间复杂度为 $O(NlogN)$，这并不是最优的方案。</p>
 <div class="note info">
             <p>最优方案步骤：</p><ol><li>将这些项构成的集合直接转换为一个无序的完全二叉树</li><li>从完全二叉树的最后一个非叶子节点开始往前遍历，依次进行下滤策略</li></ol><p><strong>时间复杂度（最坏）</strong>：$O(N)$</p>
           </div>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> list = [<span class="number">90</span>, <span class="number">84</span>, <span class="number">83</span>, <span class="number">88</span>, <span class="number">87</span>, <span class="number">61</span>, <span class="number">50</span>, <span class="number">70</span>, <span class="number">60</span>, <span class="number">80</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildHeap</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> heap = [];</span><br><span class="line">    heap.size = array.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">        heap[i + <span class="number">1</span>] = array[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> currentIndex = <span class="built_in">Math</span>.floor(heap.size / <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">while</span> (currentIndex &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        percolateDown(heap, currentIndex);</span><br><span class="line">        currentIndex--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> heap</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">percolateDown</span> (<span class="params">heap, currentIndex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> leftSonIndex = <span class="number">2</span> * currentIndex,</span><br><span class="line">        rightSonIndex = <span class="number">2</span> * currentIndex + <span class="number">1</span>,</span><br><span class="line">        minValueIndex = currentIndex;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (leftSonIndex &lt;= heap.size &amp;&amp; heap[leftSonIndex] &lt; heap[currentIndex]) &#123;</span><br><span class="line">        minValueIndex = leftSonIndex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (rightSonIndex &lt;= heap.size &amp;&amp; heap[rightSonIndex] &lt; heap[minValueIndex]) &#123;</span><br><span class="line">        minValueIndex = rightSonIndex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (currentIndex !== minValueIndex) &#123;</span><br><span class="line">        [heap[currentIndex], heap[minValueIndex]] = [heap[minValueIndex], heap[currentIndex]];</span><br><span class="line">        percolateDown(heap, minValueIndex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buildHeap(list))</span><br></pre></td></tr></table></figure>
-<h1 id="d-堆"><a href="#d-堆" class="headerlink" title="$d$堆"></a>$d$堆</h1><p>$d$堆是二叉堆的简单推广，它恰像一个二叉树，只是所有的节点都有$d$个儿子（因此，二叉堆是2堆）。</p>
-<p>$d$堆要比二叉堆浅得多，它将<code>insert</code>操作的运行时间改进为$O(log_dN)$。然而，对于大的$d$，<code>deleteMin</code>操作费时得多，因为虽然树是浅了，但是$d$个儿子中的最小者是必须要找出的，如果使用标准的算法，这会花费$d-1$次比较，于是将操作的用时提高到$O(dlog_dN)$。如果$d$是常数，那么当然两者的运行时间都是$O(logN)$。最后，有证据显示，在实践中4堆可以胜过二叉堆。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> list = [<span class="number">90</span>, <span class="number">84</span>, <span class="number">83</span>, <span class="number">88</span>, <span class="number">87</span>, <span class="number">61</span>, <span class="number">50</span>, <span class="number">70</span>, <span class="number">60</span>, <span class="number">80</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildHeap</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> heap = [];</span><br><span class="line">  heap.size = array.length;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">    heap[i + <span class="number">1</span>] = array[i];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> currentIndex = <span class="built_in">Math</span>.floor(heap.size / <span class="number">2</span>);</span><br><span class="line">  <span class="keyword">while</span> (currentIndex &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    percolateDown(heap, currentIndex);</span><br><span class="line">    currentIndex--;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> heap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">percolateDown</span>(<span class="params">heap, currentIndex</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> leftSonIndex = <span class="number">2</span> * currentIndex,</span><br><span class="line">    rightSonIndex = <span class="number">2</span> * currentIndex + <span class="number">1</span>,</span><br><span class="line">    minValueIndex = currentIndex;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (leftSonIndex &lt;= heap.size &amp;&amp; heap[leftSonIndex] &lt; heap[currentIndex]) &#123;</span><br><span class="line">    minValueIndex = leftSonIndex;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (rightSonIndex &lt;= heap.size &amp;&amp; heap[rightSonIndex] &lt; heap[minValueIndex]) &#123;</span><br><span class="line">    minValueIndex = rightSonIndex;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (currentIndex !== minValueIndex) &#123;</span><br><span class="line">    [heap[currentIndex], heap[minValueIndex]] = [</span><br><span class="line">      heap[minValueIndex],</span><br><span class="line">      heap[currentIndex],</span><br><span class="line">    ];</span><br><span class="line">    percolateDown(heap, minValueIndex);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buildHeap(list));</span><br></pre></td></tr></table></figure>
+<h1 id="d-堆"><a href="#d-堆" class="headerlink" title="$d$堆"></a>$d$堆</h1><p>$d$ 堆是二叉堆的简单推广，它恰像一个二叉树，只是所有的节点都有 $d$ 个儿子（因此，二叉堆是 2 堆）。</p>
+<p>$d$ 堆要比二叉堆浅得多，它将 <code>insert</code> 操作的运行时间改进为 $O(log_dN)$。然而，对于大的 $d$，<code>deleteMin</code> 操作费时得多，因为虽然树是浅了，但是 $d$ 个儿子中的最小者是必须要找出的，如果使用标准的算法，这会花费 $d-1$ 次比较，于是将操作的用时提高到 $O(dlog_dN)$。如果 $d$ 是常数，那么当然两者的运行时间都是 $O(logN)$。最后，有证据显示，在实践中 4 堆可以胜过二叉堆。</p>
 <h1 id="左式堆"><a href="#左式堆" class="headerlink" title="左式堆"></a>左式堆</h1><p><strong>左式堆</strong>像二叉堆那样也具有结构性和有序性。事实上，和所有使用的堆一样，左式堆具有相同的堆序性质。左式堆与二叉堆的区别主要体现在结构性上。</p>
-<h2 id="结构性质-1"><a href="#结构性质-1" class="headerlink" title="结构性质"></a>结构性质</h2><p>我们把任意节点X的<strong>零路径长</strong><code>npl(X)</code>定义为从X到一个不具有两个儿子的节点的最短路径长。因此，具有0或1个儿子的节点的<code>npl = 0</code>，而空节点的<code>npl = -1</code>。</p>
-<p>任意节点的零路径长比它的诸儿子节点的零路径长的最小值多1。这个结论也适用少于两个儿子的节点。</p>
+<h2 id="结构性质-1"><a href="#结构性质-1" class="headerlink" title="结构性质"></a>结构性质</h2><p>我们把任意节点 X 的<strong>零路径长</strong><code>npl(X)</code>定义为从 X 到一个不具有两个儿子的节点的最短路径长。因此，具有 0 或 1 个儿子的节点的<code>npl = 0</code>，而空节点的<code>npl = -1</code>。</p>
+<p>任意节点的零路径长比它的诸儿子节点的零路径长的最小值多 1。这个结论也适用少于两个儿子的节点。</p>
 <div class="note info">
-            <ul><li><strong>左式堆的结构性质是</strong>：对于每一个节点X，左儿子的零路径长至少与右儿子的零路径长一样。对于堆中的每一个节点X，左儿子的零路径长大于等于右儿子的零路径长</li><li>《数据结构与算法分析》中有证明，在右路径上有$r$个节点的左式堆必然至少有$2^r-1$个节点</li></ul>
+            <ul><li><strong>左式堆的结构性质是</strong>：对于每一个节点 X，左儿子的零路径长至少与右儿子的零路径长一样。对于堆中的每一个节点 X，左儿子的零路径长大于等于右儿子的零路径长</li><li>《数据结构与算法分析》中有证明，在右路径上有$r$个节点的左式堆必然至少有$2^r-1$个节点</li></ul>
           </div>
 <h2 id="左式堆操作"><a href="#左式堆操作" class="headerlink" title="左式堆操作"></a>左式堆操作</h2><h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><p>这里我要介绍的是递归进行合并的方法。当要合并两个堆时，如果有一个是空的，则直接返回另一个堆。否则，为了合并这两个堆，可比较它们的根。首先，递归地将具有较大的根植的堆与具有较小的根植的堆的右子堆合并，然后判断左子堆和新的右子堆的零路径长，如果不满足左式堆的结构性，那么交换左子堆与右子堆的位置。</p>
-<h3 id="insert-1"><a href="#insert-1" class="headerlink" title="insert"></a>insert</h3><p>insert可以看作是merge的一种特殊情况，就是把插入看作是单节点堆与一个更大的堆的merge</p>
-<h3 id="deleteMin-1"><a href="#deleteMin-1" class="headerlink" title="deleteMin"></a>deleteMin</h3><p>deleteMin也可以看作是merge的一种特殊情况，首先将根节点移除，然后对两个儿子进行merge操作</p>
+<h3 id="insert-1"><a href="#insert-1" class="headerlink" title="insert"></a>insert</h3><p>insert 可以看作是 merge 的一种特殊情况，就是把插入看作是单节点堆与一个更大的堆的 merge。</p>
+<h3 id="deleteMin-1"><a href="#deleteMin-1" class="headerlink" title="deleteMin"></a>deleteMin</h3><p>deleteMin 也可以看作是 merge 的一种特殊情况，首先将根节点移除，然后对两个儿子进行 merge 操作。</p>
 
       
     </div>
@@ -666,7 +666,7 @@
                 
                   <a rel="external nofollow" href="/archives/">
                 
-                    <span class="site-state-item-count">83</span>
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -709,7 +709,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
