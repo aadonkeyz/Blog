@@ -3,7 +3,7 @@ title: 动态规划
 abbrlink: a80d0031
 date: 2020-10-07 15:42:23
 categories:
-  - 数据结构与算法
+  - Data Structure and Algorithm
 ---
 
 # 最长有效括号
@@ -29,7 +29,7 @@ categories:
  * 3. 确定初始条件:
  *    dp[0] = 0
  */
-function longestValidParentheses (s) {
+function longestValidParentheses(s) {
   let maxLen = 0;
   const dp = [0];
 
@@ -80,7 +80,7 @@ function longestValidParentheses (s) {
   }
 
   return maxLen;
-};
+}
 ```
 
 # 不同路径条数
@@ -99,7 +99,7 @@ function longestValidParentheses (s) {
  * 3. 确定初始条件:
  *    dp[0][0] = 1
  */
-function uniquePathsWithObstacles (obstacleGrid) {
+function uniquePathsWithObstacles(obstacleGrid) {
   if (!obstacleGrid) {
     return 0;
   }
@@ -152,7 +152,7 @@ function uniquePathsWithObstacles (obstacleGrid) {
   }
 
   return dp[xLen - 1][yLen - 1];
-};
+}
 ```
 
 # 编辑距离
@@ -171,7 +171,7 @@ function uniquePathsWithObstacles (obstacleGrid) {
  *    dp[0][j] = j
  *    dp[i][0] = i
  */
-function minDistance (word1, word2) {
+function minDistance(word1, word2) {
   const m = word1.length;
   const n = word2.length;
 
@@ -187,7 +187,7 @@ function minDistance (word1, word2) {
     dp[0][j] = [j];
   }
 
-  for (let i = 1; i <= m; i ++) {
+  for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
       /**
        * 最后一步为插入/删除/替换操作时, 所需的步骤总数
@@ -195,12 +195,13 @@ function minDistance (word1, word2) {
        */
       const insertActions = dp[i][j - 1] + 1;
       const deleteActions = dp[i - 1][j] + 1;
-      const replaceActions = word1[i - 1] === word2[j - 1] ? dp[i - 1][j - 1] : dp[i - 1][j - 1] + 1;
-      
+      const replaceActions =
+        word1[i - 1] === word2[j - 1] ? dp[i - 1][j - 1] : dp[i - 1][j - 1] + 1;
+
       dp[i][j] = Math.min(insertActions, deleteActions, replaceActions);
     }
   }
 
   return dp[m][n];
-};
+}
 ```

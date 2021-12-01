@@ -1,7 +1,7 @@
 ---
 title: 树
 categories:
-  - 数据结构与算法
+  - Data Structure and Algorithm
 mathjax: true
 abbrlink: 7b216a3b
 date: 2019-06-14 23:57:31
@@ -39,11 +39,12 @@ date: 2019-06-14 23:57:31
 ## 二叉树的遍历
 
 {% note info %}
+
 - **先序遍历**：首先处理根节点，然后再处理它的左儿子和右儿子
 - **中序遍历**：首先处理左儿子，然后处理根节点，最后处理右儿子
 - **后序遍历**：首先处理左儿子，然后处理右儿子，最后处理根节点
 - **层序遍历**：按照从上到下、从左到右的顺序处理节点
-{% endnote %}
+  {% endnote %}
 
 ### 先序遍历
 
@@ -291,10 +292,10 @@ class BinarySearchTree {
   }
 
   // preNode和where参数完全是为了删除树叶准备的
-  remove(inputValue, currentNode = this, preNode = null, where = "") {
+  remove(inputValue, currentNode = this, preNode = null, where = '') {
     if (inputValue < currentNode.value) {
       if (currentNode.left) {
-        currentNode.remove(inputValue, currentNode.left, currentNode, "left");
+        currentNode.remove(inputValue, currentNode.left, currentNode, 'left');
       } else {
         console.log(`${inputValue} does not exist`);
       }
@@ -302,7 +303,7 @@ class BinarySearchTree {
 
     if (inputValue > currentNode.value) {
       if (currentNode.right) {
-        currentNode.remove(inputValue, currentNode.right, currentNode, "right");
+        currentNode.remove(inputValue, currentNode.right, currentNode, 'right');
       } else {
         console.log(`${inputValue} does not exist`);
       }
@@ -324,7 +325,7 @@ class BinarySearchTree {
 
       if (currentNode.left && currentNode.right) {
         let minValue = currentNode.right.findMin();
-        currentNode.remove(minValue, currentNode.right, currentNode, "right");
+        currentNode.remove(minValue, currentNode.right, currentNode, 'right');
         currentNode.value = minValue;
         return;
       }
@@ -335,8 +336,8 @@ class BinarySearchTree {
 let array = [6, 2, 8, 7, 1, 4, 3, 5],
   tree = BinarySearchTree.makeTree(array);
 
-function preOrderTraverse(node, result = "") {
-  result += node.value + "  ";
+function preOrderTraverse(node, result = '') {
+  result += node.value + '  ';
 
   if (node.left) {
     result = preOrderTraverse(node.left, result);
@@ -545,7 +546,7 @@ class AVLTree {
           inputValue,
           currentNode.left,
           currentNode,
-          "left"
+          'left'
         );
       } else {
         console.log(`${inputValue} does not exist`);
@@ -558,7 +559,7 @@ class AVLTree {
           inputValue,
           currentNode.right,
           currentNode,
-          "right"
+          'right'
         );
       } else {
         console.log(`${inputValue} does not exist`);
@@ -585,7 +586,7 @@ class AVLTree {
             minValue,
             currentNode.right,
             currentNode,
-            "right"
+            'right'
           );
           currentNode.value = minValue;
           break;
@@ -603,8 +604,8 @@ class AVLTree {
   }
 }
 
-function preOrderTraverse(node, result = "") {
-  result += node.value + "  ";
+function preOrderTraverse(node, result = '') {
+  result += node.value + '  ';
 
   if (node.left) {
     result = preOrderTraverse(node.left, result);
@@ -686,407 +687,3 @@ function traverseTree(root) {
    {% endnote %}
 
 ![B-Tree Demo](https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%A0%91/B%20Tree%20Demo.png)
-
-# 树的练习
-
-## 判断二叉树是否平衡
-
-```js
-function isAVL (root) {
-  const stack = [];
-  let cur = root;
-  let lastHandled;
-
-  while (cur || stack.length > 0) {
-    while (cur) {
-      stack.push(cur);
-      cur = cur.left;
-    }
-
-    if (stack.length > 0) {
-      const topNode = stack[stack.length - 1];
-
-      if (topNode.right && topNode.right !== lastHandled) {
-        cur = topNode.right;
-      } else {        
-        const leftSonHeight = topNode.left ? topNode.left.height : -1;
-        const rightSonHeight = topNode.right ? topNode.right.height : -1;
-
-        if (Math.abs(leftSonHeight - rightSonHeight) > 1) {
-          return false;
-        } {
-          topNode.height = Math.max(leftSonHeight, rightSonHeight) + 1;
-        }
-
-        lastHandled = topNode;
-        stack.pop();
-      }
-    }
-  }
-
-  return true;
-};
-```
-
-
-## 判断二叉树是否对称
-
-```js
-function isSymmetric (root) {
-  let queue = [root];
-
-  while (queue.length > 0) {
-    const preLevelNodes = queue.slice();
-    queue = [];
-
-    let isAllEmpty = true;
-    preLevelNodes.forEach(item => {
-      if (!item) {
-        queue.push(null, null);
-      } else {
-        queue.push(item.left, item.right);
-
-        if (item.left || item.right) {
-          isAllEmpty = false;
-        }
-      }
-    });
-
-    if (isAllEmpty) {
-      queue = [];
-    }
-
-    // 如果想优化，可以将下面过程融合到上面到遍历过程中去
-    const len = queue.length;
-    for (let i = 0; i < len / 2; i++) {
-      // 两个都是空节点
-      if (!queue[i] && !queue[len -i - 1]) {
-        continue;
-      }
-
-      // 一个空节点，一个非空节点
-      if (!queue[i] || !queue[len -i - 1]) {
-        return false;
-      }
-      
-      // 两个都非空，但是值不相同
-      if (queue[i].val !== queue[len - i - 1].val) {
-        return false;
-      }
-    }
-  }
-
-  return true;
-};
-```
-
-## 重建二叉树
-
-输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。**假设输入的前序遍历和中序遍历的结果中都不含重复的数字**。
-
-```js
-function buildTree (preOrder, middleOrder) {
-  if (preOrder.length === 0 || middleOrder.length === 0) {
-    return null
-  }
-
-  const root = {
-    val: preOrder[0],
-    left: null,
-    right: null,
-    preOrder: preOrder,
-    middleOrder: middleOrder,
-  };
-
-  const stack = [];
-  let cur = root;
-
-  while (cur || stack.length > 0) {
-    while (cur) {
-      const curPreOrder = cur.preOrder;
-      const curMiddleOrder = cur.middleOrder;
-      const splitIndex = curMiddleOrder.indexOf(cur.val);
-
-      if (splitIndex === 0) {
-        cur.left = null;
-      } else {
-        cur.left = {
-          val: curPreOrder[1],
-          preOrder: curPreOrder.slice(1, splitIndex + 1),
-          middleOrder: curMiddleOrder.slice(0, splitIndex)
-        }
-      }
-
-      stack.push(cur);
-
-      cur = cur.left;
-    }
-
-    if (stack.length > 0) {
-      const topNode = stack.pop();
-
-      const curPreOrder = topNode.preOrder;
-      const curMiddleOrder = topNode.middleOrder;
-      const splitIndex = curMiddleOrder.indexOf(topNode.val);
-
-      if (splitIndex >= curPreOrder.length - 1) {
-        topNode.right = null;
-      } else {
-        topNode.right = {
-          val: curPreOrder[splitIndex + 1],
-          preOrder: curPreOrder.slice(splitIndex + 1),
-          middleOrder: curMiddleOrder.slice(splitIndex + 1),
-        }
-      }
-
-      cur = topNode.right;
-    }
-  }
-
-  return root
-};
-```
-
-## 二叉树的最近公共祖先
-
-```js
-function lowestCommonAncestor (root, p, q) {
-  if (!root) {
-    return null
-  }
-
-  const stack = [];
-  let cur = root;
-  let lastHandled = null;
-
-  while (cur || stack.length > 0) {
-    while (cur) {
-      stack.push(cur);
-      cur = cur.left;
-    }
-
-    if (stack.length > 0) {
-      const topNode = stack[stack.length - 1];
-
-      if (topNode.right && lastHandled !== topNode.right) {
-        cur = topNode.right;
-      } else {        
-        if (topNode.val === p.val) {
-          topNode.isPRoot = true;
-        }
-
-        if (topNode.val === q.val) {
-          topNode.isQRoot = true;
-        }
-
-        if (topNode.left) {
-          if (topNode.left.isPRoot) {
-            topNode.isPRoot = true;
-          }
-          if (topNode.left.isQRoot) {
-            topNode.isQRoot = true;
-          }
-        }
-
-        if (topNode.right) {
-          if (topNode.right.isPRoot) {
-            topNode.isPRoot = true;
-          }
-          if (topNode.right.isQRoot) {
-            topNode.isQRoot = true;
-          }
-        }
-
-        if (topNode.isPRoot && topNode.isQRoot) {
-          return topNode;
-        }
-
-        lastHandled = topNode;
-        stack.pop();
-      }
-    }
-  }
-
-  return null
-};
-```
-
-## 二叉搜索树转换为双向链表
-
-双向链表应按照从小到大顺序排列。
-
-```js
-function treeToDoublyList (root) {
-  if (!root) {
-    return null;
-  }
-
-  const stack = [];
-
-  let head;
-  let prev;
-  let cur = root;
-
-  while (cur || stack.length > 0) {
-    while (cur) {
-      stack.push(cur);
-      cur = cur.left;
-    }
-
-    if (stack.length > 0) {
-      const topNode = stack.pop();
-      
-      if (!head) {
-        head = topNode;
-        prev = topNode;
-      } else {
-        prev.right = topNode;
-        topNode.left = prev;
-
-        prev = topNode;
-      }
-
-      cur = topNode.right;
-    }
-  }
-
-  head.left = prev;
-  prev.right = head;
-
-  return head;
-};
-```
-
-## 二叉树剪枝
-
-如果一个子树的所有节点值都为 0，则剪除这个子树。
-
-```js
-function pruneTree (root) {
-  const stack = [];
-  let cur = root;
-  let lastHandled;
-
-  while (cur || stack.length > 0) {
-    while (cur) {
-      stack.push(cur);
-      cur = cur.left;
-    }
-
-    if (stack.length > 0) {
-      const topNode = stack[stack.length - 1];
-
-      if (topNode.right && topNode.right !== lastHandled) {
-        cur = topNode.right;
-      } else {
-        if (topNode.left && topNode.left.canDelete) {
-          topNode.left = null;
-        }
-
-        if (topNode.right && topNode.right.canDelete) {
-          topNode.right = null;
-        }
-
-        if (topNode.val === 0 && !topNode.left && !topNode.right) {
-          topNode.canDelete = true;
-        }
-
-        lastHandled = topNode;
-        stack.pop();
-      }
-    }
-  }
-
-  if (root.canDelete) {
-    return null;
-  }
-
-  return root
-};
-```
-
-## 二叉树子树的判断
-
-输入两棵二叉树 A 和 B，判断 B 是不是 A 的子树。B 是 A 的子结构， 即 A 中有出现和 B 相同的结构和节点值。**约定空树不是任意一个树的子树**。
-
-```js
-function isValid (val) {
-  return typeof val === 'number';
-}
-
-function buildArrayWithTree (tree) {
-  if (!tree) {
-    return [];
-  }
-
-  const array = [tree.val];
-  let queue = [tree];
-
-  while (queue.length > 0) {
-    const preLevelNodes = queue.slice();
-    queue = [];
-
-    preLevelNodes.forEach(item => {
-      if (item) {
-        if (item.left) {
-          array.push(item.left.val);
-          queue.push(item.left);
-        } else {
-          array.push(null);
-        }
-
-        if (item.right) {
-          array.push(item.right.val);
-          queue.push(item.right);
-        } else {
-          array.push(null);
-        }
-      }
-    })
-  }
-
-  return array;
-}
-
-var isSubStructure = function (A, B) {
-  if (!A || !B) {
-    return false;
-  }
-
-  const basicArray = buildArrayWithTree(B);
-
-  const stack = [];
-  let cur = A;
-
-  while (cur || stack.length > 0) {
-    while (cur) {
-      stack.push(cur);
-
-      if (cur.val === B.val) {
-        const curArray = buildArrayWithTree(cur);
-        const isSame = basicArray.every((val, i) => {
-          if (!isValid(val)) {
-            return true;
-          }
-
-          return val === curArray[i];
-        })
-
-        if (isSame) {
-          return true;
-        }
-      }
-      
-      cur = cur.left;
-    }
-
-    if (stack.length > 0) {
-      cur = stack.pop().right;
-    }
-  }
-
-  return false;
-}
-```
-
-## 二叉树任务调度
