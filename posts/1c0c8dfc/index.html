@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="aadonkeyz的博客">
 <meta property="og:description" content="字符和码位             字符：又叫抽象字符，是用于组织、控制 或 表示 文本数据 的 信息单元。码位：是分配给单个字符的一个数字。U+&amp;lt;hex&amp;gt; 是码位的格式，其中 U+ 代表 Unicode 的前缀，而 &amp;lt;hex&amp;gt; 表示十六进制数字。每一个字符都有对应的码位，如 A 对应 U+0041。但是并非所有码位都有关联字符。            Unicode 平面">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-12-01T14:06:46.683Z">
+<meta property="og:updated_time" content="2021-12-02T15:00:25.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unicode">
 <meta name="twitter:description" content="字符和码位             字符：又叫抽象字符，是用于组织、控制 或 表示 文本数据 的 信息单元。码位：是分配给单个字符的一个数字。U+&amp;lt;hex&amp;gt; 是码位的格式，其中 U+ 代表 Unicode 的前缀，而 &amp;lt;hex&amp;gt; 表示十六进制数字。每一个字符都有对应的码位，如 A 对应 U+0041。但是并非所有码位都有关联字符。            Unicode 平面">
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-12-01 22:06:46" itemprop="dateModified" datetime="2021-12-01T22:06:46+08:00">2021-12-01</time>
+                <time title="修改时间：2021-12-02 23:00:25" itemprop="dateModified" datetime="2021-12-02T23:00:25+08:00">2021-12-02</time>
               
             
           </span>
@@ -467,13 +467,12 @@
           </div>
 <p>基本多文种平面为 <code>U+0000</code> 到 <code>U+FFFF</code>，简称 BMP（Basic Multilingual Plane）。其余 <code>16</code> 个平面称为星光平面或辅助平面。</p>
 <h1 id="码元"><a href="#码元" class="headerlink" title="码元"></a>码元</h1><div class="note info">
-            <p>码元是用于以给定编码格式，对每个字符编码的一个二进制位序列。</p>
+            <p>码元是用于以给定编码格式，对每个字符编码的一个二进制位序列。在不同的编码格式中，一个码元有多少字节是不同的。<br>UTF-8 中一个码元可能有 <code>1 - 4</code> 个字节。UTF-16 中一个码元有 <code>2</code> 个字节。UTF-32 中一个码元有 <code>4</code> 个字节。</p>
           </div>
-<p>常用的字符编码有 <code>UTF-8</code>、<code>UTF-16</code> 和 <code>UTF-32</code>。它们的主要区别在于它在内存中表示一个字符需要多少字节。 <code>UTF-8</code> 最少使用 <code>1</code> 个字节，而 <code>UTF-16</code> 最少使用 <code>2</code> 个字节。顺便说一句，如果字符的代码点大于 <code>127</code>，那么字节的最大值 <code>UTF-8</code> 可能需要 <code>2</code>、<code>3</code> 或 <code>4</code> 个字节，但 <code>UTF-16</code> 将只需要 <code>2</code> 或 <code>4</code> 个字节。另一方面，<code>UTF-32</code> 是一种固定宽度的编码方案，总是使用 <code>4</code> 个字节来编码一个 Unicode 码位。</p>
 <h1 id="代理对"><a href="#代理对" class="headerlink" title="代理对"></a>代理对</h1><div class="note info">
-            <p>代理对是对那些由 <code>2</code> 个 <code>16</code> 位长的码元所组成序列的单个抽象字符的表示方式。代理对中的首个值为高位代理码元，而第二个值为低位代理码元。高位代理码元从 <code>0xD800</code> 到 <code>0xDBFF</code> 取值。低位代理码元从 <code>0xDC00</code> 到 <code>0xDFFF</code> 取值。</p>
+            <p>在 UTF-16 中代理对是对那些由 <code>2</code> 个 <code>16</code> 位长的码元所组成序列的单个抽象字符的表示方式。代理对中的首个值为高位代理码元，而第二个值为低位代理码元。高位代理码元从 <code>0xD800</code> 到 <code>0xDBFF</code> 取值。低位代理码元从 <code>0xDC00</code> 到 <code>0xDFFF</code> 取值。</p>
           </div>
-<p>假设使用 UTF-16 对码元进行编码，对于基本多文种平面，一个 <code>16</code> 位长的码元就可以解决了。但是对星光平面内的码元，如 <code>U+1F600</code>，需要两个 <code>16</code> 位长的码元才能将其表示，这就是代理对。<code>U+1F600</code> 对应的代理对是 <code>0xD83D 0xDE00</code>。转换方法如下所示。</p>
+<p>在 UTF-16 中，对于基本多文种平面，一个 <code>16</code> 位长的码元就可以解决了。但是对星光平面内的码元，如 <code>U+1F600</code>，需要两个 <code>16</code> 位长的码元才能将其表示，这就是代理对。<code>U+1F600</code> 对应的代理对是 <code>0xD83D 0xDE00</code>。转换方法如下所示。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSurrogatePair</span>(<span class="params">astralCodePoint</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> highSurrogate = <span class="built_in">Math</span>.floor((astralCodePoint - <span class="number">0x10000</span>) / <span class="number">0x400</span>) + <span class="number">0xd800</span>;</span><br><span class="line">  <span class="keyword">let</span> lowSurrogate = ((astralCodePoint - <span class="number">0x10000</span>) % <span class="number">0x400</span>) + <span class="number">0xdc00</span>;</span><br><span class="line">  <span class="keyword">return</span> [highSurrogate, lowSurrogate];</span><br><span class="line">&#125;</span><br><span class="line">getSurrogatePair(<span class="number">0x1f600</span>); <span class="comment">// =&gt; [0xD83D, 0xDE00]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getAstralCodePoint</span>(<span class="params">highSurrogate, lowSurrogate</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (highSurrogate - <span class="number">0xd800</span>) * <span class="number">0x400</span> + lowSurrogate - <span class="number">0xdc00</span> + <span class="number">0x10000</span>;</span><br><span class="line">&#125;</span><br><span class="line">getAstralCodePoint(<span class="number">0xd83d</span>, <span class="number">0xde00</span>); <span class="comment">// =&gt; 0x1F600</span></span><br></pre></td></tr></table></figure>
 <h1 id="组合符号"><a href="#组合符号" class="headerlink" title="组合符号"></a>组合符号</h1><div class="note info">
             <p>字位又称形素、字素、或符号，对一些书写系统来说是最小的构成单位。</p>
