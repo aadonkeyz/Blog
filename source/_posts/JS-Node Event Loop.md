@@ -1,7 +1,7 @@
 ---
 title: Node Event Loop
 categories:
-  - Node
+  - JavaScript
 abbrlink: 1bc69df4
 date: 2020-11-21 12:37:04
 ---
@@ -43,6 +43,7 @@ so
 {% endnote %}
 
 下面是写的比较好的博客，它们是一个系列哦：
+
 - [Event Loop and the Big Picture — NodeJS Event Loop Part 1](https://blog.insiderattack.net/event-loop-and-the-big-picture-nodejs-event-loop-part-1-1cb67a182810)
 - [Timers, Immediates and Process.nextTick — NodeJS Event Loop Part 2](https://blog.insiderattack.net/timers-immediates-and-process-nexttick-nodejs-event-loop-part-2-2c53fd511bb3)
 - [Promises, Next-Ticks, and Immediates — NodeJS Event Loop Part 3](https://blog.insiderattack.net/promises-next-ticks-and-immediates-nodejs-event-loop-part-3-9226cbe7a6aa)
