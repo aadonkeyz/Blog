@@ -98,24 +98,25 @@
 
 
 
-  <meta name="description" content="本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！">
+  <meta name="description" content="使项目可以本地运行因为 rollup 是使用 ts 编写的，所以需要下载 ts-node 来支持本地运行。过程中主要遇到两类问题：  SyntaxError: Cannot use import statement outside a module ts 报错  第一个问题通过修改 tsconfig.json 来避免，第二个问题通过 @ts-ignore 来忽略。 修改 cli 文件修改 roll">
 <meta name="keywords" content="前端博客,JavaScript,html5,css3">
-<meta property="og:type" content="website">
-<meta property="og:title" content="aadonkeyz的博客">
-<meta property="og:url" content="https://aadonkeyz.com/archives/2019/07/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在在源码中 debug">
+<meta property="og:url" content="https://aadonkeyz.com/posts/d9c5729d/index.html">
 <meta property="og:site_name" content="aadonkeyz的博客">
-<meta property="og:description" content="本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！">
+<meta property="og:description" content="使项目可以本地运行因为 rollup 是使用 ts 编写的，所以需要下载 ts-node 来支持本地运行。过程中主要遇到两类问题：  SyntaxError: Cannot use import statement outside a module ts 报错  第一个问题通过修改 tsconfig.json 来避免，第二个问题通过 @ts-ignore 来忽略。 修改 cli 文件修改 roll">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2022-03-28T13:53:03.642Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="aadonkeyz的博客">
-<meta name="twitter:description" content="本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！">
+<meta name="twitter:title" content="如何在在源码中 debug">
+<meta name="twitter:description" content="使项目可以本地运行因为 rollup 是使用 ts 编写的，所以需要下载 ts-node 来支持本地运行。过程中主要遇到两类问题：  SyntaxError: Cannot use import statement outside a module ts 报错  第一个问题通过修改 tsconfig.json 来避免，第二个问题通过 @ts-ignore 来忽略。 修改 cli 文件修改 roll">
 
 
 
 
 
 
-  <link rel="canonical" href="https://aadonkeyz.com/archives/2019/07/">
+  <link rel="canonical" href="https://aadonkeyz.com/posts/d9c5729d/">
 
 
 
@@ -125,7 +126,7 @@
   };
 </script>
 
-  <title>归档 | aadonkeyz的博客</title>
+  <title>如何在在源码中 debug | aadonkeyz的博客</title>
   
 
 
@@ -173,7 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -253,7 +254,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -284,22 +285,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -346,396 +331,250 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://aadonkeyz.com/posts/d9c5729d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aadonkeyz">
+      <meta itemprop="description" content="本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aadonkeyz的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
-         
+          <h1 class="post-title" itemprop="name headline">如何在在源码中 debug
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-03-28 21:34:15 / 修改时间：21:53:03" itemprop="dateCreated datePublished" datetime="2022-03-28T21:34:15+08:00">2022-03-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        很好! 目前共计 82 篇日志。 继续努力。
-      </span>
-      
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/FE-tools/" itemprop="url" rel="index"><span itemprop="name">FE tools</span></a></span>
 
-      
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/FE-tools/rollup-2-69-2/" itemprop="url" rel="index"><span itemprop="name">rollup 2.69.2</span></a></span>
 
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/b5fc6f17/" itemprop="url">
+          
             
-              <span itemprop="name">浏览器是如何渲染一个页面的？</span>
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-31T19:41:24+08:00" content="2019-07-31">
-          07-31
-        </time>
-      </div>
+          
+          
 
-    </header>
-  </article>
+          
 
+          
 
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/df94ca98/" itemprop="url">
-            
-              <span itemprop="name">min-*、max-*、*的优先级</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-22T14:13:38+08:00" content="2019-07-22">
-          07-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/c3176455/" itemprop="url">
-            
-              <span itemprop="name">备忘录模式</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-21T14:56:29+08:00" content="2019-07-21">
-          07-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="使项目可以本地运行"><a href="#使项目可以本地运行" class="headerlink" title="使项目可以本地运行"></a>使项目可以本地运行</h1><p>因为 rollup 是使用 ts 编写的，所以需要下载 ts-node 来支持本地运行。过程中主要遇到两类问题：</p>
+<ul>
+<li>SyntaxError: Cannot use import statement outside a module</li>
+<li>ts 报错</li>
+</ul>
+<p>第一个问题通过修改 tsconfig.json 来避免，第二个问题通过 @ts-ignore 来忽略。</p>
+<h1 id="修改-cli-文件"><a href="#修改-cli-文件" class="headerlink" title="修改 cli 文件"></a>修改 cli 文件</h1><p>修改 rollup cli 文件，然后本地运行 cli 文件的，是改动最小的方式。这里的主要改动是让 rollup 去读我们指定的 rollup.config.ts 文件，而不是去项目根目录下寻找。</p>
+<h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><p>在项目根目录下创建 learn 文件夹，里面保存着我们的 rollup.config.ts 和 build.ts。然后在 package.json 中添加对应的命令，就可以在源码中进行 debug 了！</p>
+<h1 id="修改详情"><a href="#修改详情" class="headerlink" title="修改详情"></a>修改详情</h1><p>具体修改内容，可参照 <a href="https://github.com/aadonkeyz/rollup/commit/55f0e18bdd0c3fd0276d53c85df52587c87fcf06" target="_blank" rel="noopener">https://github.com/aadonkeyz/rollup/commit/55f0e18bdd0c3fd0276d53c85df52587c87fcf06</a></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/78134e07/" itemprop="url">
-            
-              <span itemprop="name">命令模式</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-21T10:37:06+08:00" content="2019-07-21">
-          07-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/713a5759/" itemprop="url">
-            
-              <span itemprop="name">跨域问题常见解决方案</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-20T20:22:06+08:00" content="2019-07-20">
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/5c76f87e/" itemprop="url">
-            
-              <span itemprop="name">XSS和CSRF</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-20T16:21:12+08:00" content="2019-07-20">
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/54788f73/" itemprop="url">
-            
-              <span itemprop="name">工厂模式</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-18T17:17:15+08:00" content="2019-07-18">
-          07-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/c9a2a716/" itemprop="url">
-            
-              <span itemprop="name">HTTPS</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-18T09:30:34+08:00" content="2019-07-18">
-          07-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/f1601c3e/" itemprop="url">
-            
-              <span itemprop="name">单例模式</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-17T20:01:24+08:00" content="2019-07-17">
-          07-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/22f97770/" itemprop="url">
-            
-              <span itemprop="name">HTTP基础</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-15T21:26:17+08:00" content="2019-07-15">
-          07-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div><br><br>感谢您的阅读，如果发现文章中有错误或漏洞，请批评指正。<br>邮箱：aadonkeyz@gmail.com<br><br></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById(&quot;QR&quot;); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="aadonkeyz 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="aadonkeyz 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <div>
+      
+      
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            aadonkeyz
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/posts/d9c5729d/" title="如何在在源码中 debug">https://aadonkeyz.com/posts/d9c5729d/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明：</strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/1fe87ebc/" rel="next" title="如何读取命令行指令">
+                <i class="fa fa-chevron-left"></i> 如何读取命令行指令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2019/07/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/07/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+  </article>
 
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -755,8 +594,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -858,6 +706,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使项目可以本地运行"><span class="nav-number">1.</span> <span class="nav-text">使项目可以本地运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改-cli-文件"><span class="nav-number">2.</span> <span class="nav-text">修改 cli 文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包"><span class="nav-number">3.</span> <span class="nav-text">打包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改详情"><span class="nav-number">4.</span> <span class="nav-text">修改详情</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -989,6 +854,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
 
   
 
@@ -999,6 +868,8 @@
   
   
 
+
+  
 
 
   
