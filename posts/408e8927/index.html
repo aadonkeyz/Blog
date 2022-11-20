@@ -98,24 +98,25 @@
 
 
 
-  <meta name="description" content="菜鸟程序员成长路">
+  <meta name="description" content="首页是对外暴露的 rollup 方法，它调用的是 rollupInternal 方法。 12345export default function rollup(  rawInputOptions: GenericConfigObject): Promise&amp;lt;RollupBuild&amp;gt; &amp;#123;  return rollupInternal(rawInputOptions, null)">
 <meta name="keywords" content="程序员,笔记,code">
-<meta property="og:type" content="website">
-<meta property="og:title" content="aadonkeyz的博客">
-<meta property="og:url" content="https://aadonkeyz.com/categories/计算机网络/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rollup 源码解析">
+<meta property="og:url" content="https://aadonkeyz.com/posts/408e8927/index.html">
 <meta property="og:site_name" content="aadonkeyz的博客">
-<meta property="og:description" content="菜鸟程序员成长路">
+<meta property="og:description" content="首页是对外暴露的 rollup 方法，它调用的是 rollupInternal 方法。 12345export default function rollup(  rawInputOptions: GenericConfigObject): Promise&amp;lt;RollupBuild&amp;gt; &amp;#123;  return rollupInternal(rawInputOptions, null)">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2022-11-20T09:32:01.796Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="aadonkeyz的博客">
-<meta name="twitter:description" content="菜鸟程序员成长路">
+<meta name="twitter:title" content="rollup 源码解析">
+<meta name="twitter:description" content="首页是对外暴露的 rollup 方法，它调用的是 rollupInternal 方法。 12345export default function rollup(  rawInputOptions: GenericConfigObject): Promise&amp;lt;RollupBuild&amp;gt; &amp;#123;  return rollupInternal(rawInputOptions, null)">
 
 
 
 
 
 
-  <link rel="canonical" href="https://aadonkeyz.com/categories/计算机网络/">
+  <link rel="canonical" href="https://aadonkeyz.com/posts/408e8927/">
 
 
 
@@ -125,7 +126,7 @@
   };
 </script>
 
-  <title>分类: 计算机网络 | aadonkeyz的博客</title>
+  <title>rollup 源码解析 | aadonkeyz的博客</title>
   
 
 
@@ -173,7 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -234,7 +235,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -285,22 +286,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -346,83 +331,268 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>计算机网络<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://aadonkeyz.com/posts/408e8927/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aadonkeyz">
+      <meta itemprop="description" content="菜鸟程序员成长路">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aadonkeyz的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/posts/c9a2a716/" itemprop="url">
-            
-              <span itemprop="name">HTTPS</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">rollup 源码解析
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-18T09:30:34+08:00" content="2019-07-18">
-          07-18
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-04-18 21:56:17" itemprop="dateCreated datePublished" datetime="2022-04-18T21:56:17+08:00">2022-04-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2022-11-20 17:32:01" itemprop="dateModified" datetime="2022-11-20T17:32:01+08:00">2022-11-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/FE-tools/" itemprop="url" rel="index"><span itemprop="name">FE tools</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/FE-tools/rollup-2-69-2/" itemprop="url" rel="index"><span itemprop="name">rollup 2.69.2</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/posts/22f97770/" itemprop="url">
-            
-              <span itemprop="name">HTTP基础</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-15T21:26:17+08:00" content="2019-07-15">
-          07-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <p>首页是对外暴露的 <code>rollup</code> 方法，它调用的是 <code>rollupInternal</code> 方法。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">rollup</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  rawInputOptions: GenericConfigObject</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Promise</span>&lt;<span class="title">RollupBuild</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> rollupInternal(rawInputOptions, <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至于 <code>rollupInternal</code>，它负责生成 <code>graph</code>，然后调用 <code>graph.build()</code> 开始对源文件进行解析，最后生成 <code>result</code>。在 <code>result</code> 上具有 <code>generate</code> 和 <code>write</code> 两个输出编译后代码的方法。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">rollupInternal</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  rawInputOptions: GenericConfigObject,</span></span></span><br><span class="line"><span class="function"><span class="params">  watcher: RollupWatcher | <span class="literal">null</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Promise</span>&lt;<span class="title">RollupBuild</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; options: inputOptions, unsetOptions: unsetInputOptions &#125; =</span><br><span class="line">    <span class="keyword">await</span> getInputOptions(rawInputOptions, watcher !== <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> graph = <span class="keyword">new</span> Graph(inputOptions, watcher);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> useCache = rawInputOptions.cache !== <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> graph.build();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> result: RollupBuild = &#123;</span><br><span class="line">    cache: useCache ? graph.getCache() : <span class="literal">undefined</span>,</span><br><span class="line">    <span class="keyword">async</span> close() &#123;</span><br><span class="line">      <span class="comment">// xxx</span></span><br><span class="line">    &#125;,</span><br><span class="line">    closed: <span class="literal">false</span>,</span><br><span class="line">    <span class="keyword">async</span> generate() &#123;</span><br><span class="line">      <span class="comment">// xxx</span></span><br><span class="line">    &#125;,</span><br><span class="line">    watchFiles: <span class="built_in">Object</span>.keys(graph.watchFiles),</span><br><span class="line">    <span class="keyword">async</span> write() &#123;</span><br><span class="line">      <span class="comment">// xxx</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际上 <code>generate</code> 和 <code>write</code> 的实现细节基本一致，都是调用的 <code>handleGenerateWrite</code> 函数，只是所传第一个参数不同罢了。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">handleGenerateWrite</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  isWrite: <span class="built_in">boolean</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  inputOptions: NormalizedInputOptions,</span></span></span><br><span class="line"><span class="function"><span class="params">  unsetInputOptions: ReadonlySet&lt;<span class="built_in">string</span>&gt;,</span></span></span><br><span class="line"><span class="function"><span class="params">  rawOutputOptions: GenericConfigObject,</span></span></span><br><span class="line"><span class="function"><span class="params">  graph: Graph</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Promise</span>&lt;<span class="title">RollupOutput</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> bundle = <span class="keyword">new</span> Bundle(</span><br><span class="line">    outputOptions,</span><br><span class="line">    unsetOptions,</span><br><span class="line">    inputOptions,</span><br><span class="line">    outputPluginDriver,</span><br><span class="line">    graph</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> generated = <span class="keyword">await</span> bundle.generate(isWrite);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isWrite) &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="built_in">Promise</span>.all(</span><br><span class="line">      <span class="built_in">Object</span>.values(generated).map(<span class="function">(<span class="params">chunk</span>) =&gt;</span></span><br><span class="line">        writeOutputFile(chunk, outputOptions)</span><br><span class="line">      )</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> createOutput(generated);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上所见可以看到 rollup 的运行是从创建 <code>Graph</code> 实例开始的，它上面会挂载三个重要属性：</p>
+<ul>
+<li><code>pluginDriver</code>：管理 plugin。</li>
+<li><code>acornParser</code>：生成 ast 语法树。</li>
+<li><code>moduleLoader</code>：管理文件。</li>
+</ul>
+<p><code>Graph.generateModuleGraph</code> 方法会从入口文件开始，通过对源代码进行分析，从而梳理文件之间的依赖关系，逐一的为每个文件生成一个 <code>Module</code> 实例，然后登记在 <code>graph.moduleLoader.modulesById</code> 上。</p>
+<p>在对源代码进行分析时，就是通过 <code>graph.acornParse</code> 生成 ast 语法树，然后再基于 rollup 自己定义在 src/nodes/shared 下的节点生成对应的实例，保存在 <code>module.ast</code> 上。在这一系列动作之后，已经知道了当前源文件依赖哪些其他文件，然后就可以顺着依赖关系再对其他文件进行同样的解析。</p>
+<p>当然，在这一过程中，会在关键的节点调用 <code>graph.pluginDriver</code> 上的合适方法来抛出对应的钩子，触发用户声明要在编译过程中执行的 plugins。</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div><br><br>感谢您的阅读，如果发现文章中有错误或漏洞，请批评指正。<br>邮箱：aadonkeyz@gmail.com<br><br></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById(&quot;QR&quot;); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="aadonkeyz 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="aadonkeyz 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <div>
+      
+      
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            aadonkeyz
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/posts/408e8927/" title="rollup 源码解析">https://aadonkeyz.com/posts/408e8927/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明：</strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/d9c5729d/" rel="next" title="如何在 rollup 源码中 debug">
+                <i class="fa fa-chevron-left"></i> 如何在 rollup 源码中 debug
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -676,6 +846,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
 
   
 
@@ -686,6 +860,8 @@
   
   
 
+
+  
 
 
   

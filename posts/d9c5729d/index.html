@@ -99,16 +99,16 @@
 
 
   <meta name="description" content="使项目可以本地运行因为 rollup 是使用 ts 编写的，所以需要下载 ts-node 来支持本地运行。过程中主要遇到两类问题：  SyntaxError: Cannot use import statement outside a module ts 报错  第一个问题通过修改 tsconfig.json 来避免，第二个问题通过 @ts-ignore 来忽略。 修改 cli 文件修改 roll">
-<meta name="keywords" content="前端博客,JavaScript,html5,css3">
+<meta name="keywords" content="程序员,笔记,code">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何在在源码中 debug">
+<meta property="og:title" content="如何在 rollup 源码中 debug">
 <meta property="og:url" content="https://aadonkeyz.com/posts/d9c5729d/index.html">
 <meta property="og:site_name" content="aadonkeyz的博客">
 <meta property="og:description" content="使项目可以本地运行因为 rollup 是使用 ts 编写的，所以需要下载 ts-node 来支持本地运行。过程中主要遇到两类问题：  SyntaxError: Cannot use import statement outside a module ts 报错  第一个问题通过修改 tsconfig.json 来避免，第二个问题通过 @ts-ignore 来忽略。 修改 cli 文件修改 roll">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-03-28T13:53:03.642Z">
+<meta property="og:updated_time" content="2022-11-19T12:32:44.153Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何在在源码中 debug">
+<meta name="twitter:title" content="如何在 rollup 源码中 debug">
 <meta name="twitter:description" content="使项目可以本地运行因为 rollup 是使用 ts 编写的，所以需要下载 ts-node 来支持本地运行。过程中主要遇到两类问题：  SyntaxError: Cannot use import statement outside a module ts 报错  第一个问题通过修改 tsconfig.json 来避免，第二个问题通过 @ts-ignore 来忽略。 修改 cli 文件修改 roll">
 
 
@@ -126,7 +126,7 @@
   };
 </script>
 
-  <title>如何在在源码中 debug | aadonkeyz的博客</title>
+  <title>如何在 rollup 源码中 debug | aadonkeyz的博客</title>
   
 
 
@@ -191,7 +191,7 @@
     </div>
     
       
-        <p class="site-subtitle">程序猿的学习笔记</p>
+        <p class="site-subtitle">程序员的学习笔记</p>
       
     
     
@@ -266,7 +266,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">82</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">83</span></a>
 
   </li>
 
@@ -351,7 +351,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="aadonkeyz">
-      <meta itemprop="description" content="本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！">
+      <meta itemprop="description" content="菜鸟程序员成长路">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -364,7 +364,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何在在源码中 debug
+          <h1 class="post-title" itemprop="name headline">如何在 rollup 源码中 debug
 
               
             
@@ -390,12 +390,24 @@
                 
               
 
-              <time title="创建时间：2022-03-28 21:34:15 / 修改时间：21:53:03" itemprop="dateCreated datePublished" datetime="2022-03-28T21:34:15+08:00">2022-03-28</time>
+              <time title="创建时间：2022-03-28 21:34:15" itemprop="dateCreated datePublished" datetime="2022-03-28T21:34:15+08:00">2022-03-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2022-11-19 20:32:44" itemprop="dateModified" datetime="2022-11-19T20:32:44+08:00">2022-11-19</time>
               
             
           </span>
@@ -461,8 +473,9 @@
 </ul>
 <p>第一个问题通过修改 tsconfig.json 来避免，第二个问题通过 @ts-ignore 来忽略。</p>
 <h1 id="修改-cli-文件"><a href="#修改-cli-文件" class="headerlink" title="修改 cli 文件"></a>修改 cli 文件</h1><p>修改 rollup cli 文件，然后本地运行 cli 文件的，是改动最小的方式。这里的主要改动是让 rollup 去读我们指定的 rollup.config.ts 文件，而不是去项目根目录下寻找。</p>
-<h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><p>在项目根目录下创建 learn 文件夹，里面保存着我们的 rollup.config.ts 和 build.ts。然后在 package.json 中添加对应的命令，就可以在源码中进行 debug 了！</p>
-<h1 id="修改详情"><a href="#修改详情" class="headerlink" title="修改详情"></a>修改详情</h1><p>具体修改内容，可参照 <a href="https://github.com/aadonkeyz/rollup/commit/55f0e18bdd0c3fd0276d53c85df52587c87fcf06" target="_blank" rel="noopener">https://github.com/aadonkeyz/rollup/commit/55f0e18bdd0c3fd0276d53c85df52587c87fcf06</a></p>
+<h1 id="打包配置"><a href="#打包配置" class="headerlink" title="打包配置"></a>打包配置</h1><p>在项目根目录下创建 learn 文件夹，里面保存着我们的 rollup.config.ts 和 build.ts。然后在 package.json 中添加对应的命令，就可以在源码中进行 debug 了！</p>
+<h1 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h1><p>具体修改内容，可参照 <a href="https://github.com/aadonkeyz/rollup/commit/55f0e18bdd0c3fd0276d53c85df52587c87fcf06" target="_blank" rel="noopener">commit</a></p>
+<p>如果觉得修改麻烦，可以直接在 learn 分支上进行 debug。</p>
 
       
     </div>
@@ -521,7 +534,7 @@
           </li>
           <li class="post-copyright-link">
             <strong>本文链接：</strong>
-            <a href="/posts/d9c5729d/" title="如何在在源码中 debug">https://aadonkeyz.com/posts/d9c5729d/</a>
+            <a href="/posts/d9c5729d/" title="如何在 rollup 源码中 debug">https://aadonkeyz.com/posts/d9c5729d/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明：</strong>
@@ -551,6 +564,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/408e8927/" rel="prev" title="rollup 源码解析">
+                rollup 源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -609,7 +626,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">aadonkeyz</p>
-              <p class="site-description motion-element" itemprop="description">本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！</p>
+              <p class="site-description motion-element" itemprop="description">菜鸟程序员成长路</p>
           </div>
 
           
@@ -619,7 +636,7 @@
                 
                   <a rel="external nofollow" href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -717,7 +734,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使项目可以本地运行"><span class="nav-number">1.</span> <span class="nav-text">使项目可以本地运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改-cli-文件"><span class="nav-number">2.</span> <span class="nav-text">修改 cli 文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包"><span class="nav-number">3.</span> <span class="nav-text">打包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改详情"><span class="nav-number">4.</span> <span class="nav-text">修改详情</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使项目可以本地运行"><span class="nav-number">1.</span> <span class="nav-text">使项目可以本地运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改-cli-文件"><span class="nav-number">2.</span> <span class="nav-text">修改 cli 文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包配置"><span class="nav-number">3.</span> <span class="nav-text">打包配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#debug"><span class="nav-number">4.</span> <span class="nav-text">debug</span></a></li></ol></div>
             
 
           </div>
