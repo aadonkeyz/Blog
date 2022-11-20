@@ -4,14 +4,14 @@
 
 # Site
 title: aadonkeyz的博客
-subtitle: 程序猿的学习笔记
-description: 本博客的JS代码验证中多使用console.log()方法，请注意它的实际执行可能存在延迟！
-keywords: 前端博客,JavaScript,html5,css3
+subtitle: 程序员的学习笔记
+description: 菜鸟程序员成长路
+keywords: 程序员,笔记,code
 author: aadonkeyz
 language: zh-CN
 timezone: Asia/Shanghai
 
-sitemap: 
+sitemap:
   path: sitemap.xml
 baidusitemap:
   path: baidusitemap.xml
@@ -25,8 +25,8 @@ permalink_defaults:
 
 # abbrlink config
 abbrlink:
-  alg: crc32  # 算法：crc16(default) and crc32
-  rep: hex    # 进制：dec(default) and hex
+  alg: crc32 # 算法：crc16(default) and crc32
+  rep: hex # 进制：dec(default) and hex
 
 # Directory
 source_dir: source
@@ -53,7 +53,7 @@ highlight:
   line_number: true
   auto_detect: true
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
@@ -62,7 +62,7 @@ index_generator:
   path: ''
   per_page: 10
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:

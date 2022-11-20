@@ -56,12 +56,10 @@ async function loadAndParseConfigFile(
   fileName: string,
   commandOptions: any = {}
 ): Promise<{ options: MergedRollupOptions[]; warnings: BatchWarnings }> {
-  // config 数组，我只配置了 rollup.config.ts，所以数组内容只有一项
   const configs = await loadConfigFile(fileName, commandOptions);
   const warnings = batchWarnings();
   try {
     const normalizedConfigs: MergedRollupOptions[] = [];
-    // 对配置进行默认处理
     for (const config of configs) {
       const options = mergeOptions(config, commandOptions, warnings.add);
       await addCommandPluginsToInputOptions(options, commandOptions);
@@ -93,10 +91,17 @@ async function build(
   silent = false
 ): Promise<unknown> {
   const outputOptions = inputOptions.output;
+  const useStdout = !outputOptions[0].file && !outputOptions[0].dir;
+
   const bundle = await rollup(inputOptions as any);
+
+  if (useStdout) {
+    await bundle.generate(output);
+
+    return;
+  }
+
   await Promise.all(outputOptions.map(bundle.write));
   await bundle.close();
 }
 ```
-
-很明显是先调用 `rollup` 生成 `bundle`，然后调用 `bundle.write` 生成产物。

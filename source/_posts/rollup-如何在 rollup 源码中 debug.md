@@ -1,5 +1,5 @@
 ---
-title: 如何在在源码中 debug
+title: 如何在 rollup 源码中 debug
 categories:
   - FE tools
   - rollup 2.69.2
@@ -20,10 +20,12 @@ date: 2022-03-28 21:34:15
 
 修改 rollup cli 文件，然后本地运行 cli 文件的，是改动最小的方式。这里的主要改动是让 rollup 去读我们指定的 rollup.config.ts 文件，而不是去项目根目录下寻找。
 
-# 打包
+# 打包配置
 
 在项目根目录下创建 learn 文件夹，里面保存着我们的 rollup.config.ts 和 build.ts。然后在 package.json 中添加对应的命令，就可以在源码中进行 debug 了！
 
-# 修改详情
+# debug
 
-具体修改内容，可参照 https://github.com/aadonkeyz/rollup/commit/55f0e18bdd0c3fd0276d53c85df52587c87fcf06
+具体修改内容，可参照 [commit](https://github.com/aadonkeyz/rollup/commit/55f0e18bdd0c3fd0276d53c85df52587c87fcf06)
+
+如果觉得修改麻烦，可以直接在 learn 分支上进行 debug。
