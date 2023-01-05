@@ -60,7 +60,7 @@ export default function EllipsisMultipleLineText(
         if (cumulativeWidth + children[i].offsetWidth <= offsetWidth) {
           cumulativeWidth += children[i].offsetWidth;
         } else if (cumulativeWidth + children[i].offsetWidth > offsetWidth) {
-          cumulativeWidth = 0;
+          cumulativeWidth = children[i].offsetWidth;
           headIndexList.push(i);
         }
       }
