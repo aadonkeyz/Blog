@@ -1,7 +1,7 @@
 ---
 title: Node Event Loop
 categories:
-  - JavaScript
+  - Node
 abbrlink: 1bc69df4
 date: 2020-11-21 12:37:04
 ---
