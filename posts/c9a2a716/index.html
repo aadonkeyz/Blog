@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/HTTPS%E5%8D%8F%E8%AE%AE%E6%A0%88.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/HTTP%E5%92%8CHTTPS%E4%BA%8B%E5%8A%A1.png">
-<meta property="og:updated_time" content="2021-01-23T15:29:57.119Z">
+<meta property="og:updated_time" content="2023-01-08T05:30:02.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTPS">
 <meta name="twitter:description" content="数字加密             密码：对文本进行编码，使偷窥者无法识别的算法。密钥：改变密码行为的数字化参数。对称密钥加密系统：编/解码使用相同的密钥。非对称密钥加密系统：编/解码使用不同的密钥。数字签名：用来验证报文未被伪造或篡改的校验和。数字证书：由一个可信的组织验证和签发的识别信息。            对称密钥加密很多数字加密算法都被称为对称密钥加密技术，这是因为它们在编码时使用的密钥">
@@ -253,7 +253,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
 
   </li>
         
@@ -272,7 +272,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">85</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">86</span></a>
 
   </li>
 
@@ -413,7 +413,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-01-23 23:29:57" itemprop="dateModified" datetime="2021-01-23T23:29:57+08:00">2021-01-23</time>
+                <time title="修改时间：2023-01-08 13:30:02" itemprop="dateModified" datetime="2023-01-08T13:30:02+08:00">2023-01-08</time>
               
             
           </span>
@@ -430,14 +430,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Network/" itemprop="url" rel="index"><span itemprop="name">Network</span></a></span>
 
                 
                 
@@ -481,13 +474,13 @@
           </div>
 <h2 id="非对称密钥加密"><a href="#非对称密钥加密" class="headerlink" title="非对称密钥加密"></a>非对称密钥加密</h2><p>非对称密钥加密系统中有一个保密的<strong>私有密钥</strong>和一个众所周知的<strong>公开密钥</strong>。</p>
 <div class="note info">
-            <p>下面用一个例子来说明它们是如何工作的，现有一台Web服务器S，和众多客户端A、B、C等。</p><ol><li>服务器持有保密的私有密钥，它不会将它泄漏给任何人。</li><li>众多客户端A、B、C持有与私有密钥对应的公开密钥。</li><li>客户端向服务器发送信息时，通过公开密钥对信息进行加密，加密后的密文，只有持有私有密钥的服务器才能进行正确解密。</li><li>服务器向客户端发送信息的时候，通过私有密钥对特定信息进行加密从而生成数字签名，然后将明文报文和数字签名一起发送给客户端。</li></ol>
+            <p>下面用一个例子来说明它们是如何工作的，现有一台 Web 服务器 S，和众多客户端 A、B、C 等。</p><ol><li>服务器持有保密的私有密钥，它不会将它泄漏给任何人。</li><li>众多客户端 A、B、C 持有与私有密钥对应的公开密钥。</li><li>客户端向服务器发送信息时，通过公开密钥对信息进行加密，加密后的密文，只有持有私有密钥的服务器才能进行正确解密。</li><li>服务器向客户端发送信息的时候，通过私有密钥对特定信息进行加密从而生成数字签名，然后将明文报文和数字签名一起发送给客户端。</li></ol>
           </div>
 <p>所有公开密钥非对称加密系统所面临的共同挑战是，要确保即便有人拥有了下面所有的线索，也无法算出保密的私有密钥。</p>
 <div class="note info">
             <ul><li>公开密钥</li><li>一小片拦截下来的密文</li><li>一条报文及与之相关的密文</li></ul>
           </div>
-<p>RSA算法就是一个满足了所有这些条件的流行的公开密钥加密系统，它的机密技术细节中包括很多繁琐的数学问题，这里就不进行详细介绍了（其实是我不懂）。</p>
+<p>RSA 算法就是一个满足了所有这些条件的流行的公开密钥加密系统，它的机密技术细节中包括很多繁琐的数学问题，这里就不进行详细介绍了（其实是我不懂）。</p>
 <h2 id="混合加密系统和会话密钥"><a href="#混合加密系统和会话密钥" class="headerlink" title="混合加密系统和会话密钥"></a>混合加密系统和会话密钥</h2><p>任何人只要知道了其公开密钥，就可以向一台公共服务器发送安全报文，所以非对称密钥加密系统是很好用的。两个节点无须为了进行安全的通信而先交换私有密钥，但非对称密钥加密系统的计算可能会很慢。</p>
 <p>比较常见的做法是在两节点间通过便捷的公开密钥加密技术建立起安全通信，然后再用那条安全的通道产生并发送临时的随机对称密钥，通过更快的对称加密技术对其余的数据进行加密。</p>
 <h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><div class="note info">
@@ -496,32 +489,32 @@
 <p>下面用两张图片分别展示数字签名是如何生成的，以及它是如何工作的。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%9A%84%E7%94%9F%E6%88%90.png" alt="数字签名的生成过程"></p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B.png" alt="数字签名的工作过程"></p>
-<h2 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h2><p>通过HTTPS建立了一个安全Web事务之后，现代的浏览器都会自动获取所连接服务器的数字证书。如果服务器没有证书，安全连接就会失败。服务器证书中包含很多字段，其中包括：</p>
+<h2 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h2><p>通过 HTTPS 建立了一个安全 Web 事务之后，现代的浏览器都会自动获取所连接服务器的数字证书。如果服务器没有证书，安全连接就会失败。服务器证书中包含很多字段，其中包括：</p>
 <div class="note info">
-            <ul><li>Web站点的名称和主机名</li><li>Web站点的公开密钥</li><li>签名颁发机构的名称</li><li>来自签名颁发机构的签名</li></ul>
+            <ul><li>Web 站点的名称和主机名</li><li>Web 站点的公开密钥</li><li>签名颁发机构的名称</li><li>来自签名颁发机构的签名</li></ul>
           </div>
 <p>浏览器收到证书时，会对签名颁发机构进行检查。如果这个机构是个很有权威的公共签名机构，浏览器可能已经知道其公开密钥了（浏览器会预先安装很多签名颁发机构的证书），这样就可以通过验证这个机构的签名来判断这个证书是否真的是这个权威机构颁发的了。如果浏览器对签名颁发机构一无所知，就无法确定是否应该应该信任这个签名颁发机构，它通常会向用户显示一个对话框，看看它是否相信这个签名发布者。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B.png" alt="数字证书工作过程"></p>
-<h1 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h1><p>HTTPS就是在安全的传输层上发送的HTTP。HTTPS没有将未加密的HTTP报文发送给TCP，它在将报文发送给TCP之前，先将其发送给了一个安全层，对其进行加密。现在，HTTP安全层是通过SSL及其现代替代协议TLS来实现的。我们遵循常见的用法，用属于SSL来表示SSL或者TLS。</p>
+<h1 id="HTTPS-概述"><a href="#HTTPS-概述" class="headerlink" title="HTTPS 概述"></a>HTTPS 概述</h1><p>HTTPS 就是在安全的传输层上发送的 HTTP。HTTPS 没有将未加密的 HTTP 报文发送给 TCP，它在将报文发送给 TCP 之前，先将其发送给了一个安全层，对其进行加密。现在，HTTP 安全层是通过 SSL 及其现代替代协议 TLS 来实现的。我们遵循常见的用法，用属于 SSL 来表示 SSL 或者 TLS。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/HTTPS%E5%8D%8F%E8%AE%AE%E6%A0%88.png" alt="HTTPS协议栈"></p>
-<p>现在，安全的HTTP是可选的。因此，对Web服务器发起请求时，我们需要有一种方式来告知Web服务器去执行HTTP的安全协议版本。这是在URL的方案中实现的。通常情况下，非安全的HTTP的URL方案前缀为<code>http</code>。在安全HTTPS协议中，URL的方案前缀为<code>https</code>。</p>
+<p>现在，安全的 HTTP 是可选的。因此，对 Web 服务器发起请求时，我们需要有一种方式来告知 Web 服务器去执行 HTTP 的安全协议版本。这是在 URL 的方案中实现的。通常情况下，非安全的 HTTP 的 URL 方案前缀为<code>http</code>。在安全 HTTPS 协议中，URL 的方案前缀为<code>https</code>。</p>
 <div class="note info">
-            <p>请求一个客户端对某Web资源执行某事务时，它会去检查URL的方案。</p><ul><li>如果URL的方案为<code>http</code>，客户端就会打开一条到服务器端口80（默认情况下）的连接，并向其发送老的HTTP命令。</li><li>如果URL的方案为<code>https</code>，客户端就会打开一条到服务器端口443（默认情况下）的连接，然后与服务器“握手”，以二进制格式与服务器交换一些SSL安全参数，附上加密的HTTP命令。</li></ul>
+            <p>请求一个客户端对某 Web 资源执行某事务时，它会去检查 URL 的方案。</p><ul><li>如果 URL 的方案为<code>http</code>，客户端就会打开一条到服务器端口 80（默认情况下）的连接，并向其发送老的 HTTP 命令。</li><li>如果 URL 的方案为<code>https</code>，客户端就会打开一条到服务器端口 443（默认情况下）的连接，然后与服务器“握手”，以二进制格式与服务器交换一些 SSL 安全参数，附上加密的 HTTP 命令。</li></ul>
           </div>
-<h1 id="建立安全传输"><a href="#建立安全传输" class="headerlink" title="建立安全传输"></a>建立安全传输</h1><p>由于SSL安全层的存在，在HTTPS中，客户端首先打开一条到Web服务器端口443（安全HTTP的默认端口）的连接。一旦建立了TCP连接，客户端和服务器就会初始化SSL层，对加密参数进行沟通，并交换密钥。握手完成之后，SSL初始化就完成了，客户端就可以将请求报文发送给安全层了。在将这些报文发送给TCP之前，要先对其进行加密。</p>
+<h1 id="建立安全传输"><a href="#建立安全传输" class="headerlink" title="建立安全传输"></a>建立安全传输</h1><p>由于 SSL 安全层的存在，在 HTTPS 中，客户端首先打开一条到 Web 服务器端口 443（安全 HTTP 的默认端口）的连接。一旦建立了 TCP 连接，客户端和服务器就会初始化 SSL 层，对加密参数进行沟通，并交换密钥。握手完成之后，SSL 初始化就完成了，客户端就可以将请求报文发送给安全层了。在将这些报文发送给 TCP 之前，要先对其进行加密。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTPS/HTTP%E5%92%8CHTTPS%E4%BA%8B%E5%8A%A1.png" alt="HTTP和HTTPS事务"></p>
-<h1 id="SSL握手"><a href="#SSL握手" class="headerlink" title="SSL握手"></a>SSL握手</h1><p>有关 SSL 握手的内容，参考自<a href="http://ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS 协议运行机制的概述</a></p>
+<h1 id="SSL-握手"><a href="#SSL-握手" class="headerlink" title="SSL 握手"></a>SSL 握手</h1><p>有关 SSL 握手的内容，参考自<a href="http://ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS 协议运行机制的概述</a></p>
 <div class="note info">
-            <p>SSL 握手涉及四次通信，在每一次通信中需要传递的主要内容如下所示：</p><ol><li>客户端发出请求<ul><li>支持的协议版本，比如 TLS 1.0 版</li><li>一个客户端生成的随机数，稍后用于生成“对话密钥”</li><li>支持的加密算法</li><li>支持的压缩方法</li><li>想要请求的服务器域名（与虚拟主机有关）</li></ul></li><li>服务器回应<ul><li>确认使用的加密通信协议版本，比如 TLS 1.0 版。如果浏览器与服务器支持的版本不一致，服务器关闭加密通信</li><li>一个服务器生成的随机数，稍后用于生成“对话密钥”</li><li>确认使用的加密算法</li><li>服务器证书</li></ul></li><li>客户端回应<ul><li>一个客户端生成的随机数，用于生成“对话密钥”。该随机数用服务器公钥加密，防止被窃听</li><li>编码改变通知，表示随后的信息都将用双方商定的加密算法和密钥发送</li><li>客户端握手结束通知，表示客户端的握手阶段已经结束。这一项同时也是前面发送的所有内容的 hash 值，用来供服务器校验</li></ul></li><li>服务器的最后回应<ul><li>编码改变通知，表示随后的信息都将用双方商定的加密算法和密钥发送</li><li>服务器握手结束通知，表示服务器的握手阶段已经结束。这一项同时也是前面发送的所有内容的 hash 值，用来供客户端校验</li></ul></li></ol>
+            <p>SSL 握手涉及四次通信，在每一次通信中需要传递的主要内容如下所示：</p><ol><li>客户端发出请求<ul><li>支持的协议版本，比如 TLS 1.0 版</li><li>一个客户端生成的随机数，稍后用于生成“对话密钥”</li><li>支持的加密算法</li><li>支持的压缩方法</li><li>想要请求的服务器域名（与虚拟主机有关）</li></ul></li><li>服务器回应<ul><li>确认使用的加密通信协议版本，比如 TLS 1.0 版。如果浏览器与服务器支持的版本不一致，服务器关闭加密通信</li><li>一个服务器生成的随机数，稍后用于生成“对话密钥”</li><li>确认使用的加密算法</li><li>服务器证书</li></ul></li><li>客户端回应<ul><li>一个客户端生成的随机数，用于生成“对话密钥”。该随机数用服务器公钥加密，防止被窃听</li><li>编码改变通知，表示随后的信息都将用双方商定的加密算法和密钥发送</li><li>客户端握手结束通知，表示客户端的握手阶段已经结束。这一项同时也是前面发送的所有内容的 hash 值，用来供服务器校验</li></ul></li><li>服务器的最后回应 - 编码改变通知，表示随后的信息都将用双方商定的加密算法和密钥发送 - 服务器握手结束通知，表示服务器的握手阶段已经结束。这一项同时也是前面发送的所有内容的 hash 值，用来供客户端校验</li></ol>
           </div>
 <div class="note warning">
             <p><strong>“对话密钥”是使用步骤 1、2 和 3 中的三个随机数生成的对称密钥。使用三个随机数是因为 SSL 协议不信任每个主机都能产生完全随机的随机数，而这样做可以增加随机性</strong></p>
           </div>
-<h1 id="服务器证书"><a href="#服务器证书" class="headerlink" title="服务器证书"></a>服务器证书</h1><p>SSL支持双向认证，将服务器证书承载回客户端，再将客户端的证书会送给服务器。而现在，浏览器并不经常使用客户端证书。大部分用户甚至都没有自己的客户端证书。服务器可以要求使用客户端证书，但实际中很少出现这种情况。</p>
-<p>另一方面，安全HTTPS事务总是要求使用服务器证书的。在一个Web服务器上执行安全事务，比如提交信用卡信息时，你总是希望是在与你所认为的那个组织对话。由知名权威机构颁发的服务器证书可以帮助你在发送信用卡或私人信息之前评估你对服务器的信任度。</p>
-<h1 id="站点证书的有效性"><a href="#站点证书的有效性" class="headerlink" title="站点证书的有效性"></a>站点证书的有效性</h1><p>SSL自身不要求用户检查Web服务器证书，但大部分现代浏览器都会对证书进行简单的完整性检查，并为用户提供进一步彻查的手段。验证步骤如下所示：</p>
+<h1 id="服务器证书"><a href="#服务器证书" class="headerlink" title="服务器证书"></a>服务器证书</h1><p>SSL 支持双向认证，将服务器证书承载回客户端，再将客户端的证书会送给服务器。而现在，浏览器并不经常使用客户端证书。大部分用户甚至都没有自己的客户端证书。服务器可以要求使用客户端证书，但实际中很少出现这种情况。</p>
+<p>另一方面，安全 HTTPS 事务总是要求使用服务器证书的。在一个 Web 服务器上执行安全事务，比如提交信用卡信息时，你总是希望是在与你所认为的那个组织对话。由知名权威机构颁发的服务器证书可以帮助你在发送信用卡或私人信息之前评估你对服务器的信任度。</p>
+<h1 id="站点证书的有效性"><a href="#站点证书的有效性" class="headerlink" title="站点证书的有效性"></a>站点证书的有效性</h1><p>SSL 自身不要求用户检查 Web 服务器证书，但大部分现代浏览器都会对证书进行简单的完整性检查，并为用户提供进一步彻查的手段。验证步骤如下所示：</p>
 <div class="note info">
-            <ol><li><strong>日期检测</strong><br>首先，浏览器检查证书的起始日期和结束日期，以确保证书仍然有效。如果证书过期了，或者还未被激活，则证书有效性验证失败，浏览器显示一条错误信息。</li><li><strong>签名颁发者可信度检测</strong><br>每个证书都是由某些证书颁发机构（CA）签发的，它们负责为服务器担保。证书有不同的等级，每种证书都要求不同级别的背景验证。</li><li><strong>签名检测</strong><br>一旦判定签名授权是可信的，浏览器就要对签名使用签名颁发机构的公开密钥，并将其与校验码进行比较，以查看证书的完整性。</li><li><strong>站点身份检测</strong><br>为防止服务器复制其他人的证书，或拦截其他人的流量，大部分浏览器都会试着去验证证书中的域名与它们所对话的服务器的域名是否匹配。服务器证书中通常都包含一个域名，但有些CA会为一组或一群服务器创建一些包含了服务器名称列表或通配域名的证书。如果主机名与证书中的标识符不匹配，面向用户的客户端要么就去通知用户，要么就以表示证书不正确的差错报文来终止连接。</li></ol>
+            <ol><li><strong>日期检测</strong><br>首先，浏览器检查证书的起始日期和结束日期，以确保证书仍然有效。如果证书过期了，或者还未被激活，则证书有效性验证失败，浏览器显示一条错误信息。</li><li><strong>签名颁发者可信度检测</strong><br>每个证书都是由某些证书颁发机构（CA）签发的，它们负责为服务器担保。证书有不同的等级，每种证书都要求不同级别的背景验证。</li><li><strong>签名检测</strong><br>一旦判定签名授权是可信的，浏览器就要对签名使用签名颁发机构的公开密钥，并将其与校验码进行比较，以查看证书的完整性。</li><li><strong>站点身份检测</strong><br>为防止服务器复制其他人的证书，或拦截其他人的流量，大部分浏览器都会试着去验证证书中的域名与它们所对话的服务器的域名是否匹配。服务器证书中通常都包含一个域名，但有些 CA 会为一组或一群服务器创建一些包含了服务器名称列表或通配域名的证书。如果主机名与证书中的标识符不匹配，面向用户的客户端要么就去通知用户，要么就以表示证书不正确的差错报文来终止连接。</li></ol>
           </div>
 
       
@@ -683,7 +676,7 @@
                 
                   <a rel="external nofollow" href="/archives/">
                 
-                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-count">86</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -726,9 +719,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -781,7 +772,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数字加密"><span class="nav-number">1.</span> <span class="nav-text">数字加密</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对称密钥加密"><span class="nav-number">1.1.</span> <span class="nav-text">对称密钥加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非对称密钥加密"><span class="nav-number">1.2.</span> <span class="nav-text">非对称密钥加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#混合加密系统和会话密钥"><span class="nav-number">1.3.</span> <span class="nav-text">混合加密系统和会话密钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字签名"><span class="nav-number">1.4.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字证书"><span class="nav-number">1.5.</span> <span class="nav-text">数字证书</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS概述"><span class="nav-number">2.</span> <span class="nav-text">HTTPS概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建立安全传输"><span class="nav-number">3.</span> <span class="nav-text">建立安全传输</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSL握手"><span class="nav-number">4.</span> <span class="nav-text">SSL握手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器证书"><span class="nav-number">5.</span> <span class="nav-text">服务器证书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#站点证书的有效性"><span class="nav-number">6.</span> <span class="nav-text">站点证书的有效性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数字加密"><span class="nav-number">1.</span> <span class="nav-text">数字加密</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对称密钥加密"><span class="nav-number">1.1.</span> <span class="nav-text">对称密钥加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非对称密钥加密"><span class="nav-number">1.2.</span> <span class="nav-text">非对称密钥加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#混合加密系统和会话密钥"><span class="nav-number">1.3.</span> <span class="nav-text">混合加密系统和会话密钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字签名"><span class="nav-number">1.4.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字证书"><span class="nav-number">1.5.</span> <span class="nav-text">数字证书</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS-概述"><span class="nav-number">2.</span> <span class="nav-text">HTTPS 概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建立安全传输"><span class="nav-number">3.</span> <span class="nav-text">建立安全传输</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSL-握手"><span class="nav-number">4.</span> <span class="nav-text">SSL 握手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器证书"><span class="nav-number">5.</span> <span class="nav-text">服务器证书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#站点证书的有效性"><span class="nav-number">6.</span> <span class="nav-text">站点证书的有效性</span></a></li></ol></div>
             
 
           </div>

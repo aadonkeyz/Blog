@@ -98,13 +98,13 @@
 
 
 
-  <meta name="description" content="HTTP报文结构             实体是要进行传输的数据。实体首部字段存在于报文首部字段之中。实体主体和报文主体在起始时是相同的。如果实体主体过大，需要进行分块传输，会导致报文主体中包含多个实体主体。              HTTP方法GETGET是最常用的方法。通常用于向服务器请求某个资源。  HEADHEAD方法与GET方法的行为很类似，但服务器在响应中只返回首部。不会返回实体的主">
+  <meta name="description" content="HTTP 报文结构             实体是要进行传输的数据。实体首部字段存在于报文首部字段之中。实体主体和报文主体在起始时是相同的。如果实体主体过大，需要进行分块传输，会导致报文主体中包含多个实体主体。              HTTP 方法GETGET 是最常用的方法。通常用于向服务器请求某个资源。  HEADHEAD 方法与 GET 方法的行为很类似，但服务器在响应中只返回首部。不会">
 <meta name="keywords" content="程序员,笔记,code">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTP基础">
 <meta property="og:url" content="https://aadonkeyz.com/posts/22f97770/index.html">
 <meta property="og:site_name" content="aadonkeyz的博客">
-<meta property="og:description" content="HTTP报文结构             实体是要进行传输的数据。实体首部字段存在于报文首部字段之中。实体主体和报文主体在起始时是相同的。如果实体主体过大，需要进行分块传输，会导致报文主体中包含多个实体主体。              HTTP方法GETGET是最常用的方法。通常用于向服务器请求某个资源。  HEADHEAD方法与GET方法的行为很类似，但服务器在响应中只返回首部。不会返回实体的主">
+<meta property="og:description" content="HTTP 报文结构             实体是要进行传输的数据。实体首部字段存在于报文首部字段之中。实体主体和报文主体在起始时是相同的。如果实体主体过大，需要进行分块传输，会导致报文主体中包含多个实体主体。              HTTP 方法GETGET 是最常用的方法。通常用于向服务器请求某个资源。  HEADHEAD 方法与 GET 方法的行为很类似，但服务器在响应中只返回首部。不会">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/HTTP%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%E9%80%9A%E7%94%A8%E6%A0%BC%E5%BC%8F.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/HTTP%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E9%80%9A%E7%94%A8%E6%A0%BC%E5%BC%8F.png">
@@ -120,10 +120,10 @@
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/%E5%B9%B6%E8%A1%8C%E8%BF%9E%E6%8E%A5.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/%E6%8C%81%E4%B9%85%E8%BF%9E%E6%8E%A5.png">
 <meta property="og:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/%E7%AE%A1%E9%81%93%E5%8C%96%E8%BF%9E%E6%8E%A5.png">
-<meta property="og:updated_time" content="2020-12-12T23:39:43.981Z">
+<meta property="og:updated_time" content="2023-01-08T05:29:46.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP基础">
-<meta name="twitter:description" content="HTTP报文结构             实体是要进行传输的数据。实体首部字段存在于报文首部字段之中。实体主体和报文主体在起始时是相同的。如果实体主体过大，需要进行分块传输，会导致报文主体中包含多个实体主体。              HTTP方法GETGET是最常用的方法。通常用于向服务器请求某个资源。  HEADHEAD方法与GET方法的行为很类似，但服务器在响应中只返回首部。不会返回实体的主">
+<meta name="twitter:description" content="HTTP 报文结构             实体是要进行传输的数据。实体首部字段存在于报文首部字段之中。实体主体和报文主体在起始时是相同的。如果实体主体过大，需要进行分块传输，会导致报文主体中包含多个实体主体。              HTTP 方法GETGET 是最常用的方法。通常用于向服务器请求某个资源。  HEADHEAD 方法与 GET 方法的行为很类似，但服务器在响应中只返回首部。不会">
 <meta name="twitter:image" content="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/HTTP%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%E9%80%9A%E7%94%A8%E6%A0%BC%E5%BC%8F.png">
 
 
@@ -262,7 +262,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
 
   </li>
         
@@ -281,7 +281,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">85</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">86</span></a>
 
   </li>
 
@@ -422,7 +422,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-12-13 07:39:43" itemprop="dateModified" datetime="2020-12-13T07:39:43+08:00">2020-12-13</time>
+                <time title="修改时间：2023-01-08 13:29:46" itemprop="dateModified" datetime="2023-01-08T13:29:46+08:00">2023-01-08</time>
               
             
           </span>
@@ -439,14 +439,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Network/" itemprop="url" rel="index"><span itemprop="name">Network</span></a></span>
 
                 
                 
@@ -481,37 +474,37 @@
       
 
       
-        <h1 id="HTTP报文结构"><a href="#HTTP报文结构" class="headerlink" title="HTTP报文结构"></a>HTTP报文结构</h1><div class="note warning">
+        <h1 id="HTTP-报文结构"><a href="#HTTP-报文结构" class="headerlink" title="HTTP 报文结构"></a>HTTP 报文结构</h1><div class="note warning">
             <ul><li>实体是要进行传输的数据。</li><li>实体首部字段存在于报文首部字段之中。</li><li>实体主体和报文主体在起始时是相同的。</li><li>如果实体主体过大，需要进行分块传输，会导致报文主体中包含多个实体主体。</li></ul>
           </div>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/HTTP%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%E9%80%9A%E7%94%A8%E6%A0%BC%E5%BC%8F.png" alt="请求报文格式"></p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/HTTP%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E9%80%9A%E7%94%A8%E6%A0%BC%E5%BC%8F.png" alt="响应报文格式"></p>
-<h1 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h1><h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p>GET是最常用的方法。通常用于向服务器请求某个资源。</p>
+<h1 id="HTTP-方法"><a href="#HTTP-方法" class="headerlink" title="HTTP 方法"></a>HTTP 方法</h1><h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p>GET 是最常用的方法。通常用于向服务器请求某个资源。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/GET.png" alt="GET"></p>
-<h2 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h2><p>HEAD方法与GET方法的行为很类似，但服务器在响应中只返回首部。不会返回实体的主体部分。这就允许客户端在未获取是集资源的情况下，对资源的首部进行检查。服务器开发者必须确保返回的首部与GET请求所返回的首部完全相同。</p>
+<h2 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h2><p>HEAD 方法与 GET 方法的行为很类似，但服务器在响应中只返回首部。不会返回实体的主体部分。这就允许客户端在未获取是集资源的情况下，对资源的首部进行检查。服务器开发者必须确保返回的首部与 GET 请求所返回的首部完全相同。</p>
 <div class="note info">
-            <p>使用HEAD，可以：</p><ul><li>在不获取资源的情况下了解资源的情况。比如，判断其类型。</li><li>通过查看响应中的状态码，看看某个对象是否存在。</li><li>通过查看首部，测试资源是否被修改了。</li></ul>
+            <p>使用 HEAD，可以：</p><ul><li>在不获取资源的情况下了解资源的情况。比如，判断其类型。</li><li>通过查看响应中的状态码，看看某个对象是否存在。</li><li>通过查看首部，测试资源是否被修改了。</li></ul>
           </div>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/HEAD.png" alt="HEAD"></p>
-<h2 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h2><p>与GET从服务器读取文档相反，PUT方法会向服务器写入文档。服务器应使用PUT请求的主体来创建/替换文档。</p>
+<h2 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h2><p>与 GET 从服务器读取文档相反，PUT 方法会向服务器写入文档。服务器应使用 PUT 请求的主体来创建/替换文档。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/PUT.png" alt="PUT"></p>
-<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>POST方法用于向服务器传输数据，由服务器根据情况判断如何使用这些数据。</p>
+<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>POST 方法用于向服务器传输数据，由服务器根据情况判断如何使用这些数据。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/POST.png" alt="POST"></p>
-<h2 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h2><p>客户端发起一个请求时，这个请求可能要穿过防火墙、代理、网关或其他一些应用程序。每个中间节点都可能会修改原始的HTTP请求。TRACE方法允许客户端在最终将请求发送给服务器时，看看它变成了什么样子。</p>
-<p>TRACE请求会在目的服务器端发起一个“环回”诊断。行程最后一站的服务器会弹回一个TRACE响应，并在响应主体中携带它收到的原始请求报文。这样客户端就可以查看在所有中间HTTP应用程序组成的请求/响应链上，原始报文是否以及如何被毁坏或修改的。</p>
-<p>尽管TRACE可以很方便地用于诊断，但它确实也有缺点，它假定中间应用程序对各种不同类型请求的处理是相同的。很多HTTP应用程序会根据方法的不同做出不同的事情——比如，代理可能会将POST请求直接发送给服务器，而将GET请求发送给另一个HTTP应用程序。TRACE并不提供区分这些方法的机制。通常，中间应用程序会自行决定对TRACE请求的处理方式。</p>
-<p>TRACE请求中不能带有实体的主体部分。TRACE响应的实体主体部分包含了响应服务器收到的请求的精确副本。</p>
+<h2 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h2><p>客户端发起一个请求时，这个请求可能要穿过防火墙、代理、网关或其他一些应用程序。每个中间节点都可能会修改原始的 HTTP 请求。TRACE 方法允许客户端在最终将请求发送给服务器时，看看它变成了什么样子。</p>
+<p>TRACE 请求会在目的服务器端发起一个“环回”诊断。行程最后一站的服务器会弹回一个 TRACE 响应，并在响应主体中携带它收到的原始请求报文。这样客户端就可以查看在所有中间 HTTP 应用程序组成的请求/响应链上，原始报文是否以及如何被毁坏或修改的。</p>
+<p>尽管 TRACE 可以很方便地用于诊断，但它确实也有缺点，它假定中间应用程序对各种不同类型请求的处理是相同的。很多 HTTP 应用程序会根据方法的不同做出不同的事情——比如，代理可能会将 POST 请求直接发送给服务器，而将 GET 请求发送给另一个 HTTP 应用程序。TRACE 并不提供区分这些方法的机制。通常，中间应用程序会自行决定对 TRACE 请求的处理方式。</p>
+<p>TRACE 请求中不能带有实体的主体部分。TRACE 响应的实体主体部分包含了响应服务器收到的请求的精确副本。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/TRACE.png" alt="TRACE"></p>
-<h2 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h2><p>OPTIONS方法请求服务器告知其支持的各种功能。可以询问服务器通常支持哪些方法，或者对某些特殊资源支持哪些方法。</p>
+<h2 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h2><p>OPTIONS 方法请求服务器告知其支持的各种功能。可以询问服务器通常支持哪些方法，或者对某些特殊资源支持哪些方法。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/OPTIONS.png" alt="OPTIONS"></p>
-<h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><p>DELETE方法所做的事情就是请服务器删除请求URL所指定的资源。但是，客户端应用程序无法保证删除操作一定会被执行，因为HTTP规范允许服务器在不通知客户端的情况下撤销请求。</p>
+<h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><p>DELETE 方法所做的事情就是请服务器删除请求 URL 所指定的资源。但是，客户端应用程序无法保证删除操作一定会被执行，因为 HTTP 规范允许服务器在不通知客户端的情况下撤销请求。</p>
 <p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/DELETE.png" alt="DELETE"></p>
-<h2 id="GET与POST的区别"><a href="#GET与POST的区别" class="headerlink" title="GET与POST的区别"></a>GET与POST的区别</h2><div class="note info">
+<h2 id="GET-与-POST-的区别"><a href="#GET-与-POST-的区别" class="headerlink" title="GET 与 POST 的区别"></a>GET 与 POST 的区别</h2><div class="note info">
             <ul><li>GET 请求参数放在 URL 中，POST 请求参数放在请求的 body 中。</li><li>GET 请求会被浏览器主动缓存，而 POST 则需要手动设置。</li><li>浏览器对 GET 请求在 URL 中传送的参数是有长度限制的（通常为 2K），而对 POST 请求的限制为 80K - 100K。<strong>实际上 GET 和 POST 请求本身对大小是无限制的。</strong></li><li>GET 请求产生一个 TCP 数据包，而 POST 请求产生两个数据包（Firefox 除外）。POST 请求先发送 header ，服务器响应 100 Continue 后，再接着发送 data，最后服务器响应 200 OK。</li></ul>
           </div>
 <h1 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h1><p><img src="https://blog-images-1258719270.cos.ap-shanghai.myqcloud.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/HTTP%E5%9F%BA%E7%A1%80/%E7%8A%B6%E6%80%81%E7%A0%81%E7%B1%BB%E5%88%AB.png" alt="状态码类别"></p>
 <div class="note info">
-            <ul><li><strong>100 Continue</strong>：说明收到了请求的初始部分，请客户端继续。发送了这个状态码之后，服务器在收到请求之后必须进行响应。</li><li><strong>101 Switching Protocols</strong>：说明服务器正在根据客户端的指定，将协议切换成<code>Update</code>首部所列的协议。</li></ul><hr><ul><li><strong>200 OK</strong>：请求没问题，实体的主体部分包含了所请求的资源。</li><li><strong>204 No Content</strong>：响应报文中包含若干首部和一个状态行，但没有实体的主体部分。主要用于在浏览器不专为显示新文档的情况下，对其进行更新。</li><li><strong>206 Partial Content</strong>：客户端进行了范围请求，而服务器成功执行了这部分的GET请求。响应报文中包含由<code>Content-Range</code>指定范围的实体内容。</li></ul><hr><ul><li><strong>301 Moved Permanently</strong>：在请求的URL已被移除时使用。响应的<code>Location</code>首部中应包含资源现在所处的URL。</li><li><strong>302 Found</strong>：与301状态码类似，但是客户端应该使用<code>Location</code>首部给出的URL来临时定位资源。将来的请求仍应使用老的URL。</li><li><strong>303 See Other</strong>：与<code>302</code>类似，但是<code>303</code>明确表示客户端应当采用GET方法获取资源，这点与<code>302</code>有区别。</li><li><strong>304 Not Modified</strong>：告知客户端它的它所请求的资源不同重新缓存，使用以前的就好。它虽然被划分在<code>3XX</code>类别中，但是和重定向没有关系。</li><li><strong>307 Temporary Redirect</strong>：与<code>302</code>有着相同的含义。尽管<code>302</code>禁止POST变换为GET，但实际使用时大家并不遵守。<code>307</code>会遵照浏览器标准，不会从POST变换为GET。</li></ul><hr><ul><li><strong>400 Bad Request</strong>：请求报文中存在语法错误。</li><li><strong>401 Unauthorized</strong>：发送的请求需要有通过HTTP认证的认证信息，若之前已进行过一次请求，则表示用户认证失败。</li><li><strong>403 Forbidden</strong>：对请求资源的访问被服务器拒绝了。服务器端没有必要给出拒绝的详细理由，但如果想作说明的话，可以在实体的主体部分对原因进行描述，这样就能让用户看到了。</li><li><strong>404 Not Found</strong>：服务器上无法找到请求的资源。除此之外，也可以在服务器端拒绝请求且不想说明理由时使用。</li></ul><hr><ul><li><strong>500 Internal Server Error</strong>：服务器端在执行请求时发生了错误。</li><li><strong>502 Bad Gateway</strong>：服务器作为网关或代理，从上游服务器收到无效响应。</li><li><strong>503 Service Unavailable</strong>：服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。如果事先得知解除以上状况需要的时间，最好写入<code>RetryAfter</code>首部字段再返回给客户端。</li></ul>
+            <ul><li><strong>100 Continue</strong>：说明收到了请求的初始部分，请客户端继续。发送了这个状态码之后，服务器在收到请求之后必须进行响应。</li><li><strong>101 Switching Protocols</strong>：说明服务器正在根据客户端的指定，将协议切换成<code>Update</code>首部所列的协议。</li></ul><hr><ul><li><strong>200 OK</strong>：请求没问题，实体的主体部分包含了所请求的资源。</li><li><strong>204 No Content</strong>：响应报文中包含若干首部和一个状态行，但没有实体的主体部分。主要用于在浏览器不专为显示新文档的情况下，对其进行更新。</li><li><strong>206 Partial Content</strong>：客户端进行了范围请求，而服务器成功执行了这部分的 GET 请求。响应报文中包含由<code>Content-Range</code>指定范围的实体内容。</li></ul><hr><ul><li><strong>301 Moved Permanently</strong>：在请求的 URL 已被移除时使用。响应的<code>Location</code>首部中应包含资源现在所处的 URL。</li><li><strong>302 Found</strong>：与 301 状态码类似，但是客户端应该使用<code>Location</code>首部给出的 URL 来临时定位资源。将来的请求仍应使用老的 URL。</li><li><strong>303 See Other</strong>：与<code>302</code>类似，但是<code>303</code>明确表示客户端应当采用 GET 方法获取资源，这点与<code>302</code>有区别。</li><li><strong>304 Not Modified</strong>：告知客户端它的它所请求的资源不同重新缓存，使用以前的就好。它虽然被划分在<code>3XX</code>类别中，但是和重定向没有关系。</li><li><strong>307 Temporary Redirect</strong>：与<code>302</code>有着相同的含义。尽管<code>302</code>禁止 POST 变换为 GET，但实际使用时大家并不遵守。<code>307</code>会遵照浏览器标准，不会从 POST 变换为 GET。</li></ul><hr><ul><li><strong>400 Bad Request</strong>：请求报文中存在语法错误。</li><li><strong>401 Unauthorized</strong>：发送的请求需要有通过 HTTP 认证的认证信息，若之前已进行过一次请求，则表示用户认证失败。</li><li><strong>403 Forbidden</strong>：对请求资源的访问被服务器拒绝了。服务器端没有必要给出拒绝的详细理由，但如果想作说明的话，可以在实体的主体部分对原因进行描述，这样就能让用户看到了。</li><li><strong>404 Not Found</strong>：服务器上无法找到请求的资源。除此之外，也可以在服务器端拒绝请求且不想说明理由时使用。</li></ul><hr><ul><li><strong>500 Internal Server Error</strong>：服务器端在执行请求时发生了错误。</li><li><strong>502 Bad Gateway</strong>：服务器作为网关或代理，从上游服务器收到无效响应。</li><li><strong>503 Service Unavailable</strong>：服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。如果事先得知解除以上状况需要的时间，最好写入<code>RetryAfter</code>首部字段再返回给客户端。</li></ul>
           </div>
 <h1 id="版本比较"><a href="#版本比较" class="headerlink" title="版本比较"></a>版本比较</h1><h2 id="HTTP-0-9"><a href="#HTTP-0-9" class="headerlink" title="HTTP 0.9"></a>HTTP 0.9</h2><p>历史上第一个有记载的 HTTP 版本是 0.9，它诞生在 1991 年。这个协议被设计用于从服务器获取 HTML 文档。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">telent example.com 80</span><br><span class="line">GET /</span><br></pre></td></tr></table></figure>
@@ -525,7 +518,7 @@
 <h2 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP 2.0"></a>HTTP 2.0</h2><div class="note info">
             <ul><li>所有数据以二进制格式传输</li><li>支持信道复用，一个 TCP 连接里可以发送多个请求，不再需要按着顺序来</li><li>头信息压缩、减少带宽</li><li>支持服务器推送</li></ul>
           </div>
-<h1 id="HTTP连接方式"><a href="#HTTP连接方式" class="headerlink" title="HTTP连接方式"></a>HTTP连接方式</h1><div class="note info">
+<h1 id="HTTP-连接方式"><a href="#HTTP-连接方式" class="headerlink" title="HTTP 连接方式"></a>HTTP 连接方式</h1><div class="note info">
             <ul><li><strong>串行连接</strong>：一个 TCP 连接一次只能发送一次 HTTP 请求。</li><li><strong>并行连接</strong>：通过多条 TCP 连接发起并发的 HTTP 请求。</li><li><strong>持久连接</strong>：重用 TCP 连接，以消除连接及关闭时延。</li><li><strong>管道化连接</strong>：通过共享的 TCP 连接发起并发的 HTTP 请求。</li></ul>
           </div>
 <h2 id="串行连接"><a href="#串行连接" class="headerlink" title="串行连接"></a>串行连接</h2><p>串行连接中 HTTP 请求只能一个一个发送，且每次发起 HTTP 请求都要进行 TCP 连接和断开操作，时延较长且耗费性能。</p>
@@ -713,7 +706,7 @@
                 
                   <a rel="external nofollow" href="/archives/">
                 
-                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-count">86</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -756,9 +749,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -811,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP报文结构"><span class="nav-number">1.</span> <span class="nav-text">HTTP报文结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP方法"><span class="nav-number">2.</span> <span class="nav-text">HTTP方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET"><span class="nav-number">2.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HEAD"><span class="nav-number">2.2.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PUT"><span class="nav-number">2.3.</span> <span class="nav-text">PUT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST"><span class="nav-number">2.4.</span> <span class="nav-text">POST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRACE"><span class="nav-number">2.5.</span> <span class="nav-text">TRACE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OPTIONS"><span class="nav-number">2.6.</span> <span class="nav-text">OPTIONS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE"><span class="nav-number">2.7.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET与POST的区别"><span class="nav-number">2.8.</span> <span class="nav-text">GET与POST的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态码"><span class="nav-number">3.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本比较"><span class="nav-number">4.</span> <span class="nav-text">版本比较</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-0-9"><span class="nav-number">4.1.</span> <span class="nav-text">HTTP 0.9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-1-0"><span class="nav-number">4.2.</span> <span class="nav-text">HTTP 1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-1-1"><span class="nav-number">4.3.</span> <span class="nav-text">HTTP 1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-2-0"><span class="nav-number">4.4.</span> <span class="nav-text">HTTP 2.0</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP连接方式"><span class="nav-number">5.</span> <span class="nav-text">HTTP连接方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#串行连接"><span class="nav-number">5.1.</span> <span class="nav-text">串行连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并行连接"><span class="nav-number">5.2.</span> <span class="nav-text">并行连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久连接"><span class="nav-number">5.3.</span> <span class="nav-text">持久连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道化连接"><span class="nav-number">5.4.</span> <span class="nav-text">管道化连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#首部"><span class="nav-number">6.</span> <span class="nav-text">首部</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用首部"><span class="nav-number">6.1.</span> <span class="nav-text">通用首部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求首部"><span class="nav-number">6.2.</span> <span class="nav-text">请求首部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应首部"><span class="nav-number">6.3.</span> <span class="nav-text">响应首部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体首部"><span class="nav-number">6.4.</span> <span class="nav-text">实体首部</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-报文结构"><span class="nav-number">1.</span> <span class="nav-text">HTTP 报文结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-方法"><span class="nav-number">2.</span> <span class="nav-text">HTTP 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET"><span class="nav-number">2.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HEAD"><span class="nav-number">2.2.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PUT"><span class="nav-number">2.3.</span> <span class="nav-text">PUT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST"><span class="nav-number">2.4.</span> <span class="nav-text">POST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRACE"><span class="nav-number">2.5.</span> <span class="nav-text">TRACE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OPTIONS"><span class="nav-number">2.6.</span> <span class="nav-text">OPTIONS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE"><span class="nav-number">2.7.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET-与-POST-的区别"><span class="nav-number">2.8.</span> <span class="nav-text">GET 与 POST 的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态码"><span class="nav-number">3.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本比较"><span class="nav-number">4.</span> <span class="nav-text">版本比较</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-0-9"><span class="nav-number">4.1.</span> <span class="nav-text">HTTP 0.9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-1-0"><span class="nav-number">4.2.</span> <span class="nav-text">HTTP 1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-1-1"><span class="nav-number">4.3.</span> <span class="nav-text">HTTP 1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-2-0"><span class="nav-number">4.4.</span> <span class="nav-text">HTTP 2.0</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-连接方式"><span class="nav-number">5.</span> <span class="nav-text">HTTP 连接方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#串行连接"><span class="nav-number">5.1.</span> <span class="nav-text">串行连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并行连接"><span class="nav-number">5.2.</span> <span class="nav-text">并行连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久连接"><span class="nav-number">5.3.</span> <span class="nav-text">持久连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道化连接"><span class="nav-number">5.4.</span> <span class="nav-text">管道化连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#首部"><span class="nav-number">6.</span> <span class="nav-text">首部</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用首部"><span class="nav-number">6.1.</span> <span class="nav-text">通用首部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求首部"><span class="nav-number">6.2.</span> <span class="nav-text">请求首部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应首部"><span class="nav-number">6.3.</span> <span class="nav-text">响应首部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体首部"><span class="nav-number">6.4.</span> <span class="nav-text">实体首部</span></a></li></ol></li></ol></div>
             
 
           </div>
