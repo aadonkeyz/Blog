@@ -20,19 +20,17 @@ date: 2023-01-05 09:22:35
 
 React 的示例代码如下所示：
 
-```ts
+```tsx
 import React, { useState, useRef, useEffect } from 'react';
 
-export interface EllipsisMultipleLineTextProps {
+export interface AutoEllipsisProps {
   text?: string;
   maxLine?: number;
   className?: string;
   onEllipsis?: (isEllipsis: boolean) => void;
 }
 
-export default function EllipsisMultipleLineText(
-  props: EllipsisMultipleLineTextProps
-) {
+export default function AutoEllipsis(props: AutoEllipsisProps) {
   const { text, maxLine = 1, className, onEllipsis } = props;
 
   const [isEllipsis, setIsEllipsis] = useState(false);
@@ -82,7 +80,9 @@ export default function EllipsisMultipleLineText(
     }
 
     if (!isEllipsis) {
-      return text?.split('').map((item) => <span>{item}</span>);
+      return text
+        ?.split('')
+        .map((item, index) => <span key={index}>{item}</span>);
     }
 
     return (
