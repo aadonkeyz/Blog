@@ -48,17 +48,18 @@ export default function AutoEllipsis(props: AutoEllipsisProps) {
     }
 
     if (divRef.current && text) {
-      const { offsetWidth } = divRef.current;
+      const containerWidth = divRef.current.getBoundingClientRect().width;
 
       const headIndexList: number[] = [0];
       let cumulativeWidth = 0;
       const children = divRef.current.children as never as HTMLSpanElement[];
 
       for (let i = 0; i < children.length; i++) {
-        if (cumulativeWidth + children[i].offsetWidth <= offsetWidth) {
-          cumulativeWidth += children[i].offsetWidth;
-        } else if (cumulativeWidth + children[i].offsetWidth > offsetWidth) {
-          cumulativeWidth = children[i].offsetWidth;
+        const childWidth = children[i].getBoundingClientRect().width;
+        if (cumulativeWidth + childWidth <= containerWidth) {
+          cumulativeWidth += childWidth;
+        } else if (cumulativeWidth + childWidth > containerWidth) {
+          cumulativeWidth = childWidth;
           headIndexList.push(i);
         }
       }
